@@ -83,6 +83,8 @@
 		CED3DA35191D0F5D00624E6F /* settings-25x.png in Resources */ = {isa = PBXBuildFile; fileRef = CED3DA2C191D0F5D00624E6F /* settings-25x.png */; };
 		CED3DA36191D0F5D00624E6F /* snooze-24x.png in Resources */ = {isa = PBXBuildFile; fileRef = CED3DA2D191D0F5D00624E6F /* snooze-24x.png */; };
 		CED3DA37191D0F5D00624E6F /* camera-24x.png in Resources */ = {isa = PBXBuildFile; fileRef = CED3DA2E191D0F5D00624E6F /* camera-24x.png */; };
+		CED3DAA019221B1000624E6F /* marco.png in Resources */ = {isa = PBXBuildFile; fileRef = CED3DA9F19221B1000624E6F /* marco.png */; };
+		CED3DAA219221B4B00624E6F /* play-32.png in Resources */ = {isa = PBXBuildFile; fileRef = CED3DAA119221B4B00624E6F /* play-32.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,6 +218,8 @@
 		CED3DA2C191D0F5D00624E6F /* settings-25x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings-25x.png"; sourceTree = "<group>"; };
 		CED3DA2D191D0F5D00624E6F /* snooze-24x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snooze-24x.png"; sourceTree = "<group>"; };
 		CED3DA2E191D0F5D00624E6F /* camera-24x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera-24x.png"; sourceTree = "<group>"; };
+		CED3DA9F19221B1000624E6F /* marco.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = marco.png; sourceTree = "<group>"; };
+		CED3DAA119221B4B00624E6F /* play-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-32.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,6 +305,8 @@
 		CED3D914191D06C400624E6F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CED3DAA119221B4B00624E6F /* play-32.png */,
+				CED3DA9F19221B1000624E6F /* marco.png */,
 				CED3DA38191D0F6D00624E6F /* BarIcons */,
 				CED3D946191D085B00624E6F /* noimage.jpg */,
 				CED3D915191D06C400624E6F /* PhotoReminderNew-Info.plist */,
@@ -603,6 +609,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = sybernetsoft;
 				TargetAttributes = {
+					CED3D909191D06C400624E6F = {
+						DevelopmentTeam = D434MNWGM4;
+					};
 					CED3D92A191D06C400624E6F = {
 						TestTargetID = CED3D909191D06C400624E6F;
 					};
@@ -632,8 +641,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CED3DAA219221B4B00624E6F /* play-32.png in Resources */,
 				CED3D9CF191D0A7300624E6F /* background.png in Resources */,
 				CED3DA34191D0F5D00624E6F /* note-25x.png in Resources */,
+				CED3DAA019221B1000624E6F /* marco.png in Resources */,
 				CED3D9F0191D0BD200624E6F /* Fire Pager.m4r in Resources */,
 				CED3D9F2191D0BD200624E6F /* Note.m4r in Resources */,
 				CED3D9F4191D0BD200624E6F /* Alarm Classic.m4r in Resources */,
@@ -771,7 +782,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Piotr Gozdziejewski (WYN782R48T)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Piotr Gozdziejewski (WYN782R48T)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -787,8 +799,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "F82D9E0C-F50D-48D8-A30B-858497D1617C";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -809,7 +822,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Piotr Gozdziejewski (WYN782R48T)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Piotr Gozdziejewski (WYN782R48T)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -819,7 +833,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PROVISIONING_PROFILE = "F82D9E0C-F50D-48D8-A30B-858497D1617C";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -830,6 +845,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhotoReminderNew/PhotoReminderNew-Prefix.pch";
 				INFOPLIST_FILE = "PhotoReminderNew/PhotoReminderNew-Info.plist";
@@ -844,6 +860,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhotoReminderNew/PhotoReminderNew-Prefix.pch";
 				INFOPLIST_FILE = "PhotoReminderNew/PhotoReminderNew-Info.plist";
@@ -912,6 +929,7 @@
 				CED3D93E191D06C400624E6F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CED3D93F191D06C400624E6F /* Build configuration list for PBXNativeTarget "PhotoReminderNewTests" */ = {
 			isa = XCConfigurationList;
@@ -920,6 +938,7 @@
 				CED3D941191D06C400624E6F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
