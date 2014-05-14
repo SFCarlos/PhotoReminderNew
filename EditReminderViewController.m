@@ -171,6 +171,9 @@ NSDate * datecalendar;
     else selectRepeat.selectedSegmentIndex=0;
     
     //imagen
+    if (ReminderToEdit.photoPath == nil ||[ReminderToEdit.photoPath isEqualToString:@""]||[ReminderToEdit.photoPath isEqualToString:@"(null)"]) {
+        ImageViewSelected.image = [UIImage imageNamed:@"noimage.jpg"];
+    }else
     ImageViewSelected.image = [UIImage imageWithContentsOfFile:ReminderToEdit.photoPath];
     
     //audio

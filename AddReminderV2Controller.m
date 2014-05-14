@@ -242,6 +242,9 @@
    //if eventName is Empty show "Reminder"
     if([eventName isEqualToString:@""])
         eventName = @"Reminder";
+    if (note == nil ||[note isEqualToString:@""]||[note isEqualToString:@"(null)"])
+        note = @"Reminder";
+        
         //insert in reminder
         NSInteger *result = [dao insertReminder:idcat eventname:eventName alarm:alarmdate photopath:ImagenPath audiopath:audioPath note:note recurring:recurring];
         //insert in history

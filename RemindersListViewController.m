@@ -134,17 +134,22 @@ NSIndexPath * indextoEdit;
     cell.ReminderNameLabel.text = remin.reminderName;
     //Date depending 24 or 12
     //show 24 or 12 format in label list
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+    NSLocale * loc = [[NSLocale alloc]initWithLocaleIdentifier:@"en_GB"];
+    [format setLocale:loc];
     int * flag2412 = [self retrieve24_12FromUserDefaults];
     if(flag2412 == 1){
         NSLog(@"entro al military");
-        [formatter setDateFormat:@"dd-MM-yyyy HH:mm:ss"];}
+        [format setDateFormat:@"dd-MM-yyyy 'at' HH:mm"];
+     cell.descritionLabel.text = [format stringFromDate:remin.alarm];
+    }
     else{
         NSLog(@"entro al 12horas");
-        [formatter setDateFormat:@"dd-MM-yyyy hh:mm:ss a"];}
-   
-    cell.descritionLabel.text = [formatter stringFromDate:remin.alarm];
+        [format setDateFormat:@"dd-MM-yyyy hh:mm a"];
+     cell.descritionLabel.text = [format stringFromDate:remin.alarm];
+    }
+    NSLog(@"formater> %@",[format stringFromDate:remin.alarm]);
+    //cell.descritionLabel.text = [format stringFromDate:remin.alarm];
 
     return cell;
 }

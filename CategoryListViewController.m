@@ -239,15 +239,7 @@
 }
 
 // Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    BOOL edit = YES;
-   /* if(indexPath.row == 0 || indexPath.row==1||indexPath.row == 2||indexPath.row == 3||indexPath.row==4){
-        edit = NO;
-    }*/
-    return edit;
-}
+
 
 
 // Override to support editing the table view.
@@ -311,13 +303,13 @@
         return UITableViewCellEditingStyleNone;
 
         
-    }else
+    }else if(self.tableView.editing)
     {
           return UITableViewCellEditingStyleDelete;
     }
 
-    
-    
+    return UITableViewCellEditingStyleNone;
+
 }
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath

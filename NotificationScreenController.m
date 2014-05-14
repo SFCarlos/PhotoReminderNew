@@ -52,6 +52,7 @@ DatabaseHelper *dao;
     categoryName.text = category_name;
     if(ImagenShowNotification.image == nil){
         categoryName.textColor = [UIColor blackColor];
+        ImagenShowNotification.image = [UIImage imageNamed:@"noimage.jpg"];
     }
     
     

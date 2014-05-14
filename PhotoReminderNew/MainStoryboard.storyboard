@@ -36,7 +36,7 @@
                         <viewControllerLayoutGuide type="top" id="7jk-UA-IhO"/>
                         <viewControllerLayoutGuide type="bottom" id="fVE-LS-48z"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="BX7-1q-4bZ" customClass="se">
+                    <view key="view" contentMode="scaleToFill" id="BX7-1q-4bZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -672,7 +672,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="1PG-kE-DoC"/>
+        <segue reference="Foy-ct-PLp"/>
         <segue reference="KVZ-mL-WQ2"/>
     </inferredMetricsTieBreakers>
 </document>
