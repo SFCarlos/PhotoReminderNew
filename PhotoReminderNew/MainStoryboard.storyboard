@@ -89,6 +89,55 @@
             </objects>
             <point key="canvasLocation" x="92" y="382"/>
         </scene>
+        <!--Edit Category View Controller-->
+        <scene sceneID="8c6-ai-J5t">
+            <objects>
+                <viewController id="fa6-pN-FaL" customClass="EditCategoryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1x5-bs-l7j"/>
+                        <viewControllerLayoutGuide type="bottom" id="dsW-jU-ft4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eGg-Sz-3bW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7n-SI-YCL">
+                                <rect key="frame" x="20" y="76" width="280" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="20"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Color:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LDF-nT-gaU">
+                                <rect key="frame" x="20" y="140" width="280" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="20"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nfz-gM-B8v">
+                                <rect key="frame" x="20" y="103" width="280" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FEO-gk-Qm5">
+                                <rect key="frame" x="10" y="159" width="289" height="262"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="k37-Sd-ny8"/>
+                    <connections>
+                        <outlet property="Pickercontainer" destination="FEO-gk-Qm5" id="kqw-Gp-J3Q"/>
+                        <outlet property="categoryName" destination="Nfz-gM-B8v" id="Kpf-Q9-Ti1"/>
+                        <segue destination="q5Y-UT-eod" kind="push" identifier="done_category" id="Fuj-io-pWX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SWG-Sc-4Lm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="709" y="427"/>
+        </scene>
         <!--Add Category View Controller-->
         <scene sceneID="vI7-nS-GxP">
             <objects>
@@ -186,6 +235,16 @@
                                                 <segue destination="Xja-r6-ggk" kind="push" identifier="addReminderSegue" id="smu-Oo-J5Q"/>
                                             </connections>
                                         </button>
+                                        <button opaque="NO" tag="22" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="56J-HF-aFs">
+                                            <rect key="frame" x="210" y="35" width="24" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" backgroundImage="edit-32.png">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="EditCategoryButtonAction:" destination="q5Y-UT-eod" eventType="touchUpInside" id="iJe-GX-eOD"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -204,6 +263,7 @@
                         <outlet property="tableView" destination="fFX-7c-FF4" id="BaY-hp-LRS"/>
                         <segue destination="DKH-vn-W28" kind="push" identifier="add_category" id="1Bo-b5-fQy"/>
                         <segue destination="c7Q-Wg-U9F" kind="push" identifier="settingsSegue" id="qSW-de-q5K"/>
+                        <segue destination="fa6-pN-FaL" kind="push" identifier="edit_categorySegue" id="3nf-bY-0jc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hyT-wc-jOH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -661,6 +721,7 @@
     <resources>
         <image name="calendar-25.png" width="25" height="25"/>
         <image name="done-24x.png" width="24" height="24"/>
+        <image name="edit-32.png" width="32" height="32"/>
         <image name="marco.png" width="168" height="168"/>
         <image name="note-25x.png" width="25" height="25"/>
         <image name="play-32.png" width="32" height="32"/>
@@ -672,7 +733,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Foy-ct-PLp"/>
-        <segue reference="KVZ-mL-WQ2"/>
+        <segue reference="Fuj-io-pWX"/>
+        <segue reference="XdK-OF-ioZ"/>
     </inferredMetricsTieBreakers>
 </document>

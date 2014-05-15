@@ -6,7 +6,7 @@
 
 #import "CategoryLisViewController.h"
 #import "RemindersListViewController.h"
-
+#import "EditCategoryViewController.h"
 #import "AddReminderV2Controller.h"
 
 @interface CategoryListViewController ()
@@ -24,6 +24,7 @@
 @synthesize tableView;
 @synthesize dao;
 @synthesize categoryArray;
+
 @synthesize reminderListButton;
 @synthesize addRbutton;
 @synthesize TapGestureToAddreminder;
@@ -71,17 +72,24 @@
    // self.parentViewController.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"common_bg"]];
    // self.tableView.backgroundColor = [UIColor clearColor];
 
+    
+    //Add observer to reload data after edit test1...si funciona parece pero lo resolvi poniendo ReloadData en willApear
+    //[[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refresh:) name:@"RefreshCategoriesList" object:nil];
+}
+-(void)refresh:(NSNotification*)notification{
+    [self.tableView reloadData];
 }
 -(void) viewWillDisappear:(BOOL)animated{
 
     [super viewWillAppear:animated];
-    [tableView reloadData];
+    [self.tableView reloadData];
 
 }
 -(void) viewWillAppear:(BOOL)animated{
-    
+   
     [super viewWillAppear:animated];
-        [tableView reloadData];
+  // [self.tableView reloadData];
+    
     
 }
 -(void)editAction:(id)sender{
@@ -104,6 +112,9 @@
         edit.title=@"Edit";
     }
     [tableView reloadData];
+}
+- (IBAction)EditCategoryButtonAction:(id)sender {
+    [self performSegueWithIdentifier:@"edit_categorySegue" sender:sender];
 }
 -(void)settingAction:(id)sender{
     [self performSegueWithIdentifier:@"settingsSegue" sender:sender];
@@ -168,16 +179,24 @@
     [buttonRedondo setTitle:count forState:UIControlStateNormal];
     
     //color al principio y en el boton redondo
+    UIColor * colo = [self colorFromHexString:cate.categoryColorPic];
      UILabel *bandColor = (UILabel *)[cell viewWithTag:200];
-    bandColor.backgroundColor= [self colorFromHexString:cate.categoryColorPic];
-    buttonRedondo.backgroundColor = [self colorFromHexString:cate.categoryColorPic];
+    bandColor.backgroundColor= colo;
+    buttonRedondo.backgroundColor = colo;
+    //abilitar botton
     [categoryButtonLabel setEnabled:YES];
+   
+    UIButton* EditCategoryButton = (UIButton *)[cell viewWithTag:22];
+    EditCategoryButton.tintColor= colo;
     buttonRedondo.hidden = NO;
+    EditCategoryButton.hidden = YES;
     if ([count isEqualToString:@"0"] || tableView.editing) {
         buttonRedondo.hidden=YES;
+        
     }
     if (tableView.editing) {
         [categoryButtonLabel setEnabled:NO];
+        EditCategoryButton.hidden = NO;
     }
     return cell;
 }
@@ -234,6 +253,17 @@
         [self saveToUserDefaults:idcat_selected color:color];
         //listReminder.reminderObj = tem;
     
+    
+    }if ([segue.identifier isEqualToString:@"edit_categorySegue"]){
+        EditCategoryViewController* editCategory = segue.destinationViewController;
+        CGPoint butoPoss = [sender convertPoint:CGPointZero toView:self.tableView];
+        NSIndexPath * clicedbut =[self.tableView indexPathForRowAtPoint:butoPoss];
+        
+      
+        ReminderObject* tem =[categoryArray objectAtIndex:clicedbut.row];
+        
+        //pass value Idcategoria to eddit
+        editCategory.IdCategoryToEdit =tem.cat_id;
     
     }
 }
@@ -331,6 +361,7 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
+
 
 
 @end

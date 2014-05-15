@@ -29,4 +29,5 @@
 -(BOOL)InvalidateReminder:(NSInteger*) id_rem recurring:(NSString*)recurring;
 -(BOOL)insertCategory:(NSString*)catName colorPic:(NSString*)colorPic;
 -(BOOL)deleteCategory:(NSInteger*)id_cat;
+-(BOOL)editCategory:(NSInteger*)id_cat categoryName:(NSString*) categoryName categoryColor:(NSString*) categoryColor;
 @end

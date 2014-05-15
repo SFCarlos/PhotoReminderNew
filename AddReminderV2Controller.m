@@ -184,6 +184,7 @@
 [MyScroll setContentSize:CGSizeMake(320, 700)];
 }
 -(void)handleBack:(id)sender{
+   // [[NSNotificationCenter defaultCenter]postNotificationName:@"RefreshCategoriesList" object:nil];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 - (void)didReceiveMemoryWarning

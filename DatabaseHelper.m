@@ -443,4 +443,36 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     return flag;
 
 }
+-(BOOL)editCategory:(NSInteger *)id_cat categoryName:(NSString *)categoryName categoryColor:(NSString *)categoryColor {
+    BOOL flag = YES;
+    NSString *ubicacionDB = [self getRutaBD];
+    
+    if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
+        NSLog(@"No se puede conectar con la BD");
+        flag = NO;
+        return flag;
+    } else {
+        NSString *sqledit = [NSString stringWithFormat:@"UPDATE categories SET category_name= '%@' ,colorPic = '%@' WHERE id_cat = %d",categoryName,categoryColor,(int)id_cat];
+        const char *sql = [sqledit UTF8String];
+        sqlite3_stmt *sqlStatement;
+        NSLog(sqledit);
+        if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
+            NSLog(@"Problema al preparar el statement edit category");
+            flag = NO;
+            return flag;
+        } else {
+            if(sqlite3_step(sqlStatement) == SQLITE_DONE){
+                sqlite3_finalize(sqlStatement);
+                
+                flag = YES;
+                return flag;
+                //sqlite3_close(bd);
+                
+            }
+        }
+        
+    }
+    return flag;
+
+}
 @end

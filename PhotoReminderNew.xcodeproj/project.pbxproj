@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE02C0E71924C81A00EB2DD0 /* EditCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE02C0E61924C81A00EB2DD0 /* EditCategoryViewController.m */; };
+		CE02C0E91924E60B00EB2DD0 /* edit-32.png in Resources */ = {isa = PBXBuildFile; fileRef = CE02C0E81924E60B00EB2DD0 /* edit-32.png */; };
 		CED3D90E191D06C400624E6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90D191D06C400624E6F /* Foundation.framework */; };
 		CED3D910191D06C400624E6F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90F191D06C400624E6F /* CoreGraphics.framework */; };
 		CED3D912191D06C400624E6F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D911191D06C400624E6F /* UIKit.framework */; };
@@ -100,6 +102,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE02C0E51924C81A00EB2DD0 /* EditCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCategoryViewController.h; sourceTree = "<group>"; };
+		CE02C0E61924C81A00EB2DD0 /* EditCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCategoryViewController.m; sourceTree = "<group>"; };
+		CE02C0E81924E60B00EB2DD0 /* edit-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit-32.png"; sourceTree = "<group>"; };
 		CED3D90A191D06C400624E6F /* PhotoReminderNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoReminderNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED3D90D191D06C400624E6F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CED3D90F191D06C400624E6F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -309,6 +314,7 @@
 		CED3D914191D06C400624E6F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CE02C0E81924E60B00EB2DD0 /* edit-32.png */,
 				CED3DAA119221B4B00624E6F /* play-32.png */,
 				CED3DA9F19221B1000624E6F /* marco.png */,
 				CED3DA38191D0F6D00624E6F /* BarIcons */,
@@ -537,6 +543,8 @@
 				CED3DA18191D0D0800624E6F /* AddReminderV2Controller.m */,
 				CED3DA19191D0D0800624E6F /* AddCategoryViewController.h */,
 				CED3DA1A191D0D0800624E6F /* AddCategoryViewController.m */,
+				CE02C0E51924C81A00EB2DD0 /* EditCategoryViewController.h */,
+				CE02C0E61924C81A00EB2DD0 /* EditCategoryViewController.m */,
 			);
 			name = LogicFiles;
 			sourceTree = "<group>";
@@ -669,6 +677,7 @@
 				CED3D9CE191D0A7300624E6F /* apple calendar.plist in Resources */,
 				CED3DAA519221BEE00624E6F /* nko_brightness_guide.png in Resources */,
 				CED3D998191D099900624E6F /* LICENCE in Resources */,
+				CE02C0E91924E60B00EB2DD0 /* edit-32.png in Resources */,
 				CED3D967191D085B00624E6F /* autocompleteButton@2x.png in Resources */,
 				CED3DA37191D0F5D00624E6F /* camera-24x.png in Resources */,
 				CED3D9F1191D0BD200624E6F /* Frenzy.m4r in Resources */,
@@ -718,6 +727,7 @@
 				CED3D9CA191D0A7300624E6F /* PMPeriod.m in Sources */,
 				CED3D9C5191D0A7300624E6F /* NSDate+Helpers.m in Sources */,
 				CED3DA20191D0D0800624E6F /* AddCategoryViewController.m in Sources */,
+				CE02C0E71924C81A00EB2DD0 /* EditCategoryViewController.m in Sources */,
 				CED3DA1D191D0D0800624E6F /* RemindersListViewController.m in Sources */,
 				CED3D9FC191D0C0A00624E6F /* HTAutocompleteTextField.m in Sources */,
 				CED3D9E3191D0B3D00624E6F /* iToast.m in Sources */,
