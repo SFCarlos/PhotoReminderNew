@@ -19,7 +19,12 @@
     NSString* selectedSound;
     NSString* alreadyselectedSound;
 }
+@synthesize scrollV;
+@synthesize userImput;
+@synthesize passwImput;
+@synthesize registerButton;
 @synthesize timeformatSwitch;
+@synthesize syncSwitch;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -31,7 +36,9 @@
 
 - (void)viewDidLoad
 {
-    
+    userImput.delegate =self;
+    passwImput.delegate=self;
+    [scrollV setScrollEnabled:YES];
     //fill array sound
        sounfFiles = [[NSArray alloc] initWithObjects:@"Alarm Classic",@"Birds",@"Fire Pager",@"Frenzy",@"Siren Noise",@"Note",nil];
     //know the selected sound
@@ -52,10 +59,37 @@
         [timeformatSwitch setOn:YES];
     else
         [timeformatSwitch setOn:NO];
+    int* flagSync = [self retrieveSYNCSTATUSSFromUserDefaults];
+    
+    userImput.text = [self retrieveUSERFromUserDefaults];
+    passwImput.text =[self retrievePASSFromUserDefaults];
+     passwImput.secureTextEntry=YES;
+    
+    if (flagSync==1) {
+        [syncSwitch setOn:YES];
+        userImput.hidden= NO;
+        passwImput.hidden= NO;
+        registerButton.hidden = NO;
+    }else{
+        [syncSwitch setOn:NO];
+        userImput.hidden= YES;
+        passwImput.hidden= YES;
+        registerButton.hidden = YES;
+    }
+ passwImput.secureTextEntry=YES;
+    
+    
+
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
-
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [userImput resignFirstResponder];
+    [passwImput resignFirstResponder];
+    
+    return YES;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -99,7 +133,9 @@
 }
 
 
-
+-(void)viewDidLayoutSubviews{
+    [scrollV setContentSize:CGSizeMake(320, 700)];
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
@@ -144,10 +180,20 @@
     
 }
 
+-(void)saveSyncStatusToUserdefaults:(NSString*)user :(NSString*) passw :(NSInteger*)statuss{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (standardUserDefaults) {
+        [standardUserDefaults setObject:user forKey:@"USER"];
+        [standardUserDefaults setObject:passw forKey:@"PASSW"];
+        [standardUserDefaults setInteger:(int)statuss forKey:@"STATUS"];
+        [standardUserDefaults synchronize];
+    }
+
+}
 
 
-
--(void)saveToUserDefaults:(NSInteger*)TimeFormat
+-(void)save2412ToUserDefaults:(NSInteger*)TimeFormat
 {
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -173,15 +219,44 @@
     
 
     if(timeformatSwitch.on){
-        [self saveToUserDefaults:1];
+        [self save2412ToUserDefaults:1];
     
     }else{
-    [self saveToUserDefaults:0];
+    [self save2412ToUserDefaults:0];
     }
     [self saveSoundReminderToUserDefaults:selectedSound];
     [self.navigationController popToRootViewControllerAnimated:YES];
     
     
+    
+}
+-(NSString*)retrieveUSERFromUserDefaults{
+    
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults objectForKey:@"USER"];
+    
+    return val;
+    
+}-(NSString*)retrievePASSFromUserDefaults{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults objectForKey:@"PASS"];
+    
+    return val;
+    
+}-(NSInteger*)retrieveSYNCSTATUSSFromUserDefaults{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSInteger *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults integerForKey:@"STATUS"];
+    
+    return val;
     
 }
 -(NSInteger*)retrieve24_12FromUserDefaults
@@ -203,5 +278,27 @@
         val = [standardUserDefaults objectForKey:@"REMINDER_SOUND"];
     
     return val;
+}
+- (IBAction)registerAction:(id)sender {
+    //save locally firt //sync on
+    
+    //if consult
+    [self saveSyncStatusToUserdefaults:userImput.text :userImput.text :1];
+    
+}
+
+- (IBAction)SyncSwitchAction:(id)sender {
+    if (syncSwitch.on) {
+        userImput.hidden= NO;
+        passwImput.hidden= NO;
+        registerButton.hidden = NO;
+    }else{
+        userImput.hidden= YES;
+        passwImput.hidden= YES;
+        registerButton.hidden = YES;
+    }
+    
+    
+    
 }
 @end

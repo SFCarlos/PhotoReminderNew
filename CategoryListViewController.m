@@ -82,13 +82,13 @@
 -(void) viewWillDisappear:(BOOL)animated{
 
     [super viewWillAppear:animated];
-    [self.tableView reloadData];
+    [tableView reloadData];
 
 }
 -(void) viewWillAppear:(BOOL)animated{
    
     [super viewWillAppear:animated];
-  // [self.tableView reloadData];
+   [self.tableView reloadData];
     
     
 }

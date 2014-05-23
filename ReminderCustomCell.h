@@ -15,5 +15,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *completedLabel;
 @property (strong, nonatomic) IBOutlet UILabel *descritionLabel;
 @property (strong, nonatomic) IBOutlet UIButton *framebuttom;
+@property (strong, nonatomic) IBOutlet UILabel *recurringLabel;
 
 @end
