@@ -25,6 +25,7 @@
 @synthesize registerButton;
 @synthesize timeformatSwitch;
 @synthesize syncSwitch;
+@synthesize service;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -36,6 +37,9 @@
 
 - (void)viewDidLoad
 {
+    self.service = [[reminderServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
+
+    
     userImput.delegate =self;
     passwImput.delegate=self;
     [scrollV setScrollEnabled:YES];
@@ -95,6 +99,73 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - wsdl delegate
+-(void)proxydidFinishLoadingData:(id)data InMethod:(NSString *)method{
+    if ([method isEqualToString:@"autenticate"]) {
+        if ([(NSString*)data isEqualToString:@"1"]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome"
+                                                            message:@"You are connected"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil,nil];
+            [alert show];
+
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:@"Is User or Pass correct?"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil,nil];
+            [alert show];
+        }
+        
+    }else{
+    
+        if ((int)data == 0) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Server said: "                                                           message:[NSString stringWithFormat:@"%@ you are currently registered!",userImput.text]
+
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil,nil];
+            [alert show];
+
+        }else if((int)data == 1){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Server said: "                                                           message:@"Successful registration"
+                                  
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil,nil];
+            [alert show];
+
+        }
+    
+    
+    }
+    
+    
+}
+-(void)proxyRecievedError:(NSException *)ex InMethod:(NSString *)method{
+
+    if ([method isEqualToString:@"autenticate"]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error "                                                           message:[NSString stringWithFormat:@"error in function %@ ",method]
+                              
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil,nil];
+        [alert show];
+
+    
+    }else if  ([method isEqualToString:@"registerUser"]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error "                                                           message:[NSString stringWithFormat:@"error in function %@ ",method]
+                              
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil,nil];
+        [alert show];
+        
+               }
+   }
+
 
 #pragma mark - Table view delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -224,6 +295,14 @@
     }else{
     [self save2412ToUserDefaults:0];
     }
+    
+    if (syncSwitch.on) {
+        [self saveSyncStatusToUserdefaults:userImput.text :passwImput.text :1];
+    }
+    else{
+        [self saveSyncStatusToUserdefaults:userImput.text :passwImput.text :0];
+        
+    }
     [self saveSoundReminderToUserDefaults:selectedSound];
     [self.navigationController popToRootViewControllerAnimated:YES];
     
@@ -283,15 +362,21 @@
     //save locally firt //sync on
     
     //if consult
-    [self saveSyncStatusToUserdefaults:userImput.text :userImput.text :1];
+    [self saveSyncStatusToUserdefaults:userImput.text :passwImput.text :1];
+    
+    
+    [service registerUser:userImput.text :passwImput.text];
     
 }
 
 - (IBAction)SyncSwitchAction:(id)sender {
     if (syncSwitch.on) {
+    
         userImput.hidden= NO;
         passwImput.hidden= NO;
         registerButton.hidden = NO;
+        
+        [service autenticate:userImput.text :passwImput.text];
     }else{
         userImput.hidden= YES;
         passwImput.hidden= YES;

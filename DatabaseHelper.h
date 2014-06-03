@@ -14,10 +14,18 @@
     sqlite3 *bd;
     
 }
+//*****************new iplementation insert into items **************
+-(NSInteger *)insert_item: (NSInteger*)id_cat item_Name:(NSString*)item_Name alarm:(NSDate*)Alarm  note:(NSString*)note repeat:(NSString*)repeat;
+
+-(BOOL)insert_item_images: (NSInteger *)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
+-(BOOL)insert_item_recordings: (NSInteger *)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
+
+
+
 - (NSMutableArray *) getCategoryList;
--(NSMutableArray * ) getReminderList:(NSInteger *) CategoryId;
+-(NSMutableArray * ) getItemList:(NSInteger *) CategoryId;
 -(NSArray*) getHistoryList:(NSInteger*) CategoryId;
--(NSInteger *) getCountReminderInCategory:(NSInteger *) CategoryId;
+-(NSInteger *) getCountItemInCategory:(NSInteger *) CategoryId;
 - (NSString *) getRutaBD;
 
 -(NSInteger *)insertReminder:(NSInteger*)idCat eventname:(NSString*)EventName alarm:(NSDate*)Alarm photopath:(NSString*)photoPath audiopath:(NSString*)audioPath note:(NSString*)note recurring:(NSString*)recurring;
@@ -25,9 +33,10 @@
 -(ReminderObject*)getReminder:(NSInteger*) IDreminder;
 -(NSString*)getHexColorFronCategory:(NSInteger*)categotyId;
 -(NSString*)getCategoryName:(NSInteger*)categotyId;
+-(NSInteger*)getCategoryType:(NSInteger*)categotyId;
 -(BOOL)deleteReminder:(NSInteger*) id_rem;
 -(BOOL)InvalidateReminder:(NSInteger*) id_rem recurring:(NSString*)recurring;
--(BOOL)insertCategory:(NSString*)catName colorPic:(NSString*)colorPic;
+-(BOOL)insertCategory:(NSString*)catName colorPic:(NSString*)colorPic type:(NSInteger*)type;
 -(BOOL)deleteCategory:(NSInteger*)id_cat;
--(BOOL)editCategory:(NSInteger*)id_cat categoryName:(NSString*) categoryName categoryColor:(NSString*) categoryColor;
+-(BOOL)editCategory:(NSInteger*)id_cat categoryName:(NSString*) categoryName categoryColor:(NSString*) categoryColor type:(NSInteger*)type;
 @end

@@ -20,6 +20,7 @@
 @synthesize Pickercontainer;
 @synthesize dao;
 @synthesize categoryName;
+@synthesize typesegmentedControl;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -91,14 +92,32 @@
         COLOR = [self htmlFromUIColor:[UIColor blueColor]];
     }
     
-    NSLog(@"COLOR %@", COLOR);
+    NSInteger* catType;
+    
+    switch (typesegmentedControl.selectedSegmentIndex) {
+        case 0:
+            catType=0;
+            break;
+        case 1:
+            catType = 1;
+            break;
+        case 2:
+            catType = 2;
+            break;
+
+        default:
+            break;
+    }
+    
+    
+    
     if(categoryName.text== nil || [categoryName.text isEqualToString:@""]){
         [[[[iToast makeText:NSLocalizedString(@"Name empty", @"")]setGravity:iToastGravityBottom]setDuration:iToastDurationNormal]show];
 
     }
-    else if([dao insertCategory:categoryName.text colorPic:COLOR]){
+    else if([dao insertCategory:categoryName.text colorPic:COLOR type:catType]){
         
-            [self performSegueWithIdentifier:@"done_category" sender:sender];
+            [self performSegueWithIdentifier:@"done_categoryV2" sender:sender];
         }
     
 

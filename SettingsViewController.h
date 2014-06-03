@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "reminderServiceProxy.h"
 
-@interface SettingsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+@interface SettingsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,Wsdl2CodeProxyDelegate>
 - (IBAction)registerAction:(id)sender;
 - (IBAction)SyncSwitchAction:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *registerButton;
 @property (strong, nonatomic) IBOutlet UITextField *passwImput;
-
+@property (nonatomic,retain) reminderServiceProxy* service;
 @property (strong, nonatomic) IBOutlet UITextField *userImput;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollV;
 @property (strong, nonatomic) IBOutlet UISwitch *timeformatSwitch;

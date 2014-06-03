@@ -14,6 +14,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *label1;
 @property (strong, nonatomic) IBOutlet UIView *Pickercontainer;
 @property (nonatomic) NSInteger * IdCategoryToEdit ;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *typeSegmentedContlos;
 @property (nonatomic, strong) DatabaseHelper *dao;
 
 @end

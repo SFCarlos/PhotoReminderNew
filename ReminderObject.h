@@ -16,7 +16,7 @@
 @property(nonatomic,strong) NSDate * alarm;
 
 @property(nonatomic,assign)NSInteger *cat_id;
-
+@property (nonatomic, assign) NSInteger *categoryType;
 @property(nonatomic,strong) NSString * categoryName;
 @property(nonatomic,strong) NSString * categoryImagenPic;
 @property(nonatomic,strong) NSString * categoryColorPic;

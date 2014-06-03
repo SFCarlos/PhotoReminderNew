@@ -56,7 +56,7 @@ NSIndexPath * indextoEdit;
     reminderArray = [[NSMutableArray alloc] init];
     
     NSInteger* cat_id = reminderObj.cat_id;
-    reminderArray = [dao getReminderList:cat_id];
+    reminderArray = [dao getItemList:cat_id];
      [self LoadTheActiveList];
      //segmented contlol
     CantidadActive=active.count;

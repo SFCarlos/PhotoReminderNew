@@ -229,7 +229,46 @@
     
   }
 
+//new implementation insert in items
 -(void)saveReminderAction:(id)sender{
+    NSLog(@"entro save");
+    
+    //elementos to store
+    NSInteger * idcat = [self retrieveFromUserDefaults];
+    NSString * eventName = self.EventNametextField.text;
+    NSDate * alarmdate = [datePicker date];
+    NSString * ImagenPath = [self saveImageGetPath:imagenSelected];
+    NSString* audioPathstore = audioPath;
+    NSString * note =textNote;
+    NSString* recurring = [self returnRecurringSelect];
+    //if eventName is Empty show "Reminder"
+    if([eventName isEqualToString:@""])
+        eventName = @"Reminder";
+    if (note == nil ||[note isEqualToString:@""]||[note isEqualToString:@"(null)"])
+        note = @"Reminder";
+    
+    //insert in reminder
+    NSInteger *id_item = [dao insert_item:idcat item_Name:eventName alarm:alarmdate note:note repeat:recurring];
+    //insert image
+    [dao insert_item_images:idcat id_item:id_item file_Name:ImagenPath];
+//insert
+    //insert in history
+    BOOL resulthistory = [dao insertHistory:idcat history_desc:eventName];
+    
+    //NSLog(@"idcat %d eventname %@ ImagePat %@ date %@ Resultado en reminder(idreminder) %d resultado en history %hhd " ,(int)idcat,eventName,ImagenPath,alarmdate,(int)result,resulthistory);
+    
+    //shedule notification
+    NSString *idtem =[NSString stringWithFormat:@"%d",(int)id_item];
+    NSDictionary * data = [NSDictionary dictionaryWithObjectsAndKeys:idtem,@"ID_NOT_PASS" ,recurring,@"RECURRING",  nil];
+    
+    NSString* UserSelectedSoundReminder = [self retrieveSoundReminderFromUserDefaults];
+    //Set notification for firt time to select fire date and repeatin 1 min
+    [[LocalNotificationCore sharedInstance]scheduleNotificationOn:alarmdate text:eventName action:@"Show" sound:UserSelectedSoundReminder launchImage:ImagenPath andInfo:data];
+    
+    [self performSegueWithIdentifier:@"home" sender:sender];
+    //[self.navigationController popToRootViewControllerAnimated:YES];
+}
+/*-(void)saveReminderAction:(id)sender{
     NSLog(@"entro save");
     
     //elementos to store
@@ -263,7 +302,7 @@
     
     [self performSegueWithIdentifier:@"home" sender:sender];
     //[self.navigationController popToRootViewControllerAnimated:YES];
-}
+}*/
 -(NSString*) returnRecurringSelect{
     NSInteger index = [selectRepeat selectedSegmentIndex];
     

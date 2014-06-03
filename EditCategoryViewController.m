@@ -24,6 +24,7 @@ UIColor* colorcito_selected;
 @synthesize dao;
 @synthesize categoryName;
 @synthesize IdCategoryToEdit;
+@synthesize typeSegmentedContlos;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -87,6 +88,12 @@ UIColor* colorcito_selected;
     categoryName.text = catName;
     
     colorEdit = [self colorFromHexString:[dao getHexColorFronCategory:IdCategoryToEdit]];
+    
+    
+    //type segmented
+    NSInteger * index = [dao getCategoryType:IdCategoryToEdit];
+    typeSegmentedContlos.selectedSegmentIndex = (int)index;
+    
     [super viewDidLoad];
     
     
@@ -104,7 +111,7 @@ UIColor* colorcito_selected;
     //[self.view addSubview:colorPickerView];
 }
 -(void)handleBack:(id)sender{
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"RefreshCategoriesList" object:nil];
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 -(void)saveEditedCategoryAction:(id)sender{
@@ -114,13 +121,29 @@ UIColor* colorcito_selected;
     }else{
         COLOR = [self htmlFromUIColor:colorEdit];
     }
+    NSInteger* catType;
     
+    switch (typeSegmentedContlos.selectedSegmentIndex) {
+        case 0:
+            catType=0;
+            break;
+        case 1:
+            catType = 1;
+            break;
+        case 2:
+            catType = 2;
+            break;
+            
+        default:
+            break;
+    }
+
    
     if(categoryName.text== nil || [categoryName.text isEqualToString:@""]){
         [[[[iToast makeText:NSLocalizedString(@"Name empty", @"")]setGravity:iToastGravityBottom]setDuration:iToastDurationNormal]show];
         
     }
-    else if([dao editCategory:IdCategoryToEdit categoryName:categoryName.text categoryColor:COLOR]){
+    else if([dao editCategory:IdCategoryToEdit categoryName:categoryName.text categoryColor:COLOR type:catType]){
         [[NSNotificationCenter defaultCenter]postNotificationName:@"RefreshCategoriesList" object:nil];
         //[self.navigationController popToRootViewControllerAnimated:YES];
         [self performSegueWithIdentifier:@"done_category" sender:sender];

@@ -15,5 +15,6 @@
 @property (strong, nonatomic) IBOutlet UIView *Pickercontainer;
 
 @property (nonatomic, strong) DatabaseHelper *dao;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *typesegmentedControl;
 
 @end

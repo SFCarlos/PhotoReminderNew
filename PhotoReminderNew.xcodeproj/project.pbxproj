@@ -9,6 +9,23 @@
 /* Begin PBXBuildFile section */
 		CE02C0E71924C81A00EB2DD0 /* EditCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE02C0E61924C81A00EB2DD0 /* EditCategoryViewController.m */; };
 		CE02C0E91924E60B00EB2DD0 /* edit-32.png in Resources */ = {isa = PBXBuildFile; fileRef = CE02C0E81924E60B00EB2DD0 /* edit-32.png */; };
+		CE0BD6E719374FFA00416DDB /* plus-32.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6E619374FFA00416DDB /* plus-32.png */; };
+		CE0BD6E9193750A100416DDB /* trash-32.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6E8193750A100416DDB /* trash-32.png */; };
+		CE0BD6ED1937781000416DDB /* align_justify-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6EC1937781000416DDB /* align_justify-25.png */; };
+		CE0BD6EF19378F3100416DDB /* shopping_cart_loaded-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6EE19378F3100416DDB /* shopping_cart_loaded-25.png */; };
+		CE0BD6F11937936C00416DDB /* purchase_order-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6F01937936C00416DDB /* purchase_order-25.png */; };
+		CE0BD6F3193794D500416DDB /* to_do-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6F2193794D500416DDB /* to_do-25.png */; };
+		CE1902B419388FA5008E5540 /* AppDatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CE1902B319388FA5008E5540 /* AppDatabase.sqlite */; };
+		CE23563C19349063007C2B36 /* CategoryCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE23563B19349063007C2B36 /* CategoryCustomCell.m */; };
+		CE23563F1934928F007C2B36 /* CategoryListViewControllerV2.m in Sources */ = {isa = PBXBuildFile; fileRef = CE23563E1934928F007C2B36 /* CategoryListViewControllerV2.m */; };
+		CE29C515192F7F3B007022CB /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE29C514192F7F3B007022CB /* libxml2.dylib */; };
+		CE29C51B192F7F95007022CB /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29C518192F7F95007022CB /* NSData+Base64.m */; };
+		CE29C51C192F7F95007022CB /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29C51A192F7F95007022CB /* XPathQuery.m */; };
+		CE29C528192F8011007022CB /* reminderService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29C51E192F8011007022CB /* reminderService.m */; };
+		CE29C529192F8011007022CB /* reminderServiceProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29C520192F8011007022CB /* reminderServiceProxy.m */; };
+		CE29C52A192F8011007022CB /* GroupCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29C523192F8011007022CB /* GroupCategory.m */; };
+		CE29C52B192F8011007022CB /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29C525192F8011007022CB /* Reminder.m */; };
+		CE29C52C192F8011007022CB /* reminderService_Enums.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29C527192F8011007022CB /* reminderService_Enums.m */; };
 		CED3D90E191D06C400624E6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90D191D06C400624E6F /* Foundation.framework */; };
 		CED3D910191D06C400624E6F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90F191D06C400624E6F /* CoreGraphics.framework */; };
 		CED3D912191D06C400624E6F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D911191D06C400624E6F /* UIKit.framework */; };
@@ -62,7 +79,6 @@
 		CED3D9F5191D0BD200624E6F /* Birds.m4r in Resources */ = {isa = PBXBuildFile; fileRef = CED3D9EF191D0BD200624E6F /* Birds.m4r */; };
 		CED3D9FB191D0C0A00624E6F /* HTAutocompleteManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CED3D9F8191D0C0A00624E6F /* HTAutocompleteManager.m */; };
 		CED3D9FC191D0C0A00624E6F /* HTAutocompleteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = CED3D9FA191D0C0A00624E6F /* HTAutocompleteTextField.m */; };
-		CED3DA03191D0C3800624E6F /* AppDatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CED3D9FE191D0C3800624E6F /* AppDatabase.sqlite */; };
 		CED3DA04191D0C3800624E6F /* ReminderObject.m in Sources */ = {isa = PBXBuildFile; fileRef = CED3DA00191D0C3800624E6F /* ReminderObject.m */; };
 		CED3DA05191D0C3800624E6F /* DatabaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CED3DA02191D0C3800624E6F /* DatabaseHelper.m */; };
 		CED3DA08191D0C8300624E6F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3DA07191D0C8300624E6F /* QuartzCore.framework */; };
@@ -105,6 +121,33 @@
 		CE02C0E51924C81A00EB2DD0 /* EditCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCategoryViewController.h; sourceTree = "<group>"; };
 		CE02C0E61924C81A00EB2DD0 /* EditCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCategoryViewController.m; sourceTree = "<group>"; };
 		CE02C0E81924E60B00EB2DD0 /* edit-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit-32.png"; sourceTree = "<group>"; };
+		CE0BD6E619374FFA00416DDB /* plus-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus-32.png"; sourceTree = "<group>"; };
+		CE0BD6E8193750A100416DDB /* trash-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trash-32.png"; sourceTree = "<group>"; };
+		CE0BD6EC1937781000416DDB /* align_justify-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "align_justify-25.png"; sourceTree = "<group>"; };
+		CE0BD6EE19378F3100416DDB /* shopping_cart_loaded-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping_cart_loaded-25.png"; sourceTree = "<group>"; };
+		CE0BD6F01937936C00416DDB /* purchase_order-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "purchase_order-25.png"; sourceTree = "<group>"; };
+		CE0BD6F2193794D500416DDB /* to_do-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "to_do-25.png"; sourceTree = "<group>"; };
+		CE1902B319388FA5008E5540 /* AppDatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppDatabase.sqlite; sourceTree = "<group>"; };
+		CE23563A19349063007C2B36 /* CategoryCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryCustomCell.h; sourceTree = "<group>"; };
+		CE23563B19349063007C2B36 /* CategoryCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryCustomCell.m; sourceTree = "<group>"; };
+		CE23563D1934928F007C2B36 /* CategoryListViewControllerV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryListViewControllerV2.h; sourceTree = "<group>"; };
+		CE23563E1934928F007C2B36 /* CategoryListViewControllerV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryListViewControllerV2.m; sourceTree = "<group>"; };
+		CE29C514192F7F3B007022CB /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		CE29C517192F7F95007022CB /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		CE29C518192F7F95007022CB /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		CE29C519192F7F95007022CB /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
+		CE29C51A192F7F95007022CB /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
+		CE29C51D192F8011007022CB /* reminderService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reminderService.h; sourceTree = "<group>"; };
+		CE29C51E192F8011007022CB /* reminderService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = reminderService.m; sourceTree = "<group>"; };
+		CE29C51F192F8011007022CB /* reminderServiceProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reminderServiceProxy.h; sourceTree = "<group>"; };
+		CE29C520192F8011007022CB /* reminderServiceProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = reminderServiceProxy.m; sourceTree = "<group>"; };
+		CE29C522192F8011007022CB /* GroupCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCategory.h; sourceTree = "<group>"; };
+		CE29C523192F8011007022CB /* GroupCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCategory.m; sourceTree = "<group>"; };
+		CE29C524192F8011007022CB /* Reminder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reminder.h; sourceTree = "<group>"; };
+		CE29C525192F8011007022CB /* Reminder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
+		CE29C526192F8011007022CB /* reminderService_Enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reminderService_Enums.h; sourceTree = "<group>"; };
+		CE29C527192F8011007022CB /* reminderService_Enums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = reminderService_Enums.m; sourceTree = "<group>"; };
+		CE29C52D192F82D7007022CB /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		CED3D90A191D06C400624E6F /* PhotoReminderNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoReminderNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED3D90D191D06C400624E6F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CED3D90F191D06C400624E6F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -193,7 +236,6 @@
 		CED3D9F8191D0C0A00624E6F /* HTAutocompleteManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAutocompleteManager.m; sourceTree = "<group>"; };
 		CED3D9F9191D0C0A00624E6F /* HTAutocompleteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTAutocompleteTextField.h; sourceTree = "<group>"; };
 		CED3D9FA191D0C0A00624E6F /* HTAutocompleteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTAutocompleteTextField.m; sourceTree = "<group>"; };
-		CED3D9FE191D0C3800624E6F /* AppDatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppDatabase.sqlite; sourceTree = "<group>"; };
 		CED3D9FF191D0C3800624E6F /* ReminderObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReminderObject.h; sourceTree = "<group>"; };
 		CED3DA00191D0C3800624E6F /* ReminderObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReminderObject.m; sourceTree = "<group>"; };
 		CED3DA01191D0C3800624E6F /* DatabaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseHelper.h; sourceTree = "<group>"; };
@@ -243,6 +285,7 @@
 				CED3D910191D06C400624E6F /* CoreGraphics.framework in Frameworks */,
 				CED3D912191D06C400624E6F /* UIKit.framework in Frameworks */,
 				CED3D90E191D06C400624E6F /* Foundation.framework in Frameworks */,
+				CE29C515192F7F3B007022CB /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +302,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE29C516192F7F55007022CB /* WebServiceCore */ = {
+			isa = PBXGroup;
+			children = (
+				CE29C51D192F8011007022CB /* reminderService.h */,
+				CE29C51E192F8011007022CB /* reminderService.m */,
+				CE29C51F192F8011007022CB /* reminderServiceProxy.h */,
+				CE29C520192F8011007022CB /* reminderServiceProxy.m */,
+				CE29C521192F8011007022CB /* WSClasses */,
+				CE29C517192F7F95007022CB /* NSData+Base64.h */,
+				CE29C518192F7F95007022CB /* NSData+Base64.m */,
+				CE29C519192F7F95007022CB /* XPathQuery.h */,
+				CE29C51A192F7F95007022CB /* XPathQuery.m */,
+			);
+			name = WebServiceCore;
+			sourceTree = "<group>";
+		};
+		CE29C521192F8011007022CB /* WSClasses */ = {
+			isa = PBXGroup;
+			children = (
+				CE29C522192F8011007022CB /* GroupCategory.h */,
+				CE29C523192F8011007022CB /* GroupCategory.m */,
+				CE29C524192F8011007022CB /* Reminder.h */,
+				CE29C525192F8011007022CB /* Reminder.m */,
+				CE29C526192F8011007022CB /* reminderService_Enums.h */,
+				CE29C527192F8011007022CB /* reminderService_Enums.m */,
+			);
+			path = WSClasses;
+			sourceTree = "<group>";
+		};
 		CED3D901191D06C400624E6F = {
 			isa = PBXGroup;
 			children = (
@@ -287,6 +359,8 @@
 		CED3D90C191D06C400624E6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE29C52D192F82D7007022CB /* libxml2.2.dylib */,
+				CE29C514192F7F3B007022CB /* libxml2.dylib */,
 				CED3DA0D191D0CA300624E6F /* libsqlite3.0.dylib */,
 				CED3DA0B191D0C9700624E6F /* AVFoundation.framework */,
 				CED3DA09191D0C8D00624E6F /* AudioToolbox.framework */,
@@ -314,6 +388,11 @@
 		CED3D914191D06C400624E6F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CE0BD6F2193794D500416DDB /* to_do-25.png */,
+				CE0BD6F01937936C00416DDB /* purchase_order-25.png */,
+				CE0BD6EE19378F3100416DDB /* shopping_cart_loaded-25.png */,
+				CE0BD6E8193750A100416DDB /* trash-32.png */,
+				CE0BD6E619374FFA00416DDB /* plus-32.png */,
 				CE02C0E81924E60B00EB2DD0 /* edit-32.png */,
 				CED3DAA119221B4B00624E6F /* play-32.png */,
 				CED3DA9F19221B1000624E6F /* marco.png */,
@@ -368,6 +447,7 @@
 		CED3D9A0191D09BA00624E6F /* Cores */ = {
 			isa = PBXGroup;
 			children = (
+				CE29C516192F7F55007022CB /* WebServiceCore */,
 				CED3DA06191D0C4400624E6F /* DatabaseCore */,
 				CED3D9FD191D0C1200624E6F /* AutocompleteCore */,
 				CED3D9E9191D0B6900624E6F /* RecordingCore */,
@@ -519,7 +599,7 @@
 		CED3DA06191D0C4400624E6F /* DatabaseCore */ = {
 			isa = PBXGroup;
 			children = (
-				CED3D9FE191D0C3800624E6F /* AppDatabase.sqlite */,
+				CE1902B319388FA5008E5540 /* AppDatabase.sqlite */,
 				CED3D9FF191D0C3800624E6F /* ReminderObject.h */,
 				CED3DA00191D0C3800624E6F /* ReminderObject.m */,
 				CED3DA01191D0C3800624E6F /* DatabaseHelper.h */,
@@ -545,6 +625,10 @@
 				CED3DA1A191D0D0800624E6F /* AddCategoryViewController.m */,
 				CE02C0E51924C81A00EB2DD0 /* EditCategoryViewController.h */,
 				CE02C0E61924C81A00EB2DD0 /* EditCategoryViewController.m */,
+				CE23563A19349063007C2B36 /* CategoryCustomCell.h */,
+				CE23563B19349063007C2B36 /* CategoryCustomCell.m */,
+				CE23563D1934928F007C2B36 /* CategoryListViewControllerV2.h */,
+				CE23563E1934928F007C2B36 /* CategoryListViewControllerV2.m */,
 			);
 			name = LogicFiles;
 			sourceTree = "<group>";
@@ -561,6 +645,7 @@
 		CED3DA38191D0F6D00624E6F /* BarIcons */ = {
 			isa = PBXGroup;
 			children = (
+				CE0BD6EC1937781000416DDB /* align_justify-25.png */,
 				CED3D944191D085B00624E6F /* autocompleteButton.png */,
 				CED3D945191D085B00624E6F /* autocompleteButton@2x.png */,
 				CED3DA26191D0F5D00624E6F /* home-25.png */,
@@ -661,15 +746,18 @@
 				CED3DAA019221B1000624E6F /* marco.png in Resources */,
 				CED3D9F0191D0BD200624E6F /* Fire Pager.m4r in Resources */,
 				CED3D9F2191D0BD200624E6F /* Note.m4r in Resources */,
+				CE0BD6E719374FFA00416DDB /* plus-32.png in Resources */,
 				CED3D9F4191D0BD200624E6F /* Alarm Classic.m4r in Resources */,
+				CE0BD6ED1937781000416DDB /* align_justify-25.png in Resources */,
 				CED3DA31191D0F5D00624E6F /* done-24x.png in Resources */,
 				CED3D9D1191D0A7300624E6F /* default.plist in Resources */,
+				CE0BD6EF19378F3100416DDB /* shopping_cart_loaded-25.png in Resources */,
 				CED3D943191D078A00624E6F /* MainStoryboard.storyboard in Resources */,
 				CED3D926191D06C400624E6F /* Images.xcassets in Resources */,
 				CED3DA33191D0F5D00624E6F /* microphone-24x.png in Resources */,
 				CED3D968191D085B00624E6F /* noimage.jpg in Resources */,
-				CED3DA03191D0C3800624E6F /* AppDatabase.sqlite in Resources */,
 				CED3D9F3191D0BD200624E6F /* Siren Noise.m4r in Resources */,
+				CE0BD6F11937936C00416DDB /* purchase_order-25.png in Resources */,
 				CED3DA2F191D0F5D00624E6F /* home-25.png in Resources */,
 				CED3D918191D06C400624E6F /* InfoPlist.strings in Resources */,
 				CED3DA30191D0F5D00624E6F /* calendar-25.png in Resources */,
@@ -678,7 +766,9 @@
 				CED3DAA519221BEE00624E6F /* nko_brightness_guide.png in Resources */,
 				CED3D998191D099900624E6F /* LICENCE in Resources */,
 				CE02C0E91924E60B00EB2DD0 /* edit-32.png in Resources */,
+				CE1902B419388FA5008E5540 /* AppDatabase.sqlite in Resources */,
 				CED3D967191D085B00624E6F /* autocompleteButton@2x.png in Resources */,
+				CE0BD6F3193794D500416DDB /* to_do-25.png in Resources */,
 				CED3DA37191D0F5D00624E6F /* camera-24x.png in Resources */,
 				CED3D9F1191D0BD200624E6F /* Frenzy.m4r in Resources */,
 				CED3DA35191D0F5D00624E6F /* settings-25x.png in Resources */,
@@ -687,6 +777,7 @@
 				CED3D9F5191D0BD200624E6F /* Birds.m4r in Resources */,
 				CED3D966191D085B00624E6F /* autocompleteButton.png in Resources */,
 				CED3DAA619221BEE00624E6F /* nko_colormap.png in Resources */,
+				CE0BD6E9193750A100416DDB /* trash-32.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,17 +798,23 @@
 			files = (
 				CED3DA1C191D0D0800624E6F /* ReminderCustomCell.m in Sources */,
 				CED3DA05191D0C3800624E6F /* DatabaseHelper.m in Sources */,
+				CE29C51C192F7F95007022CB /* XPathQuery.m in Sources */,
+				CE29C52A192F8011007022CB /* GroupCategory.m in Sources */,
 				CED3D9A6191D09F400624E6F /* YISSTextView.m in Sources */,
 				CED3D9FB191D0C0A00624E6F /* HTAutocompleteManager.m in Sources */,
 				CED3D98A191D08BA00624E6F /* SettingsViewController.m in Sources */,
+				CE29C52C192F8011007022CB /* reminderService_Enums.m in Sources */,
 				CED3DA1B191D0D0800624E6F /* EditReminderViewController.m in Sources */,
 				CED3DA1E191D0D0800624E6F /* CategoryListViewController.m in Sources */,
 				CED3D91E191D06C400624E6F /* AppDelegate.m in Sources */,
 				CED3DA04191D0C3800624E6F /* ReminderObject.m in Sources */,
+				CE29C52B192F8011007022CB /* Reminder.m in Sources */,
 				CED3D9C6191D0A7300624E6F /* PMCalendarBackgroundView.m in Sources */,
 				CED3D9C8191D0A7300624E6F /* PMCalendarView.m in Sources */,
+				CE29C51B192F7F95007022CB /* NSData+Base64.m in Sources */,
 				CED3D9DF191D0B1400624E6F /* MKNumberBadgeView.m in Sources */,
 				CED3D9D7191D0AA000624E6F /* LocalNotificationCore.m in Sources */,
+				CE23563F1934928F007C2B36 /* CategoryListViewControllerV2.m in Sources */,
 				CED3D99A191D099900624E6F /* SWCellScrollView.m in Sources */,
 				CED3D9CB191D0A7300624E6F /* PMSelectionView.m in Sources */,
 				CED3D9E8191D0B6100624E6F /* POVoiceHUD.m in Sources */,
@@ -730,10 +827,13 @@
 				CE02C0E71924C81A00EB2DD0 /* EditCategoryViewController.m in Sources */,
 				CED3DA1D191D0D0800624E6F /* RemindersListViewController.m in Sources */,
 				CED3D9FC191D0C0A00624E6F /* HTAutocompleteTextField.m in Sources */,
+				CE23563C19349063007C2B36 /* CategoryCustomCell.m in Sources */,
 				CED3D9E3191D0B3D00624E6F /* iToast.m in Sources */,
+				CE29C529192F8011007022CB /* reminderServiceProxy.m in Sources */,
 				CED3D9C9191D0A7300624E6F /* PMDimmingView.m in Sources */,
 				CED3D999191D099900624E6F /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				CED3D9A5191D09F400624E6F /* YIPopupTextView.m in Sources */,
+				CE29C528192F8011007022CB /* reminderService.m in Sources */,
 				CED3D99E191D099900624E6F /* SWUtilityButtonView.m in Sources */,
 				CED3DA1F191D0D0800624E6F /* AddReminderV2Controller.m in Sources */,
 				CED3D99C191D099900624E6F /* SWTableViewCell.m in Sources */,
@@ -817,6 +917,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"HEADER_SEARCH_PATHS[arch=*]" = "/usr/include/libxml2 ";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "2A113EC2-BBE3-4F62-8F04-47B3F70D5223";
@@ -851,6 +952,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"HEADER_SEARCH_PATHS[arch=*]" = "/usr/include/libxml2 ";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PROVISIONING_PROFILE = "2A113EC2-BBE3-4F62-8F04-47B3F70D5223";
 				SDKROOT = iphoneos;

@@ -82,12 +82,14 @@
 -(void) viewWillDisappear:(BOOL)animated{
 
     [super viewWillAppear:animated];
+    categoryArray = [dao getCategoryList];
     [tableView reloadData];
 
 }
 -(void) viewWillAppear:(BOOL)animated{
    
     [super viewWillAppear:animated];
+    categoryArray = [dao getCategoryList];
    [self.tableView reloadData];
     
     
@@ -162,7 +164,7 @@
     
     ReminderObject *cate = [categoryArray objectAtIndex:[indexPath row]];
    
-    NSString * count = [NSString stringWithFormat:@"%d", (int)[dao getCountReminderInCategory:cate.cat_id]];
+    NSString * count = [NSString stringWithFormat:@"%d", (int)[dao getCountItemInCategory:cate.cat_id]];
    
     
     
@@ -284,7 +286,7 @@
         
         
         // delete and cancel all the notification reminder
-        NSMutableArray * notificantionInCategory = [dao getReminderList:cate.cat_id];
+        NSMutableArray * notificantionInCategory = [dao getItemList:cate.cat_id];
         NSString *idtem =[NSString stringWithFormat:@"%d",(int)cate.reminderID];
         UIApplication*app =[UIApplication sharedApplication];
         NSArray *eventArray = [app scheduledLocalNotifications];

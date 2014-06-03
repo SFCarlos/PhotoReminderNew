@@ -8,14 +8,55 @@
 
 #import "AppDelegate.h"
 #import "LocalNotificationCore.h"
+#import "SettingsViewController.h"
 #import "DatabaseHelper.h"
 @implementation AppDelegate
 {
     BOOL * isAppResumminfromBack;
 }
+-(NSInteger*)retrieveSYNCSTATUSSFromUserDefaults{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSInteger *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults integerForKey:@"STATUS"];
+    
+    return val;
+    
+}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex==0) {
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        SettingsViewController *settingController = (SettingsViewController *)[sb instantiateViewControllerWithIdentifier:@"SettingsScreem"];
+        [(UINavigationController*)self.window.rootViewController pushViewController:settingController animated:YES];
+    }else if (buttonIndex ==1){
+        
+        
+    
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Advice!"
+                                                        message:@"You can turn on synchronization in settings "
+                                                       delegate:nil
+                                              cancelButtonTitle:@"Ok"
+                                              otherButtonTitles:nil,nil];
+        [alert show];
+    }
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-   // [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    int* flagSync = [self retrieveSYNCSTATUSSFromUserDefaults];
+    
+    if (flagSync == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome!"
+                                                        message:@"Turn on synchronization to keep your reminders safe and share whith friend and family "
+                                                       delegate:self
+                                              cancelButtonTitle:@"Turn on"
+                                              otherButtonTitles:@"Remind Later",
+                                             @"Don't show again",nil];
+        [alert show];
+    }
+    
+    // [[UIApplication sharedApplication] cancelAllLocalNotifications];
     //si entra a la app por el icono tengo que comprobar que no halla notificaciones viejas en la
     // BD son app que no las vio el cliente.
     //todavie no hacer esto
