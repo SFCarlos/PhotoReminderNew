@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "reminderServiceProxy.h"
 
-@interface SettingsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,Wsdl2CodeProxyDelegate>
+@interface SettingsViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIAlertViewDelegate,Wsdl2CodeProxyDelegate>
 - (IBAction)registerAction:(id)sender;
 - (IBAction)SyncSwitchAction:(id)sender;
 @property (strong, nonatomic) IBOutlet UIButton *registerButton;
+@property (strong, nonatomic) IBOutlet UILabel *statuslabel;
+@property (strong, nonatomic) IBOutlet UIButton *connectButon;
+- (IBAction)connectButtonAction:(id)sender;
 @property (strong, nonatomic) IBOutlet UITextField *passwImput;
 @property (nonatomic,retain) reminderServiceProxy* service;
 @property (strong, nonatomic) IBOutlet UITextField *userImput;

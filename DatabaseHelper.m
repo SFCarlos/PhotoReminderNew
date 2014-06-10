@@ -167,6 +167,137 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     
     
 }
+-(NSMutableArray*)get_items_PhotoPaths:(NSInteger *)id_item{
+    NSString* Photo_path;
+   NSMutableArray *PhotosArray = [[NSMutableArray alloc] init];
+    
+    NSString *ubicacionDB = [self getRutaBD];
+    
+    if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
+        NSLog(@"No se puede conectar con la BD get_PhotoPath_item_reminder");
+    }
+    
+    NSString *selecting = [NSString stringWithFormat:@"SELECT file_name FROM item_images WHERE id_item = %d", (int)id_item];
+    const char *sql = [selecting UTF8String];
+    sqlite3_stmt *sqlStatement;
+    
+    if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
+        NSLog(@"Problema al preparar el statement in get_PhotoPath_item_reminder");
+    }
+    
+    while(sqlite3_step(sqlStatement) == SQLITE_ROW){
+        
+        
+        Photo_path = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 0)];
+        [PhotosArray addObject:Photo_path];
+        
+    }
+    return PhotosArray;
+    
+}
+-(NSString*)get_AudioPath_item_reminder:(NSInteger *)id_item{
+    NSString* audio_path;
+    NSString *ubicacionDB = [self getRutaBD];
+    
+    if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
+        NSLog(@"No se puede conectar con la BD get_AudioPath_item_reminder");
+    }
+    
+    NSString *selecting = [NSString stringWithFormat:@"SELECT file_name FROM item_recordings WHERE id_item = %d", (int)id_item];
+    const char *sql = [selecting UTF8String];
+    sqlite3_stmt *sqlStatement;
+    
+    if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
+        NSLog(@"Problema al preparar el statement in get_AudioPath_item_reminder");
+    }
+    
+    while(sqlite3_step(sqlStatement) == SQLITE_ROW){
+        
+        
+        audio_path = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 0)];
+        
+        
+    }
+    return audio_path;
+
+
+
+}
+-(ReminderObject*)getItem:(NSInteger *)id_item{
+    ReminderObject * rema = [[ReminderObject alloc] init];
+    NSString *ubicacionDB = [self getRutaBD];
+    
+    if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
+        NSLog(@"No se puede conectar con la BD");
+    }
+    
+    NSString *selecting = [NSString stringWithFormat:@"SELECT id_item, id_cat,item_name,alarm,note,repeat FROM items WHERE id_item = %d", (int)id_item];
+    const char *sql = [selecting UTF8String];
+    sqlite3_stmt *sqlStatement;
+    
+    if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
+        NSLog(@"Problema al preparar el statement en getItem");
+    }
+    
+    while(sqlite3_step(sqlStatement) == SQLITE_ROW){
+        
+        rema.reminderID= sqlite3_column_int(sqlStatement, 0);
+        rema.cat_id = sqlite3_column_int(sqlStatement, 1);
+        rema.reminderName = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 2)];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        rema.alarm =[dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(sqlStatement, 3)]];
+        
+        
+       // rema.photoPath = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 3)];
+       // rema.audioPath =[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 4)];
+        
+        rema.note =[NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 4)];
+        rema.recurring = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 5)];
+    }
+    
+    return rema;
+    
+    
+    
+}
+-(BOOL)deleteItem:(NSInteger *)id_item{
+    
+    BOOL flag = YES;
+    NSString *ubicacionDB = [self getRutaBD];
+    
+    if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
+        NSLog(@"No se puede conectar con la BD");
+        flag = NO;
+        return flag;
+    } else {
+        NSString *sqlDelete = [NSString stringWithFormat:@"DELETE FROM items WHERE id_item = %d",(int)id_item];
+        const char *sql = [sqlDelete UTF8String];
+        sqlite3_stmt *sqlStatement;
+        
+        if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
+            NSLog(@"Problema al preparar el statement delete item");
+            flag = NO;
+            return flag;
+        } else {
+            if(sqlite3_step(sqlStatement) == SQLITE_DONE){
+                sqlite3_finalize(sqlStatement);
+                flag = YES;
+                return flag;
+                //sqlite3_close(bd);
+                
+            }
+        }
+        
+    }
+    
+    return flag;
+
+
+
+
+
+}
 
 -(NSInteger *) getCountItemInCategory:(NSInteger *)CategoryId{
     NSInteger* cantidad;
@@ -181,7 +312,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     sqlite3_stmt *sqlStatement;
     
     if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
-        NSLog(@"Problema al preparar el statement");
+        NSLog(@"Problema al preparar el statement en countiemincategory");
     }
     while(sqlite3_step(sqlStatement) == SQLITE_ROW){
     cantidad = sqlite3_column_int(sqlStatement, 0);
@@ -204,7 +335,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     	    sqlite3_stmt *sqlStatement;
     
     if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
-        NSLog(@"Problema al preparar el statement");
+        NSLog(@"Problema al preparar el statement in getitemlist");
     }
     
     while(sqlite3_step(sqlStatement) == SQLITE_ROW){
@@ -411,12 +542,12 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         flag = NO;
         return flag;
     } else {
-        NSString *sqlUpdate= [NSString stringWithFormat:@"UPDATE reminder SET recurring= '%@' WHERE id_rem = %d",recurring,(int)id_rem];
+        NSString *sqlUpdate= [NSString stringWithFormat:@"UPDATE items SET repeat= '%@' WHERE id_item = %d",recurring,(int)id_rem];
         const char *sql = [sqlUpdate UTF8String];
         sqlite3_stmt *sqlStatement;
         
         if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
-            NSLog(@"Problema al preparar el statement delete reminder");
+            NSLog(@"Problema al preparar el statement update repeat reminder");
             flag = NO;
             return flag;
         } else {
@@ -448,7 +579,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     sqlite3_stmt *sqlStatement;
     
     if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
-        NSLog(@"Problema al preparar el statement");
+        NSLog(@"Problema al preparar el statement en get`hexcolor");
     }
     
     while(sqlite3_step(sqlStatement) == SQLITE_ROW){
@@ -475,7 +606,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     sqlite3_stmt *sqlStatement;
     
     if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
-        NSLog(@"Problema al preparar el statement");
+        NSLog(@"Problema al preparar el statement in getcategoryname");
     }
     
     while(sqlite3_step(sqlStatement) == SQLITE_ROW){

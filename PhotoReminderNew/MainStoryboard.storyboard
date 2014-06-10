@@ -65,32 +65,41 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3fo-SU-y15">
-                                        <rect key="frame" x="240" y="332" width="51" height="31"/>
+                                        <rect key="frame" x="245" y="332" width="51" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
                                             <action selector="SyncSwitchAction:" destination="c7Q-Wg-U9F" eventType="valueChanged" id="T7j-9g-dqn"/>
                                         </connections>
                                     </switch>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User or Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SRc-dW-Sv6">
-                                        <rect key="frame" x="20" y="371" width="269" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oVl-ry-Haj">
+                                        <rect key="frame" x="193" y="368" width="101" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zl8-9S-ycL">
-                                        <rect key="frame" x="20" y="409" width="269" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oVl-ry-Haj">
-                                        <rect key="frame" x="223" y="447" width="66" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Register">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        <inset key="titleEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Register" image="add_user-25.png">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="registerAction:" destination="c7Q-Wg-U9F" eventType="touchUpInside" id="lpQ-sS-sck"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mQ7-2p-x3Q">
+                                        <rect key="frame" x="146" y="332" width="88" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="11"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F81-GN-uwm">
+                                        <rect key="frame" x="7" y="373" width="97" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <inset key="titleEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <state key="normal" title="Log in" image="link-25.png">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="connectButtonAction:" destination="c7Q-Wg-U9F" eventType="touchUpInside" id="u1r-ht-00w"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -102,12 +111,12 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="658"/>
                     <connections>
-                        <outlet property="passwImput" destination="zl8-9S-ycL" id="IdB-TT-Ndf"/>
+                        <outlet property="connectButon" destination="F81-GN-uwm" id="vLK-lT-o4V"/>
                         <outlet property="registerButton" destination="oVl-ry-Haj" id="KU9-ss-TSA"/>
                         <outlet property="scrollV" destination="oFW-0o-ByB" id="hT3-gU-D3J"/>
+                        <outlet property="statuslabel" destination="mQ7-2p-x3Q" id="ERx-XU-lDi"/>
                         <outlet property="syncSwitch" destination="3fo-SU-y15" id="OfR-nD-z1B"/>
                         <outlet property="timeformatSwitch" destination="5r1-Of-iNg" id="chd-tW-6sG"/>
-                        <outlet property="userImput" destination="SRc-dW-Sv6" id="tbr-10-0c9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TkI-CU-X9q" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -153,9 +162,9 @@
                                 <rect key="frame" x="91" y="109" width="217" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="" image="shopping_cart_loaded-25.png"/>
-                                    <segment title="" image="to_do-25.png"/>
-                                    <segment title="" image="purchase_order-25.png"/>
+                                    <segment title="Shooping"/>
+                                    <segment title="Reminder"/>
+                                    <segment title="Note"/>
                                 </segments>
                             </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kkA-Zg-rOJ">
@@ -178,6 +187,57 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SWG-Sc-4Lm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1075" y="34"/>
+        </scene>
+        <!--Add Shooping Car View Controller-->
+        <scene sceneID="1ML-en-EAX">
+            <objects>
+                <viewController id="f03-Yr-khv" customClass="AddShoopingCarViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="pMa-du-7CY"/>
+                        <viewControllerLayoutGuide type="bottom" id="RLk-2r-BwB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="by8-zo-xDI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WYD-NU-FYY">
+                                <rect key="frame" x="0.0" y="250" width="320" height="247"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Oi-GP-XkF">
+                                <rect key="frame" x="13" y="104" width="74" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="21"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gMj-Md-SNd">
+                                <rect key="frame" x="89" y="100" width="211" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="xe3-Ic-D8b">
+                                <rect key="frame" x="20" y="159" width="280" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="" image="camera-24x.png"/>
+                                    <segment title="" image="note-25x.png"/>
+                                    <segment title="" image="microphone-24x.png"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="mTJ-gs-Ibf"/>
+                    <connections>
+                        <outlet property="girdContainer" destination="WYD-NU-FYY" id="chO-5l-vla"/>
+                        <outlet property="nametexfield" destination="gMj-Md-SNd" id="aMu-bv-0Ki"/>
+                        <outlet property="segmentedActionButton" destination="xe3-Ic-D8b" id="Sws-Yy-2NS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Om6-Fa-UZk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="318" y="-846"/>
         </scene>
         <!--Add Category View Controller-->
         <scene sceneID="vI7-nS-GxP">
@@ -218,9 +278,9 @@
                                 <rect key="frame" x="83" y="117" width="217" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
-                                    <segment title="" image="shopping_cart_loaded-25.png"/>
-                                    <segment title="" image="to_do-25.png"/>
-                                    <segment title="" image="purchase_order-25.png"/>
+                                    <segment title="Shopping"/>
+                                    <segment title="Reminder"/>
+                                    <segment title="Note"/>
                                 </segments>
                             </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Type:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="joU-ds-eNC">
@@ -836,9 +896,6 @@
                                             <state key="normal" title="Category">
                                                 <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
-                                            <connections>
-                                                <segue destination="Xja-r6-ggk" kind="push" identifier="addReminderSegue" id="ZSD-qJ-O0o"/>
-                                            </connections>
                                         </button>
                                     </subviews>
                                 </tableViewCellContentView>
@@ -861,6 +918,8 @@
                         <segue destination="fa6-pN-FaL" kind="push" identifier="edit_categorySegue" id="tp8-52-XRs"/>
                         <segue destination="DKH-vn-W28" kind="push" identifier="add_categoryV2" id="nIe-cO-u7f"/>
                         <segue destination="c7Q-Wg-U9F" kind="push" identifier="settingsSegue" id="jhR-yC-Tn8"/>
+                        <segue destination="Xja-r6-ggk" kind="push" identifier="addReminderSegue" id="MNX-Oz-tpF"/>
+                        <segue destination="f03-Yr-khv" kind="push" identifier="addshoopingCarItemSegue" id="0ad-2K-7yc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hLE-rk-cro" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -869,16 +928,17 @@
         </scene>
     </scenes>
     <resources>
+        <image name="add_user-25.png" width="25" height="25"/>
         <image name="calendar-25.png" width="25" height="25"/>
+        <image name="camera-24x.png" width="24" height="24"/>
         <image name="done-24x.png" width="24" height="24"/>
         <image name="edit-32.png" width="32" height="32"/>
+        <image name="link-25.png" width="25" height="25"/>
         <image name="marco.png" width="168" height="168"/>
+        <image name="microphone-24x.png" width="24" height="24"/>
         <image name="note-25x.png" width="25" height="25"/>
         <image name="play-32.png" width="32" height="32"/>
-        <image name="purchase_order-25.png" width="25" height="25"/>
-        <image name="shopping_cart_loaded-25.png" width="25" height="25"/>
         <image name="snooze-24x.png" width="24" height="24"/>
-        <image name="to_do-25.png" width="25" height="25"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -886,8 +946,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="A7r-Yq-2eX"/>
-        <segue reference="ZSD-qJ-O0o"/>
+        <segue reference="wme-da-iHW"/>
+        <segue reference="MNX-Oz-tpF"/>
         <segue reference="XdK-OF-ioZ"/>
     </inferredMetricsTieBreakers>
 </document>

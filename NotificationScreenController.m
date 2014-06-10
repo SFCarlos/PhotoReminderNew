@@ -42,9 +42,14 @@ DatabaseHelper *dao;
     
     dao = [[DatabaseHelper alloc] init];
     NSLog(@"%d Este es el Id en Screen ",(int)reminderId);
-    ReminderObject *reminder=[dao getReminder:reminderId];
+    ReminderObject *reminder=[dao getItem:reminderId];
    
-    ImagenShowNotification.image =[UIImage imageWithContentsOfFile:reminder.photoPath];
+    NSMutableArray * photoPathsCopy =[dao get_items_PhotoPaths:reminder.reminderID];
+    //get photo in array reminder only one
+    
+    NSLog(@"SCREM photo path: %@",(NSString*)[photoPathsCopy firstObject]);
+    ImagenShowNotification.image =[UIImage imageWithContentsOfFile:(NSString*)[photoPathsCopy firstObject]];
+    
     self.voiceHud = [[POVoiceHUD alloc] initWithParentView:self.view];
     eventName.text=reminder.reminderName;
     NSLog(@"ESTE ES la categoria %d",reminder.cat_id);
@@ -55,10 +60,9 @@ DatabaseHelper *dao;
         ImagenShowNotification.image = [UIImage imageNamed:@"noimage.jpg"];
     }
     
-    
     NSString * audioPath = reminder.audioPath;
     NSString * note = reminder.note;
-    NSLog(@"ESTE ES EL .caf para reproducir: %@",audioPath);
+    
     
     
     if (audioPath == nil || audioPath.length < 10 ) {
@@ -158,7 +162,7 @@ DatabaseHelper *dao;
     NSString*IdreminderRecivedNotification= [userinfo objectForKey:@"ID_NOT_PASS"];
     
     if (![isRecurringValue isEqualToString:@"none"]) {
-        
+        //la notificacion es repetitiva asi que la tengo que programar de nuevo..ya esta cancelada en appdelegate
         [[LocalNotificationCore sharedInstance] scheduleNotificationRecurring:recivedNotificaion onRecurrinValue:isRecurringValue];
         
     }else{
@@ -200,7 +204,7 @@ DatabaseHelper *dao;
 
 - (IBAction)showNoteAction:(id)sender {
     
-     ReminderObject *reminder=[dao getReminder:reminderId];
+     ReminderObject *reminder=[dao getItem:reminderId];
     
     // NOTE: maxCount = 0 to hide count
     // self.navigationController.navigationBarHidden=YES;

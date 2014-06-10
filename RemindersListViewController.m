@@ -179,11 +179,17 @@ NSIndexPath * indextoEdit;
         }else
             cell.completedLabel.hidden = YES;
      
+        
         //Foto en la imagen
-        if ([remin.photoPath isEqualToString:@"(null)"])
+        NSMutableArray * photoPathsCopy =[dao get_items_PhotoPaths:remin.reminderID];
+        NSLog(@"cantidad de fotos %d y lo que hay %@",[dao get_items_PhotoPaths:remin.reminderID].count,(NSString*)[photoPathsCopy objectAtIndex:0]);
+        if ([(NSString*)[photoPathsCopy objectAtIndex:0]isEqualToString:@"(null)"] ){
             cell.image.image =[UIImage imageNamed:@"noimage.jpg"];
-        else
-            cell.image.image = [UIImage imageWithContentsOfFile:remin.photoPath];
+        }
+        else{
+    
+            cell.image.image = [UIImage imageWithContentsOfFile:(NSString*)[photoPathsCopy firstObject]];
+        }
         //Reminder name
         cell.ReminderNameLabel.text = remin.reminderName;
         //Date depending 24 or 12
@@ -374,8 +380,9 @@ NSIndexPath * indextoEdit;
                 [segmentedContrlol setTitle:[NSString stringWithFormat:@"Completed (%d)",CantidadCompleted] forSegmentAtIndex:1];
                [tableView deleteRowsAtIndexPaths:@[indextoDelete] withRowAnimation:UITableViewRowAnimationFade];
                 
-                //delete fron database
-                [dao deleteReminder:remin.reminderID];
+                //delete from database
+                NSLog(@"resultado en delete item %d",[dao deleteItem:remin.reminderID]);
+                
                 
                 //cancel the notification
                 NSString *idtem =[NSString stringWithFormat:@"%d",(int)remin.reminderID];
@@ -387,7 +394,7 @@ NSIndexPath * indextoEdit;
                     NSString*uid=[NSString stringWithFormat:@"%@",[userInfoIDremin valueForKey:@"ID_NOT_PASS"]];
                     if ([uid isEqualToString:idtem]) {
                         [app cancelLocalNotification:oneEvent];
-                        NSLog(@"CANCELADA LA NOTIFICACION %@",uid);
+                        NSLog(@"CANCELADA LA NOTIFICACIONN %@",uid);
                         
                     }
                 }
@@ -421,7 +428,7 @@ NSIndexPath * indextoEdit;
         [segmentedContrlol setTitle:[NSString stringWithFormat:@"Active (%d)",CantidadActive] forSegmentAtIndex:0];
         
         [tableView deleteRowsAtIndexPaths:@[indextoDelete] withRowAnimation:UITableViewRowAnimationFade];
-        [dao deleteReminder:remin.reminderID];
+        NSLog(@"resultado en delete item %d",[dao deleteItem:remin.reminderID]);
         
        
         //cancel the notification

@@ -19,8 +19,10 @@
 
 -(BOOL)insert_item_images: (NSInteger *)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
 -(BOOL)insert_item_recordings: (NSInteger *)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
-
-
+-(ReminderObject*)getItem:(NSInteger*) id_item;
+-(BOOL)deleteItem:(NSInteger*) id_item;
+-(NSMutableArray*)get_items_PhotoPaths:(NSInteger*)id_item;
+-(NSString*)get_AudioPath_item_reminder:(NSInteger*)id_item;
 
 - (NSMutableArray *) getCategoryList;
 -(NSMutableArray * ) getItemList:(NSInteger *) CategoryId;

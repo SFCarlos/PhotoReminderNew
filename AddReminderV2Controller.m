@@ -18,8 +18,8 @@
 
 #import "HTAutocompleteManager.h"
 #import <QuartzCore/QuartzCore.h>
+#import "MKNumberBadgeView.h"
 
-#define CAMERA_TRANSFORM                    1.12412
 @interface AddReminderV2Controller ()
 
 
@@ -249,8 +249,10 @@
     
     //insert in reminder
     NSInteger *id_item = [dao insert_item:idcat item_Name:eventName alarm:alarmdate note:note repeat:recurring];
-    //insert image
+    //insert image only one
     [dao insert_item_images:idcat id_item:id_item file_Name:ImagenPath];
+    //insert audio only one
+    [dao insert_item_recordings:idcat id_item:id_item file_Name:audioPathstore];
 //insert
     //insert in history
     BOOL resulthistory = [dao insertHistory:idcat history_desc:eventName];
@@ -328,24 +330,39 @@
     }
 }
 -(void)recordAction:(id)sender{
-    //name for audio
-    NSLog(@"Entro al record");
-    NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
-    NSString *caldate = [now description];
-    NSString *pathForAudio = [NSString stringWithFormat:@"%@/Documents/%@.caf", NSHomeDirectory(),caldate];
-    [self.voiceHud startForFilePath:pathForAudio];
+   //present option 'Record' and "play" if there one to play
+    
+ 
+    
+    if (audioPath) {
+        UIActionSheet* audioPopup =[[UIActionSheet alloc]initWithTitle:@"Voice note" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play",@"Record" ,nil];
+              
+        audioPopup.tag = 1;
+        [audioPopup showInView:[UIApplication sharedApplication].keyWindow];
+        
+    }else{
+       UIActionSheet* audioPopup =[[UIActionSheet alloc]initWithTitle:@"Voice note" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Record" ,nil];
+        
+                audioPopup.tag = 2;
+    [audioPopup showInView:[UIApplication sharedApplication].keyWindow];
+    }
+        
+    
 
 }
 -(void)takePictureAction:(id)sender{
-
-    UIActionSheet* snoozePopup =[[UIActionSheet alloc]initWithTitle:@"Add photo" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Gallery" ,nil];
-    [snoozePopup showInView:[UIApplication sharedApplication].keyWindow];
-
-
+//present option "camera" "Gallery"
+       UIActionSheet* photoPopup =[[UIActionSheet alloc]initWithTitle:@"Add photo" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Gallery" ,nil];
+    [photoPopup showInView:[UIApplication sharedApplication].keyWindow];
+    photoPopup.tag =3;
+    
 }
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-
+    NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
+    NSString *caldate = [now description];
+    NSString *pathForAudio = [NSString stringWithFormat:@"%@/Documents/%@.caf", NSHomeDirectory(),caldate];
+    if(actionSheet.tag == 3){
     switch (buttonIndex) {
         case (0):
             picker.delegate = self;
@@ -364,11 +381,47 @@
             [self presentViewController:picker animated:YES completion:NULL];
             
             break;
+            
         default:
         break;
     
     }
+        
+        //audio sheet
+    }else if (actionSheet.tag == 1){
+        
+        //there is audio to play
+        switch (buttonIndex) {
+            case 0:
+                [self.voiceHud playSound:audioPath];
+                break;
+            case 1:
+                //record
+                //name for audio
+                NSLog(@"Entro al record");
+                [self.voiceHud startForFilePath:pathForAudio];
+                break;
+            
+            default:
+                break;
+        }
+    }else if (actionSheet.tag==2){
+        //no audio
+        switch (buttonIndex) {
+            case (0):
+                //record
+                [self.voiceHud startForFilePath:pathForAudio];
 
+                break;
+          
+          
+            default:
+                break;
+        }
+
+    
+    
+    }
 }
 -(NSInteger*)retrieve24_12FromUserDefaults
 {

@@ -18,11 +18,14 @@
     NSArray * sounfFiles;
     NSString* selectedSound;
     NSString* alreadyselectedSound;
+    UITextField *username;
+    UITextField *password;
+    BOOL *flagConnection;
 }
 @synthesize scrollV;
-@synthesize userImput;
-@synthesize passwImput;
+
 @synthesize registerButton;
+@synthesize connectButon;
 @synthesize timeformatSwitch;
 @synthesize syncSwitch;
 @synthesize service;
@@ -40,8 +43,8 @@
     self.service = [[reminderServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
 
     
-    userImput.delegate =self;
-    passwImput.delegate=self;
+    //first call autenticate to kow if connected;
+    //[self.service autenticate:username.text :password.text];
     [scrollV setScrollEnabled:YES];
     //fill array sound
        sounfFiles = [[NSArray alloc] initWithObjects:@"Alarm Classic",@"Birds",@"Fire Pager",@"Frenzy",@"Siren Noise",@"Note",nil];
@@ -65,34 +68,35 @@
         [timeformatSwitch setOn:NO];
     int* flagSync = [self retrieveSYNCSTATUSSFromUserDefaults];
     
-    userImput.text = [self retrieveUSERFromUserDefaults];
-    passwImput.text =[self retrievePASSFromUserDefaults];
-     passwImput.secureTextEntry=YES;
-    
+    username.text = [self retrieveUSERFromUserDefaults];
+    password.text =[self retrievePASSFromUserDefaults];
+    //estado de la sync
     if (flagSync==1) {
         [syncSwitch setOn:YES];
-        userImput.hidden= NO;
-        passwImput.hidden= NO;
-        registerButton.hidden = NO;
+        connectButon.hidden=NO;
+        flagConnection =YES;
+        [connectButon setTitle:@"Log in" forState:UIControlStateNormal];
+        [connectButon setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        registerButton.hidden=NO;
+        
     }else{
         [syncSwitch setOn:NO];
-        userImput.hidden= YES;
-        passwImput.hidden= YES;
-        registerButton.hidden = YES;
+        flagConnection =NO;
+        connectButon.hidden=YES;
+        registerButton.hidden=YES;
+        
+       
     }
- passwImput.secureTextEntry=YES;
     
-    
+    //estado de la connxion
+    int * connectionStatus = [self retrieveConnectionSTATUSSFromUserDefaults];
+    if (connectionStatus == 1) {
+        [self.service autenticate:username.text :password.text];
+    }
 
     
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-}
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [userImput resignFirstResponder];
-    [passwImput resignFirstResponder];
-    
-    return YES;
 }
 - (void)didReceiveMemoryWarning
 {
@@ -101,42 +105,70 @@
 }
 #pragma mark - wsdl delegate
 -(void)proxydidFinishLoadingData:(id)data InMethod:(NSString *)method{
+   // NSLog(@"ejecuto el metod %@ and result %@",method,(NSString*)data);
     if ([method isEqualToString:@"autenticate"]) {
-        if ([(NSString*)data isEqualToString:@"1"]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome"
-                                                            message:@"You are connected"
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil,nil];
-            [alert show];
-
-        }else{
+        //retorna -1 error
+        if ([(NSString*)data isEqualToString:@"-1"]) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                             message:@"Is User or Pass correct?"
                                                            delegate:nil
                                                   cancelButtonTitle:@"Ok"
                                                   otherButtonTitles:nil,nil];
             [alert show];
+            
+            [connectButon setTitle:@"Log in" forState:UIControlStateNormal];
+            [connectButon setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+            connectButon.hidden=NO;
+            registerButton.hidden=NO;
+            flagConnection =NO;
+            
+        }else{
+           //retorna el UserID en server
+           /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Welcome %@",username.text]
+                                                            message:@"You are connected"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil,nil];
+            [alert show];*/
+          
+            [connectButon setTitle:@"Log out" forState:UIControlStateNormal];
+            [connectButon setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+            registerButton.hidden=YES;
+            flagConnection =YES;
+            
         }
         
-    }else{
-    
-        if ((int)data == 0) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Server said: "                                                           message:[NSString stringWithFormat:@"%@ you are currently registered!",userImput.text]
+    }if ([method isEqualToString:@"registerUser"]){
+        NSNumber* resu = data;
+    NSLog(@"ejecuto el metod %@ and result %@",method,resu);
+        //currenlty
+        if ([resu doubleValue] == -1) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: [NSString stringWithFormat:@"%@",username.text]
+                                                            message:[NSString stringWithFormat:@"This email is already registered"]
 
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil,nil];
             [alert show];
 
-        }else if((int)data == 1){
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Server said: "                                                           message:@"Successful registration"
+        }else if([resu doubleValue] == -2){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Server said: "                                                           message:@"Empty fiels or bad email"
                                   
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil,nil];
             [alert show];
 
+        }else {
+            //return the userId in server
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@",username.text]
+                                                            message:@"successfully register"
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil,nil];
+            [alert show];
+        
+        
         }
     
     
@@ -153,7 +185,7 @@
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil,nil];
         [alert show];
-
+flagConnection =NO;
     
     }else if  ([method isEqualToString:@"registerUser"]){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error "                                                           message:[NSString stringWithFormat:@"error in function %@ ",method]
@@ -250,7 +282,7 @@
     [cellTapSound play];
     
 }
-
+//used to store the status of sync as well as user and pass
 -(void)saveSyncStatusToUserdefaults:(NSString*)user :(NSString*) passw :(NSInteger*)statuss{
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -261,6 +293,16 @@
         [standardUserDefaults synchronize];
     }
 
+}
+-(void)saveConnecctionStatusToUserdefaults:(NSInteger*)statuss{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (standardUserDefaults) {
+        [standardUserDefaults setInteger:(int)statuss forKey:@"CONNECTION_STATUS"];
+        
+        [standardUserDefaults synchronize];
+    }
+    
 }
 
 
@@ -297,12 +339,19 @@
     }
     
     if (syncSwitch.on) {
-        [self saveSyncStatusToUserdefaults:userImput.text :passwImput.text :1];
+        [self saveSyncStatusToUserdefaults:username.text :password.text :1];
     }
     else{
-        [self saveSyncStatusToUserdefaults:userImput.text :passwImput.text :0];
+        [self saveSyncStatusToUserdefaults:username.text :password.text :0];
         
     }
+  
+    if (flagConnection) {
+        [self saveConnecctionStatusToUserdefaults:1];
+    }else
+     [self saveConnecctionStatusToUserdefaults:0];
+    
+    
     [self saveSoundReminderToUserDefaults:selectedSound];
     [self.navigationController popToRootViewControllerAnimated:YES];
     
@@ -338,6 +387,15 @@
     return val;
     
 }
+-(NSInteger*)retrieveConnectionSTATUSSFromUserDefaults{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSInteger *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults integerForKey:@"CONNECTION_STATUS"];
+    
+    return val;
+}
 -(NSInteger*)retrieve24_12FromUserDefaults
 {
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
@@ -362,28 +420,68 @@
     //save locally firt //sync on
     
     //if consult
-    [self saveSyncStatusToUserdefaults:userImput.text :passwImput.text :1];
+    [self saveSyncStatusToUserdefaults:username.text :password.text :1];
     
     
-    [service registerUser:userImput.text :passwImput.text];
+    [service registerUser:username.text :password.text];
     
 }
 
 - (IBAction)SyncSwitchAction:(id)sender {
     if (syncSwitch.on) {
-    
-        userImput.hidden= NO;
-        passwImput.hidden= NO;
-        registerButton.hidden = NO;
+        registerButton.hidden=NO;
+        connectButon.hidden=NO;
+        [connectButon setTitle:@"Log in" forState:UIControlStateNormal];
+        [connectButon setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         
-        [service autenticate:userImput.text :passwImput.text];
+        
+       
     }else{
-        userImput.hidden= YES;
-        passwImput.hidden= YES;
-        registerButton.hidden = YES;
+        registerButton.hidden=YES;
+        connectButon.hidden=YES;
+       
     }
     
     
-    
 }
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+         username = [alertView textFieldAtIndex:0];
+        NSLog(@"username: %@", username.text);
+        password = [alertView textFieldAtIndex:1];
+        NSLog(@"password: %@", password.text);
+    
+        [self.service autenticate:username.text :password.text];
+        
+    }else{
+       
+    }
+}
+- (IBAction)connectButtonAction:(id)sender {
+    if ([connectButon.titleLabel.text isEqualToString:@"Log in" ]) {
+        UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Login" message:@"Enter Username & Password" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
+        alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+        if (username) {
+            [alert textFieldAtIndex:0].text =username.text;
+            [alert textFieldAtIndex:1].text =password.text;
+
+        }else{
+        
+        [alert textFieldAtIndex:0].text =[self retrieveUSERFromUserDefaults];//username.text;
+        [alert textFieldAtIndex:1].text =[self retrievePASSFromUserDefaults];//password.text;
+        
+        }
+        [alert addButtonWithTitle:@"Connect"];
+        [alert show];
+
+    }else if ([connectButon.titleLabel.text isEqualToString:@"Log out" ]){
+    
+        [connectButon setTitle:@"Log in" forState:UIControlStateNormal];
+        [connectButon setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        registerButton.hidden= NO;
+        
+    }
+    }
 @end

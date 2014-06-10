@@ -247,6 +247,9 @@
     //name
     catNameButton = cell.categoryNameButon;
     [catNameButton setTitle:cate.categoryName forState:UIControlStateNormal];
+    [catNameButton addTarget:self
+                      action:@selector(addItemsAction:)
+       forControlEvents:UIControlEventTouchUpInside];
     if ([count isEqualToString:@"0"] || tableView.editing) {
         cell.reminderListButton.hidden=YES;
         
@@ -261,7 +264,28 @@
     return cell;
 }
 
+-(void)addItemsAction:(id)sender{
+    CGPoint butoPoss = [sender convertPoint:CGPointZero toView:self.tableView];
+    
+    NSIndexPath * clicedbut =[self.tableView indexPathForRowAtPoint:butoPoss];
+   ReminderObject* tem =[categoryArray objectAtIndex:clicedbut.row];
+    NSLog(@"type %d",(int)tem.categoryType);
+    switch ((int)tem.categoryType) {
+        case 0:
+            [self performSegueWithIdentifier:@"addshoopingCarItemSegue" sender:sender];
+            break;
+        case 1:
+            [self performSegueWithIdentifier:@"addReminderSegue" sender:sender];
+            break;
+        case 2:
+            //[self performSegueWithIdentifier:@"addNoteSegue" sender:sender];
+            break;
+        default:
+            break;
+    }
+    
 
+}
 -(NSArray*)leftButtons{
     leftUtilityButtons = [NSMutableArray new];
     

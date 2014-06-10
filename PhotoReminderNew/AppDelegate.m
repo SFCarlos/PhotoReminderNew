@@ -14,6 +14,26 @@
 {
     BOOL * isAppResumminfromBack;
 }
+-(void)saveShowAgainSTATUSS:(NSInteger*)statuss
+{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (standardUserDefaults) {
+        [standardUserDefaults setInteger:(int)statuss forKey:@"SHOWAGAIN"];
+        [standardUserDefaults synchronize];
+    }
+    
+}
+-(NSInteger*)retrieveShowAgainStatus{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSInteger *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults integerForKey:@"SHOWAGAIN"];
+    
+    return val;
+    
+}
 -(NSInteger*)retrieveSYNCSTATUSSFromUserDefaults{
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger *val = nil;
@@ -26,14 +46,18 @@
 }
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==0) {
+        
+    //Tur on: go to setting
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         SettingsViewController *settingController = (SettingsViewController *)[sb instantiateViewControllerWithIdentifier:@"SettingsScreem"];
         [(UINavigationController*)self.window.rootViewController pushViewController:settingController animated:YES];
     }else if (buttonIndex ==1){
-        
-        
+        //reminder later if sync is off:        
     
-    }else{
+    }else if (buttonIndex ==2){
+        //dont show again: save this preference to user defaults
+//put 1 to this  status
+        [self saveShowAgainSTATUSS:1];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Advice!"
                                                         message:@"You can turn on synchronization in settings "
                                                        delegate:nil
@@ -44,9 +68,13 @@
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    int* flagSync = [self retrieveSYNCSTATUSSFromUserDefaults];
+    UILocalNotification *localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    //flagSync = 0 sync off ******  flagSync = 1 sync on
+    NSInteger* flagSync = [self retrieveSYNCSTATUSSFromUserDefaults];
+    //DontShowStatus = 1 dont show ever
+    NSInteger* DontShowStatus = [self retrieveShowAgainStatus];
     
-    if (flagSync == 0) {
+    if ((flagSync == 0 && DontShowStatus != 1) && !localNotification) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Welcome!"
                                                         message:@"Turn on synchronization to keep your reminders safe and share whith friend and family "
                                                        delegate:self
@@ -63,7 +91,6 @@
     
     
     // Override point for customization after application launch.
-    UILocalNotification *localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     
     if (localNotification)
     {

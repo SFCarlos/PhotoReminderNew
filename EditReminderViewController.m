@@ -170,11 +170,12 @@ NSDate * datecalendar;
         selectRepeat.selectedSegmentIndex =4;
     else selectRepeat.selectedSegmentIndex=0;
     
-    //imagen
-    if (ReminderToEdit.photoPath == nil ||[ReminderToEdit.photoPath isEqualToString:@""]||[ReminderToEdit.photoPath isEqualToString:@"(null)"]) {
+    //imagen only one in reminder
+    NSMutableArray * photoPathsCopy =[dao get_items_PhotoPaths:ReminderToEdit.reminderID];
+    if ([(NSString*)[photoPathsCopy objectAtIndex:0]isEqualToString:@"(null)"] ) {
         ImageViewSelected.image = [UIImage imageNamed:@"noimage.jpg"];
     }else
-    ImageViewSelected.image = [UIImage imageWithContentsOfFile:ReminderToEdit.photoPath];
+    ImageViewSelected.image = [UIImage imageWithContentsOfFile:[photoPathsCopy firstObject]];
     
     //audio
     audioPath = ReminderToEdit.audioPath;
@@ -284,10 +285,12 @@ NSDate * datecalendar;
         eventName = @"Reminder";
     
     //primero elimino este reminder
-    [dao deleteReminder:(int*)ReminderToEdit.reminderID];
+    [dao deleteItem:(int*)ReminderToEdit.reminderID];
     
     // luego inserto el editado insert in reminder
-    NSInteger *IdReminderInsertado = [dao insertReminder:idcat eventname:eventName alarm:alarmdate photopath:ImagenPath audiopath:audioPath note:note recurring:recurring];
+    NSInteger *IdReminderInsertado = [dao insert_item:idcat item_Name:eventName alarm:alarmdate note:note repeat:recurring];
+    //insert image only one
+    [dao insert_item_images:idcat id_item:IdReminderInsertado file_Name:ImagenPath];
    
     //insert in history tambien
     BOOL resulthistory = [dao insertHistory:idcat history_desc:eventName];
@@ -303,7 +306,7 @@ NSDate * datecalendar;
         NSString*uid=[NSString stringWithFormat:@"%@",[userInfoIDremin valueForKey:@"ID_NOT_PASS"]];
         if ([uid isEqualToString:idtem]) {
             [app cancelLocalNotification:oneEvent];
-            
+            NSLog(@"NOTIFICACIO EN EDITREMINDER ELIMINADAS con id %@",uid);
         }
         
     }
