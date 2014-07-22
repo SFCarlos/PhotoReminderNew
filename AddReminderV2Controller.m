@@ -19,6 +19,7 @@
 #import "HTAutocompleteManager.h"
 #import <QuartzCore/QuartzCore.h>
 #import "MKNumberBadgeView.h"
+#import "UIImage+ScalingMyImage.h"
 
 @interface AddReminderV2Controller ()
 
@@ -99,7 +100,7 @@
                                                   initWithImage:[UIImage imageNamed:@"camera-24x.png"] style:UIBarStyleDefault target:self action:@selector(takePictureAction:)];
     
     doneButton          = [[UIBarButtonItem alloc]
-                                            initWithImage:[UIImage imageNamed:@"done-24x.png"] style:UIBarStyleDefault target:self action:@selector(saveReminderAction:)];
+                                            initWithImage:[UIImage imageNamed:@"checkmark-25.png"] style:UIBarStyleDefault target:self action:@selector(saveReminderAction:)];
    
     
     
@@ -393,6 +394,7 @@
         //there is audio to play
         switch (buttonIndex) {
             case 0:
+                
                 [self.voiceHud playSound:audioPath];
                 break;
             case 1:
@@ -532,9 +534,9 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    imagenSelected = info[UIImagePickerControllerOriginalImage];
+    imagenSelected = [UIImage imageWithImage:info[UIImagePickerControllerOriginalImage]scaledToSize:CGSizeMake(32.0,32.0)];
     self.ImageViewSelected.image = imagenSelected;
-    frameButton.hidden= NO;
+    frameButton.hidden = NO;
     doneButton.enabled = YES;
     //colorband3.hidden=NO;
     [picker dismissViewControllerAnimated:NO completion:NULL];

@@ -9,6 +9,7 @@
 #import "RemindersListViewController.h"
 #import "SWTableViewCell.h"
 #import "EditReminderViewController.h"
+#import "UIImage+ScalingMyImage.h"
 #import "ReminderCustomCell.h"
 @interface RemindersListViewController ()
 
@@ -56,7 +57,7 @@ NSIndexPath * indextoEdit;
     reminderArray = [[NSMutableArray alloc] init];
     
     NSInteger* cat_id = reminderObj.cat_id;
-    reminderArray = [dao getItemList:cat_id];
+    reminderArray = [dao getItemList:cat_id itemType:-1];
      [self LoadTheActiveList];
      //segmented contlol
     CantidadActive=active.count;
@@ -138,7 +139,10 @@ NSIndexPath * indextoEdit;
 }
 
 #pragma mark - Table view data source
-
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    
+    return @"                   Slide to left to edit";
+}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 
@@ -184,11 +188,11 @@ NSIndexPath * indextoEdit;
         NSMutableArray * photoPathsCopy =[dao get_items_PhotoPaths:remin.reminderID];
         NSLog(@"cantidad de fotos %d y lo que hay %@",[dao get_items_PhotoPaths:remin.reminderID].count,(NSString*)[photoPathsCopy objectAtIndex:0]);
         if ([(NSString*)[photoPathsCopy objectAtIndex:0]isEqualToString:@"(null)"] ){
-            cell.image.image =[UIImage imageNamed:@"noimage.jpg"];
+            cell.image.image =[UIImage imageWithImage:[UIImage imageNamed:@"noimage.jpg"] scaledToSize:CGSizeMake(32.0,32.0)];
         }
         else{
     
-            cell.image.image = [UIImage imageWithContentsOfFile:(NSString*)[photoPathsCopy firstObject]];
+            cell.image.image = [UIImage imageWithImage:[UIImage imageWithContentsOfFile:(NSString*)[photoPathsCopy firstObject]]scaledToSize:CGSizeMake(32.0,32.0)];
         }
         //Reminder name
         cell.ReminderNameLabel.text = remin.reminderName;
@@ -244,10 +248,14 @@ NSIndexPath * indextoEdit;
         
         
         //Foto en la imagen
-        if ([remin.photoPath isEqualToString:@"(null)"]) {
-            cell.image.image =[UIImage imageNamed:@"noimage.jpg"];
-        }else
-            cell.image.image = [UIImage imageWithContentsOfFile:remin.photoPath];
+        NSMutableArray * photoPathsCopy =[dao get_items_PhotoPaths:remin.reminderID];
+        if ([(NSString*)[photoPathsCopy objectAtIndex:0]isEqualToString:@"(null)"] ){
+            cell.image.image =[UIImage imageWithImage:[UIImage imageNamed:@"noimage.jpg"] scaledToSize:CGSizeMake(32.0,32.0)];
+        }
+        else{
+            
+            cell.image.image = [UIImage imageWithImage:[UIImage imageWithContentsOfFile:(NSString*)[photoPathsCopy firstObject]]scaledToSize:CGSizeMake(32.0,32.0)];        }
+
         //Reminder name
         cell.ReminderNameLabel.text = remin.reminderName;
         //Date depending 24 or 12
@@ -337,6 +345,14 @@ NSIndexPath * indextoEdit;
 */
 #pragma mark - SWTableViewDelegate
 
+-(BOOL)swipeableTableViewCell:(SWTableViewCell *)cell canSwipeToState:(SWCellState)state{
+    return YES;
+}
+
+-(BOOL)swipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(SWTableViewCell *)cell{
+    return YES;
+    
+}
 
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
     

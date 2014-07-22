@@ -15,8 +15,6 @@
 		CE0BD6EF19378F3100416DDB /* shopping_cart_loaded-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6EE19378F3100416DDB /* shopping_cart_loaded-25.png */; };
 		CE0BD6F11937936C00416DDB /* purchase_order-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6F01937936C00416DDB /* purchase_order-25.png */; };
 		CE0BD6F3193794D500416DDB /* to_do-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6F2193794D500416DDB /* to_do-25.png */; };
-		CE1902B419388FA5008E5540 /* AppDatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CE1902B319388FA5008E5540 /* AppDatabase.sqlite */; };
-		CE1902BA193DE55A008E5540 /* AddShoopingCarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1902B9193DE55A008E5540 /* AddShoopingCarViewController.m */; };
 		CE1902CA193E0811008E5540 /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1902BF193E0811008E5540 /* GMGridView.m */; };
 		CE1902CB193E0811008E5540 /* GMGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1902C1193E0811008E5540 /* GMGridViewCell.m */; };
 		CE1902CC193E0811008E5540 /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1902C4193E0811008E5540 /* GMGridViewLayoutStrategies.m */; };
@@ -26,15 +24,37 @@
 		CE23563C19349063007C2B36 /* CategoryCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE23563B19349063007C2B36 /* CategoryCustomCell.m */; };
 		CE23563F1934928F007C2B36 /* CategoryListViewControllerV2.m in Sources */ = {isa = PBXBuildFile; fileRef = CE23563E1934928F007C2B36 /* CategoryListViewControllerV2.m */; };
 		CE29C515192F7F3B007022CB /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE29C514192F7F3B007022CB /* libxml2.dylib */; };
-		CE29C51B192F7F95007022CB /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29C518192F7F95007022CB /* NSData+Base64.m */; };
-		CE29C51C192F7F95007022CB /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29C51A192F7F95007022CB /* XPathQuery.m */; };
-		CE29C528192F8011007022CB /* reminderService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29C51E192F8011007022CB /* reminderService.m */; };
-		CE29C529192F8011007022CB /* reminderServiceProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29C520192F8011007022CB /* reminderServiceProxy.m */; };
-		CE29C52A192F8011007022CB /* GroupCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29C523192F8011007022CB /* GroupCategory.m */; };
-		CE29C52B192F8011007022CB /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29C525192F8011007022CB /* Reminder.m */; };
-		CE29C52C192F8011007022CB /* reminderService_Enums.m in Sources */ = {isa = PBXBuildFile; fileRef = CE29C527192F8011007022CB /* reminderService_Enums.m */; };
+		CE2D8106196C00AC0099EF3A /* iOSService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D8103196C00AC0099EF3A /* iOSService.m */; };
+		CE2D8107196C00AD0099EF3A /* iOSServiceProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D8105196C00AC0099EF3A /* iOSServiceProxy.m */; };
+		CE2D810A196C01550099EF3A /* iOSService_Enums.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D8109196C01550099EF3A /* iOSService_Enums.m */; };
+		CE2D810D196C01A60099EF3A /* returnArrayIds.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D810C196C01A60099EF3A /* returnArrayIds.m */; };
+		CE2D8111196C07140099EF3A /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D8110196C07140099EF3A /* XPathQuery.m */; };
+		CE2D8114196C07A10099EF3A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D8113196C07A10099EF3A /* NSData+Base64.m */; };
+		CE2D8116196D5BD60099EF3A /* AppDatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CE2D8115196D5BD60099EF3A /* AppDatabase.sqlite */; };
+		CE3174BF195AFF72007EE188 /* AddShoppingItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3174BE195AFF72007EE188 /* AddShoppingItemViewController.m */; };
+		CE3174C1195B073C007EE188 /* gallery_filled-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3174C0195B073C007EE188 /* gallery_filled-25.png */; };
+		CE3174C4195C16EC007EE188 /* ShoopingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3174C3195C16EC007EE188 /* ShoopingListViewController.m */; };
+		CE3174C7195C17A5007EE188 /* ShoppingItemCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3174C6195C17A5007EE188 /* ShoppingItemCustomCell.m */; };
+		CE3174C9195C466F007EE188 /* list-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3174C8195C466F007EE188 /* list-25.png */; };
+		CE3174CF195D873B007EE188 /* GirdShoopingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3174CE195D873B007EE188 /* GirdShoopingViewController.m */; };
 		CE75D7F31946FF0C003856A6 /* add_user-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE75D7F21946FF0C003856A6 /* add_user-25.png */; };
 		CE75D7F519470D61003856A6 /* link-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE75D7F419470D61003856A6 /* link-25.png */; };
+		CE75D7FB19485B3C003856A6 /* NotificationsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE75D7FA19485B3C003856A6 /* NotificationsTableViewController.m */; };
+		CE75D7FD194874D0003856A6 /* forward-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE75D7FC194874D0003856A6 /* forward-25.png */; };
+		CE75D7FF194AF5EB003856A6 /* back-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE75D7FE194AF5EB003856A6 /* back-25.png */; };
+		CE75D801194AF6DB003856A6 /* checkmark-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE75D800194AF6DB003856A6 /* checkmark-25.png */; };
+		CE75D803194AFF17003856A6 /* trash-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE75D802194AFF17003856A6 /* trash-25.png */; };
+		CE75D805194B22E9003856A6 /* Color-Palette.png in Resources */ = {isa = PBXBuildFile; fileRef = CE75D804194B22E9003856A6 /* Color-Palette.png */; };
+		CE75D808194EE10E003856A6 /* ColorPickerImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE75D807194EE10E003856A6 /* ColorPickerImageView.m */; };
+		CE83C747196163A00060B280 /* UIImage+ScalingMyImage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C746196163A00060B280 /* UIImage+ScalingMyImage.m */; };
+		CE83C74D1962AC440060B280 /* FullScreemPageItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C74C1962AC440060B280 /* FullScreemPageItemViewController.m */; };
+		CE83C7501962AE920060B280 /* ContentFullView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C74F1962AE920060B280 /* ContentFullView.m */; };
+		CE83C7571964432F0060B280 /* NoteCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C7561964432E0060B280 /* NoteCustomCell.m */; };
+		CE83C75A196444070060B280 /* NoteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C759196444070060B280 /* NoteListViewController.m */; };
+		CE83C75D196556A70060B280 /* SelectedItemFotoFullViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C75C196556A70060B280 /* SelectedItemFotoFullViewController.m */; };
+		CE83C7601965738A0060B280 /* EditShoopingItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C75F1965738A0060B280 /* EditShoopingItemViewController.m */; };
+		CE83C763196585D80060B280 /* AddNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C762196585D80060B280 /* AddNoteViewController.m */; };
+		CE83C7661966CAB20060B280 /* EditNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C7651966CAB20060B280 /* EditNoteViewController.m */; };
 		CED3D90E191D06C400624E6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90D191D06C400624E6F /* Foundation.framework */; };
 		CED3D910191D06C400624E6F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90F191D06C400624E6F /* CoreGraphics.framework */; };
 		CED3D912191D06C400624E6F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D911191D06C400624E6F /* UIKit.framework */; };
@@ -136,9 +156,6 @@
 		CE0BD6EE19378F3100416DDB /* shopping_cart_loaded-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping_cart_loaded-25.png"; sourceTree = "<group>"; };
 		CE0BD6F01937936C00416DDB /* purchase_order-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "purchase_order-25.png"; sourceTree = "<group>"; };
 		CE0BD6F2193794D500416DDB /* to_do-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "to_do-25.png"; sourceTree = "<group>"; };
-		CE1902B319388FA5008E5540 /* AppDatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppDatabase.sqlite; sourceTree = "<group>"; };
-		CE1902B8193DE55A008E5540 /* AddShoopingCarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddShoopingCarViewController.h; sourceTree = "<group>"; };
-		CE1902B9193DE55A008E5540 /* AddShoopingCarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddShoopingCarViewController.m; sourceTree = "<group>"; };
 		CE1902BD193E0811008E5540 /* GMGridView-Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridView-Constants.h"; sourceTree = "<group>"; };
 		CE1902BE193E0811008E5540 /* GMGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridView.h; sourceTree = "<group>"; };
 		CE1902BF193E0811008E5540 /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
@@ -157,23 +174,59 @@
 		CE23563D1934928F007C2B36 /* CategoryListViewControllerV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryListViewControllerV2.h; sourceTree = "<group>"; };
 		CE23563E1934928F007C2B36 /* CategoryListViewControllerV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryListViewControllerV2.m; sourceTree = "<group>"; };
 		CE29C514192F7F3B007022CB /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		CE29C517192F7F95007022CB /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
-		CE29C518192F7F95007022CB /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
-		CE29C519192F7F95007022CB /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
-		CE29C51A192F7F95007022CB /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
-		CE29C51D192F8011007022CB /* reminderService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reminderService.h; sourceTree = "<group>"; };
-		CE29C51E192F8011007022CB /* reminderService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = reminderService.m; sourceTree = "<group>"; };
-		CE29C51F192F8011007022CB /* reminderServiceProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reminderServiceProxy.h; sourceTree = "<group>"; };
-		CE29C520192F8011007022CB /* reminderServiceProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = reminderServiceProxy.m; sourceTree = "<group>"; };
-		CE29C522192F8011007022CB /* GroupCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupCategory.h; sourceTree = "<group>"; };
-		CE29C523192F8011007022CB /* GroupCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupCategory.m; sourceTree = "<group>"; };
-		CE29C524192F8011007022CB /* Reminder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reminder.h; sourceTree = "<group>"; };
-		CE29C525192F8011007022CB /* Reminder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
-		CE29C526192F8011007022CB /* reminderService_Enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = reminderService_Enums.h; sourceTree = "<group>"; };
-		CE29C527192F8011007022CB /* reminderService_Enums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = reminderService_Enums.m; sourceTree = "<group>"; };
 		CE29C52D192F82D7007022CB /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		CE2D8102196C00AC0099EF3A /* iOSService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSService.h; sourceTree = "<group>"; };
+		CE2D8103196C00AC0099EF3A /* iOSService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSService.m; sourceTree = "<group>"; };
+		CE2D8104196C00AC0099EF3A /* iOSServiceProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSServiceProxy.h; sourceTree = "<group>"; };
+		CE2D8105196C00AC0099EF3A /* iOSServiceProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSServiceProxy.m; sourceTree = "<group>"; };
+		CE2D8108196C01410099EF3A /* iOSService_Enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSService_Enums.h; sourceTree = "<group>"; };
+		CE2D8109196C01550099EF3A /* iOSService_Enums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSService_Enums.m; sourceTree = "<group>"; };
+		CE2D810B196C01A60099EF3A /* returnArrayIds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = returnArrayIds.h; sourceTree = "<group>"; };
+		CE2D810C196C01A60099EF3A /* returnArrayIds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = returnArrayIds.m; sourceTree = "<group>"; };
+		CE2D810F196C07140099EF3A /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
+		CE2D8110196C07140099EF3A /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
+		CE2D8112196C07A10099EF3A /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		CE2D8113196C07A10099EF3A /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		CE2D8115196D5BD60099EF3A /* AppDatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppDatabase.sqlite; sourceTree = "<group>"; };
+		CE3174BD195AFF72007EE188 /* AddShoppingItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddShoppingItemViewController.h; path = PhotoReminderNew/AddShoppingItemViewController.h; sourceTree = "<group>"; };
+		CE3174BE195AFF72007EE188 /* AddShoppingItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddShoppingItemViewController.m; path = PhotoReminderNew/AddShoppingItemViewController.m; sourceTree = "<group>"; };
+		CE3174C0195B073C007EE188 /* gallery_filled-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gallery_filled-25.png"; sourceTree = "<group>"; };
+		CE3174C2195C16EC007EE188 /* ShoopingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShoopingListViewController.h; path = PhotoReminderNew/ShoopingListViewController.h; sourceTree = "<group>"; };
+		CE3174C3195C16EC007EE188 /* ShoopingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShoopingListViewController.m; path = PhotoReminderNew/ShoopingListViewController.m; sourceTree = "<group>"; };
+		CE3174C5195C17A5007EE188 /* ShoppingItemCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingItemCustomCell.h; sourceTree = "<group>"; };
+		CE3174C6195C17A5007EE188 /* ShoppingItemCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingItemCustomCell.m; sourceTree = "<group>"; };
+		CE3174C8195C466F007EE188 /* list-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list-25.png"; sourceTree = "<group>"; };
+		CE3174CD195D873B007EE188 /* GirdShoopingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GirdShoopingViewController.h; sourceTree = "<group>"; };
+		CE3174CE195D873B007EE188 /* GirdShoopingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GirdShoopingViewController.m; sourceTree = "<group>"; };
 		CE75D7F21946FF0C003856A6 /* add_user-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_user-25.png"; sourceTree = "<group>"; };
 		CE75D7F419470D61003856A6 /* link-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "link-25.png"; sourceTree = "<group>"; };
+		CE75D7F919485B3B003856A6 /* NotificationsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NotificationsTableViewController.h; path = PhotoReminderNew/NotificationsTableViewController.h; sourceTree = "<group>"; };
+		CE75D7FA19485B3C003856A6 /* NotificationsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NotificationsTableViewController.m; path = PhotoReminderNew/NotificationsTableViewController.m; sourceTree = "<group>"; };
+		CE75D7FC194874D0003856A6 /* forward-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forward-25.png"; sourceTree = "<group>"; };
+		CE75D7FE194AF5EB003856A6 /* back-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back-25.png"; sourceTree = "<group>"; };
+		CE75D800194AF6DB003856A6 /* checkmark-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark-25.png"; sourceTree = "<group>"; };
+		CE75D802194AFF17003856A6 /* trash-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trash-25.png"; sourceTree = "<group>"; };
+		CE75D804194B22E9003856A6 /* Color-Palette.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Color-Palette.png"; sourceTree = "<group>"; };
+		CE75D806194EE10E003856A6 /* ColorPickerImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerImageView.h; sourceTree = "<group>"; };
+		CE75D807194EE10E003856A6 /* ColorPickerImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPickerImageView.m; sourceTree = "<group>"; };
+		CE83C745196163A00060B280 /* UIImage+ScalingMyImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ScalingMyImage.h"; sourceTree = "<group>"; };
+		CE83C746196163A00060B280 /* UIImage+ScalingMyImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ScalingMyImage.m"; sourceTree = "<group>"; };
+		CE83C74B1962AC440060B280 /* FullScreemPageItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullScreemPageItemViewController.h; sourceTree = "<group>"; };
+		CE83C74C1962AC440060B280 /* FullScreemPageItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullScreemPageItemViewController.m; sourceTree = "<group>"; };
+		CE83C74E1962AE920060B280 /* ContentFullView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentFullView.h; sourceTree = "<group>"; };
+		CE83C74F1962AE920060B280 /* ContentFullView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentFullView.m; sourceTree = "<group>"; };
+		CE83C7551964432E0060B280 /* NoteCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteCustomCell.h; sourceTree = "<group>"; };
+		CE83C7561964432E0060B280 /* NoteCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteCustomCell.m; sourceTree = "<group>"; };
+		CE83C758196444070060B280 /* NoteListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteListViewController.h; sourceTree = "<group>"; };
+		CE83C759196444070060B280 /* NoteListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteListViewController.m; sourceTree = "<group>"; };
+		CE83C75B196556A70060B280 /* SelectedItemFotoFullViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectedItemFotoFullViewController.h; sourceTree = "<group>"; };
+		CE83C75C196556A70060B280 /* SelectedItemFotoFullViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectedItemFotoFullViewController.m; sourceTree = "<group>"; };
+		CE83C75E1965738A0060B280 /* EditShoopingItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditShoopingItemViewController.h; sourceTree = "<group>"; };
+		CE83C75F1965738A0060B280 /* EditShoopingItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditShoopingItemViewController.m; sourceTree = "<group>"; };
+		CE83C761196585D70060B280 /* AddNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddNoteViewController.h; sourceTree = "<group>"; };
+		CE83C762196585D80060B280 /* AddNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNoteViewController.m; sourceTree = "<group>"; };
+		CE83C7641966CAB20060B280 /* EditNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditNoteViewController.h; sourceTree = "<group>"; };
+		CE83C7651966CAB20060B280 /* EditNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditNoteViewController.m; sourceTree = "<group>"; };
 		CED3D90A191D06C400624E6F /* PhotoReminderNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoReminderNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED3D90D191D06C400624E6F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CED3D90F191D06C400624E6F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -348,44 +401,108 @@
 			name = GMGirdViewCore;
 			sourceTree = "<group>";
 		};
-		CE29C516192F7F55007022CB /* WebServiceCore */ = {
+		CE2D810E196C01CD0099EF3A /* iOSWebService */ = {
 			isa = PBXGroup;
 			children = (
-				CE29C51D192F8011007022CB /* reminderService.h */,
-				CE29C51E192F8011007022CB /* reminderService.m */,
-				CE29C51F192F8011007022CB /* reminderServiceProxy.h */,
-				CE29C520192F8011007022CB /* reminderServiceProxy.m */,
-				CE29C521192F8011007022CB /* WSClasses */,
-				CE29C517192F7F95007022CB /* NSData+Base64.h */,
-				CE29C518192F7F95007022CB /* NSData+Base64.m */,
-				CE29C519192F7F95007022CB /* XPathQuery.h */,
-				CE29C51A192F7F95007022CB /* XPathQuery.m */,
+				CE2D8112196C07A10099EF3A /* NSData+Base64.h */,
+				CE2D8113196C07A10099EF3A /* NSData+Base64.m */,
+				CE2D810F196C07140099EF3A /* XPathQuery.h */,
+				CE2D8110196C07140099EF3A /* XPathQuery.m */,
+				CE2D810B196C01A60099EF3A /* returnArrayIds.h */,
+				CE2D810C196C01A60099EF3A /* returnArrayIds.m */,
+				CE2D8109196C01550099EF3A /* iOSService_Enums.m */,
+				CE2D8108196C01410099EF3A /* iOSService_Enums.h */,
+				CE2D8102196C00AC0099EF3A /* iOSService.h */,
+				CE2D8103196C00AC0099EF3A /* iOSService.m */,
+				CE2D8104196C00AC0099EF3A /* iOSServiceProxy.h */,
+				CE2D8105196C00AC0099EF3A /* iOSServiceProxy.m */,
 			);
-			name = WebServiceCore;
+			name = iOSWebService;
 			sourceTree = "<group>";
 		};
-		CE29C521192F8011007022CB /* WSClasses */ = {
+		CE83C7481962A9780060B280 /* CategoriesStuff */ = {
 			isa = PBXGroup;
 			children = (
-				CE29C522192F8011007022CB /* GroupCategory.h */,
-				CE29C523192F8011007022CB /* GroupCategory.m */,
-				CE29C524192F8011007022CB /* Reminder.h */,
-				CE29C525192F8011007022CB /* Reminder.m */,
-				CE29C526192F8011007022CB /* reminderService_Enums.h */,
-				CE29C527192F8011007022CB /* reminderService_Enums.m */,
+				CE23563A19349063007C2B36 /* CategoryCustomCell.h */,
+				CE23563B19349063007C2B36 /* CategoryCustomCell.m */,
+				CE23563D1934928F007C2B36 /* CategoryListViewControllerV2.h */,
+				CE23563E1934928F007C2B36 /* CategoryListViewControllerV2.m */,
+				CE02C0E51924C81A00EB2DD0 /* EditCategoryViewController.h */,
+				CE02C0E61924C81A00EB2DD0 /* EditCategoryViewController.m */,
+				CED3DA19191D0D0800624E6F /* AddCategoryViewController.h */,
+				CED3DA1A191D0D0800624E6F /* AddCategoryViewController.m */,
+				CED3DA15191D0D0800624E6F /* CategoryLisViewController.h */,
+				CED3DA16191D0D0800624E6F /* CategoryListViewController.m */,
 			);
-			path = WSClasses;
+			name = CategoriesStuff;
+			sourceTree = "<group>";
+		};
+		CE83C7491962AA690060B280 /* ReminderStuff */ = {
+			isa = PBXGroup;
+			children = (
+				CED3DA17191D0D0800624E6F /* AddReminderV2Controller.h */,
+				CED3DA18191D0D0800624E6F /* AddReminderV2Controller.m */,
+				CED3DA11191D0D0800624E6F /* ReminderCustomCell.h */,
+				CED3DA12191D0D0800624E6F /* ReminderCustomCell.m */,
+				CED3DA13191D0D0800624E6F /* RemindersListViewController.h */,
+				CED3DA14191D0D0800624E6F /* RemindersListViewController.m */,
+				CED3DA0F191D0D0800624E6F /* EditReminderViewController.h */,
+				CED3DA10191D0D0800624E6F /* EditReminderViewController.m */,
+			);
+			name = ReminderStuff;
+			sourceTree = "<group>";
+		};
+		CE83C74A1962AAA20060B280 /* ShoopingCardStuff */ = {
+			isa = PBXGroup;
+			children = (
+				CE3174C2195C16EC007EE188 /* ShoopingListViewController.h */,
+				CE3174C3195C16EC007EE188 /* ShoopingListViewController.m */,
+				CE3174BD195AFF72007EE188 /* AddShoppingItemViewController.h */,
+				CE3174BE195AFF72007EE188 /* AddShoppingItemViewController.m */,
+				CE3174C5195C17A5007EE188 /* ShoppingItemCustomCell.h */,
+				CE3174C6195C17A5007EE188 /* ShoppingItemCustomCell.m */,
+				CE3174CD195D873B007EE188 /* GirdShoopingViewController.h */,
+				CE3174CE195D873B007EE188 /* GirdShoopingViewController.m */,
+				CE83C74B1962AC440060B280 /* FullScreemPageItemViewController.h */,
+				CE83C74C1962AC440060B280 /* FullScreemPageItemViewController.m */,
+				CE83C74E1962AE920060B280 /* ContentFullView.h */,
+				CE83C74F1962AE920060B280 /* ContentFullView.m */,
+				CE83C75B196556A70060B280 /* SelectedItemFotoFullViewController.h */,
+				CE83C75C196556A70060B280 /* SelectedItemFotoFullViewController.m */,
+				CE83C75E1965738A0060B280 /* EditShoopingItemViewController.h */,
+				CE83C75F1965738A0060B280 /* EditShoopingItemViewController.m */,
+			);
+			name = ShoopingCardStuff;
+			sourceTree = "<group>";
+		};
+		CE83C754196442B20060B280 /* NoteStuff */ = {
+			isa = PBXGroup;
+			children = (
+				CE83C7551964432E0060B280 /* NoteCustomCell.h */,
+				CE83C7561964432E0060B280 /* NoteCustomCell.m */,
+				CE83C758196444070060B280 /* NoteListViewController.h */,
+				CE83C759196444070060B280 /* NoteListViewController.m */,
+				CE83C761196585D70060B280 /* AddNoteViewController.h */,
+				CE83C762196585D80060B280 /* AddNoteViewController.m */,
+				CE83C7641966CAB20060B280 /* EditNoteViewController.h */,
+				CE83C7651966CAB20060B280 /* EditNoteViewController.m */,
+			);
+			name = NoteStuff;
 			sourceTree = "<group>";
 		};
 		CED3D901191D06C400624E6F = {
 			isa = PBXGroup;
 			children = (
+				CE83C745196163A00060B280 /* UIImage+ScalingMyImage.h */,
+				CE83C746196163A00060B280 /* UIImage+ScalingMyImage.m */,
 				CED3DA25191D0D7200624E6F /* DatePickerHolder */,
 				CED3DA21191D0D1200624E6F /* LogicFiles */,
 				CED3D9F6191D0BDE00624E6F /* RemindersSounds */,
+				CED3D9A0191D09BA00624E6F /* Cores */,
 				CED3D988191D08BA00624E6F /* SettingsViewController.h */,
 				CED3D989191D08BA00624E6F /* SettingsViewController.m */,
-				CED3D9A0191D09BA00624E6F /* Cores */,
+				CE75D7F919485B3B003856A6 /* NotificationsTableViewController.h */,
+				CE75D7FA19485B3C003856A6 /* NotificationsTableViewController.m */,
 				CED3D913191D06C400624E6F /* PhotoReminderNew */,
 				CED3D932191D06C400624E6F /* PhotoReminderNewTests */,
 				CED3D90C191D06C400624E6F /* Frameworks */,
@@ -434,6 +551,7 @@
 		CED3D914191D06C400624E6F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CE75D7FC194874D0003856A6 /* forward-25.png */,
 				CE75D7F419470D61003856A6 /* link-25.png */,
 				CE75D7F21946FF0C003856A6 /* add_user-25.png */,
 				CE0BD6F2193794D500416DDB /* to_do-25.png */,
@@ -495,8 +613,8 @@
 		CED3D9A0191D09BA00624E6F /* Cores */ = {
 			isa = PBXGroup;
 			children = (
+				CE2D810E196C01CD0099EF3A /* iOSWebService */,
 				CE1902BC193E07D4008E5540 /* GMGirdViewCore */,
-				CE29C516192F7F55007022CB /* WebServiceCore */,
 				CED3DA06191D0C4400624E6F /* DatabaseCore */,
 				CED3D9FD191D0C1200624E6F /* AutocompleteCore */,
 				CED3D9E9191D0B6900624E6F /* RecordingCore */,
@@ -585,6 +703,9 @@
 		CED3D9DC191D0AE800624E6F /* ColorPickerCore */ = {
 			isa = PBXGroup;
 			children = (
+				CE75D806194EE10E003856A6 /* ColorPickerImageView.h */,
+				CE75D807194EE10E003856A6 /* ColorPickerImageView.m */,
+				CE75D804194B22E9003856A6 /* Color-Palette.png */,
 				CED3DAA319221BEE00624E6F /* nko_brightness_guide.png */,
 				CED3DAA419221BEE00624E6F /* nko_colormap.png */,
 				CED3D9D9191D0AD400624E6F /* NKOColorPickerView.h */,
@@ -648,7 +769,7 @@
 		CED3DA06191D0C4400624E6F /* DatabaseCore */ = {
 			isa = PBXGroup;
 			children = (
-				CE1902B319388FA5008E5540 /* AppDatabase.sqlite */,
+				CE2D8115196D5BD60099EF3A /* AppDatabase.sqlite */,
 				CED3D9FF191D0C3800624E6F /* ReminderObject.h */,
 				CED3DA00191D0C3800624E6F /* ReminderObject.m */,
 				CED3DA01191D0C3800624E6F /* DatabaseHelper.h */,
@@ -660,26 +781,10 @@
 		CED3DA21191D0D1200624E6F /* LogicFiles */ = {
 			isa = PBXGroup;
 			children = (
-				CED3DA0F191D0D0800624E6F /* EditReminderViewController.h */,
-				CED3DA10191D0D0800624E6F /* EditReminderViewController.m */,
-				CED3DA11191D0D0800624E6F /* ReminderCustomCell.h */,
-				CED3DA12191D0D0800624E6F /* ReminderCustomCell.m */,
-				CED3DA13191D0D0800624E6F /* RemindersListViewController.h */,
-				CED3DA14191D0D0800624E6F /* RemindersListViewController.m */,
-				CED3DA15191D0D0800624E6F /* CategoryLisViewController.h */,
-				CED3DA16191D0D0800624E6F /* CategoryListViewController.m */,
-				CED3DA17191D0D0800624E6F /* AddReminderV2Controller.h */,
-				CED3DA18191D0D0800624E6F /* AddReminderV2Controller.m */,
-				CED3DA19191D0D0800624E6F /* AddCategoryViewController.h */,
-				CED3DA1A191D0D0800624E6F /* AddCategoryViewController.m */,
-				CE02C0E51924C81A00EB2DD0 /* EditCategoryViewController.h */,
-				CE02C0E61924C81A00EB2DD0 /* EditCategoryViewController.m */,
-				CE23563A19349063007C2B36 /* CategoryCustomCell.h */,
-				CE23563B19349063007C2B36 /* CategoryCustomCell.m */,
-				CE23563D1934928F007C2B36 /* CategoryListViewControllerV2.h */,
-				CE23563E1934928F007C2B36 /* CategoryListViewControllerV2.m */,
-				CE1902B8193DE55A008E5540 /* AddShoopingCarViewController.h */,
-				CE1902B9193DE55A008E5540 /* AddShoopingCarViewController.m */,
+				CE83C754196442B20060B280 /* NoteStuff */,
+				CE83C74A1962AAA20060B280 /* ShoopingCardStuff */,
+				CE83C7491962AA690060B280 /* ReminderStuff */,
+				CE83C7481962A9780060B280 /* CategoriesStuff */,
 			);
 			name = LogicFiles;
 			sourceTree = "<group>";
@@ -696,6 +801,11 @@
 		CED3DA38191D0F6D00624E6F /* BarIcons */ = {
 			isa = PBXGroup;
 			children = (
+				CE3174C8195C466F007EE188 /* list-25.png */,
+				CE3174C0195B073C007EE188 /* gallery_filled-25.png */,
+				CE75D802194AFF17003856A6 /* trash-25.png */,
+				CE75D800194AF6DB003856A6 /* checkmark-25.png */,
+				CE75D7FE194AF5EB003856A6 /* back-25.png */,
 				CE0BD6EC1937781000416DDB /* align_justify-25.png */,
 				CED3D944191D085B00624E6F /* autocompleteButton.png */,
 				CED3D945191D085B00624E6F /* autocompleteButton@2x.png */,
@@ -808,6 +918,7 @@
 				CED3DA33191D0F5D00624E6F /* microphone-24x.png in Resources */,
 				CE1902CF193E0811008E5540 /* LICENSE in Resources */,
 				CED3D968191D085B00624E6F /* noimage.jpg in Resources */,
+				CE3174C1195B073C007EE188 /* gallery_filled-25.png in Resources */,
 				CED3D9F3191D0BD200624E6F /* Siren Noise.m4r in Resources */,
 				CE0BD6F11937936C00416DDB /* purchase_order-25.png in Resources */,
 				CED3DA2F191D0F5D00624E6F /* home-25.png in Resources */,
@@ -815,22 +926,28 @@
 				CED3DA30191D0F5D00624E6F /* calendar-25.png in Resources */,
 				CED3DA36191D0F5D00624E6F /* snooze-24x.png in Resources */,
 				CED3D9CE191D0A7300624E6F /* apple calendar.plist in Resources */,
+				CE75D801194AF6DB003856A6 /* checkmark-25.png in Resources */,
 				CED3DAA519221BEE00624E6F /* nko_brightness_guide.png in Resources */,
 				CED3D998191D099900624E6F /* LICENCE in Resources */,
 				CE75D7F519470D61003856A6 /* link-25.png in Resources */,
 				CE02C0E91924E60B00EB2DD0 /* edit-32.png in Resources */,
-				CE1902B419388FA5008E5540 /* AppDatabase.sqlite in Resources */,
 				CED3D967191D085B00624E6F /* autocompleteButton@2x.png in Resources */,
+				CE75D7FF194AF5EB003856A6 /* back-25.png in Resources */,
 				CE0BD6F3193794D500416DDB /* to_do-25.png in Resources */,
 				CED3DA37191D0F5D00624E6F /* camera-24x.png in Resources */,
 				CED3D9F1191D0BD200624E6F /* Frenzy.m4r in Resources */,
 				CED3DA35191D0F5D00624E6F /* settings-25x.png in Resources */,
+				CE75D7FD194874D0003856A6 /* forward-25.png in Resources */,
 				CED3D9D0191D0A7300624E6F /* background@2x.png in Resources */,
 				CED3DA32191D0F5D00624E6F /* edit-25x.png in Resources */,
 				CED3D9F5191D0BD200624E6F /* Birds.m4r in Resources */,
+				CE2D8116196D5BD60099EF3A /* AppDatabase.sqlite in Resources */,
+				CE75D805194B22E9003856A6 /* Color-Palette.png in Resources */,
 				CED3D966191D085B00624E6F /* autocompleteButton.png in Resources */,
+				CE75D803194AFF17003856A6 /* trash-25.png in Resources */,
 				CE75D7F31946FF0C003856A6 /* add_user-25.png in Resources */,
 				CED3DAA619221BEE00624E6F /* nko_colormap.png in Resources */,
+				CE3174C9195C466F007EE188 /* list-25.png in Resources */,
 				CE0BD6E9193750A100416DDB /* trash-32.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -852,32 +969,39 @@
 			files = (
 				CED3DA1C191D0D0800624E6F /* ReminderCustomCell.m in Sources */,
 				CED3DA05191D0C3800624E6F /* DatabaseHelper.m in Sources */,
-				CE29C51C192F7F95007022CB /* XPathQuery.m in Sources */,
-				CE29C52A192F8011007022CB /* GroupCategory.m in Sources */,
+				CE75D7FB19485B3C003856A6 /* NotificationsTableViewController.m in Sources */,
 				CED3D9A6191D09F400624E6F /* YISSTextView.m in Sources */,
+				CE3174C4195C16EC007EE188 /* ShoopingListViewController.m in Sources */,
+				CE2D810A196C01550099EF3A /* iOSService_Enums.m in Sources */,
 				CED3D9FB191D0C0A00624E6F /* HTAutocompleteManager.m in Sources */,
 				CED3D98A191D08BA00624E6F /* SettingsViewController.m in Sources */,
-				CE29C52C192F8011007022CB /* reminderService_Enums.m in Sources */,
+				CE83C74D1962AC440060B280 /* FullScreemPageItemViewController.m in Sources */,
+				CE75D808194EE10E003856A6 /* ColorPickerImageView.m in Sources */,
 				CED3DA1B191D0D0800624E6F /* EditReminderViewController.m in Sources */,
 				CED3DA1E191D0D0800624E6F /* CategoryListViewController.m in Sources */,
 				CED3D91E191D06C400624E6F /* AppDelegate.m in Sources */,
 				CED3DA04191D0C3800624E6F /* ReminderObject.m in Sources */,
-				CE29C52B192F8011007022CB /* Reminder.m in Sources */,
 				CED3D9C6191D0A7300624E6F /* PMCalendarBackgroundView.m in Sources */,
-				CE1902BA193DE55A008E5540 /* AddShoopingCarViewController.m in Sources */,
+				CE2D8107196C00AD0099EF3A /* iOSServiceProxy.m in Sources */,
+				CE83C763196585D80060B280 /* AddNoteViewController.m in Sources */,
+				CE83C7601965738A0060B280 /* EditShoopingItemViewController.m in Sources */,
 				CED3D9C8191D0A7300624E6F /* PMCalendarView.m in Sources */,
-				CE29C51B192F7F95007022CB /* NSData+Base64.m in Sources */,
+				CE83C747196163A00060B280 /* UIImage+ScalingMyImage.m in Sources */,
 				CED3D9DF191D0B1400624E6F /* MKNumberBadgeView.m in Sources */,
 				CE1902CE193E0811008E5540 /* UIView+GMGridViewAdditions.m in Sources */,
+				CE83C75D196556A70060B280 /* SelectedItemFotoFullViewController.m in Sources */,
 				CED3D9D7191D0AA000624E6F /* LocalNotificationCore.m in Sources */,
 				CE23563F1934928F007C2B36 /* CategoryListViewControllerV2.m in Sources */,
+				CE3174CF195D873B007EE188 /* GirdShoopingViewController.m in Sources */,
 				CED3D99A191D099900624E6F /* SWCellScrollView.m in Sources */,
 				CED3D9CB191D0A7300624E6F /* PMSelectionView.m in Sources */,
+				CE2D8106196C00AC0099EF3A /* iOSService.m in Sources */,
 				CE1902CA193E0811008E5540 /* GMGridView.m in Sources */,
 				CED3D9E8191D0B6100624E6F /* POVoiceHUD.m in Sources */,
 				CED3D9D6191D0AA000624E6F /* NotificationScreenController.m in Sources */,
 				CED3DA24191D0D6900624E6F /* ObjectHolder.m in Sources */,
 				CED3D9DB191D0AD400624E6F /* NKOColorPickerView.m in Sources */,
+				CE3174C7195C17A5007EE188 /* ShoppingItemCustomCell.m in Sources */,
 				CED3D9CA191D0A7300624E6F /* PMPeriod.m in Sources */,
 				CED3D9C5191D0A7300624E6F /* NSDate+Helpers.m in Sources */,
 				CED3DA20191D0D0800624E6F /* AddCategoryViewController.m in Sources */,
@@ -885,24 +1009,30 @@
 				CED3DA1D191D0D0800624E6F /* RemindersListViewController.m in Sources */,
 				CED3D9FC191D0C0A00624E6F /* HTAutocompleteTextField.m in Sources */,
 				CE1902CC193E0811008E5540 /* GMGridViewLayoutStrategies.m in Sources */,
+				CE2D810D196C01A60099EF3A /* returnArrayIds.m in Sources */,
 				CE23563C19349063007C2B36 /* CategoryCustomCell.m in Sources */,
 				CE1902CB193E0811008E5540 /* GMGridViewCell.m in Sources */,
 				CED3D9E3191D0B3D00624E6F /* iToast.m in Sources */,
-				CE29C529192F8011007022CB /* reminderServiceProxy.m in Sources */,
 				CED3D9C9191D0A7300624E6F /* PMDimmingView.m in Sources */,
+				CE2D8114196C07A10099EF3A /* NSData+Base64.m in Sources */,
+				CE2D8111196C07140099EF3A /* XPathQuery.m in Sources */,
 				CED3D999191D099900624E6F /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				CED3D9A5191D09F400624E6F /* YIPopupTextView.m in Sources */,
-				CE29C528192F8011007022CB /* reminderService.m in Sources */,
 				CED3D99E191D099900624E6F /* SWUtilityButtonView.m in Sources */,
+				CE83C7501962AE920060B280 /* ContentFullView.m in Sources */,
+				CE83C7571964432F0060B280 /* NoteCustomCell.m in Sources */,
 				CED3DA1F191D0D0800624E6F /* AddReminderV2Controller.m in Sources */,
 				CE1902CD193E0811008E5540 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
 				CED3D99C191D099900624E6F /* SWTableViewCell.m in Sources */,
 				CED3D9C7191D0A7300624E6F /* PMCalendarController.m in Sources */,
+				CE83C7661966CAB20060B280 /* EditNoteViewController.m in Sources */,
 				CED3D91A191D06C400624E6F /* main.m in Sources */,
 				CED3D9CD191D0A7300624E6F /* PMThemeShadow.m in Sources */,
 				CED3D99D191D099900624E6F /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				CED3D99B191D099900624E6F /* SWLongPressGestureRecognizer.m in Sources */,
 				CED3D9CC191D0A7300624E6F /* PMThemeEngine.m in Sources */,
+				CE3174BF195AFF72007EE188 /* AddShoppingItemViewController.m in Sources */,
+				CE83C75A196444070060B280 /* NoteListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

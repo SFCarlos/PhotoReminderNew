@@ -68,6 +68,13 @@
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    UIPageControl *pageControl = [UIPageControl appearance];
+    pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
+    pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
+    pageControl.backgroundColor = [UIColor colorWithWhite:0.5 alpha:0.01];
+   
+    
+    
     UILocalNotification *localNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
     //flagSync = 0 sync off ******  flagSync = 1 sync on
     NSInteger* flagSync = [self retrieveSYNCSTATUSSFromUserDefaults];
@@ -118,6 +125,14 @@
     }
     return YES;
 }
+- (void)setNetworkActivityIndicatorVisible:(BOOL)setVisible {
+    static volatile int32_t NumberOfCallsToSetVisible = 0;
+    int32_t newValue = OSAtomicAdd32((setVisible ? +1 : -1), &NumberOfCallsToSetVisible);
+    
+    NSAssert(newValue >= 0, @"Network Activity Indicator was asked to hide more often than shown");
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:(newValue > 0)];
+}
+
 -(void) application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification{
     
     /* if(isAppResumminfromBack){

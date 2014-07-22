@@ -26,16 +26,57 @@
     
     return rutaBD;
 }
-- (NSMutableArray *) getCategoryList{
-  
-NSMutableArray *listaR = [[NSMutableArray alloc] init];
+-(ReminderObject*) getCategorie:(NSInteger *)id_cat{
+    ReminderObject * rema = [[ReminderObject alloc] init];
     NSString *ubicacionDB = [self getRutaBD];
     
     if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
         NSLog(@"No se puede conectar con la BD");
     }
     
-    const char *sentenciaSQL = "SELECT id_cat, category_name,imagePic,colorPic,type FROM categories";
+    NSString *selecting = [NSString stringWithFormat:@"SELECT id_cat,id_cat_server, category_name,imagePic,colorPic,type,client_status FROM categories WHERE id_cat = %d", (int)id_cat];
+    const char *sql = [selecting UTF8String];
+    sqlite3_stmt *sqlStatement;
+    
+    if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
+        NSLog(@"Problema al preparar el statement en getItem");
+    }
+    
+    while(sqlite3_step(sqlStatement) == SQLITE_ROW){
+        rema.cat_id = sqlite3_column_int(sqlStatement, 0);
+       
+        rema.cat_id_server = sqlite3_column_int(sqlStatement, 1);
+        rema.categoryName = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 2)];
+        
+        rema.categoryImagenPic = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 3)];
+        rema.categoryColorPic = [NSString stringWithUTF8String:(char *)sqlite3_column_text(sqlStatement, 4)];
+        rema.categoryType = sqlite3_column_int(sqlStatement,5);
+        rema.client_status = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 5)];
+        
+    }
+    
+    return rema;
+    
+
+
+
+
+}
+- (NSMutableArray *) getCategoryListwhitDeletedRowsIncluded:(BOOL *)whitDeletedRowsIncluded{
+  
+NSMutableArray *listaR = [[NSMutableArray alloc] init];
+        NSString *ubicacionDB = [self getRutaBD];
+    const char *sentenciaSQL;
+    if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
+        NSLog(@"No se puede conectar con la BD");
+    }
+    
+    if (whitDeletedRowsIncluded) {
+        sentenciaSQL = "SELECT id_cat, category_name,imagePic,colorPic,type,client_status,id_cat_server FROM categories ";
+    }else{
+   sentenciaSQL = "SELECT id_cat, category_name,imagePic,colorPic,type,client_status,id_cat_server FROM categories WHERE client_status != 'deleted'";
+    }
+    
     sqlite3_stmt *sqlStatement;
     
     if(sqlite3_prepare_v2(bd, sentenciaSQL, -1, &sqlStatement, NULL) != SQLITE_OK){
@@ -50,13 +91,95 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         rema.categoryImagenPic = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 2)];
         rema.categoryColorPic = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 3)];
         rema.categoryType = sqlite3_column_int(sqlStatement,4);
+        rema.client_status = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 5)];
+        rema.cat_id_server = sqlite3_column_int(sqlStatement,6);
         [listaR addObject:rema];
     }
+   /* orden = [self getCategoryorder];
+    //return listaR;
     
+    if(listaR.count== orden.count){
+       
+    for (NSString* indexOrden in orden)
+        {
+            //NSLog(@"indexOrden %@",indexOrden);
+            
+            ReminderObject* obj=[listaR objectAtIndex:[indexOrden intValue]];
+            [FinarArraYCategory addObject:obj];
+          
+    }
+     
+    }else{
+        return listaR;
+    }*/
+     //por ahora solo retornar el array original luego lo ordeno
     return listaR;
-    
 }
+-(NSInteger*)saveCategoryOrder:(NSMutableArray *)orderOarray{
+    BOOL flagdelete = YES;
+    BOOL*OK;
+    NSInteger *idOreder;
+    NSString *ubicacionDB = [self getRutaBD];
+  //firt erase the table
+   if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
+        NSLog(@"No se puede conectar con la BD");
+        flagdelete = NO;
+       
+    } else {
+        NSString *sqlDelete = @"DELETE FROM category_order" ;
+        const char *sql = [sqlDelete UTF8String];
+        sqlite3_stmt *sqlStatement;
+        
+        if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
+            NSLog(@"Problema al preparar el statement delete category_order");
+            flagdelete = NO;
+            
+        } else {
+            if(sqlite3_step(sqlStatement) == SQLITE_DONE){
+                sqlite3_finalize(sqlStatement);
+                flagdelete = YES;
+                
+                //sqlite3_close(bd);
+                
+            }
+        }
+        if(flagdelete){
+            //NSLog(@"amanno del array con orden %d",[orderOarray count]);
+            for (NSString* oreder in orderOarray)
+        {
+               // NSString* oreder= [orderOarray objectAtIndex:i];
+                        NSString *sqlInsert = [NSString stringWithFormat:@"INSERT INTO category_order ('order','id_cat') VALUES (%d,%d)",[oreder intValue], -1];
+            const char *sql = [sqlInsert UTF8String];
+            sqlite3_stmt *sqlStatement;
+            
+            if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
+                NSLog(@"Problema al preparar el statement insert rcategory_order");
+                OK=NO;
+               
+            } else {
+                if(sqlite3_step(sqlStatement) == SQLITE_DONE){
+                    idOreder =   (NSInteger*)sqlite3_last_insert_rowid(bd);
+                    sqlite3_finalize(sqlStatement);
+                    OK=YES;
+                    
+                    //sqlite3_close(bd);
+                    
+                }
+            
+            }
+        }
+        
+        
+            
+        
+    }
+}
+    
+  
+    return OK;
 
+
+}
 
 -(NSInteger*)insert_item:(NSInteger *)id_cat item_Name:(NSString *)item_Name alarm:(NSDate *)Alarm note:(NSString *)note repeat:(NSString *)repeat{
    
@@ -322,16 +445,34 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     return cantidad;
 
 }
--(NSMutableArray *)getItemList:(NSInteger *)CategoryId {
+-(NSMutableArray *)getItemList:(NSInteger *)CategoryId itemType:(NSInteger *)itemType{
     NSMutableArray *listaR = [[NSMutableArray alloc] init];
     NSString *ubicacionDB = [self getRutaBD];
     
     if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
         NSLog(@"No se puede conectar con la BD");
     }
+    NSString *selecting;
+    //select item type(reminder,note or shoopinglist)according itemTypeparameter
+    switch((int)itemType){
+        case 0: //shooping
+            selecting =[NSString stringWithFormat:@"SELECT id_item, item_name,alarm,note,repeat FROM items WHERE id_cat = %d AND alarm = null" , (int)CategoryId];
+        break;
+    case 1: //reminder
+            selecting =[NSString stringWithFormat:@"SELECT id_item, item_name,alarm,note,repeat FROM items WHERE id_cat = %d AND alarm != null" , (int)CategoryId];
+        break;
+    case 2://note
+            selecting =[NSString stringWithFormat:@"SELECT id_item, item_name,alarm,note,repeat FROM items WHERE id_cat = %d AND alarm = null AND note != null" , (int)CategoryId];
+        break;
+            default: //all
+            selecting = [NSString stringWithFormat:@"SELECT id_item, item_name,alarm,note,repeat FROM items WHERE id_cat = %d " , (int)CategoryId];
+                break;
+    }
     
-    NSString *selecting = [NSString stringWithFormat:@"SELECT id_item, item_name,alarm,note,repeat FROM items WHERE id_cat = %d " , (int)CategoryId];
-    	    const char *sql = [selecting UTF8String];
+    
+    
+    
+    const char *sql = [selecting UTF8String];
     	    sqlite3_stmt *sqlStatement;
     
     if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
@@ -645,38 +786,38 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     
 }
 
--(BOOL)insertCategory:(NSString *)catName colorPic:(NSString *)colorPic type:(NSInteger*)type{
-    BOOL flag = YES;
+-(NSInteger*)insertCategory:(NSString *)catName colorPic:(NSString *)colorPic type:(NSInteger*)type client_status:(NSString*)client_status{
+    NSInteger*id_cat;
     NSString *ubicacionDB = [self getRutaBD];
     
     
     if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
         NSLog(@"No se puede conectar con la BD");
-        flag = NO;
-        return flag;
+        return -1;
     } else {
-        NSString *sqlInsert = [NSString stringWithFormat:@"INSERT INTO categories (category_name,imagePic,colorPic,type)  VALUES ('%@', '%@','%@',%d)", catName, nil,colorPic,type];
+        NSString *sqlInsert = [NSString stringWithFormat:@"INSERT INTO categories (category_name,imagePic,colorPic,type,client_status)  VALUES ('%@', '%@','%@',%d,'%@')", catName, nil,colorPic,type,client_status];
         const char *sql = [sqlInsert UTF8String];
         sqlite3_stmt *sqlStatement;
         
         if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
             NSLog(@"Problema al preparar el statement categories %s",sql);
-            flag = NO;
-            return flag;
+            return -1;
+            
         } else {
             if(sqlite3_step(sqlStatement) == SQLITE_DONE){
+               id_cat =   (NSInteger*)sqlite3_last_insert_rowid(bd);
                 sqlite3_finalize(sqlStatement);
+                return id_cat;
                 
-                flag = YES;
-                return flag;
+               
                 //sqlite3_close(bd);
                 
             }
         }
         
     }
-    return flag;
     
+    return id_cat;
 
 }
 -(BOOL)deleteCategory:(NSInteger *)id_cat{
@@ -688,7 +829,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         flag = NO;
         return flag;
     } else {
-        NSString *sqlDelete = [NSString stringWithFormat:@"DELETE FROM categories WHERE id_cat = %d",(int)id_cat];
+        NSString *sqlDelete = [NSString stringWithFormat:@"UPDATE categories SET client_status = 'deleted' WHERE id_cat = %d",(int)id_cat];
         const char *sql = [sqlDelete UTF8String];
         sqlite3_stmt *sqlStatement;
         
@@ -720,7 +861,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         flag = NO;
         return flag;
     } else {
-        NSString *sqledit = [NSString stringWithFormat:@"UPDATE categories SET category_name= '%@' ,colorPic = '%@',type =%d WHERE id_cat = %d",categoryName,categoryColor,(int)type,(int)id_cat];
+        NSString *sqledit = [NSString stringWithFormat:@"UPDATE categories SET category_name= '%@' ,colorPic = '%@',type =%d,client_status = 'updated' WHERE id_cat = %d",categoryName,categoryColor,(int)type,(int)id_cat];
         const char *sql = [sqledit UTF8String];
         sqlite3_stmt *sqlStatement;
         NSLog(sqledit);
@@ -741,6 +882,66 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         
     }
     return flag;
+
+}
+
+-(NSMutableArray *) getCategoryorder{
+    NSMutableArray *listaR = [[NSMutableArray alloc] init];
+    NSString *ubicacionDB = [self getRutaBD];
+    
+    if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
+        NSLog(@"No se puede conectar con la BD");
+    }
+    
+    const char *sentenciaSQL = "SELECT * FROM category_order";
+    sqlite3_stmt *sqlStatement;
+    
+    if(sqlite3_prepare_v2(bd, sentenciaSQL, -1, &sqlStatement, NULL) != SQLITE_OK){
+        NSLog(@"Problema al preparar el statement select category_order");
+    }
+    
+    while(sqlite3_step(sqlStatement) == SQLITE_ROW){
+        
+        NSString * order = [NSString stringWithFormat:@"%d",sqlite3_column_int(sqlStatement, 1)];
+        
+        [listaR addObject:order];
+    }
+    
+    return listaR;
+    
+}
+-(void)updateClientStatus_and_IdServerinCategory:(NSInteger *)Id_cat_client Id_cat_server:(NSInteger *)Id_cat_server clientStatus:(NSString *)clientStatus{
+
+   
+    NSString *ubicacionDB = [self getRutaBD];
+    
+    if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
+        NSLog(@"No se puede conectar con la BD en updateClientStatus_and_IdServerinCategory");
+        
+    } else {
+        NSString *sqlDelete = [NSString stringWithFormat:@"UPDATE categories SET client_status = '%@',id_cat_server = %d WHERE id_cat = %d",clientStatus,(int)Id_cat_server,(int)Id_cat_client];
+        const char *sql = [sqlDelete UTF8String];
+        sqlite3_stmt *sqlStatement;
+        
+        if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
+            NSLog(@"Problema al preparar el statement updateClientStatus_and_IdServerinCategory");
+            
+        } else {
+            if(sqlite3_step(sqlStatement) == SQLITE_DONE){
+                sqlite3_finalize(sqlStatement);
+               
+                //sqlite3_close(bd);
+                
+            }
+        }
+        
+    }
+    
+
+
+
+
+
 
 }
 @end

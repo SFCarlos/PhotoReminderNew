@@ -10,7 +10,7 @@
 #import "AddReminderV2Controller.h"
 
 @interface CategoryListViewController ()
-
+@property (strong, nonatomic) NSMutableArray *arrayTag;
 @end
 
 @implementation CategoryListViewController {
@@ -24,7 +24,7 @@
 @synthesize tableView;
 @synthesize dao;
 @synthesize categoryArray;
-
+@synthesize arrayTag;
 @synthesize reminderListButton;
 @synthesize addRbutton;
 @synthesize TapGestureToAddreminder;
@@ -39,91 +39,100 @@
 
 - (void)viewDidLoad
 {
-          /* edit = [[UIBarButtonItem alloc]
-                                             initWithImage:[UIImage imageNamed:@"micro-25.png"] style:UIBarStyleDefault target:self action:@selector(editAction:)];*/
-    edit=[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleBordered target:self action:@selector(editAction:)];
-    UIBarButtonItem *setting         = [[UIBarButtonItem alloc]
-                                        initWithImage:[UIImage imageNamed:@"settings-25x.png"] style:UIBarStyleDefault target:self action:@selector(settingAction:)];
-             addCategory= [[UIBarButtonItem alloc]
-                                                  initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                                  target:self
-                                                  action:@selector(addCategoryAction:)];
-//add buttons to nav bar
-    self.navigationItem.leftBarButtonItems =
-    [NSArray arrayWithObjects:edit, setting, nil];
+    [self LoadAgain];
+    [super viewDidLoad];
+}
+-(void)LoadAgain{
+    /* edit = [[UIBarButtonItem alloc]
+     initWithImage:[UIImage imageNamed:@"micro-25.png"] style:UIBarStyleDefault target:self action:@selector(editAction:)];*/
     
+    UIBarButtonItem *setting         = [[UIBarButtonItem alloc]
+                                        initWithImage:[UIImage imageNamed:@"back-25.png"] style:UIBarStyleDefault target:self action:@selector(settingAction:)];
+    addCategory = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCategoryAction:)];
+    
+    
+    UIBarButtonItem* doneButton          = [[UIBarButtonItem alloc]
+                                            initWithImage:[UIImage imageNamed:@"checkmark-25.png"] style:UIBarStyleDefault target:self action:@selector(doneAction:)];
+    //add buttons to nav bar
+    self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.rightBarButtonItems=
+    [NSArray arrayWithObjects: doneButton, nil];
+    self.toolbarItems=[NSArray arrayWithObjects: addCategory, nil];
     //init the arrays
+    
+    arrayTag = [[NSMutableArray alloc] init];
     dao = [[DatabaseHelper alloc] init];
     categoryArray = [[NSMutableArray alloc] init];
-    categoryArray = [dao getCategoryList];
     
     
-    [super viewDidLoad];
-
+    
+    
+    categoryArray = [dao getCategoryListwhitDeletedRowsIncluded:NO] ;
+    
+    
+    
+    
+    [tableView setEditing:YES animated:YES];
+    
+    
     self.navigationItem.title = @"Categories";
     /*UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:nil action:nil];
-    [[self navigationItem] setBackBarButtonItem:backButton];*/
+     [[self navigationItem] setBackBarButtonItem:backButton];*/
     self.tabBarController.tabBar.hidden=YES;
     
-        // Remove table cell separator
+    // Remove table cell separator
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-
+    
     // Assign our own backgroud for the view
-   // self.parentViewController.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"common_bg"]];
-   // self.tableView.backgroundColor = [UIColor clearColor];
-
+    // self.parentViewController.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"common_bg"]];
+    // self.tableView.backgroundColor = [UIColor clearColor];
+    
     
     //Add observer to reload data after edit test1...si funciona parece pero lo resolvi poniendo ReloadData en willApear
     //[[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refresh:) name:@"RefreshCategoriesList" object:nil];
+
+
+
 }
--(void)refresh:(NSNotification*)notification{
-    [self.tableView reloadData];
-}
+
 -(void) viewWillDisappear:(BOOL)animated{
+[self.navigationController setToolbarHidden:YES animated:YES];
+    
+   
 
     [super viewWillAppear:animated];
-    categoryArray = [dao getCategoryList];
-    [tableView reloadData];
-
+   
+  
 }
 -(void) viewWillAppear:(BOOL)animated{
-   
-    [super viewWillAppear:animated];
-    categoryArray = [dao getCategoryList];
-   [self.tableView reloadData];
+   [self.navigationController setToolbarHidden:NO animated:YES];
     
     
-}
--(void)editAction:(id)sender{
-    [tableView reloadData];
-    if ([edit.title isEqualToString:@"Edit"] ) {
-        edit.title=@"Done";
-        self.navigationItem.rightBarButtonItems =
-        [NSArray arrayWithObjects:addCategory, nil];
-       // buttonRedondo.hidden=YES;
-        TapGestureToAddreminder.enabled = NO;
-        [self.tableView setEditing:YES];
-        
-    }else
-    {
-        [self.tableView setEditing:NO];
-        self.navigationItem.rightBarButtonItems = nil;
-       // buttonRedondo.hidden=NO;
-        TapGestureToAddreminder.enabled=YES;
+       [super viewWillAppear:animated];
 
-        edit.title=@"Edit";
-    }
-    [tableView reloadData];
+    
+    
 }
-- (IBAction)EditCategoryButtonAction:(id)sender {
+- (void)EditCategoryButtonAction:(id)sender {
     [self performSegueWithIdentifier:@"edit_categorySegue" sender:sender];
 }
 -(void)settingAction:(id)sender{
+    
     [self performSegueWithIdentifier:@"settingsSegue" sender:sender];
 }
 -(void)addCategoryAction:(id)sender{
     
-    [self performSegueWithIdentifier:@"add_category" sender:sender];
+    [self performSegueWithIdentifier:@"add_categoryV2" sender:sender];
+}
+-(void)doneAction:(id)sender{
+    [self.tableView reloadData];
+    for (NSString* currentString in arrayTag)
+    {
+        NSLog(@"Este es la pos que va a salvar %@",currentString);
+        
+    }
+    
+    [self performSegueWithIdentifier:@"settingsSegue" sender:sender];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -132,6 +141,10 @@
 }
 
 #pragma mark - Table view data source
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+   
+     return @"              Select a category to edit";
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -157,50 +170,42 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
        
     }
-
     
-   /* MKNumberBadgeView* numberb= [[MKNumberBadgeView alloc]initWithFrame:CGRectMake(5, 74, 50, 50)];
+    cell.tag = indexPath.row;
+    NSString *strCellTag = [NSString stringWithFormat:@"%d",cell.tag];
+    if(![arrayTag containsObject:strCellTag])
+    {
+        [arrayTag addObject:strCellTag];
+    }
+   
+    /* MKNumberBadgeView* numberb= [[MKNumberBadgeView alloc]initWithFrame:CGRectMake(5, 74, 50, 50)];
     numberb.value = 5;*/
     
     ReminderObject *cate = [categoryArray objectAtIndex:[indexPath row]];
    
-    NSString * count = [NSString stringWithFormat:@"%d", (int)[dao getCountItemInCategory:cate.cat_id]];
-   
+   /* NSString * count = [NSString stringWithFormat:@"%d", (int)[dao getCountItemInCategory:cate.cat_id]];
+   */
     
     
     //UIImageView *recipeImageView = (UIImageView *)[cell viewWithTag:100];
   // recipeImageView.image = [UIImage imageNamed:cate.categoryImagenPic];
     
-    UIButton *categoryButtonLabel = (UIButton *)[cell viewWithTag:101];
-    [categoryButtonLabel setTitle:cate.categoryName forState:UIControlStateNormal];
- 
-    UIButton* buttonRedondo = (UIButton *)[cell viewWithTag:103];
-    buttonRedondo.frame = CGRectMake(135.0, 180.0, 32.0, 32.0);//width and height should be same value
-    buttonRedondo.clipsToBounds = YES;
-    buttonRedondo.layer.cornerRadius = 16;//half of the width
-    [buttonRedondo setTitle:count forState:UIControlStateNormal];
+    UILabel *categoryLabel = (UILabel *)[cell viewWithTag:1234];
+   
+    categoryLabel.text=cate.categoryName;
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(EditCategoryButtonAction:)];
+    tapGestureRecognizer.numberOfTapsRequired = 1;
+    [categoryLabel addGestureRecognizer:tapGestureRecognizer];
+    categoryLabel.userInteractionEnabled = YES;
     
     //color al principio y en el boton redondo
     UIColor * colo = [self colorFromHexString:cate.categoryColorPic];
      UILabel *bandColor = (UILabel *)[cell viewWithTag:200];
     bandColor.backgroundColor= colo;
-    buttonRedondo.backgroundColor = colo;
-    //abilitar botton
-    [categoryButtonLabel setEnabled:YES];
+    
+    
    
-    UIButton* EditCategoryButton = (UIButton *)[cell viewWithTag:22];
-    EditCategoryButton.tintColor= colo;
-    buttonRedondo.hidden = NO;
-    EditCategoryButton.hidden = YES;
-    if ([count isEqualToString:@"0"] || tableView.editing) {
-        buttonRedondo.hidden=YES;
-        
-    }
-    if (tableView.editing) {
-        [categoryButtonLabel setEnabled:NO];
-        EditCategoryButton.hidden = NO;
-    }
-    return cell;
+        return cell;
 }
 
 
@@ -258,9 +263,9 @@
     
     }if ([segue.identifier isEqualToString:@"edit_categorySegue"]){
         EditCategoryViewController* editCategory = segue.destinationViewController;
-        CGPoint butoPoss = [sender convertPoint:CGPointZero toView:self.tableView];
-        NSIndexPath * clicedbut =[self.tableView indexPathForRowAtPoint:butoPoss];
-        
+        CGPoint labelPoss = [(UIGestureRecognizer*)sender locationInView: self.tableView];
+        NSIndexPath * clicedbut =[self.tableView indexPathForRowAtPoint:labelPoss];
+       
       
         ReminderObject* tem =[categoryArray objectAtIndex:clicedbut.row];
         
@@ -274,48 +279,8 @@
 
 
 
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        ReminderObject *cate = [categoryArray objectAtIndex:[indexPath row]];
-        [dao deleteCategory:cate.cat_id];
-         [categoryArray removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
-        
-        // delete and cancel all the notification reminder
-        NSMutableArray * notificantionInCategory = [dao getItemList:cate.cat_id];
-        NSString *idtem =[NSString stringWithFormat:@"%d",(int)cate.reminderID];
-        UIApplication*app =[UIApplication sharedApplication];
-        NSArray *eventArray = [app scheduledLocalNotifications];
-        for (int i=0; i<[eventArray count]; i++) {
-            
-            for (int j=0; j<[notificantionInCategory count]; j++){
-            UILocalNotification* oneEvent= [eventArray objectAtIndex:i];
-            NSDictionary *userInfoIDremin = oneEvent.userInfo;
-            NSString*uid=[NSString stringWithFormat:@"%@",[userInfoIDremin valueForKey:@"ID_NOT_PASS"]];
-                ReminderObject * iuy=[notificantionInCategory objectAtIndex:j];
-                NSString *remindId =[NSString stringWithFormat:@"%d",(int)iuy.reminderID];
-                if([uid isEqualToString:remindId]){
-                    [app cancelLocalNotification:oneEvent];
 
-                
-                
-                }
-                
-            }
-        
-        }
-    [tableView reloadData];
-    }
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-    
 
-}
 
 
 
@@ -325,30 +290,36 @@
     
     [categoryArray replaceObjectAtIndex:destinationIndexPath.row withObject:[categoryArray objectAtIndex:sourceIndexPath.row]];
     [categoryArray replaceObjectAtIndex:sourceIndexPath.row withObject:ob];
-}
+    
+    /////*******
+    
+    
+    NSString *ToMove = [arrayTag objectAtIndex:sourceIndexPath.row];
+    [arrayTag removeObjectAtIndex:sourceIndexPath.row];
+    [arrayTag insertObject:ToMove atIndex:destinationIndexPath.row];
+    
+    //[dao saveCategoryOrder:arrayTag];
+
+    NSLog(@"DIsparada");
+    }
 -(BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
     return NO;
 }
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+
+- (BOOL)tableView:(UITableView *)tableview canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-   ReminderObject *cate = [categoryArray objectAtIndex:[indexPath row]];
-    if ([cate.categoryName isEqualToString:@"People"] || [cate.categoryName isEqualToString:@"Todo"] ||[cate.categoryName isEqualToString:@"Notes"] || [cate.categoryName isEqualToString:@"Shopping"]) {
-        return UITableViewCellEditingStyleNone;
-
-        
-    }else if(self.tableView.editing)
-    {
-          return UITableViewCellEditingStyleDelete;
-    }
-
+   
     return UITableViewCellEditingStyleNone;
 
 }
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
+
 
 
 #pragma mark - Table view delegate
@@ -356,12 +327,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
+   /*
+     EditCategoryViewController *editCategory = [[EditCategoryViewController alloc] init];
+    ReminderObject* tem =[categoryArray objectAtIndex:indexPath.row];
+    
+    
+    editCategory.IdCategoryToEdit =tem.cat_id;
      // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+     [self.navigationController pushViewController:editCategory animated:YES];
+    */
 }
 
 

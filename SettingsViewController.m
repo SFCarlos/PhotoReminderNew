@@ -8,23 +8,36 @@
 
 #import "SettingsViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "NotificationsTableViewController.h"
+#import "CategoryListViewControllerV2.h"
 @interface SettingsViewController ()
+@property (strong, nonatomic) NSString* usuario;
+@property (strong, nonatomic) NSString* contrasenna;
 
 @end
 
 @implementation SettingsViewController{
-    
+
     AVAudioPlayer * cellTapSound;
     NSArray * sounfFiles;
     NSString* selectedSound;
     NSString* alreadyselectedSound;
+   
+    
     UITextField *username;
     UITextField *password;
-    BOOL *flagConnection;
-}
-@synthesize scrollV;
+    
+    UITextField* usernameRegister;
+    UITextField*  passwordRegister;
 
-@synthesize registerButton;
+    BOOL *flagConnection;
+    BOOL *flagSync;
+}
+
+@synthesize scrollV;
+@synthesize soundselectedLabel;
+@synthesize usuario;
+@synthesize contrasenna;
 @synthesize connectButon;
 @synthesize timeformatSwitch;
 @synthesize syncSwitch;
@@ -40,63 +53,96 @@
 
 - (void)viewDidLoad
 {
-    self.service = [[reminderServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
+    self.service = [[iOSServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
 
     
     //first call autenticate to kow if connected;
     //[self.service autenticate:username.text :password.text];
     [scrollV setScrollEnabled:YES];
-    //fill array sound
-       sounfFiles = [[NSArray alloc] initWithObjects:@"Alarm Classic",@"Birds",@"Fire Pager",@"Frenzy",@"Siren Noise",@"Note",nil];
-    //know the selected sound
-    alreadyselectedSound=[self retrieveSoundReminderFromUserDefaults];
-    if (selectedSound == nil) {
-        selectedSound = alreadyselectedSound;
-    }
-    
     
     [self.navigationItem setHidesBackButton:YES];
     
     UIBarButtonItem* doneButton          = [[UIBarButtonItem alloc]
-                           initWithImage:[UIImage imageNamed:@"done-24x.png"] style:UIBarStyleDefault target:self action:@selector(saveSettingsAction:)];
-    self.navigationItem.leftBarButtonItem =doneButton;
+                           initWithImage:[UIImage imageNamed:@"checkmark-25.png"] style:UIBarStyleDefault target:self action:@selector(saveSettingsAction:)];
+    self.navigationItem.rightBarButtonItem =doneButton;
+    
+    //selected soud
+    soundselectedLabel.text = [self retrieveSoundReminderFromUserDefaults];
     //swith 24/12 initial state
     int * flag = [self retrieve24_12FromUserDefaults];
     if(flag==1)
         [timeformatSwitch setOn:YES];
     else
         [timeformatSwitch setOn:NO];
-    int* flagSync = [self retrieveSYNCSTATUSSFromUserDefaults];
     
-    username.text = [self retrieveUSERFromUserDefaults];
-    password.text =[self retrievePASSFromUserDefaults];
-    //estado de la sync
-    if (flagSync==1) {
-        [syncSwitch setOn:YES];
-        connectButon.hidden=NO;
-        flagConnection =YES;
-        [connectButon setTitle:@"Log in" forState:UIControlStateNormal];
-        [connectButon setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        registerButton.hidden=NO;
+    
+    int* fsync = [self retrieveSYNCSTATUSSFromUserDefaults];
+    int* flagconect = [self retrieveConnectionSTATUSSFromUserDefaults];
+    
+        //estado de la sync
+    if (fsync==1) {
+        flagSync =YES;
         
     }else{
-        [syncSwitch setOn:NO];
-        flagConnection =NO;
-        connectButon.hidden=YES;
-        registerButton.hidden=YES;
-        
-       
+        flagSync =NO;
     }
     
-    //estado de la connxion
-    int * connectionStatus = [self retrieveConnectionSTATUSSFromUserDefaults];
-    if (connectionStatus == 1) {
-        [self.service autenticate:username.text :password.text];
+    //estado de conection
+    if (flagconect==1) {
+        flagConnection=YES;
+       // connectButon.hidden=NO;
+    }else{
+        flagConnection=NO;
+    }
+//setear switc acording staus
+    if(flagSync && flagConnection){
+        syncSwitch.on =YES;
+        connectButon.hidden=NO;
+    }else if (flagSync == NO){
+        syncSwitch.on =NO;
+        connectButon.hidden=YES;
+    
+    }
+    self.usuario = [self retrieveUSERFromUserDefaults];
+    [connectButon setTitle:[NSString stringWithFormat:@"LogOut '%@'",usuario] forState:(UIControlStateNormal)];
+    self.contrasenna =[self retrievePASSFromUserDefaults];
+    [super viewDidLoad];
+    
+    NSLog(@"Usuario store in defaults %@",self.usuario);
+	// Do any additional setup after loading the view.
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [soundselectedLabel setText:[self retrieveSoundReminderFromUserDefaults]];
+    [super viewWillAppear:animated];
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    
+    if(timeformatSwitch.on){
+        [self save2412ToUserDefaults:1];
+        
+    }else{
+        [self save2412ToUserDefaults:0];
+    }
+    
+    if (syncSwitch.on) {
+        [self saveSyncStatusToUserdefaults:usuario :contrasenna :1];
+    }
+    else{
+        [self saveSyncStatusToUserdefaults:usuario:contrasenna :0];
+        
+    }if (flagConnection) {
+        [self saveConnecctionStatusToUserdefaults:1];
+    }
+    else{
+        [self saveConnecctionStatusToUserdefaults:0];
+        
     }
 
     
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [super viewWillDisappear:animated];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -107,34 +153,31 @@
 -(void)proxydidFinishLoadingData:(id)data InMethod:(NSString *)method{
    // NSLog(@"ejecuto el metod %@ and result %@",method,(NSString*)data);
     if ([method isEqualToString:@"autenticate"]) {
+        NSLog(@"ejecuto el metod %@ and result %@",method,(NSString*)data);
         //retorna -1 error
         if ([(NSString*)data isEqualToString:@"-1"]) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                            message:@"Is User or Pass correct?"
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Autenticate fail"
+                                                            message:@"Incorrect Email or Password"
+                                  
                                                            delegate:nil
-                                                  cancelButtonTitle:@"Ok"
+                                                  cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil,nil];
             [alert show];
             
-            [connectButon setTitle:@"Log in" forState:UIControlStateNormal];
-            [connectButon setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-            connectButon.hidden=NO;
-            registerButton.hidden=NO;
-            flagConnection =NO;
-            
+             flagConnection =NO;
+            flagSync=NO;
+            connectButon.hidden=YES;
+            [syncSwitch setOn:NO animated:YES];
+
         }else{
            //retorna el UserID en server
-           /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"Welcome %@",username.text]
-                                                            message:@"You are connected"
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"Ok"
-                                                  otherButtonTitles:nil,nil];
-            [alert show];*/
-          
-            [connectButon setTitle:@"Log out" forState:UIControlStateNormal];
-            [connectButon setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-            registerButton.hidden=YES;
-            flagConnection =YES;
+           
+           
+            flagConnection = YES;
+            flagSync = YES;
+            connectButon.hidden=NO;
+            [connectButon setTitle:[NSString stringWithFormat:@"LogOut '%@'",usuario] forState:(UIControlStateNormal)];
+            [syncSwitch setOn:YES animated:YES];
             
         }
         
@@ -143,14 +186,15 @@
     NSLog(@"ejecuto el metod %@ and result %@",method,resu);
         //currenlty
         if ([resu doubleValue] == -1) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: [NSString stringWithFormat:@"%@",username.text]
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle: [NSString stringWithFormat:@"%@",self.usuario]
                                                             message:[NSString stringWithFormat:@"This email is already registered"]
 
                                                            delegate:nil
                                                   cancelButtonTitle:@"OK"
                                                   otherButtonTitles:nil,nil];
             [alert show];
-
+            [syncSwitch setOn:NO animated:YES];
+             
         }else if([resu doubleValue] == -2){
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Server said: "                                                           message:@"Empty fiels or bad email"
                                   
@@ -161,14 +205,19 @@
 
         }else {
             //return the userId in server
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@",username.text]
+            
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[NSString stringWithFormat:@"%@",usuario]
                                                             message:@"successfully register"
                                                            delegate:nil
                                                   cancelButtonTitle:@"Ok"
                                                   otherButtonTitles:nil,nil];
+            alert.tag =45;
             [alert show];
+            
+            [self.service autenticate:usuario :contrasenna];
         
-        
+            
         }
     
     
@@ -179,108 +228,38 @@
 -(void)proxyRecievedError:(NSException *)ex InMethod:(NSString *)method{
 
     if ([method isEqualToString:@"autenticate"]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error "                                                           message:[NSString stringWithFormat:@"error in function %@ ",method]
-                              
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil,nil];
-        [alert show];
-flagConnection =NO;
-    
-    }else if  ([method isEqualToString:@"registerUser"]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Error "                                                           message:[NSString stringWithFormat:@"error in function %@ ",method]
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Autenticate fail"
+                                                        message:@"check your connection"
                               
                                                        delegate:nil
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil,nil];
         [alert show];
         
+        flagConnection =NO;
+        flagSync=NO;
+        connectButon.hidden=YES;
+        [syncSwitch setOn:NO animated:YES];
+
+    
+    }else if  ([method isEqualToString:@"registerUser"]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Register fail "                                                           message:@"check your connection"
+                              
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil,nil];
+        [alert show];
+        flagConnection =NO;
+        flagSync=NO;
+        connectButon.hidden=YES;
+        [syncSwitch setOn:NO animated:YES];
                }
    }
 
 
-#pragma mark - Table view delegate
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-
-    return sounfFiles.count;
-}
-
-// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *CellIdentifier = @"soundCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-        // Configure the cell...
-   if(cell == nil) {
-     cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-     
-     }
-    NSString * soundName = [sounfFiles objectAtIndex: indexPath.row];
-    cell.textLabel.text =soundName;
-
-    
-    for (int i=0; i<[sounfFiles count]; i++) {
-        
-    
-    }
-    NSString * nameSound = [sounfFiles objectAtIndex:indexPath.row];
-    if ([nameSound isEqualToString:alreadyselectedSound]) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    }else{
-        cell.accessoryType=UITableViewCellAccessoryNone;
-    }
-
-        return cell;
-
-}
-
 
 -(void)viewDidLayoutSubviews{
     [scrollV setContentSize:CGSizeMake(320, 700)];
-}
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    NSString*soundname = [sounfFiles objectAtIndex:indexPath.row];
-    cellTapSound = [[AVAudioPlayer alloc]initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:soundname withExtension:@"m4r"] error:nil];
-    [cellTapSound prepareToPlay];
-
-    if (cellTapSound.isPlaying)
-        [cellTapSound setCurrentTime:0.0];
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
-    NSInteger catIndex = [sounfFiles indexOfObject:selectedSound];
-    
-    if (catIndex == indexPath.row) {
-        
-        return;
-        
-    }
-    
-    NSIndexPath *oldIndexPath = [NSIndexPath indexPathForRow:catIndex inSection:0];
-    
-    
-    
-    UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    if (newCell.accessoryType == UITableViewCellAccessoryNone) {
-        
-        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
-        
-        selectedSound = [sounfFiles objectAtIndex:indexPath.row];
-        
-    }
-  
-    UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:oldIndexPath];
-    
-    if (oldCell.accessoryType == UITableViewCellAccessoryCheckmark) {
-        
-        oldCell.accessoryType = UITableViewCellAccessoryNone;
-        
-    }
-    [cellTapSound play];
-    
 }
 //used to store the status of sync as well as user and pass
 -(void)saveSyncStatusToUserdefaults:(NSString*)user :(NSString*) passw :(NSInteger*)statuss{
@@ -316,43 +295,12 @@ flagConnection =NO;
     }
     
 }
--(void)saveSoundReminderToUserDefaults:(NSString*)SoundSelected
-{
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    
-    if (standardUserDefaults) {
-        [standardUserDefaults setObject:SoundSelected forKey:@"REMINDER_SOUND"];
-        [standardUserDefaults synchronize];
-    }
-    
-}
+
 
 - (void)saveSettingsAction:(id)sender {
     
     
-
-    if(timeformatSwitch.on){
-        [self save2412ToUserDefaults:1];
     
-    }else{
-    [self save2412ToUserDefaults:0];
-    }
-    
-    if (syncSwitch.on) {
-        [self saveSyncStatusToUserdefaults:username.text :password.text :1];
-    }
-    else{
-        [self saveSyncStatusToUserdefaults:username.text :password.text :0];
-        
-    }
-  
-    if (flagConnection) {
-        [self saveConnecctionStatusToUserdefaults:1];
-    }else
-     [self saveConnecctionStatusToUserdefaults:0];
-    
-    
-    [self saveSoundReminderToUserDefaults:selectedSound];
     [self.navigationController popToRootViewControllerAnimated:YES];
     
     
@@ -373,7 +321,7 @@ flagConnection =NO;
     NSString *val = nil;
     
     if (standardUserDefaults)
-        val = [standardUserDefaults objectForKey:@"PASS"];
+        val = [standardUserDefaults objectForKey:@"PASSW"];
     
     return val;
     
@@ -416,72 +364,149 @@ flagConnection =NO;
     
     return val;
 }
-- (IBAction)registerAction:(id)sender {
-    //save locally firt //sync on
-    
-    //if consult
-    [self saveSyncStatusToUserdefaults:username.text :password.text :1];
-    
-    
-    [service registerUser:username.text :password.text];
-    
-}
+
 
 - (IBAction)SyncSwitchAction:(id)sender {
     if (syncSwitch.on) {
-        registerButton.hidden=NO;
-        connectButon.hidden=NO;
-        [connectButon setTitle:@"Log in" forState:UIControlStateNormal];
-        [connectButon setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+      //new imp
+      //si esta conectado muesta boton desconectarse
+        flagSync=YES;
+        if(flagConnection ){
+            connectButon.hidden=NO;
+        }
+        //si no esta conectado muesta sheet con opciones
+        else {
+            UIActionSheet* photoPopup =[[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Login",@"Register" ,nil];
+            [photoPopup showInView:[UIApplication sharedApplication].keyWindow];
         
+        }
         
-       
     }else{
-        registerButton.hidden=YES;
+        flagSync=NO;
         connectButon.hidden=YES;
        
     }
     
     
 }
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1)
-    {
-         username = [alertView textFieldAtIndex:0];
-        NSLog(@"username: %@", username.text);
-        password = [alertView textFieldAtIndex:1];
-        NSLog(@"password: %@", password.text);
-    
-        [self.service autenticate:username.text :password.text];
-        
-    }else{
-       
-    }
-}
-- (IBAction)connectButtonAction:(id)sender {
-    if ([connectButon.titleLabel.text isEqualToString:@"Log in" ]) {
-        UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Login" message:@"Enter Username & Password" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
-        alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
-        if (username) {
-            [alert textFieldAtIndex:0].text =username.text;
-            [alert textFieldAtIndex:1].text =password.text;
-
-        }else{
-        
-        [alert textFieldAtIndex:0].text =[self retrieveUSERFromUserDefaults];//username.text;
-        [alert textFieldAtIndex:1].text =[self retrievePASSFromUserDefaults];//password.text;
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:{
+            // login was presseed
+            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Login" message:@"Enter Username & Password" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
+            alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+            
+            [alert textFieldAtIndex:0].text = self.usuario;
+            [alert textFieldAtIndex:1].text = self.contrasenna;
+            
+            [alert addButtonWithTitle:@"Connect"];
+            alert.tag=2;
+            [alert show];
+        }
+     break;
+            
+        case 1:{
+        //register was pressed
+            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Register" message:@"Enter Username & Password for registration" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
+            alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
+            [alert addButtonWithTitle:@"Register"];
+            [alert show];
+            alert.tag=11;
         
         }
-        [alert addButtonWithTitle:@"Connect"];
-        [alert show];
+            break;
+        case 2:
+            [syncSwitch setOn:NO animated:YES];
 
-    }else if ([connectButon.titleLabel.text isEqualToString:@"Log out" ]){
+            break;
+        
+    default:
+            //cancel press
+                        break;
     
-        [connectButon setTitle:@"Log in" forState:UIControlStateNormal];
-        [connectButon setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        registerButton.hidden= NO;
+    }
+
+
+}
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    
+    
+    //the connect alert
+    if (alertView.tag ==2) {
+      if (buttonIndex == 1)
+      {
+         self.usuario = [alertView textFieldAtIndex:0].text;
+        self.contrasenna = [alertView textFieldAtIndex:1].text;
+          
+        [self.service autenticate:usuario:contrasenna];
+        
+      }else if (buttonIndex == 0){
+      //cancel in login press
+          [syncSwitch setOn:NO animated:YES];
+      }
+    }
+    //the regiter alert
+    else if (alertView.tag==11){
+        if (buttonIndex == 1)
+        {
+          
+            self.usuario = [alertView textFieldAtIndex:0].text;
+            self.contrasenna = [alertView textFieldAtIndex:1].text;
+
+            [self.service registerUser:[alertView textFieldAtIndex:0].text:[alertView textFieldAtIndex:1].text];
+
+        }if(buttonIndex == 0){
+            //cancel in register press
+            [syncSwitch setOn:NO animated:YES];
+        }
+    }
+    //log out confirmation
+    else if (alertView.tag==3){
+        
+        if (buttonIndex == 1)
+        {
+            flagConnection=NO;
+            [syncSwitch setOn:NO animated:YES];
+            connectButon.hidden=YES;
+            
+        }
+    
+    
+    } else if (alertView.tag==45){
+        
+        if (buttonIndex == 1)
+        {
+            [self.service autenticate:usuario :contrasenna];
+            
+        }
+        
         
     }
+
+    
+    
+    
+}
+- (IBAction)connectButtonAction:(id)sender {
+    //mostrar confirmacion de desconexion
+    UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"log out?" message:@"Sync will be off" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    alert.alertViewStyle = UIAlertViewStyleDefault;
+    alert.tag=3;
+    [alert show];
+    
     }
+- (IBAction)showNotificationOptionsAction:(id)sender {
+    
+    NotificationsTableViewController *detailViewController = [[NotificationsTableViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
+    
+    
+    navController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:navController animated:YES completion:nil];
+    
+}
+- (IBAction)CategoriesEditAction:(id)sender {
+    [self performSegueWithIdentifier:@"editcategorieesList" sender:sender];
+}
 @end

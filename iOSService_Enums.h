@@ -9,7 +9,7 @@ typedef enum {
     	kSoapProtocolVersionSoap12 = 2,
 } SoapProtocolVersion;
 #endif
-@interface reminderService_Enums : NSObject
+@interface iOSService_Enums : NSObject
 {
 }
 +(NSString*)SoapProtocolVersionToString:(SoapProtocolVersion)soapVersion;

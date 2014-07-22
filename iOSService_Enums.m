@@ -1,6 +1,6 @@
-#import "reminderService_Enums.h"
+#import "iOSService_Enums.h"
 
-@implementation  reminderService_Enums
+@implementation  iOSService_Enums
 +(SoapProtocolVersion)StringToSoapProtocolVersion:(NSString*)str{
     if( NSOrderedSame == [str compare:@"Default" options:NSCaseInsensitiveSearch])
         return kSoapProtocolVersionDefault;

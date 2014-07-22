@@ -143,9 +143,17 @@
     
 }
 -(AVAudioPlayer*)playSound:(NSString *)filePath{
-   NSURL *url = [NSURL fileURLWithPath:filePath];
+    UInt32 doChangeDefaultRoute = 1;
+    
+    AudioSessionSetProperty (
+                             kAudioSessionProperty_OverrideCategoryDefaultToSpeaker,
+                             sizeof (doChangeDefaultRoute),
+                             &doChangeDefaultRoute);
+    
+    NSURL *url = [NSURL fileURLWithPath:filePath];
     player = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:nil];
-   
+    [player prepareToPlay];
+    [player setVolume:1.0];
     [player play];
     return player;
 

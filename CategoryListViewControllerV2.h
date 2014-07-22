@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "DatabaseHelper.h"
+#import "iOSServiceProxy.h"
 #import "SWTableViewCell.h"
-@interface CategoryListViewControllerV2 : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate, SWTableViewCellDelegate>
+@interface CategoryListViewControllerV2 : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate, SWTableViewCellDelegate,Wsdl2CodeProxyDelegate>
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) DatabaseHelper *dao;
+
 @end

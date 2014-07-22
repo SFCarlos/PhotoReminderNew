@@ -11,47 +11,75 @@
 #import "RemindersListViewController.h"
 #import "EditCategoryViewController.h"
 #import "CategoryCustomCell.h"
+#import "AppDelegate.h"
 @interface CategoryListViewControllerV2 ()
+@property (nonatomic,retain) iOSServiceProxy* service;
 
 @end
 
 @implementation CategoryListViewControllerV2{
     NSMutableArray *categoryArray;
+    NSMutableArray *categoryArrayFULL;
     NSIndexPath * indextoEdit;
     NSIndexPath * indextoDelete;
     NSMutableArray *leftUtilityButtons;
     UIButton* catNameButton;
-    UIBarButtonItem *editButton;
+    UIButton* showitemsListButton;
+    NSInteger* flagSyncSTatus;
     UIBarButtonItem *setting ;
-    UIBarButtonItem* ordering;
+    UIBarButtonItem* SyncLogo;
     UIBarButtonItem * addCategory;
+    
+    NSInteger* id_cat_addservice;
+    NSInteger* id_cat_deleteservice;
+    NSInteger* id_cat_editservice;
+    
 
 }
 @synthesize dao;
+@synthesize service;
+
+-(NSInteger*)retrieveSYNCSTATUSSFromUserDefaults{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSInteger *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults integerForKey:@"STATUS"];
+    
+    return val;
+    
+}
 
 - (void)viewDidLoad
 {
+    self.service = [[iOSServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
+    
+    
     
     //init the arrays
     dao = [[DatabaseHelper alloc] init];
     categoryArray = [[NSMutableArray alloc] init];
-    categoryArray = [dao getCategoryList];
+    categoryArrayFULL = [[NSMutableArray alloc] init];
+    categoryArray = [dao getCategoryListwhitDeletedRowsIncluded:NO];
+    categoryArrayFULL = [dao getCategoryListwhitDeletedRowsIncluded:YES];
           setting = [[UIBarButtonItem alloc]
                                         initWithImage:[UIImage imageNamed:@"settings-25x.png"] style:UIBarStyleDefault target:self action:@selector(settingAction:)];
-    ordering = [[UIBarButtonItem alloc]
-                initWithImage:[UIImage imageNamed:@"align_justify-25.png"] style:UIBarStyleDefault target:self action:@selector(orderAction:)];
-    editButton= [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleBordered target:self action:@selector(editAction:)];
     
-    addCategory= [[UIBarButtonItem alloc]
-                  initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                  target:self
-                  action:@selector(addCategoryAction:)];
-    
+    SyncLogo = [[UIBarButtonItem alloc]
+                initWithImage:[UIImage imageNamed:@"link-25.png"] style:UIBarStyleDefault target:self action:@selector(SyncAll:)];
     //add buttons to nav bar
     self.navigationItem.leftBarButtonItems =
     [NSArray arrayWithObjects: setting, nil];
+    
+    flagSyncSTatus = [self retrieveSYNCSTATUSSFromUserDefaults];
+    
+    if(flagSyncSTatus == 1){
     self.navigationItem.rightBarButtonItems =
-    [NSArray arrayWithObjects: editButton, nil];
+        [NSArray arrayWithObjects: SyncLogo, nil];}
+    else{
+        self.navigationItem.rightBarButtonItems =
+        [NSArray arrayWithObjects: nil, nil];
+    }
     
     self.navigationItem.title = @"Categories";
     /*UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:nil action:nil];
@@ -68,18 +96,121 @@
 -(void) viewWillDisappear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-    [self.tableView reloadData];
+    
+    //[self.tableView reloadData];
     
 }
 -(void) viewWillAppear:(BOOL)animated{
     
-   
-    [super viewWillAppear:animated];
-    categoryArray = [dao getCategoryList];
+    
+        flagSyncSTatus = [self retrieveSYNCSTATUSSFromUserDefaults];
+   // NSLog(@"flagsync %d", (int)flagSyncSTatus);
+    if(flagSyncSTatus == 1){
+        self.navigationItem.rightBarButtonItems =
+        [NSArray arrayWithObjects: SyncLogo, nil];}
+    else{
+        self.navigationItem.rightBarButtonItems =
+        [NSArray arrayWithObjects: nil, nil];
+    }
+
+    categoryArrayFULL=[dao getCategoryListwhitDeletedRowsIncluded:YES];
+    categoryArray=[dao getCategoryListwhitDeletedRowsIncluded:NO];
     [self.tableView reloadData];
+    
+    [super viewWillAppear:animated];
+
+}
+#pragma mark - wsdl delegate
+-(void)proxydidFinishLoadingData:(id)data InMethod:(NSString *)method{
+    [self.tableView reloadData];
+   returnArrayIds *dataTem= (returnArrayIds*)data;
+    if([method isEqualToString:@"categoryEdit"]){
+        
+        NSLog(@"ejecuto %@ con resultado serverid %d",method,dataTem.serverID);
+         [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:NO];
+        
+        if(dataTem.serverID == -1){
+            
+            
+        }else if(dataTem.serverID == -2){
+            
+        }else {
+            //ok retorno el id Updateo category and continue
+            [dao updateClientStatus_and_IdServerinCategory:dataTem.clientID Id_cat_server:dataTem.serverID clientStatus:@"updated"];
+           
+            
+        }
+        
+        
+    }else if ([method isEqualToString:@"categoryDelete"]){
+         NSLog(@"ejecuto %@ con resultado serverid %d",method,dataTem.serverID);
+         [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:NO];
+        
+        if(dataTem.serverID == -1){
+            
+            
+        }else if(dataTem.serverID == -2){
+            
+            
+        }else if(dataTem.serverID == -3){
+            //smt bad incorreci catID
+            
+        }else {
+            //ok retorno el id Updateo category and continue
+            [dao updateClientStatus_and_IdServerinCategory:dataTem.clientID Id_cat_server:dataTem.serverID clientStatus:@"deleted"];
+           
+           // NSLog(@"ejecuto %@ con resultado %@ y este es el id_cat_deleteservice %d",method,(NSString*)data,id_cat_deleteservice);
+            
+        }
+        
+    }else if ([method isEqualToString:@"categoryAdd"]){
+        
+         [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:NO];
+         NSLog(@"ejecuto %@ con resultado serverid %d",method,dataTem.serverID);
+        if(dataTem.serverID == -1){
+            
+            
+        }else if(dataTem.serverID == -2){
+            
+            
+        }else if(dataTem.serverID == -3){
+            //smt bad incorreci catID
+            
+        }else {
+            //ok retorno el id Updateo category and continue
+            [dao updateClientStatus_and_IdServerinCategory:dataTem.clientID Id_cat_server:dataTem.serverID clientStatus:@"added"];
+           // NSLog(@"ejecuto %@ con resultado %@ y este es el id_cat_addservice %d",method,(NSString*)data,id_cat_addservice);
+
+            
+            
+        }
+
+    
+    }else if ([method isEqualToString:@"autenticate"]){
+   NSLog(@"ejecuto %@ con resultado %@",method,(NSString*)data);
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:NO];
+      
+    }
+
+}
+-(void)proxyRecievedError:(NSException *)ex InMethod:(NSString *)method{
+    [self.tableView reloadData];
+     [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:NO];
+    NSLog(@"EXPLOTO %@ con error %@ ",method,ex.description);
+    
+    if([method isEqualToString:@"categoryAdd"]){
+       //  NSLog(@"EXPLOTO %@ con error %@  ",method,ex.description);
+    }else if ([method isEqualToString:@"categoryEdit"]){
+        // NSLog(@"EXPLOTO %@ con error %@  ",method,ex.description);
+        
+    }else if ([method isEqualToString:@"categoryDelete"]){
+         //NSLog(@"EXPLOTO %@ con error %@  ",method,ex.description);
+    
+    }
     
     
 }
+
 -(void)addCategoryAction:(id)sender{
     
     [self performSegueWithIdentifier:@"add_categoryV2" sender:sender];
@@ -111,7 +242,7 @@
         //pass value Idcategoria to eddit
         editCategory.IdCategoryToEdit =tem.cat_id;
         
-    }else if ([segue.identifier isEqualToString:@"showrwminder_segue"]) {
+    }else if ([segue.identifier isEqualToString:@"showreminder_segue"]) {
         [self.tableView reloadData];
         RemindersListViewController* listReminder = segue.destinationViewController;
         CGPoint butoPoss = [sender convertPoint:CGPointZero toView:self.tableView];
@@ -123,8 +254,20 @@
         [self saveToUserDefaults:idcat_selected color:color];
         listReminder.reminderObj = tem;
 
+    }else if ([segue.identifier isEqualToString:@"shownotesegue"]) {
+       // [self.tableView reloadData];
+        //RemindersListViewController* listReminder = segue.destinationViewController;
+        CGPoint butoPoss = [sender convertPoint:CGPointZero toView:self.tableView];
+        NSIndexPath * clicedbut =[self.tableView indexPathForRowAtPoint:butoPoss];
+        NSInteger * idcat_selected ;
+        ReminderObject* tem =[categoryArray objectAtIndex:clicedbut.row];
+        idcat_selected = tem.cat_id;
+        NSString *color = tem.categoryColorPic;
+        [self saveToUserDefaults:idcat_selected color:color];
+        //listReminder.reminderObj = tem;
+        
     }else if ([segue.identifier isEqualToString:@"addReminderSegue"]){
-        NSLog(@"netro al add rmeinder");
+        //NSLog(@"netro al add rmeinder");
         CGPoint butoPoss = [sender convertPoint:CGPointZero toView:self.tableView];
         
         NSIndexPath * clicedbut =[self.tableView indexPathForRowAtPoint:butoPoss];
@@ -135,29 +278,45 @@
         idcat_selected = tem.cat_id;
         [self saveToUserDefaults:idcat_selected color:color];
         
+    }else if ([segue.identifier isEqualToString:@"addshoopingCarItemSegue"]){
+        
+        CGPoint butoPoss = [sender convertPoint:CGPointZero toView:self.tableView];
+        
+        NSIndexPath * clicedbut =[self.tableView indexPathForRowAtPoint:butoPoss];
+        
+        NSInteger * idcat_selected ;
+        ReminderObject* tem =[categoryArray objectAtIndex:clicedbut.row];
+        NSString *color = tem.categoryColorPic;
+        idcat_selected = tem.cat_id;
+        [self saveToUserDefaults:idcat_selected color:color];
+        
+    }else if ([segue.identifier isEqualToString:@"ShowShoopingListItems"]){
+        CGPoint butoPoss = [sender convertPoint:CGPointZero toView:self.tableView];
+        
+        NSIndexPath * clicedbut =[self.tableView indexPathForRowAtPoint:butoPoss];
+        
+        NSInteger * idcat_selected ;
+        ReminderObject* tem =[categoryArray objectAtIndex:clicedbut.row];
+        NSString *color = tem.categoryColorPic;
+        idcat_selected = tem.cat_id;
+        [self saveToUserDefaults:idcat_selected color:color];
+
+    }else if ([segue.identifier isEqualToString:@"addnote"]){
+        
+        CGPoint butoPoss = [sender convertPoint:CGPointZero toView:self.tableView];
+        
+        NSIndexPath * clicedbut =[self.tableView indexPathForRowAtPoint:butoPoss];
+        
+        NSInteger * idcat_selected ;
+        ReminderObject* tem =[categoryArray objectAtIndex:clicedbut.row];
+        NSString *color = tem.categoryColorPic;
+        idcat_selected = tem.cat_id;
+        [self saveToUserDefaults:idcat_selected color:color];
+    
     }
 }
 -(void)settingAction:(id)sender{
     [self performSegueWithIdentifier:@"settingsSegue" sender:sender];
-}
--(void)editAction:(id)sender{
-    if ([editButton.title isEqualToString:@"Edit"] ) {
-        editButton.title=@"Done";
-        self.navigationItem.rightBarButtonItems =
-        [NSArray arrayWithObjects:editButton, nil];
-        self.navigationItem.leftBarButtonItems =
-        [NSArray arrayWithObjects:addCategory,ordering, nil];
-       
-    }else if ([editButton.title isEqualToString:@"Done"]){
-        [self.tableView setEditing:NO animated:YES];
-        editButton.title = @"Edit";
-        self.navigationItem.rightBarButtonItems =
-        [NSArray arrayWithObjects:editButton, nil];
-        self.navigationItem.leftBarButtonItems =
-        [NSArray arrayWithObjects:setting, nil];
-            }
-    [self.tableView reloadData];
-    
 }
 
 
@@ -179,14 +338,6 @@
 
 #pragma mark - Table view data source
 
--(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-
-    if ([editButton.title isEqualToString:@"Edit"]) {
-        return nil;
-    }else
-    return @"                Swipe to the rigth to edit";
-
-}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     
@@ -209,58 +360,50 @@
   
     cell.leftUtilityButtons = [self leftButtons];
     cell.delegate = self;
-    ReminderObject *cate = [categoryArray objectAtIndex:[indexPath row]];
+    ReminderObject * categTemp = [categoryArray objectAtIndex:[indexPath row]];
   
     
     //Boton round
-    NSString * count = [NSString stringWithFormat:@"%d", (int)[dao getCountItemInCategory:cate.cat_id]];
+    NSString * count = [NSString stringWithFormat:@"%d", (int)[dao getCountItemInCategory:categTemp.cat_id]];
     cell.reminderListButton.frame = CGRectMake(135.0, 180.0, 32.0, 32.0);//width and height should be same value
     cell.reminderListButton.clipsToBounds = YES;
     cell.reminderListButton.layer.cornerRadius = 16;//half of the width
     [cell.reminderListButton setTitle:count forState:UIControlStateNormal];
     
     //color al principio y en el boton redondo
-    UIColor * colo = [self colorFromHexString:cate.categoryColorPic];
+    UIColor * colo = [self colorFromHexString:categTemp.categoryColorPic];
     cell.reminderListButton.backgroundColor = colo;
     cell.colorlabel.backgroundColor = colo;
     cell.reminderListButton.hidden=NO;
-    
-  
-    
-    switch ((int)cate.categoryType) {
-        case 0:
-            [cell.iconbutonType setImage:[UIImage imageNamed:@"shopping_cart_loaded-25.png"] forState:UIControlStateNormal];
-            break;
-        case 1:
-            [cell.iconbutonType setImage:[UIImage imageNamed:@"to_do-25.png"] forState:UIControlStateNormal];
+    // add action to the round button to conditional show list
+    [cell.reminderListButton addTarget:self
+                                action:@selector(ShowItemsAction:)
+                      forControlEvents:UIControlEventTouchUpInside];
 
-            break;
-        case 2:
-            [cell.iconbutonType setImage:[UIImage imageNamed:@"purchase_order-25.png"] forState:UIControlStateNormal];
-            break;
-        default:
-            [cell.iconbutonType setImage:[UIImage imageNamed:@"to_do-25.png"] forState:UIControlStateNormal];
-            break;
-    }
-   
-        
-    //name
+    
+    NSLog(@"Status %@ =---> %@ and serverID %d and clientid %d",categTemp.categoryName,categTemp.client_status,categTemp.cat_id_server, categTemp.cat_id);
+    
+    //put icon if is sync or not..
+    
+    if(categTemp.cat_id_server == 0){ //is sync whit server
+       [cell.iconbutonType setHidden:YES];
+    }else
+       [cell.iconbutonType setHidden:NO];
+    
+    //name button and add action to conditional add acoording type
     catNameButton = cell.categoryNameButon;
-    [catNameButton setTitle:cate.categoryName forState:UIControlStateNormal];
+    [catNameButton setTitle:categTemp.categoryName forState:UIControlStateNormal];
     [catNameButton addTarget:self
                       action:@selector(addItemsAction:)
        forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    
     if ([count isEqualToString:@"0"] || tableView.editing) {
         cell.reminderListButton.hidden=YES;
         
     }
-    if ([editButton.title isEqualToString:@"Done"]) {
-        [catNameButton setEnabled:NO];
-        [cell.reminderListButton setEnabled:NO];
-    }else{
-        [catNameButton setEnabled:YES];
-        [cell.reminderListButton setEnabled:YES];
-    }
+    
     return cell;
 }
 
@@ -278,12 +421,37 @@
             [self performSegueWithIdentifier:@"addReminderSegue" sender:sender];
             break;
         case 2:
-            //[self performSegueWithIdentifier:@"addNoteSegue" sender:sender];
+            [self performSegueWithIdentifier:@"addnote" sender:sender];
             break;
         default:
             break;
     }
     
+
+}
+-(void)ShowItemsAction:(id)sender{
+    CGPoint butoPoss = [sender convertPoint:CGPointZero toView:self.tableView];
+    
+    NSIndexPath * clicedbut =[self.tableView indexPathForRowAtPoint:butoPoss];
+    ReminderObject* tem =[categoryArray objectAtIndex:clicedbut.row];
+   
+    switch ((int)tem.categoryType) {
+        case 0:
+            [self performSegueWithIdentifier:@"ShowShoopingListItems" sender:sender];
+             NSLog(@"type %d y mostrarshopinglist",(int)tem.categoryType);
+            break;
+        case 1:
+            [self performSegueWithIdentifier:@"showreminder_segue" sender:sender];
+            break;
+        case 2:
+           [self performSegueWithIdentifier:@"shownotesegue" sender:sender];
+            break;
+        default:
+            break;
+    }
+
+
+
 
 }
 -(NSArray*)leftButtons{
@@ -333,15 +501,7 @@
 #pragma mark - SWTableViewDelegate
 
 -(BOOL)swipeableTableViewCell:(SWTableViewCell *)cell canSwipeToState:(SWCellState)state{
-    
-    if ([editButton.title isEqualToString:@"Edit"] ) {
-        [cell hideUtilityButtonsAnimated:YES];
         return NO;
-    }else if ([editButton.title isEqualToString:@"Done"]){
-    
-        return YES;
-    }
-    return YES;
 }
 
 -(BOOL)swipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(SWTableViewCell *)cell{
@@ -349,7 +509,7 @@
 
 }
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index {
-    
+   /*
     switch (index) {
        
         case 0:
@@ -401,7 +561,7 @@
            
             
          
-    }
+    }*/
     
 }
 
@@ -416,7 +576,7 @@
         
         
         // delete and cancel all the notification reminder
-        NSMutableArray * notificantionInCategory = [dao getItemList:cate.cat_id];
+        NSMutableArray * notificantionInCategory = [dao getItemList:cate.cat_id itemType:-1];
         NSString *idtem =[NSString stringWithFormat:@"%d",(int)cate.reminderID];
         UIApplication*app =[UIApplication sharedApplication];
         NSArray *eventArray = [app scheduledLocalNotifications];
@@ -444,5 +604,70 @@
     }
     
 }
+-(NSString*)retrieveUSERFromUserDefaults{
+    
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults objectForKey:@"USER"];
+    
+    return val;
+    
+}-(NSString*)retrievePASSFromUserDefaults{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults objectForKey:@"PASSW"];
+    
+    return val;
+    
+}
 
+-(void)SyncAll:(id)sender{
+    for(ReminderObject* cate in categoryArrayFULL ){
+        
+        if(cate.cat_id_server == 0){
+            [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:YES];
+           
+            //need syncro
+            if([cate.client_status isEqualToString:@"added"]){ //need add
+            
+              [self.service categoryAdd:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :[NSString stringWithFormat:@"%d",(int)cate.cat_id]:(int)cate.categoryType :cate.categoryName :cate.categoryColorPic];
+                //NSLog(@"llamada to cotegoryadd> idClietReminder(String) %@",[NSString stringWithFormat:@"%d",(int)cate.cat_id]);
+            
+            }else if ([cate.client_status isEqualToString:@"updated"]){//need update
+               
+                [service categoryEdit:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :[NSString stringWithFormat:@"%d", (int)cate.cat_id] :cate.categoryName :cate.categoryColorPic];
+            
+            
+            }else if ([cate.client_status isEqualToString:@"deleted"]){//need delete
+               
+                [service categoryDelete:[self retrieveUSERFromUserDefaults]:[self retrievePASSFromUserDefaults]:[NSString stringWithFormat:@"%d", (int)cate.cat_id] ];
+            
+            
+            }
+            
+            
+        
+        }
+    
+    
+    
+    }
+
+
+    categoryArray = [dao getCategoryListwhitDeletedRowsIncluded:NO];
+
+    [self.tableView reloadData];
+     
+    /*
+    for(ReminderObject* cate in categoryArray ){
+        [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:YES];
+       [service autenticate:@"eee" :@"eee"];
+        
+    
+    }*/
+}
 @end

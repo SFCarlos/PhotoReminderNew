@@ -11,6 +11,8 @@
 @implementation ReminderObject
 
 @synthesize reminderID;
+@synthesize client_status;
+@synthesize cat_id_server;
 @synthesize reminderName;
 @synthesize photoPath;
 @synthesize alarm;

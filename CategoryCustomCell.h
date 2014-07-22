@@ -15,4 +15,5 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *iconbutonType;
 
+
 @end
