@@ -15,6 +15,9 @@
 		CE0BD6EF19378F3100416DDB /* shopping_cart_loaded-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6EE19378F3100416DDB /* shopping_cart_loaded-25.png */; };
 		CE0BD6F11937936C00416DDB /* purchase_order-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6F01937936C00416DDB /* purchase_order-25.png */; };
 		CE0BD6F3193794D500416DDB /* to_do-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6F2193794D500416DDB /* to_do-25.png */; };
+		CE12F2A1197FBF2F00DBBA86 /* iOSService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE12F29E197FBF2F00DBBA86 /* iOSService.m */; };
+		CE12F2A2197FBF2F00DBBA86 /* iOSServiceProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = CE12F2A0197FBF2F00DBBA86 /* iOSServiceProxy.m */; };
+		CE12F2A4197FE63900DBBA86 /* AppDatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CE12F2A3197FE63900DBBA86 /* AppDatabase.sqlite */; };
 		CE1902CA193E0811008E5540 /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1902BF193E0811008E5540 /* GMGridView.m */; };
 		CE1902CB193E0811008E5540 /* GMGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1902C1193E0811008E5540 /* GMGridViewCell.m */; };
 		CE1902CC193E0811008E5540 /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1902C4193E0811008E5540 /* GMGridViewLayoutStrategies.m */; };
@@ -24,13 +27,10 @@
 		CE23563C19349063007C2B36 /* CategoryCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE23563B19349063007C2B36 /* CategoryCustomCell.m */; };
 		CE23563F1934928F007C2B36 /* CategoryListViewControllerV2.m in Sources */ = {isa = PBXBuildFile; fileRef = CE23563E1934928F007C2B36 /* CategoryListViewControllerV2.m */; };
 		CE29C515192F7F3B007022CB /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE29C514192F7F3B007022CB /* libxml2.dylib */; };
-		CE2D8106196C00AC0099EF3A /* iOSService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D8103196C00AC0099EF3A /* iOSService.m */; };
-		CE2D8107196C00AD0099EF3A /* iOSServiceProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D8105196C00AC0099EF3A /* iOSServiceProxy.m */; };
 		CE2D810A196C01550099EF3A /* iOSService_Enums.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D8109196C01550099EF3A /* iOSService_Enums.m */; };
 		CE2D810D196C01A60099EF3A /* returnArrayIds.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D810C196C01A60099EF3A /* returnArrayIds.m */; };
 		CE2D8111196C07140099EF3A /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D8110196C07140099EF3A /* XPathQuery.m */; };
 		CE2D8114196C07A10099EF3A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D8113196C07A10099EF3A /* NSData+Base64.m */; };
-		CE2D8116196D5BD60099EF3A /* AppDatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CE2D8115196D5BD60099EF3A /* AppDatabase.sqlite */; };
 		CE3174BF195AFF72007EE188 /* AddShoppingItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3174BE195AFF72007EE188 /* AddShoppingItemViewController.m */; };
 		CE3174C1195B073C007EE188 /* gallery_filled-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3174C0195B073C007EE188 /* gallery_filled-25.png */; };
 		CE3174C4195C16EC007EE188 /* ShoopingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3174C3195C16EC007EE188 /* ShoopingListViewController.m */; };
@@ -156,6 +156,11 @@
 		CE0BD6EE19378F3100416DDB /* shopping_cart_loaded-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping_cart_loaded-25.png"; sourceTree = "<group>"; };
 		CE0BD6F01937936C00416DDB /* purchase_order-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "purchase_order-25.png"; sourceTree = "<group>"; };
 		CE0BD6F2193794D500416DDB /* to_do-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "to_do-25.png"; sourceTree = "<group>"; };
+		CE12F29D197FBF2F00DBBA86 /* iOSService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSService.h; sourceTree = "<group>"; };
+		CE12F29E197FBF2F00DBBA86 /* iOSService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSService.m; sourceTree = "<group>"; };
+		CE12F29F197FBF2F00DBBA86 /* iOSServiceProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSServiceProxy.h; sourceTree = "<group>"; };
+		CE12F2A0197FBF2F00DBBA86 /* iOSServiceProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSServiceProxy.m; sourceTree = "<group>"; };
+		CE12F2A3197FE63900DBBA86 /* AppDatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppDatabase.sqlite; sourceTree = "<group>"; };
 		CE1902BD193E0811008E5540 /* GMGridView-Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridView-Constants.h"; sourceTree = "<group>"; };
 		CE1902BE193E0811008E5540 /* GMGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridView.h; sourceTree = "<group>"; };
 		CE1902BF193E0811008E5540 /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
@@ -175,10 +180,6 @@
 		CE23563E1934928F007C2B36 /* CategoryListViewControllerV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryListViewControllerV2.m; sourceTree = "<group>"; };
 		CE29C514192F7F3B007022CB /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		CE29C52D192F82D7007022CB /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
-		CE2D8102196C00AC0099EF3A /* iOSService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSService.h; sourceTree = "<group>"; };
-		CE2D8103196C00AC0099EF3A /* iOSService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSService.m; sourceTree = "<group>"; };
-		CE2D8104196C00AC0099EF3A /* iOSServiceProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSServiceProxy.h; sourceTree = "<group>"; };
-		CE2D8105196C00AC0099EF3A /* iOSServiceProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSServiceProxy.m; sourceTree = "<group>"; };
 		CE2D8108196C01410099EF3A /* iOSService_Enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSService_Enums.h; sourceTree = "<group>"; };
 		CE2D8109196C01550099EF3A /* iOSService_Enums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSService_Enums.m; sourceTree = "<group>"; };
 		CE2D810B196C01A60099EF3A /* returnArrayIds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = returnArrayIds.h; sourceTree = "<group>"; };
@@ -187,7 +188,6 @@
 		CE2D8110196C07140099EF3A /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 		CE2D8112196C07A10099EF3A /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		CE2D8113196C07A10099EF3A /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
-		CE2D8115196D5BD60099EF3A /* AppDatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppDatabase.sqlite; sourceTree = "<group>"; };
 		CE3174BD195AFF72007EE188 /* AddShoppingItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddShoppingItemViewController.h; path = PhotoReminderNew/AddShoppingItemViewController.h; sourceTree = "<group>"; };
 		CE3174BE195AFF72007EE188 /* AddShoppingItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddShoppingItemViewController.m; path = PhotoReminderNew/AddShoppingItemViewController.m; sourceTree = "<group>"; };
 		CE3174C0195B073C007EE188 /* gallery_filled-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gallery_filled-25.png"; sourceTree = "<group>"; };
@@ -406,16 +406,16 @@
 			children = (
 				CE2D8112196C07A10099EF3A /* NSData+Base64.h */,
 				CE2D8113196C07A10099EF3A /* NSData+Base64.m */,
+				CE12F29D197FBF2F00DBBA86 /* iOSService.h */,
+				CE12F29E197FBF2F00DBBA86 /* iOSService.m */,
+				CE12F29F197FBF2F00DBBA86 /* iOSServiceProxy.h */,
+				CE12F2A0197FBF2F00DBBA86 /* iOSServiceProxy.m */,
 				CE2D810F196C07140099EF3A /* XPathQuery.h */,
 				CE2D8110196C07140099EF3A /* XPathQuery.m */,
 				CE2D810B196C01A60099EF3A /* returnArrayIds.h */,
 				CE2D810C196C01A60099EF3A /* returnArrayIds.m */,
 				CE2D8109196C01550099EF3A /* iOSService_Enums.m */,
 				CE2D8108196C01410099EF3A /* iOSService_Enums.h */,
-				CE2D8102196C00AC0099EF3A /* iOSService.h */,
-				CE2D8103196C00AC0099EF3A /* iOSService.m */,
-				CE2D8104196C00AC0099EF3A /* iOSServiceProxy.h */,
-				CE2D8105196C00AC0099EF3A /* iOSServiceProxy.m */,
 			);
 			name = iOSWebService;
 			sourceTree = "<group>";
@@ -769,7 +769,7 @@
 		CED3DA06191D0C4400624E6F /* DatabaseCore */ = {
 			isa = PBXGroup;
 			children = (
-				CE2D8115196D5BD60099EF3A /* AppDatabase.sqlite */,
+				CE12F2A3197FE63900DBBA86 /* AppDatabase.sqlite */,
 				CED3D9FF191D0C3800624E6F /* ReminderObject.h */,
 				CED3DA00191D0C3800624E6F /* ReminderObject.m */,
 				CED3DA01191D0C3800624E6F /* DatabaseHelper.h */,
@@ -941,7 +941,7 @@
 				CED3D9D0191D0A7300624E6F /* background@2x.png in Resources */,
 				CED3DA32191D0F5D00624E6F /* edit-25x.png in Resources */,
 				CED3D9F5191D0BD200624E6F /* Birds.m4r in Resources */,
-				CE2D8116196D5BD60099EF3A /* AppDatabase.sqlite in Resources */,
+				CE12F2A4197FE63900DBBA86 /* AppDatabase.sqlite in Resources */,
 				CE75D805194B22E9003856A6 /* Color-Palette.png in Resources */,
 				CED3D966191D085B00624E6F /* autocompleteButton.png in Resources */,
 				CE75D803194AFF17003856A6 /* trash-25.png in Resources */,
@@ -977,12 +977,12 @@
 				CED3D98A191D08BA00624E6F /* SettingsViewController.m in Sources */,
 				CE83C74D1962AC440060B280 /* FullScreemPageItemViewController.m in Sources */,
 				CE75D808194EE10E003856A6 /* ColorPickerImageView.m in Sources */,
+				CE12F2A2197FBF2F00DBBA86 /* iOSServiceProxy.m in Sources */,
 				CED3DA1B191D0D0800624E6F /* EditReminderViewController.m in Sources */,
 				CED3DA1E191D0D0800624E6F /* CategoryListViewController.m in Sources */,
 				CED3D91E191D06C400624E6F /* AppDelegate.m in Sources */,
 				CED3DA04191D0C3800624E6F /* ReminderObject.m in Sources */,
 				CED3D9C6191D0A7300624E6F /* PMCalendarBackgroundView.m in Sources */,
-				CE2D8107196C00AD0099EF3A /* iOSServiceProxy.m in Sources */,
 				CE83C763196585D80060B280 /* AddNoteViewController.m in Sources */,
 				CE83C7601965738A0060B280 /* EditShoopingItemViewController.m in Sources */,
 				CED3D9C8191D0A7300624E6F /* PMCalendarView.m in Sources */,
@@ -995,7 +995,6 @@
 				CE3174CF195D873B007EE188 /* GirdShoopingViewController.m in Sources */,
 				CED3D99A191D099900624E6F /* SWCellScrollView.m in Sources */,
 				CED3D9CB191D0A7300624E6F /* PMSelectionView.m in Sources */,
-				CE2D8106196C00AC0099EF3A /* iOSService.m in Sources */,
 				CE1902CA193E0811008E5540 /* GMGridView.m in Sources */,
 				CED3D9E8191D0B6100624E6F /* POVoiceHUD.m in Sources */,
 				CED3D9D6191D0AA000624E6F /* NotificationScreenController.m in Sources */,
@@ -1027,6 +1026,7 @@
 				CED3D9C7191D0A7300624E6F /* PMCalendarController.m in Sources */,
 				CE83C7661966CAB20060B280 /* EditNoteViewController.m in Sources */,
 				CED3D91A191D06C400624E6F /* main.m in Sources */,
+				CE12F2A1197FBF2F00DBBA86 /* iOSService.m in Sources */,
 				CED3D9CD191D0A7300624E6F /* PMThemeShadow.m in Sources */,
 				CED3D99D191D099900624E6F /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				CED3D99B191D099900624E6F /* SWLongPressGestureRecognizer.m in Sources */,

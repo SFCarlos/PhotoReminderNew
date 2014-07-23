@@ -9,9 +9,9 @@
 #import "AddCategoryViewController.h"
 #import "NKOColorPickerView.h"
 #import "iToast.h"
-#import "returnArrayIds.h"
+
 @interface AddCategoryViewController ()
-@property (nonatomic,retain) iOSServiceProxy* service;
+
 @end
 
 @implementation AddCategoryViewController{
@@ -27,7 +27,7 @@
 
 ////***color Picker****
 @synthesize selectedButomcolor;
-@synthesize service;
+
 @synthesize color1;
 @synthesize color2;
 @synthesize color3;
@@ -127,9 +127,7 @@
 - (void)viewDidLoad
 {
     
-    self.service = [[iOSServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
-    //title
-    self.navigationItem.title = @"New category";
+       self.navigationItem.title = @"New category";
     dao = [[DatabaseHelper alloc] init];
     self.navigationItem.hidesBackButton = YES;
     
@@ -195,40 +193,6 @@
     return val;
     
 }
-#pragma mark - wsdl delegate
--(void)proxydidFinishLoadingData:(id)data InMethod:(NSString *)method{
-    //NSLog(@"ejecuto %@ con resultado %@",method,(NSString*)data);
-   
-    if([method isEqualToString:@"categoryAdd"]){
-        returnArrayIds *dataTem= (returnArrayIds*)data;
-        NSLog(@"ejecuto %@ con resultado serverid %d",method,dataTem.serverID);
-        if(dataTem.serverID == -1){
-            
-            [dao updateClientStatus_and_IdServerinCategory:(int)id_cat_client Id_cat_server:0 clientStatus:@"added"];
-
-        
-        }else if(dataTem.serverID == -2){
-            [dao updateClientStatus_and_IdServerinCategory:(int)id_cat_client Id_cat_server:0 clientStatus:@"added"];
-            
-            
-        }else {
-        //ok retorno el id Updateo category and continue
-            [dao updateClientStatus_and_IdServerinCategory:(int)id_cat_client Id_cat_server:dataTem.serverID clientStatus:@"added"];
-            
-        }
-
-    
-    }
-
-
-}
--(void)proxyRecievedError:(NSException *)ex InMethod:(NSString *)method{
- NSLog(@"EXPLOTO %@ con error %@",method,ex.description);
-    if([method isEqualToString:@"categoryAdd"]){
-        [dao updateClientStatus_and_IdServerinCategory:(int)id_cat_client Id_cat_server:0 clientStatus:@"added"];
-        
-    }
-}
 -(void)handleBack:(id)sender{
     [self performSegueWithIdentifier:@"done_categoryV2" sender:sender];
 }
@@ -271,23 +235,13 @@
         [[[[iToast makeText:NSLocalizedString(@"Name empty", @"")]setGravity:iToastGravityBottom]setDuration:iToastDurationShort]show];
 
     }else {
-        id_cat_client = [dao insertCategory:categoryName.text colorPic:COLOR type:catType client_status:@"added"];
-        if((int)id_cat_client != -1){ //if -1 no inserto
-        //compruebo el estado de la sync
-            if([self retrieveSYNCSTATUSSFromUserDefaults] == 1){
-                
-                [self.service categoryAdd:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :[NSString stringWithFormat:@"%d",(int)id_cat_client]:(int)catType :categoryName.text :COLOR];
-           
-            }else{
-                //syn is off
-                [dao updateClientStatus_and_IdServerinCategory:(int)id_cat_client Id_cat_server:0 clientStatus:@"added"];
+        id_cat_client = [dao insertCategory:categoryName.text colorPic:COLOR type:catType client_status:@"0"]; //0 id add/updated
+        if((int)id_cat_client == -1){ //if -1 no inserto
+                       //syn is off
+             [[[[iToast makeText:NSLocalizedString(@"Problem whit insertion", @"")]setGravity:iToastGravityBottom]setDuration:iToastDurationShort]show];
             
-            }
-            
-            
-           [self performSegueWithIdentifier:@"done_categoryV2" sender:sender]; 
-        }
-    
+        }else
+            [self performSegueWithIdentifier:@"done_categoryV2" sender:sender];
     }
 
     

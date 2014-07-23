@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "DatabaseHelper.h"
-#import "iOSServiceProxy.h"
 
-@interface AddCategoryViewController : UIViewController <UITextFieldDelegate,Wsdl2CodeProxyDelegate>
+
+@interface AddCategoryViewController : UIViewController <UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet UITextField *categoryName;
 @property (strong, nonatomic) IBOutlet UILabel *label1;
 @property (strong, nonatomic) IBOutlet UIView *Pickercontainer;

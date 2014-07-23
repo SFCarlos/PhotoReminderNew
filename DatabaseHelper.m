@@ -74,7 +74,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     if (whitDeletedRowsIncluded) {
         sentenciaSQL = "SELECT id_cat, category_name,imagePic,colorPic,type,client_status,id_cat_server FROM categories ";
     }else{
-   sentenciaSQL = "SELECT id_cat, category_name,imagePic,colorPic,type,client_status,id_cat_server FROM categories WHERE client_status != 'deleted'";
+   sentenciaSQL = "SELECT id_cat, category_name,imagePic,colorPic,type,client_status,id_cat_server FROM categories WHERE client_status != '1'";
     }
     
     sqlite3_stmt *sqlStatement;
@@ -829,7 +829,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         flag = NO;
         return flag;
     } else {
-        NSString *sqlDelete = [NSString stringWithFormat:@"UPDATE categories SET client_status = 'deleted' WHERE id_cat = %d",(int)id_cat];
+        NSString *sqlDelete = [NSString stringWithFormat:@"UPDATE categories SET client_status = '1' WHERE id_cat = %d",(int)id_cat];
         const char *sql = [sqlDelete UTF8String];
         sqlite3_stmt *sqlStatement;
         
@@ -861,7 +861,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         flag = NO;
         return flag;
     } else {
-        NSString *sqledit = [NSString stringWithFormat:@"UPDATE categories SET category_name= '%@' ,colorPic = '%@',type =%d,client_status = 'updated' WHERE id_cat = %d",categoryName,categoryColor,(int)type,(int)id_cat];
+        NSString *sqledit = [NSString stringWithFormat:@"UPDATE categories SET category_name= '%@' ,colorPic = '%@',type =%d,client_status = '0' WHERE id_cat = %d",categoryName,categoryColor,(int)type,(int)id_cat];
         const char *sql = [sqledit UTF8String];
         sqlite3_stmt *sqlStatement;
         NSLog(sqledit);

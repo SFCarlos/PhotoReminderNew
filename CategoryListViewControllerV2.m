@@ -12,6 +12,7 @@
 #import "EditCategoryViewController.h"
 #import "CategoryCustomCell.h"
 #import "AppDelegate.h"
+#import "returnArrayIds.h"
 @interface CategoryListViewControllerV2 ()
 @property (nonatomic,retain) iOSServiceProxy* service;
 
@@ -122,72 +123,10 @@
 }
 #pragma mark - wsdl delegate
 -(void)proxydidFinishLoadingData:(id)data InMethod:(NSString *)method{
-    [self.tableView reloadData];
+   
    returnArrayIds *dataTem= (returnArrayIds*)data;
-    if([method isEqualToString:@"categoryEdit"]){
-        
-        NSLog(@"ejecuto %@ con resultado serverid %d",method,dataTem.serverID);
-         [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:NO];
-        
-        if(dataTem.serverID == -1){
-            
-            
-        }else if(dataTem.serverID == -2){
-            
-        }else {
-            //ok retorno el id Updateo category and continue
-            [dao updateClientStatus_and_IdServerinCategory:dataTem.clientID Id_cat_server:dataTem.serverID clientStatus:@"updated"];
-           
-            
-        }
-        
-        
-    }else if ([method isEqualToString:@"categoryDelete"]){
-         NSLog(@"ejecuto %@ con resultado serverid %d",method,dataTem.serverID);
-         [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:NO];
-        
-        if(dataTem.serverID == -1){
-            
-            
-        }else if(dataTem.serverID == -2){
-            
-            
-        }else if(dataTem.serverID == -3){
-            //smt bad incorreci catID
-            
-        }else {
-            //ok retorno el id Updateo category and continue
-            [dao updateClientStatus_and_IdServerinCategory:dataTem.clientID Id_cat_server:dataTem.serverID clientStatus:@"deleted"];
-           
-           // NSLog(@"ejecuto %@ con resultado %@ y este es el id_cat_deleteservice %d",method,(NSString*)data,id_cat_deleteservice);
-            
-        }
-        
-    }else if ([method isEqualToString:@"categoryAdd"]){
-        
-         [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:NO];
-         NSLog(@"ejecuto %@ con resultado serverid %d",method,dataTem.serverID);
-        if(dataTem.serverID == -1){
-            
-            
-        }else if(dataTem.serverID == -2){
-            
-            
-        }else if(dataTem.serverID == -3){
-            //smt bad incorreci catID
-            
-        }else {
-            //ok retorno el id Updateo category and continue
-            [dao updateClientStatus_and_IdServerinCategory:dataTem.clientID Id_cat_server:dataTem.serverID clientStatus:@"added"];
-           // NSLog(@"ejecuto %@ con resultado %@ y este es el id_cat_addservice %d",method,(NSString*)data,id_cat_addservice);
-
-            
-            
-        }
-
-    
-    }else if ([method isEqualToString:@"autenticate"]){
-   NSLog(@"ejecuto %@ con resultado %@",method,(NSString*)data);
+    if([method isEqualToString:@"categorySync"]){
+        NSLog(@"result.>>>> idclient %d and idserver %d",dataTem.clientID,dataTem.serverID);
     [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:NO];
       
     }
@@ -197,17 +136,7 @@
     [self.tableView reloadData];
      [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:NO];
     NSLog(@"EXPLOTO %@ con error %@ ",method,ex.description);
-    
-    if([method isEqualToString:@"categoryAdd"]){
-       //  NSLog(@"EXPLOTO %@ con error %@  ",method,ex.description);
-    }else if ([method isEqualToString:@"categoryEdit"]){
-        // NSLog(@"EXPLOTO %@ con error %@  ",method,ex.description);
-        
-    }else if ([method isEqualToString:@"categoryDelete"]){
-         //NSLog(@"EXPLOTO %@ con error %@  ",method,ex.description);
-    
-    }
-    
+       
     
 }
 
@@ -627,47 +556,18 @@
 
 -(void)SyncAll:(id)sender{
     for(ReminderObject* cate in categoryArrayFULL ){
-        
-        if(cate.cat_id_server == 0){
-            [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:YES];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:YES];
            
-            //need syncro
-            if([cate.client_status isEqualToString:@"added"]){ //need add
-            
-              [self.service categoryAdd:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :[NSString stringWithFormat:@"%d",(int)cate.cat_id]:(int)cate.categoryType :cate.categoryName :cate.categoryColorPic];
-                //NSLog(@"llamada to cotegoryadd> idClietReminder(String) %@",[NSString stringWithFormat:@"%d",(int)cate.cat_id]);
-            
-            }else if ([cate.client_status isEqualToString:@"updated"]){//need update
-               
-                [service categoryEdit:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :[NSString stringWithFormat:@"%d", (int)cate.cat_id] :cate.categoryName :cate.categoryColorPic];
-            
-            
-            }else if ([cate.client_status isEqualToString:@"deleted"]){//need delete
-               
-                [service categoryDelete:[self retrieveUSERFromUserDefaults]:[self retrievePASSFromUserDefaults]:[NSString stringWithFormat:@"%d", (int)cate.cat_id] ];
-            
-            
-            }
-            
-            
-        
-        }
-    
-    
+     [service categorySync:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :[NSString stringWithFormat:@"%d",(int)cate.cat_id] :[NSString stringWithFormat:@"%d",(int)cate.cat_id]:(int)cate.categoryType :cate.categoryName :cate.categoryColorPic :cate.client_status];
+     
     
     }
 
 
     categoryArray = [dao getCategoryListwhitDeletedRowsIncluded:NO];
 
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
      
-    /*
-    for(ReminderObject* cate in categoryArray ){
-        [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:YES];
-       [service autenticate:@"eee" :@"eee"];
-        
     
-    }*/
 }
 @end

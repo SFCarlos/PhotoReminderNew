@@ -9,9 +9,9 @@
 #import "EditCategoryViewController.h"
 #import "NKOColorPickerView.h"
 #import "iToast.h"
-#import "returnArrayIds.h"
+
 @interface EditCategoryViewController ()<UIAlertViewDelegate>
-@property (nonatomic,retain) iOSServiceProxy* service;
+
 
 @end
 
@@ -27,7 +27,6 @@ UIColor* colorcito_selected;
 @synthesize categoryName;
 @synthesize IdCategoryToEdit;
 @synthesize typeSegmentedContlos;
-@synthesize service;
 
 //*****8 Color picker buttons***
 @synthesize selectedButomcolor;
@@ -148,7 +147,7 @@ UIColor* colorcito_selected;
 - (void)viewDidLoad
 {
     
-    self.service = [[iOSServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
+    
     //title
     self.navigationItem.title = @"Edit category";
     dao = [[DatabaseHelper alloc] init];
@@ -207,65 +206,6 @@ UIColor* colorcito_selected;
     
     
 }
-#pragma mark - wsdl delegate
--(void)proxydidFinishLoadingData:(id)data InMethod:(NSString *)method{
- returnArrayIds *dataTem= (returnArrayIds*)data;
-    if([method isEqualToString:@"categoryEdit"]){
-        
-        NSLog(@"ejecuto %@ con resultado serverid %d",method,dataTem.serverID);
-        if(dataTem.serverID == -1){
-            [dao updateClientStatus_and_IdServerinCategory:IdCategoryToEdit Id_cat_server:0 clientStatus:@"updated"];
-        }else if(dataTem.serverID == -2){
-            [dao updateClientStatus_and_IdServerinCategory:IdCategoryToEdit Id_cat_server:0 clientStatus:@"updated"];
-        }else {
-            //ok retorno el id Updateo category and continue
-            [dao updateClientStatus_and_IdServerinCategory:IdCategoryToEdit Id_cat_server:dataTem.serverID clientStatus:@"updated"];
-            
-
-        }
-        
-        
-    }else if ([method isEqualToString:@"categoryDelete"]){
-     NSLog(@"ejecuto %@ con resultado serverid %d",method,dataTem.serverID);
-        if(dataTem.serverID == -1){
-           
-            [dao updateClientStatus_and_IdServerinCategory:IdCategoryToEdit Id_cat_server:0 clientStatus:@"deleted"];
-        }else if(dataTem.serverID == -2){
-            [dao updateClientStatus_and_IdServerinCategory:IdCategoryToEdit Id_cat_server:0 clientStatus:@"deleted"];
-            
-        }else if(dataTem.serverID == -3){
-            //smt bad incorreci catID
-            //ha ocurrido error
-            [dao updateClientStatus_and_IdServerinCategory:IdCategoryToEdit Id_cat_server:0 clientStatus:@"deleted"];
-            
-        }else {
-            //ok retorno el id Updateo category and continue
-            NSLog(@"estoy en el delete response y este es el id retornado %d",dataTem.serverID);
-            [dao updateClientStatus_and_IdServerinCategory:IdCategoryToEdit Id_cat_server:dataTem.serverID clientStatus:@"deleted"];
-            
-            
-        }
-
-    
-    
-    
-    }
-    
-    
-}
--(void)proxyRecievedError:(NSException *)ex InMethod:(NSString *)method{
-    NSLog(@"EXPLOTO %@ con error %@",method,ex.description);
-    if([method isEqualToString:@"categoryEdit"]){
-  
-    }else if ([method isEqualToString:@"categoryDelete"]){
-        
-      
-        
-        
-    }
-
-    
-}
 -(NSInteger*)retrieveSYNCSTATUSSFromUserDefaults{
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger *val = nil;
@@ -313,13 +253,15 @@ UIColor* colorcito_selected;
     if (buttonIndex==1) {
         // Delete the row from the data source
         if([dao deleteCategory:IdCategoryToEdit]){;
+            
+            NSLog(@"elimino la category");
             if([self retrieveSYNCSTATUSSFromUserDefaults]==1){
-                [service categoryDelete:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :[NSString stringWithFormat:@"%d",(int)IdCategoryToEdit]];
+                
                 
                 
             }else{
-                //sync is of put 0 and do later
-                [dao updateClientStatus_and_IdServerinCategory:IdCategoryToEdit Id_cat_server:0 clientStatus:@"deleted"];
+                //put 1 in sttus means deleted
+                [dao updateClientStatus_and_IdServerinCategory:IdCategoryToEdit Id_cat_server:categoryToEdit.cat_id_server clientStatus:@"1"];
             
             }
         
@@ -384,52 +326,23 @@ UIColor* colorcito_selected;
             break;
     }
 
-   
+   //name is mandatory
     if(categoryName.text== nil || [categoryName.text isEqualToString:@""]){
         [[[[iToast makeText:NSLocalizedString(@"Name empty", @"")]setGravity:iToastGravityBottom]setDuration:iToastDurationNormal]show];
         
     }
     else {
        
-       
         //la edito y le pongo en cliet_status = 'updated' in DBhelper
-        if([dao editCategory:IdCategoryToEdit categoryName:categoryName.text categoryColor:COLOR type:(int)catType] != -1){ //if -1 no inserto
+        if([dao editCategory:IdCategoryToEdit categoryName:categoryName.text categoryColor:COLOR type:(int)catType] != -1){ //if -1 no edito
+           
+          
             
-            //compruebo el estado de la sync
+            [self performSegueWithIdentifier:@"done_category" sender:sender];
             
-            if([self retrieveSYNCSTATUSSFromUserDefaults] == 1) {
-                
-                //si esta sync call edit in server
-                
-                if (categoryToEdit.cat_id_server != 0) {
-                    [self.service categoryEdit:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :[NSString stringWithFormat:@"%d",(int)IdCategoryToEdit]  :categoryName.text :COLOR];
-                    
-                }else if(categoryToEdit.cat_id_server == 0 ){
-                    //synlateter put 0 in serverid to  know that is not sync and put added in serverstatus to sync later
-                    [dao updateClientStatus_and_IdServerinCategory:IdCategoryToEdit Id_cat_server:0 clientStatus:@"added"];
-                    
-                    
-                }
-                //sync is off
-            }else{
-                //si esta sync put updateted to update later
-                if (categoryToEdit.cat_id_server != 0) {
-                   [dao updateClientStatus_and_IdServerinCategory:IdCategoryToEdit Id_cat_server:0 clientStatus:@"updated"];
-                    
-                }else if (categoryToEdit.cat_id_server == 0 ){// no esta sync put adde to sync later
-                
-                [dao updateClientStatus_and_IdServerinCategory:IdCategoryToEdit Id_cat_server:0 clientStatus:@"added"];
-                
-                }
-            
-            }
-                
-                
-                
-                
-            
-          [self performSegueWithIdentifier:@"done_category" sender:sender];
-        }//no inserto
+        }else {//no edito
+        [[[[iToast makeText:NSLocalizedString(@"Problen to edit", @"")]setGravity:iToastGravityBottom]setDuration:iToastDurationNormal]show];
+        }
     }
    
 }
