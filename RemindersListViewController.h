@@ -10,7 +10,7 @@
 #import "ReminderObject.h"
 #import "DatabaseHelper.h"
 #import "SWTableViewCell.h"
-@interface RemindersListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate, SWTableViewCellDelegate>
+@interface RemindersListViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate, UIActionSheetDelegate,SWTableViewCellDelegate>
 @property (nonatomic, strong)  ReminderObject* reminderObj;
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
 

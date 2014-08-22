@@ -251,34 +251,21 @@ UIColor* colorcito_selected;
 }
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==1) {
-        // Delete the row from the data source
-        if([dao deleteCategory:IdCategoryToEdit]){;
-            
-            NSLog(@"elimino la category");
-            if([self retrieveSYNCSTATUSSFromUserDefaults]==1){
-                
-                
-                
-            }else{
-                //put 1 in sttus means deleted
-                [dao updateClientStatus_and_IdServerinCategory:IdCategoryToEdit Id_cat_server:categoryToEdit.cat_id_server clientStatus:@"1"];
-            
-            }
-        
-        
-        // delete and cancel all the notification reminder
-        NSMutableArray * notificantionInCategory = [dao getItemList:IdCategoryToEdit itemType:-1];
+                if([dao deleteCategory:IdCategoryToEdit  permanently:NO]){;
+                    
+        //cancel notification
+                    NSMutableArray * items = [dao getItemListwhitDeletedRowsIncluded:IdCategoryToEdit itemType:-1 whitDeletedRowsIncluded:YES];
         
         
         UIApplication*app =[UIApplication sharedApplication];
         NSArray *eventArray = [app scheduledLocalNotifications];
         for (int i=0; i<[eventArray count]; i++) {
             
-            for (int j=0; j<[notificantionInCategory count]; j++){
+            for (int j=0; j<[items count]; j++){
                 UILocalNotification* oneEvent= [eventArray objectAtIndex:i];
                 NSDictionary *userInfoIDremin = oneEvent.userInfo;
                 NSString*uid=[NSString stringWithFormat:@"%@",[userInfoIDremin valueForKey:@"ID_NOT_PASS"]];
-                ReminderObject * iuy=[notificantionInCategory objectAtIndex:j];
+                ReminderObject * iuy=[items objectAtIndex:j];
                 NSString *remindId =[NSString stringWithFormat:@"%d",(int)iuy.reminderID];
                 if([uid isEqualToString:remindId]){
                     [app cancelLocalNotification:oneEvent];
@@ -290,6 +277,15 @@ UIColor* colorcito_selected;
             }
             
         }
+                    //mark for future sync
+                    if(categoryToEdit.cat_id_server != 0){ //esta en server database
+                        [dao updateSTATUSandSHOULDSENDInTable:IdCategoryToEdit clientStatus:1 should_send:1 tableName:@"categories"];
+                        
+                    }else if (categoryToEdit.cat_id_server == 0){ //no esta en server db
+                        [dao deleteCategory:IdCategoryToEdit permanently:YES]; //delete foreverc
+                        
+                    }
+
         [self performSegueWithIdentifier:@"done_category" sender:nil];
         }
         
@@ -333,8 +329,16 @@ UIColor* colorcito_selected;
     }
     else {
        
-        //la edito y le pongo en cliet_status = 'updated' in DBhelper
+        
         if([dao editCategory:IdCategoryToEdit categoryName:categoryName.text categoryColor:COLOR type:(int)catType] != -1){ //if -1 no edito
+            
+            if (categoryToEdit.cat_id_server != 0){ //esta sync y debo enviarla
+                [dao updateSTATUSandSHOULDSENDInTable:(int)IdCategoryToEdit clientStatus:0 should_send:1 tableName:@"categories"];
+            }else if (categoryToEdit.cat_id_server == 0){
+                //updateo  en mi db porke server ni se entera de esta updte..pael es add
+            [dao updateSTATUSandSHOULDSENDInTable:(int)IdCategoryToEdit clientStatus:0 should_send:1 tableName:@"categories"];
+            
+            }
            
           
             

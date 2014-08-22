@@ -30,7 +30,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-     items = [dao getItemList:[self retrieveFromUserDefaults] itemType:-1];
+     items = [dao getItemListwhitDeletedRowsIncluded:[self retrieveFromUserDefaults] itemType:-1 whitDeletedRowsIncluded:NO];
     [self.collectionView reloadData];
 
 }
@@ -39,7 +39,7 @@
     dao = [[DatabaseHelper alloc] init];
     items = [[NSMutableArray alloc] init];
       imagenArray = [[NSMutableArray alloc] init];
-    items = [dao getItemList:[self retrieveFromUserDefaults] itemType:-1];
+    items = [dao getItemListwhitDeletedRowsIncluded:[self retrieveFromUserDefaults] itemType:-1 whitDeletedRowsIncluded:NO];
     
     self.collectionView.backgroundColor = [UIColor whiteColor];
     //menu icons
@@ -52,8 +52,8 @@
                                    
     self.navigationItem.rightBarButtonItems =
     [NSArray arrayWithObjects:addbutton, nil];
-    //self.navigationItem.leftBarButtonItems =
-   // [NSArray arrayWithObjects:home, nil];
+    self.navigationItem.leftBarButtonItems =
+   [NSArray arrayWithObjects:home, nil];
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }

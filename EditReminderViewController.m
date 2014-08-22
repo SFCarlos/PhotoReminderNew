@@ -283,15 +283,23 @@ NSDate * datecalendar;
     //if eventName is Empty show "Reminder"
     if([eventName isEqualToString:@""])
         eventName = @"Reminder";
-    
-    //primero elimino este reminder
-    [dao deleteItem:(int*)ReminderToEdit.reminderID];
-    
-    // luego inserto el editado insert in reminder
-    NSInteger *IdReminderInsertado = [dao insert_item:idcat item_Name:eventName alarm:alarmdate note:note repeat:recurring];
-    //insert image only one
-    [dao insert_item_images:idcat id_item:IdReminderInsertado file_Name:ImagenPath];
    
+    
+    [dao edit_item:ReminderToEdit.reminderID item_Name:eventName alarm:alarmdate note:note repeat:recurring itemclientStatus:0];
+    
+    //mark for future sync
+    if (ReminderToEdit.id_server_item != 0){ //esta sync y debo enviarla
+        [dao updateSTATUSandSHOULDSENDInTable:(int)ReminderToEdit.reminderID clientStatus:0 should_send:1 tableName:@"items"];
+    }else if (ReminderToEdit.id_server_item == 0){
+        //updateo  en mi db porke server ni se entera de esta updte..pael es add
+        [dao updateSTATUSandSHOULDSENDInTable:(int)ReminderToEdit.reminderID clientStatus:0 should_send:1 tableName:@"items"];
+        
+    }
+
+   
+    [dao edit_item_images:ReminderToEdit.reminderID file_Name:ImagenPath];
+    [dao edit_item_recordings:ReminderToEdit.reminderID file_Name:audioPath];
+    
     //insert in history tambien
     BOOL resulthistory = [dao insertHistory:idcat history_desc:eventName];
     
@@ -314,7 +322,7 @@ NSDate * datecalendar;
     
     NSString* UserSelectedSoundReminder = [self retrieveSoundReminderFromUserDefaults];
     //shedule notification de nuevo con el nevo Id reminder
-    NSString *IdReminderInsertadoString =[NSString stringWithFormat:@"%d",(int)IdReminderInsertado];
+    NSString *IdReminderInsertadoString =[NSString stringWithFormat:@"%d",(int)ReminderToEdit.reminderID];
     NSDictionary * data = [NSDictionary dictionaryWithObjectsAndKeys:IdReminderInsertadoString,@"ID_NOT_PASS" ,recurring,@"RECURRING",  nil];
     //Set notification for firt time to select fire date and repeatin 1 min
     [[LocalNotificationCore sharedInstance]scheduleNotificationOn:alarmdate text:eventName action:@"Show" sound:UserSelectedSoundReminder launchImage:ImagenPath andInfo:data];

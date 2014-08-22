@@ -60,13 +60,13 @@
     self.nameitemTextField.showAutocompleteButton = YES;
     self.nameitemTextField.ignoreCase = YES;
     
-    self.navigationItem.hidesBackButton = YES;
+   // self.navigationItem.hidesBackButton = YES;
     
     //*****************
     //back buttom
     UIBarButtonItem*back=[[UIBarButtonItem alloc]
                           initWithImage:[UIImage imageNamed:@"home-25.png"] style:UIBarStyleDefault target:self action:@selector(handleBack:)];
-    self.navigationItem.leftBarButtonItem=back;
+    //self.navigationItem.leftBarButtonItem=back;
     doneButton          = [[UIBarButtonItem alloc]
                            initWithImage:[UIImage imageNamed:@"checkmark-25.png"] style:UIBarStyleDefault target:self action:@selector(saveShoppingAction:)];
     self.navigationItem.rightBarButtonItems =
@@ -105,9 +105,12 @@
     NSString * ImagenPath = [self saveImageGetPath:imagenSelected];
     NSInteger * idcat = [self retrieveFromUserDefaults];
     //insert in reminder
-    NSInteger *id_item = [dao insert_item:idcat item_Name:itenname alarm:nil note:nil repeat:nil];
+   
+    NSInteger *id_item = [dao insert_item:idcat item_Name:itenname alarm:nil note:nil repeat:nil itemclientStatus:0 should_send_item:1];
     //insert image only one
     [dao insert_item_images:idcat id_item:id_item file_Name:ImagenPath];
+    
+    [dao updateSTATUSandSHOULDSENDInTable:id_item clientStatus:0 should_send:1 tableName:@"item_files"];
     //insert audio only one
         //insert
     //insert in history

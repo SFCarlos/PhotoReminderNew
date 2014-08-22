@@ -12,7 +12,11 @@
 #import "EditCategoryViewController.h"
 #import "CategoryCustomCell.h"
 #import "AppDelegate.h"
-#import "returnArrayIds.h"
+#import "LocalNotificationCore.h"
+#import "UIImage+ScalingMyImage.h"
+
+
+
 @interface CategoryListViewControllerV2 ()
 @property (nonatomic,retain) iOSServiceProxy* service;
 
@@ -21,6 +25,8 @@
 @implementation CategoryListViewControllerV2{
     NSMutableArray *categoryArray;
     NSMutableArray *categoryArrayFULL;
+    NSMutableArray * itemsArrayFULL;
+     NSMutableArray * filesArrayFULL;
     NSIndexPath * indextoEdit;
     NSIndexPath * indextoDelete;
     NSMutableArray *leftUtilityButtons;
@@ -35,7 +41,7 @@
     NSInteger* id_cat_deleteservice;
     NSInteger* id_cat_editservice;
     
-
+    UIAlertView *alert;
 }
 @synthesize dao;
 @synthesize service;
@@ -43,12 +49,44 @@
 -(NSInteger*)retrieveSYNCSTATUSSFromUserDefaults{
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger *val = nil;
-    
+   
     if (standardUserDefaults)
         val = [standardUserDefaults integerForKey:@"STATUS"];
     
     return val;
     
+}
+-(NSInteger*)retrieveserverFILETIMESTAMPFromUserDefaults{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSInteger *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults integerForKey:@"FILE_TIMESTAMP"];
+    
+    return val;
+    
+}
+
+-(NSInteger*)retrieveTIMESTAMPFromUserDefaults{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSInteger *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults integerForKey:@"TIMESTAMP"];
+    
+    return val;
+    
+}
+
+-(NSString*)retrieveSoundReminderFromUserDefaults
+{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults objectForKey:@"REMINDER_SOUND"];
+    
+    return val;
 }
 
 - (void)viewDidLoad
@@ -63,6 +101,11 @@
     categoryArrayFULL = [[NSMutableArray alloc] init];
     categoryArray = [dao getCategoryListwhitDeletedRowsIncluded:NO];
     categoryArrayFULL = [dao getCategoryListwhitDeletedRowsIncluded:YES];
+    itemsArrayFULL =[[NSMutableArray alloc] init];
+    itemsArrayFULL = [dao getItemListwhitDeletedRowsIncluded:-1 itemType:-2 whitDeletedRowsIncluded:YES];//return all items in db
+    filesArrayFULL =[[NSMutableArray alloc] init];
+    filesArrayFULL = [dao getFilesListwhitDeletedRowsIncluded:-1 whitDeletedRowsIncluded:YES];
+    
           setting = [[UIBarButtonItem alloc]
                                         initWithImage:[UIImage imageNamed:@"settings-25x.png"] style:UIBarStyleDefault target:self action:@selector(settingAction:)];
     
@@ -96,9 +139,9 @@
 }
 -(void) viewWillDisappear:(BOOL)animated{
     
-    [super viewWillAppear:animated];
+    [super viewWillDisappear:animated];
     
-    //[self.tableView reloadData];
+   
     
 }
 -(void) viewWillAppear:(BOOL)animated{
@@ -115,7 +158,10 @@
     }
 
     categoryArrayFULL=[dao getCategoryListwhitDeletedRowsIncluded:YES];
+    
     categoryArray=[dao getCategoryListwhitDeletedRowsIncluded:NO];
+    itemsArrayFULL = [dao getItemListwhitDeletedRowsIncluded:-1 itemType:-2 whitDeletedRowsIncluded:YES];
+    //[self preformOrder:categoryArray];
     [self.tableView reloadData];
     
     [super viewWillAppear:animated];
@@ -124,20 +170,296 @@
 #pragma mark - wsdl delegate
 -(void)proxydidFinishLoadingData:(id)data InMethod:(NSString *)method{
    
-   returnArrayIds *dataTem= (returnArrayIds*)data;
-    if([method isEqualToString:@"categorySync"]){
-        NSLog(@"result.>>>> idclient %d and idserver %d",dataTem.clientID,dataTem.serverID);
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:NO];
-      
-    }
 
-}
--(void)proxyRecievedError:(NSException *)ex InMethod:(NSString *)method{
-    [self.tableView reloadData];
-     [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:NO];
-    NSLog(@"EXPLOTO %@ con error %@ ",method,ex.description);
+    if([method isEqualToString:@"checkUpdates"]){
+    GetReturnArray * result = (GetReturnArray*)data;
        
+        
+/////////update the server timestmp////
+       
+    [self saveServerTIMESTAMPToUserDefaults:(int)result.timestamp];
+        
+/////////insert the returned categories and items in my db/////
+        NSMutableArray* categoriesReturned = result.categoriesArray;
+        NSMutableArray* itemsReturned = result.itemsArray;
+        NSMutableArray* filesReturned = result.filesArray;
+       
+        NSLog(@"CheckUpdates--return,categoriesArray %d, itemsArray %d, filesArray %d",categoriesReturned.count,itemsReturned.count,filesReturned.count);
+        for (CategoryObj * retCat in categoriesReturned) {
+            
+            NSInteger * id_cat_client = [dao insertCategory:retCat.categoryName colorPic:retCat.categoryColor type:retCat.categoryType client_status:0 should_send_cat:0];
+            [dao UpdateSERVERIDinTable:id_cat_client id_server:retCat.serverCategoryID tableName:@"categories" ];
+            
+                for (ItemObj * retItem in itemsReturned) {
+                    NSInteger* id_item_client = 0;
+                    if (retCat.serverCategoryID == retItem.serverCategoryID ) {
+                        // Convert string to date object
+                        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+                        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                        NSDate *dateA = [dateFormat dateFromString:retItem.itemAlarm];
+                       
+                       id_item_client = [dao insert_item:id_cat_client item_Name:retItem.itemName alarm:dateA note:retItem.itemNote repeat:retItem.itemRepeat itemclientStatus:0 should_send_item:0];
+                        [dao UpdateSERVERIDinTable:id_item_client id_server:retCat.serverCategoryID tableName:@"items"];
+                        
+                        //Reminder
+                        if (![retItem.itemAlarm isEqualToString:@"0000-00-00 00:00:00"]) {
+                            //shedule notification
+                            NSString *idtem =[NSString stringWithFormat:@"%d",(int)id_item_client];
+                            NSDictionary * data = [NSDictionary dictionaryWithObjectsAndKeys:idtem,@"ID_NOT_PASS" ,retItem.itemRepeat,@"RECURRING",  nil];
+                            
+                            NSString* UserSelectedSoundReminder = [self retrieveSoundReminderFromUserDefaults];
+                            //Set notification for firt time to select fire date and repeatin 1 min
+                            [[LocalNotificationCore sharedInstance]scheduleNotificationOn:dateA text:retItem.itemName action:@"Show" sound:UserSelectedSoundReminder launchImage:@"null" andInfo:data];
+                            
+                          
+                            
+                        }
+                    }
+                    
+                    for (GetFileObj * retFile in filesReturned) {
+                       
+                        if (retItem.serverItemID == retFile.serverItemID) {
+                            NSLog(@"checkUpdates return-legth %d , serveritemID %d , ",retFile.fileData.length,retFile.serverItemID);
+                            
+                            
+                            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+                            NSString *documentsDirectory = [paths objectAtIndex:0];
+                            NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
+                            NSString *caldate = [now description];
+                         
+                            if (retFile.fileType == 1) {//imagen
+                                NSString * dataPathImage  = [NSString stringWithFormat:@"%@/%@-%d",documentsDirectory,caldate,(int)id_item_client];
+                               ;
+                                NSInteger* id_file_client= [dao insert_item_images:id_cat_client id_item:id_item_client file_Name:dataPathImage];
+                                [dao UpdateFileTIMESTAMP:id_item_client file_timestamp:retFile.fileTimestamp];
+                                //[dao updateSTATUSandSHOULDSENDInTable:id_file_client clientStatus:0 should_send:0 tableName:@"item_files"];
+                                
+                                // Save it into file system
+                                [retFile.fileData writeToFile:dataPathImage atomically:YES];
+
+                            }else if (retFile.fileType == 2){ //audio
+                                
+                                NSString *pathForAudio = [NSString stringWithFormat:@"%@/Documents/%@-%d.caf", NSHomeDirectory(),caldate,retFile.serverFileID];
+                                
+                                NSInteger * id_file_client_audio=[dao insert_item_recordings:id_cat_client id_item:id_item_client file_Name:pathForAudio];
+                                [dao UpdateFileTIMESTAMP:id_item_client file_timestamp:retFile.fileTimestamp];
+                                //dao updateSTATUSandSHOULDSENDInTable:id_file_client_audio clientStatus:0 should_send:0 tableName:@"item_files"];
+                                
+                                // Save it into file system
+                                [retFile.fileData writeToFile:pathForAudio atomically:YES];
+
+                           
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                }
+            
+            
+            
+            
+        }
+        
     
+        
+        
+        
+        
+        
+    ////////////syncall call///////////
+        categoryArrayFULL = [dao getCategoryListwhitDeletedRowsIncluded:YES];
+        itemsArrayFULL = [dao getItemListwhitDeletedRowsIncluded:-1 itemType:-2 whitDeletedRowsIncluded:YES];//return all items in db
+        filesArrayFULL = [dao getFilesListwhitDeletedRowsIncluded:-1 whitDeletedRowsIncluded:YES];
+
+        //init the things
+        inAllArray * imputservice = [[inAllArray alloc]init];
+        
+        
+        NSMutableArray *parameterCategoryArray = [[NSMutableArray alloc]init];
+        NSMutableArray *parameterItemsArray = [[NSMutableArray alloc]init];
+        NSMutableArray *parameterFilesArray = [[NSMutableArray alloc]init];
+        
+        //iterate in my categoryArrayFULL to create the object and insert into service  array to send
+        for (ReminderObject * cattem in categoryArrayFULL){
+            //discover whitch I should send or not
+            
+            if((int)cattem.should_send_cat == 1){
+                CategoryObj * CatToAddinArraySend = [[CategoryObj alloc]init];
+                CatToAddinArraySend.clientCategoryID = (int)cattem.cat_id;
+                CatToAddinArraySend.serverCategoryID = (int)cattem.cat_id_server;
+                CatToAddinArraySend.categoryType = (int)cattem.categoryType;
+                CatToAddinArraySend.categoryName = cattem.categoryName;
+                CatToAddinArraySend.categoryColor=cattem.categoryColorPic;
+                CatToAddinArraySend.categoryStatus=(int)cattem.client_status;
+                
+                [parameterCategoryArray addObject:CatToAddinArraySend];
+            }
+            
+        }
+        // NSLog(@"cantidad de Categories a enviar %d", parameterCategoryArray.count);
+        
+        for (ReminderObject * itemtem in itemsArrayFULL){
+            if((int)itemtem.should_send_item == 1){
+              
+                ItemObj * ItemToAddinArraySend = [[ItemObj alloc]init];
+                ItemToAddinArraySend.serverCategoryID = (int)itemtem.cat_id_server;
+                ItemToAddinArraySend.clientCategoryID = (int)itemtem.cat_id;
+                ItemToAddinArraySend.clientItemID = (int)itemtem.reminderID;
+                ItemToAddinArraySend.serverItemID = (int)itemtem.id_server_item;
+                ItemToAddinArraySend.itemName = itemtem.reminderName;
+                ItemToAddinArraySend.itemAlarm = itemtem.alarm.description;
+                ItemToAddinArraySend.itemRepeat = itemtem.recurring;
+                ItemToAddinArraySend.itemNote = itemtem.note;
+                ItemToAddinArraySend.itemStatus = (int)itemtem.item_statuss;
+                
+                [parameterItemsArray addObject:ItemToAddinArraySend];
+               // NSLog(@"serverCatItemId:%d and clientItemId %d and itemStatus %d",(int)itemtem.cat_id_server,(int)itemtem.reminderID,(int)itemtem.item_statuss);
+                
+                
+                
+                
+              
+            }
+            
+            
+        }
+        
+        for (ReminderObject * filestem in filesArrayFULL){
+            if((int)filestem.should_send_file == 1){
+                NSLog(@"filesArrayFull.count %d",filesArrayFULL.count);
+                FileObj * FileToAddinArraySend = [[FileObj alloc]init];
+                FileToAddinArraySend.clientFileID = (int)filestem.id_file;
+                FileToAddinArraySend.serverFileID = (int)filestem.server_file_id;
+                FileToAddinArraySend.clientItemID = (int)filestem.reminderID;
+                FileToAddinArraySend.serverItemID = (int)filestem.id_server_item;
+                FileToAddinArraySend.fileType = (int)filestem.file_type;
+                if ((int)filestem.file_type == 1) {//imGEN DATA
+                   UIImage *fot = [UIImage imageWithImage:[UIImage imageWithContentsOfFile:filestem.file_path]scaledToSize:CGSizeMake(128.0,128.0)];
+                    //UIImage * fot = [UIImage imageWithContentsOfFile:filestem.file_path];
+                    NSData *dataImagen = [NSData dataWithData:UIImageJPEGRepresentation(fot, 0.5f)];//1.0f = 100% quality
+                    
+                    FileToAddinArraySend.fileData = dataImagen;
+                    
+                }else if ((int)filestem.file_type == 0){
+                
+                 NSData *dataAudio = [NSData dataWithContentsOfFile:filestem.file_path options:nil error:nil];
+                    
+                    FileToAddinArraySend.fileData= dataAudio;
+                
+                
+                }
+                
+                [parameterFilesArray addObject:FileToAddinArraySend];
+            }
+        }
+        
+        NSLog(@"cantidad de files a enviar SyncAll %d", parameterFilesArray.count);
+        imputservice.user = [self retrieveUSERFromUserDefaults];
+        imputservice.pass = [self retrievePASSFromUserDefaults];
+        imputservice.categoriesArray = parameterCategoryArray;
+        imputservice.itemsArray = parameterItemsArray;
+        imputservice.filesArray = parameterFilesArray;
+       
+ /////////////call metod
+        [service syncAll:imputservice];
+    }
+//***************************************************************
+    else if([method isEqualToString:@"syncAll"]){
+           RetAllArray * result = (RetAllArray*)data;
+        
+        /////////update the server timestmp////
+       
+        [self saveServerTIMESTAMPToUserDefaults:(int)result.timestamp];
+
+        NSMutableArray * idsArray = result.categoriesIdsArray;
+ ///////actualizo los serverCategoryId en mi database con los que estan en el server
+           for(ReminderObject * catMia in categoryArrayFULL){
+           
+               for (IdsCategories * temids in idsArray){
+               
+                   if((int)temids.clientCategoryID == (int)catMia.cat_id){
+                       [dao UpdateSERVERIDinTable:(int)catMia.cat_id id_server:(int)temids.serverCategoryID tableName:@"categories" ];
+                       
+                      
+                       ////delete in my db
+                       if (catMia.client_status == 1){
+                           
+                           NSLog(@"delete forever idclient: %d nd name %@",temids.clientCategoryID, catMia.categoryName);
+                           [dao deleteCategory:temids.clientCategoryID permanently:YES];
+                           
+                       }
+
+                       [dao updateSTATUSandSHOULDSENDInTable:(int)catMia.cat_id clientStatus:0 should_send:0 tableName:@"categories"];
+                       //shoud_send = 0 mean NO SEND cause was just SYNC rigt now
+                       //delete wen recive response
+                                          }
+           
+               }
+           }
+       /////////////////////////////////////////////////////////////////////
+          NSMutableArray * idArraysItems = result.itemsIdsArray;
+           for(ReminderObject * itemMio in itemsArrayFULL){
+               
+               for (IdsItems * temids in idArraysItems){
+                   
+                   if((int)temids.clientItemID == (int)itemMio.reminderID){
+                      // NSLog(@"Update Item %d whit serverItemID %d",(int)itemMio.reminderID,(int)temids.serverItemID );
+                       [dao UpdateSERVERIDinTable:(int)itemMio.reminderID id_server:(int)temids.serverItemID tableName:@"items" ];
+                       
+                       [dao updateSTATUSandSHOULDSENDInTable:(int)itemMio.reminderID clientStatus:0 should_send:0 tableName:@"items"];
+                       //shoud_send = 0 mean NO SEND cause was just SYNC rigt now
+                       //delete when recive response
+                       if (itemMio.item_statuss == 1){
+                           [dao deleteItem:itemMio.reminderID permanently:YES];
+                           
+                       }
+                   }
+               
+               }
+               
+           }
+        /////////////////////////////////////////////////////////////////////
+        NSMutableArray * idArraysfiles = result.filesIdsArray;
+        for(ReminderObject * fileMio in filesArrayFULL){
+            
+            for (IdsFiles * temids in idArraysfiles){
+               
+                if ((int)fileMio.id_file == (temids.clientFileID)) {
+                    //NSLog(@"ReturnSyncAll ClientFileId: %d  ServerFileId: %d  ServerFilType: %d",temids.clientFileID,temids.serverFileID, temids.fileType);
+                   
+                    [dao UpdateFileTIMESTAMP:temids.clientFileID file_timestamp:[self retrieveTIMESTAMPFromUserDefaults]];
+                    [dao UpdateSERVERIDinTable:temids.clientFileID id_server:(int)temids.serverFileID tableName:@"item_files"];
+                   
+
+                    if ((int)fileMio.client_status == 1) {
+                        [dao deleteFiles:temids.clientFileID permanently:YES];
+                    }
+                }
+                
+            }
+            
+        }
+
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+        SyncLogo.enabled = YES;
+
+       }
+    }
+-(void)proxyRecievedError:(NSException *)ex InMethod:(NSString *)method{
+    NSLog(@"ERROR in %@ -- %@",method,ex.description);
+    UIAlertView *alert1 = [[UIAlertView alloc] initWithTitle: @"Something wrong happened in Sync"
+                                                    message:@""
+                          
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil,nil];
+    
+    [alert dismissWithClickedButtonIndex:0 animated:YES];
+    SyncLogo.enabled = YES;
+    [alert1 show];
+
 }
 
 -(void)addCategoryAction:(id)sender{
@@ -158,6 +480,29 @@
         [standardUserDefaults setInteger:ID_CAT forKey:@"ID_CAT"];
         
         [standardUserDefaults setObject:color forKey:@"COLOR"];
+        [standardUserDefaults synchronize];
+    }
+}
+-(void)saveServerFILETimestampToUserDefaults:(NSInteger*)FILE_TIMESTAMP
+{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (standardUserDefaults) {
+        [standardUserDefaults setInteger:FILE_TIMESTAMP forKey:@"FILE_TIMESTAMP"];
+        
+        
+        [standardUserDefaults synchronize];
+    }
+}
+
+-(void)saveServerTIMESTAMPToUserDefaults:(NSInteger*)TIMESTAMP
+{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (standardUserDefaults) {
+        [standardUserDefaults setInteger:TIMESTAMP forKey:@"TIMESTAMP"];
+        
+        
         [standardUserDefaults synchronize];
     }
 }
@@ -310,7 +655,7 @@
                       forControlEvents:UIControlEventTouchUpInside];
 
     
-    NSLog(@"Status %@ =---> %@ and serverID %d and clientid %d",categTemp.categoryName,categTemp.client_status,categTemp.cat_id_server, categTemp.cat_id);
+    //NSLog(@"Status %@ =---> %d and serverID %d and clientid %d",categTemp.categoryName,categTemp.client_status,categTemp.cat_id_server, categTemp.cat_id);
     
     //put icon if is sync or not..
     
@@ -367,7 +712,7 @@
     switch ((int)tem.categoryType) {
         case 0:
             [self performSegueWithIdentifier:@"ShowShoopingListItems" sender:sender];
-             NSLog(@"type %d y mostrarshopinglist",(int)tem.categoryType);
+            // NSLog(@"type %d y mostrarshopinglist",(int)tem.categoryType);
             break;
         case 1:
             [self performSegueWithIdentifier:@"showreminder_segue" sender:sender];
@@ -495,43 +840,13 @@
 }
 
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+-(void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (buttonIndex==0) {
-        // Delete the row from the data source
-        ReminderObject *cate = [categoryArray objectAtIndex:[indextoDelete row]];
-        [dao deleteCategory:cate.cat_id];
-        [categoryArray removeObjectAtIndex:indextoDelete.row];
-        [self.tableView deleteRowsAtIndexPaths:@[indextoDelete] withRowAnimation:UITableViewRowAnimationFade];
-        
-        
-        // delete and cancel all the notification reminder
-        NSMutableArray * notificantionInCategory = [dao getItemList:cate.cat_id itemType:-1];
-        NSString *idtem =[NSString stringWithFormat:@"%d",(int)cate.reminderID];
-        UIApplication*app =[UIApplication sharedApplication];
-        NSArray *eventArray = [app scheduledLocalNotifications];
-        for (int i=0; i<[eventArray count]; i++) {
-            
-            for (int j=0; j<[notificantionInCategory count]; j++){
-                UILocalNotification* oneEvent= [eventArray objectAtIndex:i];
-                NSDictionary *userInfoIDremin = oneEvent.userInfo;
-                NSString*uid=[NSString stringWithFormat:@"%@",[userInfoIDremin valueForKey:@"ID_NOT_PASS"]];
-                ReminderObject * iuy=[notificantionInCategory objectAtIndex:j];
-                NSString *remindId =[NSString stringWithFormat:@"%d",(int)iuy.reminderID];
-                if([uid isEqualToString:remindId]){
-                    [app cancelLocalNotification:oneEvent];
-                    
-                    
-                    
-                }
-                
-            }
-        }
-                
-    }else{
-        //cancel pressed nada
-        
+      
+       //[self.tableView reloadData];
+        [self viewWillDisappear:YES];
+        [self viewWillAppear:YES];
     }
-    
 }
 -(NSString*)retrieveUSERFromUserDefaults{
     
@@ -555,19 +870,37 @@
 }
 
 -(void)SyncAll:(id)sender{
-    for(ReminderObject* cate in categoryArrayFULL ){
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] setNetworkActivityIndicatorVisible:YES];
-           
-     [service categorySync:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :[NSString stringWithFormat:@"%d",(int)cate.cat_id] :[NSString stringWithFormat:@"%d",(int)cate.cat_id]:(int)cate.categoryType :cate.categoryName :cate.categoryColorPic :cate.client_status];
-     
+    SyncLogo.enabled = NO;
+        filesArrayFULL = [dao getFilesListwhitDeletedRowsIncluded:-1 whitDeletedRowsIncluded:YES];
+    ///////////antes de llamar a syncall check if smt new/////
+    GetQueryArray * inputchekUpdates = [[GetQueryArray alloc]init];
+   
     
+    inputchekUpdates.user = [self retrieveUSERFromUserDefaults];
+    inputchekUpdates.pass = [self retrievePASSFromUserDefaults];
+    inputchekUpdates.timestamp =(int)[self retrieveTIMESTAMPFromUserDefaults];//globaltimestamp
+    
+    NSMutableArray *parameterFilesArray = [[NSMutableArray alloc]init];
+    
+    for (ReminderObject * filestem in filesArrayFULL){
+   GetQueryFileObj * Send = [[GetQueryFileObj alloc]init];
+        Send.fileTimestamp = (int)filestem.file_timestamp;
+        Send.serverFileID = (int)filestem.server_file_id;
+        Send.serverItemID= (int)filestem.id_server_item;
+        [parameterFilesArray addObject:Send];
+   // NSLog(@"checkUpdatecall--filesArray fileTimestamp %d, server_file_id %d,Id_server_item %d",Send.fileTimestamp,Send.serverFileID,Send.serverItemID);
     }
-
-
-    categoryArray = [dao getCategoryListwhitDeletedRowsIncluded:NO];
-
-    //[self.tableView reloadData];
-     
+    inputchekUpdates.filesArray = parameterFilesArray;
     
+    
+    [service checkUpdates:inputchekUpdates];
+  
+    alert = [[UIAlertView alloc] initWithTitle:@"Sync.."
+                                                    message:nil
+                                                   delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:nil];
+    [alert show];
 }
+
 @end

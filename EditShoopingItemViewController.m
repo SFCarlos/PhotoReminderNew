@@ -108,15 +108,32 @@
     
     NSString * ImagenPath = [self saveImageGetPath:imagenSelected];
     NSInteger * idcat = [self retrieveFromUserDefaults];
-   //lo elimino
-    [dao deleteItem:IdShoopingItemToEdit];
+  
     
-    //insert in reminder
-    NSInteger *id_item = [dao insert_item:idcat item_Name:itenname alarm:nil note:nil repeat:nil];
-    //insert image only one
-    [dao insert_item_images:idcat id_item:id_item file_Name:ImagenPath];
-    //insert audio only one
-    //insert
+    ReminderObject* ShoppingItem = [dao getItem:IdShoopingItemToEdit];
+    [dao edit_item:IdShoopingItemToEdit item_Name:itenname alarm:nil note:nil repeat:nil itemclientStatus:0];
+   
+    //edit logic in sync
+    if (ShoppingItem.id_server_item != 0){ //esta sync y debo enviarla
+        [dao updateSTATUSandSHOULDSENDInTable:(int)IdShoopingItemToEdit clientStatus:0 should_send:1 tableName:@"items"];
+    }else if (ShoppingItem.id_server_item == 0){
+        //updateo  en mi db porke server ni se entera de esta updte..pael es add
+        [dao updateSTATUSandSHOULDSENDInTable:(int)IdShoopingItemToEdit clientStatus:0 should_send:1 tableName:@"items"];
+        
+    }
+
+    
+    //edit image only one
+    [dao edit_item_images:IdShoopingItemToEdit file_Name:ImagenPath];
+    NSMutableArray* filesArr = [dao getFiles:IdShoopingItemToEdit];
+    if (filesArr.count > 0) {
+        ReminderObject * imagen = [filesArr firstObject];
+        if (imagen.file_type == 1) {
+            [dao updateSTATUSandSHOULDSENDInTable:imagen.id_file clientStatus:0 should_send:1 tableName:@"item_files"];
+        }
+    }
+    
+    
     //insert in history
     BOOL resulthistory = [dao insertHistory:idcat history_desc:itenname];
     

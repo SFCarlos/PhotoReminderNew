@@ -23,4 +23,18 @@
 @synthesize categoryColorPic;
 @synthesize note;
 @synthesize recurring;
+@synthesize categoryType;
+@synthesize orden;
+@synthesize id_server_item;
+@synthesize item_statuss;
+@synthesize should_send_cat;
+@synthesize should_send_item;
+
+@synthesize file_type;
+@synthesize file_path;
+@synthesize server_file_type;
+@synthesize id_file;
+@synthesize server_file_id;
+@synthesize should_send_file;
+@synthesize file_timestamp;
 @end

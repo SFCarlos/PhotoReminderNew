@@ -235,10 +235,17 @@
         [[[[iToast makeText:NSLocalizedString(@"Name empty", @"")]setGravity:iToastGravityBottom]setDuration:iToastDurationShort]show];
 
     }else {
-        id_cat_client = [dao insertCategory:categoryName.text colorPic:COLOR type:catType client_status:@"0"]; //0 id add/updated
+        id_cat_client = [dao insertCategory:categoryName.text colorPic:COLOR type:catType client_status:0 should_send_cat:1]; //clientStatus 0 to piotr inser in server
+                                                    //should_send_cat 1 to send in the sunc cause is new
+        //update the orden, put at the end
+       // int myInt = [[NSNumber numberWithFloat:[dao getCategoryListwhitDeletedRowsIncluded:NO].count] intValue];
+      
+       // [dao updateorden:id_cat_client orden:myInt-1];
+        
+       
         if((int)id_cat_client == -1){ //if -1 no inserto
                        //syn is off
-             [[[[iToast makeText:NSLocalizedString(@"Problem whit insertion", @"")]setGravity:iToastGravityBottom]setDuration:iToastDurationShort]show];
+             [[[[iToast makeText:NSLocalizedString(@"Problem  insertion", @"")]setGravity:iToastGravityBottom]setDuration:iToastDurationShort]show];
             
         }else
             [self performSegueWithIdentifier:@"done_categoryV2" sender:sender];

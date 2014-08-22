@@ -15,9 +15,6 @@
 		CE0BD6EF19378F3100416DDB /* shopping_cart_loaded-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6EE19378F3100416DDB /* shopping_cart_loaded-25.png */; };
 		CE0BD6F11937936C00416DDB /* purchase_order-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6F01937936C00416DDB /* purchase_order-25.png */; };
 		CE0BD6F3193794D500416DDB /* to_do-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0BD6F2193794D500416DDB /* to_do-25.png */; };
-		CE12F2A1197FBF2F00DBBA86 /* iOSService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE12F29E197FBF2F00DBBA86 /* iOSService.m */; };
-		CE12F2A2197FBF2F00DBBA86 /* iOSServiceProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = CE12F2A0197FBF2F00DBBA86 /* iOSServiceProxy.m */; };
-		CE12F2A4197FE63900DBBA86 /* AppDatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CE12F2A3197FE63900DBBA86 /* AppDatabase.sqlite */; };
 		CE1902CA193E0811008E5540 /* GMGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1902BF193E0811008E5540 /* GMGridView.m */; };
 		CE1902CB193E0811008E5540 /* GMGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1902C1193E0811008E5540 /* GMGridViewCell.m */; };
 		CE1902CC193E0811008E5540 /* GMGridViewLayoutStrategies.m in Sources */ = {isa = PBXBuildFile; fileRef = CE1902C4193E0811008E5540 /* GMGridViewLayoutStrategies.m */; };
@@ -27,8 +24,6 @@
 		CE23563C19349063007C2B36 /* CategoryCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE23563B19349063007C2B36 /* CategoryCustomCell.m */; };
 		CE23563F1934928F007C2B36 /* CategoryListViewControllerV2.m in Sources */ = {isa = PBXBuildFile; fileRef = CE23563E1934928F007C2B36 /* CategoryListViewControllerV2.m */; };
 		CE29C515192F7F3B007022CB /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE29C514192F7F3B007022CB /* libxml2.dylib */; };
-		CE2D810A196C01550099EF3A /* iOSService_Enums.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D8109196C01550099EF3A /* iOSService_Enums.m */; };
-		CE2D810D196C01A60099EF3A /* returnArrayIds.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D810C196C01A60099EF3A /* returnArrayIds.m */; };
 		CE2D8111196C07140099EF3A /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D8110196C07140099EF3A /* XPathQuery.m */; };
 		CE2D8114196C07A10099EF3A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2D8113196C07A10099EF3A /* NSData+Base64.m */; };
 		CE3174BF195AFF72007EE188 /* AddShoppingItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3174BE195AFF72007EE188 /* AddShoppingItemViewController.m */; };
@@ -55,6 +50,24 @@
 		CE83C7601965738A0060B280 /* EditShoopingItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C75F1965738A0060B280 /* EditShoopingItemViewController.m */; };
 		CE83C763196585D80060B280 /* AddNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C762196585D80060B280 /* AddNoteViewController.m */; };
 		CE83C7661966CAB20060B280 /* EditNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C7651966CAB20060B280 /* EditNoteViewController.m */; };
+		CE9B16F419A34F7A00E569A3 /* iOSService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B16F119A34F7A00E569A3 /* iOSService.m */; };
+		CE9B16F519A34F7A00E569A3 /* iOSServiceProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B16F319A34F7A00E569A3 /* iOSServiceProxy.m */; };
+		CE9B171419A34F8E00E569A3 /* CategoryObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B16F719A34F8D00E569A3 /* CategoryObj.m */; };
+		CE9B171519A34F8E00E569A3 /* FileObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B16F919A34F8D00E569A3 /* FileObj.m */; };
+		CE9B171619A34F8E00E569A3 /* GetCategoryObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B16FB19A34F8D00E569A3 /* GetCategoryObj.m */; };
+		CE9B171719A34F8E00E569A3 /* GetFileObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B16FD19A34F8E00E569A3 /* GetFileObj.m */; };
+		CE9B171819A34F8E00E569A3 /* GetItemObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B16FF19A34F8E00E569A3 /* GetItemObj.m */; };
+		CE9B171919A34F8E00E569A3 /* GetQueryArray.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170119A34F8E00E569A3 /* GetQueryArray.m */; };
+		CE9B171A19A34F8E00E569A3 /* GetQueryFileObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170319A34F8E00E569A3 /* GetQueryFileObj.m */; };
+		CE9B171B19A34F8E00E569A3 /* GetReturnArray.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170519A34F8E00E569A3 /* GetReturnArray.m */; };
+		CE9B171C19A34F8E00E569A3 /* IdsCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170719A34F8E00E569A3 /* IdsCategories.m */; };
+		CE9B171D19A34F8E00E569A3 /* IdsFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170919A34F8E00E569A3 /* IdsFiles.m */; };
+		CE9B171E19A34F8E00E569A3 /* IdsItems.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170B19A34F8E00E569A3 /* IdsItems.m */; };
+		CE9B171F19A34F8E00E569A3 /* inAllArray.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170D19A34F8E00E569A3 /* inAllArray.m */; };
+		CE9B172019A34F8E00E569A3 /* iOSService_Enums.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170F19A34F8E00E569A3 /* iOSService_Enums.m */; };
+		CE9B172119A34F8E00E569A3 /* ItemObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B171119A34F8E00E569A3 /* ItemObj.m */; };
+		CE9B172219A34F8E00E569A3 /* RetAllArray.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B171319A34F8E00E569A3 /* RetAllArray.m */; };
+		CE9C713219A372AE00DAA09F /* AppDatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CE9C713119A372AE00DAA09F /* AppDatabase.sqlite */; };
 		CED3D90E191D06C400624E6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90D191D06C400624E6F /* Foundation.framework */; };
 		CED3D910191D06C400624E6F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90F191D06C400624E6F /* CoreGraphics.framework */; };
 		CED3D912191D06C400624E6F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D911191D06C400624E6F /* UIKit.framework */; };
@@ -156,11 +169,6 @@
 		CE0BD6EE19378F3100416DDB /* shopping_cart_loaded-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopping_cart_loaded-25.png"; sourceTree = "<group>"; };
 		CE0BD6F01937936C00416DDB /* purchase_order-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "purchase_order-25.png"; sourceTree = "<group>"; };
 		CE0BD6F2193794D500416DDB /* to_do-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "to_do-25.png"; sourceTree = "<group>"; };
-		CE12F29D197FBF2F00DBBA86 /* iOSService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSService.h; sourceTree = "<group>"; };
-		CE12F29E197FBF2F00DBBA86 /* iOSService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSService.m; sourceTree = "<group>"; };
-		CE12F29F197FBF2F00DBBA86 /* iOSServiceProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSServiceProxy.h; sourceTree = "<group>"; };
-		CE12F2A0197FBF2F00DBBA86 /* iOSServiceProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSServiceProxy.m; sourceTree = "<group>"; };
-		CE12F2A3197FE63900DBBA86 /* AppDatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppDatabase.sqlite; sourceTree = "<group>"; };
 		CE1902BD193E0811008E5540 /* GMGridView-Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GMGridView-Constants.h"; sourceTree = "<group>"; };
 		CE1902BE193E0811008E5540 /* GMGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GMGridView.h; sourceTree = "<group>"; };
 		CE1902BF193E0811008E5540 /* GMGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GMGridView.m; sourceTree = "<group>"; };
@@ -180,10 +188,6 @@
 		CE23563E1934928F007C2B36 /* CategoryListViewControllerV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryListViewControllerV2.m; sourceTree = "<group>"; };
 		CE29C514192F7F3B007022CB /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		CE29C52D192F82D7007022CB /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
-		CE2D8108196C01410099EF3A /* iOSService_Enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSService_Enums.h; sourceTree = "<group>"; };
-		CE2D8109196C01550099EF3A /* iOSService_Enums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSService_Enums.m; sourceTree = "<group>"; };
-		CE2D810B196C01A60099EF3A /* returnArrayIds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = returnArrayIds.h; sourceTree = "<group>"; };
-		CE2D810C196C01A60099EF3A /* returnArrayIds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = returnArrayIds.m; sourceTree = "<group>"; };
 		CE2D810F196C07140099EF3A /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
 		CE2D8110196C07140099EF3A /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 		CE2D8112196C07A10099EF3A /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
@@ -227,6 +231,41 @@
 		CE83C762196585D80060B280 /* AddNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNoteViewController.m; sourceTree = "<group>"; };
 		CE83C7641966CAB20060B280 /* EditNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditNoteViewController.h; sourceTree = "<group>"; };
 		CE83C7651966CAB20060B280 /* EditNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditNoteViewController.m; sourceTree = "<group>"; };
+		CE9B16F019A34F7A00E569A3 /* iOSService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSService.h; sourceTree = "<group>"; };
+		CE9B16F119A34F7A00E569A3 /* iOSService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSService.m; sourceTree = "<group>"; };
+		CE9B16F219A34F7A00E569A3 /* iOSServiceProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSServiceProxy.h; sourceTree = "<group>"; };
+		CE9B16F319A34F7A00E569A3 /* iOSServiceProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSServiceProxy.m; sourceTree = "<group>"; };
+		CE9B16F619A34F8D00E569A3 /* CategoryObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryObj.h; sourceTree = "<group>"; };
+		CE9B16F719A34F8D00E569A3 /* CategoryObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryObj.m; sourceTree = "<group>"; };
+		CE9B16F819A34F8D00E569A3 /* FileObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileObj.h; sourceTree = "<group>"; };
+		CE9B16F919A34F8D00E569A3 /* FileObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileObj.m; sourceTree = "<group>"; };
+		CE9B16FA19A34F8D00E569A3 /* GetCategoryObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCategoryObj.h; sourceTree = "<group>"; };
+		CE9B16FB19A34F8D00E569A3 /* GetCategoryObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCategoryObj.m; sourceTree = "<group>"; };
+		CE9B16FC19A34F8E00E569A3 /* GetFileObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFileObj.h; sourceTree = "<group>"; };
+		CE9B16FD19A34F8E00E569A3 /* GetFileObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFileObj.m; sourceTree = "<group>"; };
+		CE9B16FE19A34F8E00E569A3 /* GetItemObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetItemObj.h; sourceTree = "<group>"; };
+		CE9B16FF19A34F8E00E569A3 /* GetItemObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetItemObj.m; sourceTree = "<group>"; };
+		CE9B170019A34F8E00E569A3 /* GetQueryArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetQueryArray.h; sourceTree = "<group>"; };
+		CE9B170119A34F8E00E569A3 /* GetQueryArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetQueryArray.m; sourceTree = "<group>"; };
+		CE9B170219A34F8E00E569A3 /* GetQueryFileObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetQueryFileObj.h; sourceTree = "<group>"; };
+		CE9B170319A34F8E00E569A3 /* GetQueryFileObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetQueryFileObj.m; sourceTree = "<group>"; };
+		CE9B170419A34F8E00E569A3 /* GetReturnArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetReturnArray.h; sourceTree = "<group>"; };
+		CE9B170519A34F8E00E569A3 /* GetReturnArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetReturnArray.m; sourceTree = "<group>"; };
+		CE9B170619A34F8E00E569A3 /* IdsCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdsCategories.h; sourceTree = "<group>"; };
+		CE9B170719A34F8E00E569A3 /* IdsCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdsCategories.m; sourceTree = "<group>"; };
+		CE9B170819A34F8E00E569A3 /* IdsFiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdsFiles.h; sourceTree = "<group>"; };
+		CE9B170919A34F8E00E569A3 /* IdsFiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdsFiles.m; sourceTree = "<group>"; };
+		CE9B170A19A34F8E00E569A3 /* IdsItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdsItems.h; sourceTree = "<group>"; };
+		CE9B170B19A34F8E00E569A3 /* IdsItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdsItems.m; sourceTree = "<group>"; };
+		CE9B170C19A34F8E00E569A3 /* inAllArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inAllArray.h; sourceTree = "<group>"; };
+		CE9B170D19A34F8E00E569A3 /* inAllArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = inAllArray.m; sourceTree = "<group>"; };
+		CE9B170E19A34F8E00E569A3 /* iOSService_Enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSService_Enums.h; sourceTree = "<group>"; };
+		CE9B170F19A34F8E00E569A3 /* iOSService_Enums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSService_Enums.m; sourceTree = "<group>"; };
+		CE9B171019A34F8E00E569A3 /* ItemObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemObj.h; sourceTree = "<group>"; };
+		CE9B171119A34F8E00E569A3 /* ItemObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemObj.m; sourceTree = "<group>"; };
+		CE9B171219A34F8E00E569A3 /* RetAllArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetAllArray.h; sourceTree = "<group>"; };
+		CE9B171319A34F8E00E569A3 /* RetAllArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetAllArray.m; sourceTree = "<group>"; };
+		CE9C713119A372AE00DAA09F /* AppDatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppDatabase.sqlite; sourceTree = "<group>"; };
 		CED3D90A191D06C400624E6F /* PhotoReminderNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoReminderNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED3D90D191D06C400624E6F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CED3D90F191D06C400624E6F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -404,18 +443,44 @@
 		CE2D810E196C01CD0099EF3A /* iOSWebService */ = {
 			isa = PBXGroup;
 			children = (
+				CE9B16F619A34F8D00E569A3 /* CategoryObj.h */,
+				CE9B16F719A34F8D00E569A3 /* CategoryObj.m */,
+				CE9B16F819A34F8D00E569A3 /* FileObj.h */,
+				CE9B16F919A34F8D00E569A3 /* FileObj.m */,
+				CE9B16FA19A34F8D00E569A3 /* GetCategoryObj.h */,
+				CE9B16FB19A34F8D00E569A3 /* GetCategoryObj.m */,
+				CE9B16FC19A34F8E00E569A3 /* GetFileObj.h */,
+				CE9B16FD19A34F8E00E569A3 /* GetFileObj.m */,
+				CE9B16FE19A34F8E00E569A3 /* GetItemObj.h */,
+				CE9B16FF19A34F8E00E569A3 /* GetItemObj.m */,
+				CE9B170019A34F8E00E569A3 /* GetQueryArray.h */,
+				CE9B170119A34F8E00E569A3 /* GetQueryArray.m */,
+				CE9B170219A34F8E00E569A3 /* GetQueryFileObj.h */,
+				CE9B170319A34F8E00E569A3 /* GetQueryFileObj.m */,
+				CE9B170419A34F8E00E569A3 /* GetReturnArray.h */,
+				CE9B170519A34F8E00E569A3 /* GetReturnArray.m */,
+				CE9B170619A34F8E00E569A3 /* IdsCategories.h */,
+				CE9B170719A34F8E00E569A3 /* IdsCategories.m */,
+				CE9B170819A34F8E00E569A3 /* IdsFiles.h */,
+				CE9B170919A34F8E00E569A3 /* IdsFiles.m */,
+				CE9B170A19A34F8E00E569A3 /* IdsItems.h */,
+				CE9B170B19A34F8E00E569A3 /* IdsItems.m */,
+				CE9B170C19A34F8E00E569A3 /* inAllArray.h */,
+				CE9B170D19A34F8E00E569A3 /* inAllArray.m */,
+				CE9B170E19A34F8E00E569A3 /* iOSService_Enums.h */,
+				CE9B170F19A34F8E00E569A3 /* iOSService_Enums.m */,
+				CE9B171019A34F8E00E569A3 /* ItemObj.h */,
+				CE9B171119A34F8E00E569A3 /* ItemObj.m */,
+				CE9B171219A34F8E00E569A3 /* RetAllArray.h */,
+				CE9B171319A34F8E00E569A3 /* RetAllArray.m */,
+				CE9B16F019A34F7A00E569A3 /* iOSService.h */,
+				CE9B16F119A34F7A00E569A3 /* iOSService.m */,
+				CE9B16F219A34F7A00E569A3 /* iOSServiceProxy.h */,
+				CE9B16F319A34F7A00E569A3 /* iOSServiceProxy.m */,
 				CE2D8112196C07A10099EF3A /* NSData+Base64.h */,
 				CE2D8113196C07A10099EF3A /* NSData+Base64.m */,
-				CE12F29D197FBF2F00DBBA86 /* iOSService.h */,
-				CE12F29E197FBF2F00DBBA86 /* iOSService.m */,
-				CE12F29F197FBF2F00DBBA86 /* iOSServiceProxy.h */,
-				CE12F2A0197FBF2F00DBBA86 /* iOSServiceProxy.m */,
 				CE2D810F196C07140099EF3A /* XPathQuery.h */,
 				CE2D8110196C07140099EF3A /* XPathQuery.m */,
-				CE2D810B196C01A60099EF3A /* returnArrayIds.h */,
-				CE2D810C196C01A60099EF3A /* returnArrayIds.m */,
-				CE2D8109196C01550099EF3A /* iOSService_Enums.m */,
-				CE2D8108196C01410099EF3A /* iOSService_Enums.h */,
 			);
 			name = iOSWebService;
 			sourceTree = "<group>";
@@ -769,7 +834,7 @@
 		CED3DA06191D0C4400624E6F /* DatabaseCore */ = {
 			isa = PBXGroup;
 			children = (
-				CE12F2A3197FE63900DBBA86 /* AppDatabase.sqlite */,
+				CE9C713119A372AE00DAA09F /* AppDatabase.sqlite */,
 				CED3D9FF191D0C3800624E6F /* ReminderObject.h */,
 				CED3DA00191D0C3800624E6F /* ReminderObject.m */,
 				CED3DA01191D0C3800624E6F /* DatabaseHelper.h */,
@@ -941,7 +1006,7 @@
 				CED3D9D0191D0A7300624E6F /* background@2x.png in Resources */,
 				CED3DA32191D0F5D00624E6F /* edit-25x.png in Resources */,
 				CED3D9F5191D0BD200624E6F /* Birds.m4r in Resources */,
-				CE12F2A4197FE63900DBBA86 /* AppDatabase.sqlite in Resources */,
+				CE9C713219A372AE00DAA09F /* AppDatabase.sqlite in Resources */,
 				CE75D805194B22E9003856A6 /* Color-Palette.png in Resources */,
 				CED3D966191D085B00624E6F /* autocompleteButton.png in Resources */,
 				CE75D803194AFF17003856A6 /* trash-25.png in Resources */,
@@ -968,23 +1033,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				CED3DA1C191D0D0800624E6F /* ReminderCustomCell.m in Sources */,
+				CE9B171919A34F8E00E569A3 /* GetQueryArray.m in Sources */,
 				CED3DA05191D0C3800624E6F /* DatabaseHelper.m in Sources */,
 				CE75D7FB19485B3C003856A6 /* NotificationsTableViewController.m in Sources */,
 				CED3D9A6191D09F400624E6F /* YISSTextView.m in Sources */,
 				CE3174C4195C16EC007EE188 /* ShoopingListViewController.m in Sources */,
-				CE2D810A196C01550099EF3A /* iOSService_Enums.m in Sources */,
 				CED3D9FB191D0C0A00624E6F /* HTAutocompleteManager.m in Sources */,
+				CE9B171C19A34F8E00E569A3 /* IdsCategories.m in Sources */,
 				CED3D98A191D08BA00624E6F /* SettingsViewController.m in Sources */,
 				CE83C74D1962AC440060B280 /* FullScreemPageItemViewController.m in Sources */,
 				CE75D808194EE10E003856A6 /* ColorPickerImageView.m in Sources */,
-				CE12F2A2197FBF2F00DBBA86 /* iOSServiceProxy.m in Sources */,
+				CE9B171B19A34F8E00E569A3 /* GetReturnArray.m in Sources */,
 				CED3DA1B191D0D0800624E6F /* EditReminderViewController.m in Sources */,
 				CED3DA1E191D0D0800624E6F /* CategoryListViewController.m in Sources */,
 				CED3D91E191D06C400624E6F /* AppDelegate.m in Sources */,
 				CED3DA04191D0C3800624E6F /* ReminderObject.m in Sources */,
+				CE9B171D19A34F8E00E569A3 /* IdsFiles.m in Sources */,
 				CED3D9C6191D0A7300624E6F /* PMCalendarBackgroundView.m in Sources */,
+				CE9B171719A34F8E00E569A3 /* GetFileObj.m in Sources */,
+				CE9B16F419A34F7A00E569A3 /* iOSService.m in Sources */,
 				CE83C763196585D80060B280 /* AddNoteViewController.m in Sources */,
 				CE83C7601965738A0060B280 /* EditShoopingItemViewController.m in Sources */,
+				CE9B171819A34F8E00E569A3 /* GetItemObj.m in Sources */,
 				CED3D9C8191D0A7300624E6F /* PMCalendarView.m in Sources */,
 				CE83C747196163A00060B280 /* UIImage+ScalingMyImage.m in Sources */,
 				CED3D9DF191D0B1400624E6F /* MKNumberBadgeView.m in Sources */,
@@ -993,24 +1063,31 @@
 				CED3D9D7191D0AA000624E6F /* LocalNotificationCore.m in Sources */,
 				CE23563F1934928F007C2B36 /* CategoryListViewControllerV2.m in Sources */,
 				CE3174CF195D873B007EE188 /* GirdShoopingViewController.m in Sources */,
+				CE9B171E19A34F8E00E569A3 /* IdsItems.m in Sources */,
 				CED3D99A191D099900624E6F /* SWCellScrollView.m in Sources */,
 				CED3D9CB191D0A7300624E6F /* PMSelectionView.m in Sources */,
 				CE1902CA193E0811008E5540 /* GMGridView.m in Sources */,
 				CED3D9E8191D0B6100624E6F /* POVoiceHUD.m in Sources */,
 				CED3D9D6191D0AA000624E6F /* NotificationScreenController.m in Sources */,
 				CED3DA24191D0D6900624E6F /* ObjectHolder.m in Sources */,
+				CE9B171F19A34F8E00E569A3 /* inAllArray.m in Sources */,
+				CE9B171619A34F8E00E569A3 /* GetCategoryObj.m in Sources */,
+				CE9B171A19A34F8E00E569A3 /* GetQueryFileObj.m in Sources */,
 				CED3D9DB191D0AD400624E6F /* NKOColorPickerView.m in Sources */,
+				CE9B172119A34F8E00E569A3 /* ItemObj.m in Sources */,
 				CE3174C7195C17A5007EE188 /* ShoppingItemCustomCell.m in Sources */,
 				CED3D9CA191D0A7300624E6F /* PMPeriod.m in Sources */,
 				CED3D9C5191D0A7300624E6F /* NSDate+Helpers.m in Sources */,
 				CED3DA20191D0D0800624E6F /* AddCategoryViewController.m in Sources */,
+				CE9B171419A34F8E00E569A3 /* CategoryObj.m in Sources */,
 				CE02C0E71924C81A00EB2DD0 /* EditCategoryViewController.m in Sources */,
 				CED3DA1D191D0D0800624E6F /* RemindersListViewController.m in Sources */,
 				CED3D9FC191D0C0A00624E6F /* HTAutocompleteTextField.m in Sources */,
 				CE1902CC193E0811008E5540 /* GMGridViewLayoutStrategies.m in Sources */,
-				CE2D810D196C01A60099EF3A /* returnArrayIds.m in Sources */,
 				CE23563C19349063007C2B36 /* CategoryCustomCell.m in Sources */,
 				CE1902CB193E0811008E5540 /* GMGridViewCell.m in Sources */,
+				CE9B16F519A34F7A00E569A3 /* iOSServiceProxy.m in Sources */,
+				CE9B172019A34F8E00E569A3 /* iOSService_Enums.m in Sources */,
 				CED3D9E3191D0B3D00624E6F /* iToast.m in Sources */,
 				CED3D9C9191D0A7300624E6F /* PMDimmingView.m in Sources */,
 				CE2D8114196C07A10099EF3A /* NSData+Base64.m in Sources */,
@@ -1022,15 +1099,16 @@
 				CE83C7571964432F0060B280 /* NoteCustomCell.m in Sources */,
 				CED3DA1F191D0D0800624E6F /* AddReminderV2Controller.m in Sources */,
 				CE1902CD193E0811008E5540 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
+				CE9B171519A34F8E00E569A3 /* FileObj.m in Sources */,
 				CED3D99C191D099900624E6F /* SWTableViewCell.m in Sources */,
 				CED3D9C7191D0A7300624E6F /* PMCalendarController.m in Sources */,
 				CE83C7661966CAB20060B280 /* EditNoteViewController.m in Sources */,
 				CED3D91A191D06C400624E6F /* main.m in Sources */,
-				CE12F2A1197FBF2F00DBBA86 /* iOSService.m in Sources */,
 				CED3D9CD191D0A7300624E6F /* PMThemeShadow.m in Sources */,
 				CED3D99D191D099900624E6F /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				CED3D99B191D099900624E6F /* SWLongPressGestureRecognizer.m in Sources */,
 				CED3D9CC191D0A7300624E6F /* PMThemeEngine.m in Sources */,
+				CE9B172219A34F8E00E569A3 /* RetAllArray.m in Sources */,
 				CE3174BF195AFF72007EE188 /* AddShoppingItemViewController.m in Sources */,
 				CE83C75A196444070060B280 /* NoteListViewController.m in Sources */,
 			);

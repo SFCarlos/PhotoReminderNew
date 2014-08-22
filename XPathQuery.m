@@ -20,7 +20,7 @@
 	{
 		NSString *currentNodeContent = [[NSString alloc] initWithCString:(const char *)currentNode->name encoding:NSUTF8StringEncoding];
 		[resultForNode setObject:currentNodeContent forKey:@"nodeName"];
-		[currentNodeContent release];
+		//[currentNodeContent release];
 	}
 	
 	if (currentNode->content && currentNode->content != (xmlChar *)-1)
@@ -33,13 +33,13 @@
 			 setObject:[currentNodeContent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]
 			 forKey:@"nodeContent"];
 			
-			[resultForNode release];
-			[currentNodeContent release];
+			//[resultForNode release];
+			//[currentNodeContent release];
 			return nil;
 		}
 		
 		[resultForNode setObject:currentNodeContent forKey:@"nodeContent"];
-		[currentNodeContent release];
+		//[currentNodeContent release];
     }
 	
 	xmlAttr *_attribute = currentNode->properties;
@@ -62,7 +62,7 @@
                 {
 					[attributeDictionary setObject:childDictionary forKey:@"attributeContent"];
                 }
-				[childDictionary release];
+				//[childDictionary release];
             }
 			
 			if ([attributeDictionary count] > 0)
@@ -71,15 +71,15 @@
             }
 			_attribute = _attribute->next;
 			
-			[attributeName release];
-			[attributeDictionary release];
+			//[attributeName release];
+			//[attributeDictionary release];
         }
 		
 		if ([attributeArray count] > 0)
         {
 			[resultForNode setObject:attributeArray forKey:@"nodeAttributeArray"];
         }
-		[attributeArray release];
+		//[attributeArray release];
 	}
 	
 	xmlNodePtr childNode = currentNode->children;
@@ -96,14 +96,14 @@
             }
 			childNode = childNode->next;
 			
-			[childDictionary release];
+			//[childDictionary release];
         }
 		
 		if ([childContentArray count] > 0)
         {
 			[resultForNode setObject:childContentArray forKey:@"nodeChildArray"];
         }
-		[childContentArray release];
+		//[childContentArray release];
     }
 	
 	return resultForNode;
@@ -149,7 +149,7 @@
 		if (nodeDictionary)
 			[resultNodes addObject:nodeDictionary];
 		
-		[nodeDictionary release];
+		//[nodeDictionary release];
     }
 	
 	/* Cleanup */

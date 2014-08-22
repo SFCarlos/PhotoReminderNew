@@ -64,7 +64,11 @@
    UIBarButtonItem* doneButton          = [[UIBarButtonItem alloc]
                            initWithImage:[UIImage imageNamed:@"checkmark-25.png"] style:UIBarStyleDefault target:self action:@selector(saveNoteAction:)];
     self.navigationItem.rightBarButtonItems =
-    [NSArray arrayWithObjects:doneButton, nil];}
+    [NSArray arrayWithObjects:doneButton, nil];
+
+   
+
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -84,13 +88,13 @@
     
     NSString * ImagenPath = [self saveImageGetPath:imagenSelected];
     NSInteger * idcat = [self retrieveFromUserDefaults];
-    //insert in reminder
-    NSInteger *id_item = [dao insert_item:idcat item_Name:nil alarm:nil note:itenname repeat:nil];
+    //insert in note
+       NSInteger *id_item = [dao insert_item:idcat item_Name:nil alarm:nil note:itenname repeat:nil itemclientStatus:0 should_send_item:1];
     //insert image only one
     [dao insert_item_images:idcat id_item:id_item file_Name:ImagenPath];
     //insert audio
     [dao insert_item_recordings:idcat id_item:id_item file_Name:audioPath];
-   
+   [dao updateSTATUSandSHOULDSENDInTable:id_item clientStatus:0 should_send:1 tableName:@"item_files"];
     
     [self performSegueWithIdentifier:@"backtolist" sender:sender];
 
@@ -115,11 +119,7 @@
         // create name for picture
         NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
         NSString *caldate = [now description];
-        
-        
-        NSDateFormatter *datef = [[NSDateFormatter alloc]init];
-        datef.dateFormat = @"yyyy-MM-dd--HH:mm:ss";
-        NSString* namePhoto = [datef stringFromDate:[NSDate date]];
+   
         NSString *jpegFilePath = [NSString stringWithFormat:@"%@/%@",docDir,caldate];
         
         NSData *data2 = [NSData dataWithData:UIImageJPEGRepresentation(image, 1.0f)];//1.0f = 100% quality
@@ -229,6 +229,7 @@
         //there is audio to play
         switch (buttonIndex) {
             case 0:
+                
                 [self.voiceHud playSound:audioPath];
                 break;
             case 1:
@@ -260,5 +261,6 @@
         
     }
 }
+
 
 @end

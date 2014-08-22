@@ -50,7 +50,7 @@
     dao = [[DatabaseHelper alloc] init];
     _pageTitles = [[NSMutableArray alloc] init];
     _pageImages = [[NSMutableArray alloc] init];
-    items = [dao getItemList:[self retrieveFromUserDefaults] itemType:-1];
+    items = [dao getItemListwhitDeletedRowsIncluded:[self retrieveFromUserDefaults] itemType:-1 whitDeletedRowsIncluded:NO];
     
     for(ReminderObject * tem in items){
        // NSLog(@"Estos son los urls %@ y el name %@",[dao get_items_PhotoPaths:tem.reminderID],tem.reminderName );
@@ -89,7 +89,7 @@
      // deleteVC is a child view controller of the UIPageViewController
      ContentFullView* deleteVC = array[0];
     ReminderObject *tem =[items objectAtIndex:deleteVC.pageIndex];
-    [dao deleteItem:(int)tem.reminderID];
+    [dao deleteItem:(int)tem.reminderID permanently:NO];
    self.pageViewController.dataSource = self;
    
     

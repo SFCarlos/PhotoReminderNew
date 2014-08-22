@@ -64,7 +64,21 @@
 {
     if (buttonIndex == 1)
     {
-        [dao deleteItem:IdNote];
+       
+        ReminderObject * ShopingItem = [dao getItem:(int)IdNote]; //idNote is shooping iditem
+        //mark for future sync
+        if(ShopingItem.id_server_item != 0){ //esta en server database
+            [dao deleteItem:IdNote permanently:NO];
+            [dao updateSTATUSandSHOULDSENDInTable:IdNote clientStatus:1 should_send:1 tableName:@"items"];
+            
+        }else if (ShopingItem.id_server_item == 0){ //no esta en server db
+            [dao deleteItem:IdNote permanently:YES]; //delete foreverc
+            
+        }
+
+        
+        
+        
         [self.navigationController popViewControllerAnimated:YES];
     
     }

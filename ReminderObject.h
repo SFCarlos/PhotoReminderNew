@@ -17,9 +17,24 @@
 
 @property(nonatomic,assign)NSInteger *cat_id;
 @property(nonatomic,assign)NSInteger *cat_id_server;
-@property(nonatomic,strong)NSString *client_status;
+@property(nonatomic,assign)NSInteger *client_status;
+@property(nonatomic,assign)NSInteger *orden;
+@property(nonatomic,assign)NSInteger *should_send_cat;
+@property(nonatomic,assign)NSInteger *should_send_item;
 
+@property(nonatomic,assign)NSInteger *server_file_id;
+@property(nonatomic,assign)NSInteger *file_timestamp;
+@property (nonatomic, strong)NSString *file_path;
+@property(nonatomic,assign)NSInteger * file_type;
+@property(nonatomic,assign)NSInteger * server_file_type;
+@property(nonatomic,assign)NSInteger *id_file;
+@property(nonatomic,assign)NSInteger *should_send_file;
+
+
+@property(nonatomic,assign)NSInteger *id_server_item;
+@property(nonatomic,assign)NSInteger *item_statuss;
 @property (nonatomic, assign) NSInteger *categoryType;
+@property (nonatomic, assign) NSInteger *cat_timestamp;
 @property(nonatomic,strong) NSString * categoryName;
 @property(nonatomic,strong) NSString * categoryImagenPic;
 @property(nonatomic,strong) NSString * categoryColorPic;

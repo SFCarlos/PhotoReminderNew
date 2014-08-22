@@ -45,7 +45,7 @@
 -(void)LoadAgain{
     /* edit = [[UIBarButtonItem alloc]
      initWithImage:[UIImage imageNamed:@"micro-25.png"] style:UIBarStyleDefault target:self action:@selector(editAction:)];*/
-    
+    NSLog(@"DidLoad");
     UIBarButtonItem *setting         = [[UIBarButtonItem alloc]
                                         initWithImage:[UIImage imageNamed:@"back-25.png"] style:UIBarStyleDefault target:self action:@selector(settingAction:)];
     addCategory = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCategoryAction:)];
@@ -60,15 +60,14 @@
     self.toolbarItems=[NSArray arrayWithObjects: addCategory, nil];
     //init the arrays
     
-    arrayTag = [[NSMutableArray alloc] init];
+    
     dao = [[DatabaseHelper alloc] init];
     categoryArray = [[NSMutableArray alloc] init];
     
     
-    
-    
+    //order the array
     categoryArray = [dao getCategoryListwhitDeletedRowsIncluded:NO] ;
-    
+    //[self preformOrder:categoryArray];
     
     
     
@@ -98,19 +97,36 @@
 -(void) viewWillDisappear:(BOOL)animated{
 [self.navigationController setToolbarHidden:YES animated:YES];
     
-   
-
-    [super viewWillAppear:animated];
+    
+    [super viewWillDisappear:animated];
    
   
 }
 -(void) viewWillAppear:(BOOL)animated{
    [self.navigationController setToolbarHidden:NO animated:YES];
+    NSLog(@"Entro al willAppear in reorder categories");
+   
+   // categoryArray=[dao getCategoryListwhitDeletedRowsIncluded:NO];
+    //
+    //[self.tableView reloadData];
+    //[self preformOrder:categoryArray];
     
+    [super viewWillAppear:animated];
     
-       [super viewWillAppear:animated];
 
     
+    
+}
+//gifme the orden
+-(NSMutableArray*)retrieveORDENFromUserDefaults{
+    
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults objectForKey:@"ORDENARRAY"];
+    
+    return val;
     
 }
 - (void)EditCategoryButtonAction:(id)sender {
@@ -125,13 +141,8 @@
     [self performSegueWithIdentifier:@"add_categoryV2" sender:sender];
 }
 -(void)doneAction:(id)sender{
-    [self.tableView reloadData];
-    for (NSString* currentString in arrayTag)
-    {
-        NSLog(@"Este es la pos que va a salvar %@",currentString);
-        
-    }
     
+       
     [self performSegueWithIdentifier:@"settingsSegue" sender:sender];
 }
 - (void)didReceiveMemoryWarning
@@ -173,16 +184,20 @@
     
     cell.tag = indexPath.row;
     NSString *strCellTag = [NSString stringWithFormat:@"%d",cell.tag];
-    if(![arrayTag containsObject:strCellTag])
+   if(![arrayTag containsObject:strCellTag])
     {
         [arrayTag addObject:strCellTag];
-    }
+   }
    
     /* MKNumberBadgeView* numberb= [[MKNumberBadgeView alloc]initWithFrame:CGRectMake(5, 74, 50, 50)];
     numberb.value = 5;*/
     
     ReminderObject *cate = [categoryArray objectAtIndex:[indexPath row]];
    
+    //update orden
+     [dao updateorden:cate.cat_id orden:indexPath.row];
+    NSLog(@"%@ - %d",cate.categoryName,indexPath.row);
+    
    /* NSString * count = [NSString stringWithFormat:@"%d", (int)[dao getCountItemInCategory:cate.cat_id]];
    */
     
@@ -230,6 +245,17 @@
         [standardUserDefaults synchronize];
     }
 }
+//store the orden in userdefult
+-(void)saveOrdenToUserDefaults:(NSMutableArray*)ordenArray
+{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (standardUserDefaults) {
+        [[NSUserDefaults standardUserDefaults] setObject:ordenArray forKey:@"ORDENARRAY"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
   
@@ -286,20 +312,19 @@
 
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
-    id ob = [categoryArray objectAtIndex:destinationIndexPath.row];
+  
+    ReminderObject* ob = [categoryArray objectAtIndex:sourceIndexPath.row];
     
-    [categoryArray replaceObjectAtIndex:destinationIndexPath.row withObject:[categoryArray objectAtIndex:sourceIndexPath.row]];
-    [categoryArray replaceObjectAtIndex:sourceIndexPath.row withObject:ob];
+    [categoryArray removeObjectAtIndex:sourceIndexPath.row];
+    [categoryArray insertObject:ob atIndex:destinationIndexPath.row];
     
-    /////*******
+       /////*******
     
     
-    NSString *ToMove = [arrayTag objectAtIndex:sourceIndexPath.row];
-    [arrayTag removeObjectAtIndex:sourceIndexPath.row];
-    [arrayTag insertObject:ToMove atIndex:destinationIndexPath.row];
+  
     
-    //[dao saveCategoryOrder:arrayTag];
-
+    [self.tableView reloadData];
+ 
     NSLog(@"DIsparada");
     }
 -(BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -336,6 +361,19 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:editCategory animated:YES];
     */
+}
+-(void)preformOrder:(NSMutableArray*)catArray{
+    NSMutableArray * categoryArrayOrdered = [[NSMutableArray alloc] init];
+    
+    
+        for (ReminderObject* temp in catArray) {
+            
+            [categoryArrayOrdered addObject:[catArray objectAtIndex:(int)temp.orden]];
+       
+    }
+        categoryArray = categoryArrayOrdered;
+
+
 }
 
 

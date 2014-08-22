@@ -28,7 +28,7 @@
     //init the arrays
     dao = [[DatabaseHelper alloc] init];
     shoopingItemsArray = [[NSMutableArray alloc] init];
-    shoopingItemsArray = [dao getItemList:[self retrieveFromUserDefaults] itemType:-1];
+    shoopingItemsArray = [dao getItemListwhitDeletedRowsIncluded:[self retrieveFromUserDefaults] itemType:-1 whitDeletedRowsIncluded:NO];
     self.navigationItem.hidesBackButton = YES;
     home = [[UIBarButtonItem alloc]
                initWithImage:[UIImage imageNamed:@"home-25.png"] style:UIBarStyleDefault target:self action:@selector(handleBack:)];
@@ -166,7 +166,7 @@
              [shoopingItemsArray removeObjectAtIndex:cellIndexPath.row];
              [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath]
                                    withRowAnimation:UITableViewRowAnimationAutomatic];
-             NSLog(@"resultado en delete item %d",[dao deleteItem:remin.reminderID]);
+             NSLog(@"resultado en delete item %d",[dao deleteItem:remin.reminderID permanently:NO]);
          
          
          }

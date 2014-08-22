@@ -27,7 +27,7 @@ int CantidadActive;
     int CantidadCompleted;
 NSIndexPath * indextoEdit;
     NSIndexPath * indextoDelete;
-
+    ReminderObject * reminderToEdit;
 }
 @synthesize reminderObj;
 @synthesize tableView;
@@ -57,7 +57,7 @@ NSIndexPath * indextoEdit;
     reminderArray = [[NSMutableArray alloc] init];
     
     NSInteger* cat_id = reminderObj.cat_id;
-    reminderArray = [dao getItemList:cat_id itemType:-1];
+    reminderArray = [dao getItemListwhitDeletedRowsIncluded:cat_id itemType:-1 whitDeletedRowsIncluded:NO];
      [self LoadTheActiveList];
      //segmented contlol
     CantidadActive=active.count;
@@ -185,9 +185,9 @@ NSIndexPath * indextoEdit;
      
         
         //Foto en la imagen
-        NSMutableArray * photoPathsCopy =[dao get_items_PhotoPaths:remin.reminderID];
-        NSLog(@"cantidad de fotos %d y lo que hay %@",[dao get_items_PhotoPaths:remin.reminderID].count,(NSString*)[photoPathsCopy objectAtIndex:0]);
-        if ([(NSString*)[photoPathsCopy objectAtIndex:0]isEqualToString:@"(null)"] ){
+        NSMutableArray * photoPathsCopy = [dao get_items_PhotoPaths:remin.reminderID];
+       
+        if ([(NSString*)[photoPathsCopy firstObject]isEqualToString:@"(null)"] ){
             cell.image.image =[UIImage imageWithImage:[UIImage imageNamed:@"noimage.jpg"] scaledToSize:CGSizeMake(32.0,32.0)];
         }
         else{
@@ -346,7 +346,7 @@ NSIndexPath * indextoEdit;
 #pragma mark - SWTableViewDelegate
 
 -(BOOL)swipeableTableViewCell:(SWTableViewCell *)cell canSwipeToState:(SWCellState)state{
-    return YES;
+    return NO;
 }
 
 -(BOOL)swipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(SWTableViewCell *)cell{
@@ -397,7 +397,7 @@ NSIndexPath * indextoEdit;
                [tableView deleteRowsAtIndexPaths:@[indextoDelete] withRowAnimation:UITableViewRowAnimationFade];
                 
                 //delete from database
-                NSLog(@"resultado en delete item %d",[dao deleteItem:remin.reminderID]);
+                NSLog(@"resultado en delete item %d",[dao deleteItem:remin.reminderID permanently:NO]);
                 
                 
                 //cancel the notification
@@ -444,7 +444,19 @@ NSIndexPath * indextoEdit;
         [segmentedContrlol setTitle:[NSString stringWithFormat:@"Active (%d)",CantidadActive] forSegmentAtIndex:0];
         
         [tableView deleteRowsAtIndexPaths:@[indextoDelete] withRowAnimation:UITableViewRowAnimationFade];
-        NSLog(@"resultado en delete item %d",[dao deleteItem:remin.reminderID]);
+       
+        //deletelogic in sync
+        [dao deleteItem:remin.reminderID permanently:NO];
+        
+        //mark for future sync
+        if(remin.id_server_item != 0){ //esta en server database
+            [dao updateSTATUSandSHOULDSENDInTable:(int)remin.reminderID clientStatus:1 should_send:1 tableName:@"items"];
+            
+        }else if (remin.id_server_item == 0){ //no esta en server db
+            [dao deleteItem:(int)remin.reminderID permanently:YES]; //delete foreverc
+            
+        }
+
         
        
         //cancel the notification
@@ -488,6 +500,98 @@ NSIndexPath * indextoEdit;
         edit.ReminderToEdit = tem;
         
     }
+}
+- (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath {
+if (segmentedContrlol.selectedSegmentIndex == 0 ){
+    reminderToEdit = [active objectAtIndex:indexPath.row];
+}else{
+reminderToEdit = [completed objectAtIndex:indexPath.row];
+}
+   
+    
+    indextoEdit = indexPath;
+    indextoDelete=indexPath;
+    
+   
+        UIActionSheet* optionSheed =[[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit",@"Delete" ,nil];
+    
+        [optionSheed showInView:[UIApplication sharedApplication].keyWindow];
+
+
+}
+    
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+
+    if (buttonIndex ==0) {//Edit?
+        [self performSegueWithIdentifier:@"editreminder" sender:self];
+    }else if (buttonIndex ==1){//Delete?
+        // Delete button was pressed
+        //[tableView beginUpdates];
+        
+        ReminderObject *remin;
+        //Active reminder delete was pressed
+        if (segmentedContrlol.selectedSegmentIndex == 0 ){
+            //presenting alert
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirmation"
+                                                            message:@"Delete this active reminder?"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:@"Cancel",nil];
+            [alert show];
+            //move the delete logic to Alert delegate
+           
+            
+        }else{
+            //completed reminder delete press delete whitout alert
+            
+            remin= [completed objectAtIndex:[indextoDelete row]];
+            [completed removeObjectAtIndex:[indextoDelete row]];
+            CantidadCompleted= completed.count;
+            [segmentedContrlol setTitle:[NSString stringWithFormat:@"Completed (%d)",CantidadCompleted] forSegmentAtIndex:1];
+            [tableView deleteRowsAtIndexPaths:@[indextoDelete] withRowAnimation:UITableViewRowAnimationFade];
+            
+           
+           //deletelogic in sync
+            [dao deleteItem:remin.reminderID permanently:NO];
+            
+            //mark for future sync
+            if(remin.id_server_item != 0){ //esta en server database
+                [dao updateSTATUSandSHOULDSENDInTable:(int)remin.reminderID clientStatus:1 should_send:1 tableName:@"items"];
+                
+            }else if (remin.id_server_item == 0){ //no esta en server db
+                [dao deleteItem:(int)remin.reminderID permanently:YES]; //delete foreverc
+                
+            }
+
+            
+            
+            //cancel the notification
+            NSString *idtem =[NSString stringWithFormat:@"%d",(int)remin.reminderID];
+            UIApplication*app =[UIApplication sharedApplication];
+            NSArray *eventArray = [app scheduledLocalNotifications];
+            for (int i=0; i<[eventArray count]; i++) {
+                UILocalNotification* oneEvent= [eventArray objectAtIndex:i];
+                NSDictionary *userInfoIDremin = oneEvent.userInfo;
+                NSString*uid=[NSString stringWithFormat:@"%@",[userInfoIDremin valueForKey:@"ID_NOT_PASS"]];
+                if ([uid isEqualToString:idtem]) {
+                    [app cancelLocalNotification:oneEvent];
+                    NSLog(@"CANCELADA LA NOTIFICACIONN %@",uid);
+                    
+                }
+            }
+            
+        }
+        
+        //
+        // [dao InvalidateReminder:remin.reminderID recurring:@"finished"];
+        
+        
+        
+    }
+
+    
+    
 }
 
 

@@ -65,9 +65,12 @@
     audioPath = [dao get_AudioPath_item_reminder:idNoteToedit];
     texto=item.note;
     self.NotetextArea.text = texto;
+    if ([(NSString*)[imagenArray firstObject]isEqualToString:@"(null)"]) {
+        imagenSelected = nil;
+    }else{
     imagenSelected = [UIImage imageWithImage:[UIImage imageWithContentsOfFile:(NSString*)[imagenArray firstObject]]scaledToSize:CGSizeMake(100.0,100.0)];
     self.ImageViewSelected.image = imagenSelected;
-    
+    }
     //record voice stuff
     self.voiceHud = [[POVoiceHUD alloc] initWithParentView:self.view];
     self.voiceHud.title = @"Speak Now";
@@ -99,17 +102,24 @@
     else
         texto = NotetextArea.text;
     
-    NSString * ImagenPath = [self saveImageGetPath:imagenSelected];
-    NSInteger * idcat = [self retrieveFromUserDefaults];
-    //delete firt
-    [dao deleteItem:idNoteToedit];
-    //insert in reminder
-    NSInteger *id_item = [dao insert_item:idcat item_Name:nil alarm:nil note:texto repeat:nil];
-    //insert image only one
-    [dao insert_item_images:idcat id_item:id_item file_Name:ImagenPath];
-    //insert audio
-    [dao insert_item_recordings:idcat id_item:id_item file_Name:audioPath];
     
+    NSString * ImagenPath = [self saveImageGetPath:imagenSelected];
+   
+  
+    
+    [dao edit_item:idNoteToedit item_Name:nil alarm:nil note:texto repeat:nil itemclientStatus:0];
+    ReminderObject * itemnote = [dao getItem:idNoteToedit];
+    //mark for future sync
+    if (itemnote.id_server_item != 0){ //esta sync y debo enviarla
+        [dao updateSTATUSandSHOULDSENDInTable:(int)idNoteToedit clientStatus:0 should_send:1 tableName:@"items"];
+    }else if (itemnote.id_server_item == 0){
+        //updateo  en mi db porke server ni se entera de esta updte..pael es add
+        [dao updateSTATUSandSHOULDSENDInTable:(int)idNoteToedit clientStatus:0 should_send:1 tableName:@"items"];
+        
+    }
+
+       [dao edit_item_images:idNoteToedit file_Name:ImagenPath];
+    [dao edit_item_recordings:idNoteToedit file_Name:audioPath];
     
     [self performSegueWithIdentifier:@"backtolist" sender:sender];
     

@@ -17,6 +17,8 @@
     UIBarButtonItem * addNote;
     NSString* urltoPlay;
     NSIndexPath * indextoEdit;
+    NSIndexPath * indextoDelete;
+    ReminderObject * NoteToEdit;
 
 }
 @property POVoiceHUD* voiceHud;
@@ -30,7 +32,7 @@
     [super viewWillAppear:animated];
    
     NoteArray = nil;
-   NoteArray = [dao getItemList:[self retrieveFromUserDefaults] itemType:-1];
+   NoteArray = [dao getItemListwhitDeletedRowsIncluded:[self retrieveFromUserDefaults] itemType:-1 whitDeletedRowsIncluded:NO];
     [self.tableView reloadData];
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -44,7 +46,7 @@
     //init the arrays
     dao = [[DatabaseHelper alloc] init];
     NoteArray = [[NSMutableArray alloc] init];
-    NoteArray = [dao getItemList:[self retrieveFromUserDefaults] itemType:-1];
+     NoteArray = [dao getItemListwhitDeletedRowsIncluded:[self retrieveFromUserDefaults] itemType:-1 whitDeletedRowsIncluded:NO];
     self.navigationItem.hidesBackButton = YES;
     home = [[UIBarButtonItem alloc]
             initWithImage:[UIImage imageNamed:@"home-25.png"] style:UIBarStyleDefault target:self action:@selector(handleBack:)];
@@ -55,6 +57,8 @@
     addNote= [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(AddNoteAction:)];
               
     // Remove table cell separator
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+
     
     
     self.navigationItem.rightBarButtonItems =
@@ -117,7 +121,7 @@
     // audio only one
     NSString* audioPathTem =[dao get_AudioPath_item_reminder:itemNote.reminderID];
     
-    
+   // NSLog(@"audioPath in notecell: %@",audioPathTem);
     if ([(NSString*)[photoPathsCopy firstObject]isEqualToString:@"(null)"] ){
         
         
@@ -142,10 +146,10 @@
 #pragma mark - SWTableViewDelegate
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     
-    return @"                   Slide to left to edit";
+    return @"";
 }
 -(BOOL)swipeableTableViewCell:(SWTableViewCell *)cell canSwipeToState:(SWCellState)state{
-    return YES;
+    return NO;
 }
 
 -(BOOL)swipeableTableViewCellShouldHideUtilityButtonsOnSwipe:(SWTableViewCell *)cell{
@@ -171,10 +175,7 @@
             
         case 0:
             
-            NSLog(@"edit button was pressed ");
-            indextoEdit = [self.tableView indexPathForCell:cell];
             
-            [self performSegueWithIdentifier:@"editNoteSegue" sender:self];
             
             
             break;
@@ -183,13 +184,6 @@
             NSLog(@"delete button was pressed ");
            
             
-            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-            ReminderObject *remin;
-            remin= [NoteArray objectAtIndex:cellIndexPath.row];
-            [NoteArray removeObjectAtIndex:cellIndexPath.row];
-            [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath]
-                                  withRowAnimation:UITableViewRowAnimationAutomatic];
-            NSLog(@"resultado en delete item %d",[dao deleteItem:remin.reminderID]);
             
             
         }
@@ -203,24 +197,112 @@
             
     }
 }
+-(void)editNote:(NSInteger*)idNote{
+    
+}-(void)delNote:(NSInteger*)idNote{
+   
+   
+    ReminderObject *remin;
+    remin= [NoteArray objectAtIndex:indextoDelete.row];
+    [NoteArray removeObjectAtIndex:indextoDelete.row];
+    [self.tableView deleteRowsAtIndexPaths:@[indextoDelete]
+                          withRowAnimation:UITableViewRowAnimationAutomatic];
+    [dao deleteItem:idNote permanently:NO];
+    
+    NSMutableArray * arrayFiles = [dao getFiles:idNote];
+    for (ReminderObject * filesInNote in arrayFiles) {
+        [dao updateSTATUSandSHOULDSENDInTable:idNote clientStatus:1 should_send:0 tableName:@"item_files"];
+    }
+    //mark for future sync
+    if(remin.id_server_item != 0){ //esta en server database
+        [dao updateSTATUSandSHOULDSENDInTable:idNote clientStatus:1 should_send:1 tableName:@"items"];
+        
+    }else if (remin.id_server_item == 0){ //no esta en server db
+        [dao deleteItem:idNote permanently:YES]; //delete foreverc
+        
+    }
+
+    
+}
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-    if (buttonIndex ==0) {
-        
-        [self.voiceHud playSound:urltoPlay];
+   
+    switch (actionSheet.tag) {
+        case 1:
+            if (buttonIndex ==0) {//Edit?
+                
+                NSLog(@"edit button was pressed ");
+                [self performSegueWithIdentifier:@"editNoteSegue" sender:self];
+
+                
+            }else if (buttonIndex ==1){//Delete?
+            
+                [NoteArray removeObjectAtIndex:indextoDelete.row];
+                [self.tableView deleteRowsAtIndexPaths:@[indextoDelete]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [dao deleteItem:(int)NoteToEdit.reminderID permanently:NO];
+                
+                //mark for future sync
+                if(NoteToEdit.id_server_item != 0){ //esta en server database
+                    [dao updateSTATUSandSHOULDSENDInTable:(int)NoteToEdit.reminderID clientStatus:1 should_send:1 tableName:@"items"];
+                    
+                }else if (NoteToEdit.id_server_item == 0){ //no esta en server db
+                    [dao deleteItem:(int)NoteToEdit.reminderID permanently:YES]; //delete foreverc
+                    
+                }
+
+            
+            }
+
+            break;
+        case 2:
+            if (buttonIndex ==0) {//Play?
+                NSLog(@"Play: %@",urltoPlay);
+                [self.voiceHud playSound:urltoPlay];
+            }else if (buttonIndex ==1){//Edit
+                NSLog(@"edit button was pressed ");
+                [self performSegueWithIdentifier:@"editNoteSegue" sender:self];
+            }else if (buttonIndex==2){//delete
+                [NoteArray removeObjectAtIndex:indextoDelete.row];
+                [self.tableView deleteRowsAtIndexPaths:@[indextoDelete]
+                                      withRowAnimation:UITableViewRowAnimationFade];
+                [dao deleteItem:(int)NoteToEdit.reminderID permanently:NO];
+                
+                //mark for future sync
+                if(NoteToEdit.id_server_item != 0){ //esta en server database
+                    [dao updateSTATUSandSHOULDSENDInTable:(int)NoteToEdit.reminderID clientStatus:1 should_send:1 tableName:@"items"];
+                    
+                }else if (NoteToEdit.id_server_item == 0){ //no esta en server db
+                    [dao deleteItem:(int)NoteToEdit.reminderID permanently:YES]; //delete foreverc
+                    
+                }
+
+            }
+            
+            break;
+        default:
+            break;
     }
-}
+    }
 - (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath {
     
-    ReminderObject * tem = [NoteArray objectAtIndex:indexPath.row];
-   NSString* audioPathTem =[dao get_AudioPath_item_reminder:tem.reminderID];
+   NoteToEdit = [NoteArray objectAtIndex:indexPath.row];
+   NSString* audioPathTem =[dao get_AudioPath_item_reminder:NoteToEdit.reminderID];
     
+    indextoEdit = indexPath;
+    indextoDelete=indexPath;
     if(audioPathTem == nil || [audioPathTem isEqualToString:@"(null)"]){
         //do nothing cause does not have record atached
-    }else{
-        urltoPlay = audioPathTem;
-        UIActionSheet* PlaySheed =[[UIActionSheet alloc]initWithTitle:@"Play the recorded" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play" ,nil];
         
+        UIActionSheet* OptionSheed =[[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit",@"Delete" ,nil];
+        OptionSheed.tag = 1;
+        [OptionSheed showInView:[UIApplication sharedApplication].keyWindow];
+   
+    }else
+    {
+        urltoPlay = audioPathTem;
+        UIActionSheet* PlaySheed =[[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play",@"Edit",@"Delete" ,nil];
+        PlaySheed.tag=2;
         [PlaySheed showInView:[UIApplication sharedApplication].keyWindow];}
 
     
@@ -236,4 +318,7 @@
     }
 
 }
+
+
+
 @end
