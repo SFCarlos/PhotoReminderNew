@@ -15,6 +15,7 @@
     NSString * audioPath;
     UIImage* imagenSelected;
     NSString* texto;
+    NSMutableArray* imagenArray;
 }
 
 @end
@@ -61,12 +62,13 @@
     dao = [[DatabaseHelper alloc] init];
     //..acces the item
     ReminderObject * item = [dao getItem:idNoteToedit];
-    NSMutableArray* imagenArray = [dao get_items_PhotoPaths:idNoteToedit];
+     imagenArray = [dao get_items_PhotoPaths:idNoteToedit];
     audioPath = [dao get_AudioPath_item_reminder:idNoteToedit];
     texto=item.note;
     self.NotetextArea.text = texto;
     if ([(NSString*)[imagenArray firstObject]isEqualToString:@"(null)"]) {
         imagenSelected = nil;
+        self.ImageViewSelected.image = [UIImage imageWithImage:[UIImage imageNamed:@"noimage.jpg"] scaledToSize:CGSizeMake(32.0,32.0)];
     }else{
     imagenSelected = [UIImage imageWithImage:[UIImage imageWithContentsOfFile:(NSString*)[imagenArray firstObject]]scaledToSize:CGSizeMake(100.0,100.0)];
     self.ImageViewSelected.image = imagenSelected;
@@ -117,8 +119,12 @@
         [dao updateSTATUSandSHOULDSENDInTable:(int)idNoteToedit clientStatus:0 should_send:1 tableName:@"items"];
         
     }
-
-       [dao edit_item_images:idNoteToedit file_Name:ImagenPath];
+//NSLog(@"path %@",ImagenPath);
+    
+    if (![(NSString*)[imagenArray firstObject]isEqualToString:ImagenPath ]) {
+        [dao edit_item_images:idNoteToedit file_Name:ImagenPath];
+       // [dao updateSTATUSandSHOULDSENDInTable:idNoteToedit clientStatus:0 should_send:1 tableName:@"item_files"];
+    }
     [dao edit_item_recordings:idNoteToedit file_Name:audioPath];
     
     [self performSegueWithIdentifier:@"backtolist" sender:sender];

@@ -15,6 +15,7 @@
     UIImagePickerController *picker;
     UIImage* imagenSelected;
     NSArray * sugestionarray;
+    NSMutableArray* imagenArray;
 }
 
 @end
@@ -49,7 +50,7 @@
     dao = [[DatabaseHelper alloc] init];
     //..acces the item
     ReminderObject * item = [dao getItem:IdShoopingItemToEdit];
-    NSMutableArray* imagenArray = [dao get_items_PhotoPaths:IdShoopingItemToEdit];
+   imagenArray = [dao get_items_PhotoPaths:IdShoopingItemToEdit];
     
     //fill array of sugestions
     
@@ -65,7 +66,13 @@
     self.nameitemTextField.text = item.reminderName;
     self.navigationItem.hidesBackButton = YES;
      //imagen
-    imagenSelected = [UIImage imageWithImage:[UIImage imageWithContentsOfFile:(NSString*)[imagenArray firstObject]]scaledToSize:CGSizeMake(100.0,100.0)];
+    if ([(NSString*)[imagenArray firstObject]isEqualToString:@"(null)"]) {
+      
+        imagenSelected = nil;
+       self.fotoselectedImageview.image = [UIImage imageWithImage:[UIImage imageNamed:@"noimage.jpg"] scaledToSize:CGSizeMake(32.0,32.0)];
+    }else{
+        imagenSelected = [UIImage imageWithImage:[UIImage imageWithContentsOfFile:(NSString*)[imagenArray firstObject]]scaledToSize:CGSizeMake(100.0,100.0)];
+    }
     self.fotoselectedImageview.image = imagenSelected;
     //*****************
     //back buttom
@@ -124,14 +131,10 @@
 
     
     //edit image only one
-    [dao edit_item_images:IdShoopingItemToEdit file_Name:ImagenPath];
-    NSMutableArray* filesArr = [dao getFiles:IdShoopingItemToEdit];
-    if (filesArr.count > 0) {
-        ReminderObject * imagen = [filesArr firstObject];
-        if (imagen.file_type == 1) {
-            [dao updateSTATUSandSHOULDSENDInTable:imagen.id_file clientStatus:0 should_send:1 tableName:@"item_files"];
-        }
+    if (![(NSString*)[imagenArray firstObject]isEqualToString:ImagenPath ]) {
+        [dao edit_item_images:IdShoopingItemToEdit file_Name:ImagenPath];
     }
+   
     
     
     //insert in history

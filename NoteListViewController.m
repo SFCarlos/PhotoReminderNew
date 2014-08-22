@@ -121,7 +121,7 @@
     // audio only one
     NSString* audioPathTem =[dao get_AudioPath_item_reminder:itemNote.reminderID];
     
-   // NSLog(@"audioPath in notecell: %@",audioPathTem);
+  //NSLog(@"potoPath in notecell: %@",[photoPathsCopy firstObject]);
     if ([(NSString*)[photoPathsCopy firstObject]isEqualToString:@"(null)"] ){
         
         

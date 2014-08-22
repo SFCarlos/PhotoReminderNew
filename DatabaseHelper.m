@@ -420,7 +420,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         flag = NO;
         return flag;
     } else {
-        NSString *sqlInsert = [NSString stringWithFormat:@"UPDATE item_files SET file_name = '%@' WHERE id_item = %d", file_Name,(int)id_item ];
+        NSString *sqlInsert = [NSString stringWithFormat:@"UPDATE item_files SET file_name = '%@' WHERE id_item = %d AND file_type = 2", file_Name,(int)id_item ];
         const char *sql = [sqlInsert UTF8String];
         sqlite3_stmt *sqlStatement;
         
@@ -454,7 +454,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         flag = NO;
         return flag;
     } else {
-        NSString *sqlInsert = [NSString stringWithFormat:@"UPDATE item_files SET file_name = '%@' WHERE id_item = %d", file_Name,(int)id_item ];
+        NSString *sqlInsert = [NSString stringWithFormat:@"UPDATE item_files SET file_name = '%@' WHERE id_item = %d AND file_type = 1", file_Name,(int)id_item ];
         const char *sql = [sqlInsert UTF8String];
         sqlite3_stmt *sqlStatement;
        // NSLog(@"updateimagenpath sql %s" ,sql);
