@@ -8,6 +8,7 @@
 
 #import "SelectedItemFotoFullViewController.h"
 #import "EditShoopingItemViewController.h"
+#import "UIImage+ScalingMyImage.h"
 @interface SelectedItemFotoFullViewController (){
     NSMutableArray * imagenPath;
 }
@@ -27,12 +28,12 @@
     imagenPath = [dao get_items_PhotoPaths:IdNote];
    
      self.navigationItem.title = ShoppTile;
-    NSString* path = [imagenPath firstObject];
-    if ([path length] > 10) {// the is fileimage
-        self.FullPhoto.image = [UIImage imageWithContentsOfFile:path];
+   
+    if (imagenPath.count==0) {
+        self.FullPhoto.image = [UIImage imageNamed:@"noimage.jpg"];
         
     }else
-        self.FullPhoto.image = [UIImage imageNamed:path];
+        self.FullPhoto.image = [UIImage imageWithImage:[UIImage imageWithContentsOfFile:(NSString*)[imagenPath firstObject]]scaledToSize:CGSizeMake(128.0,128.0)];;
     
     UIBarButtonItem* editShoppItem          = [[UIBarButtonItem alloc]
                                             initWithImage:[UIImage imageNamed:@"edit-32.png"] style:UIBarStyleDefault target:self action:@selector(editShoppItemAction:)];

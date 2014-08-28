@@ -94,7 +94,7 @@
      ReminderObject *tem = [items objectAtIndex:indexPath.row];
     UIImage*image;
     imagenArray =[dao get_items_PhotoPaths:tem.reminderID];
-    if ([(NSString*)[imagenArray firstObject]isEqualToString:@"(null)"] ){
+    if (imagenArray.count==0 ){
         image =[UIImage imageWithImage:[UIImage imageNamed:@"noimage.jpg"] scaledToSize:CGSizeMake(100.0,100.0)];
         
     }

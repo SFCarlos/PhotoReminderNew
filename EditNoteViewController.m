@@ -77,7 +77,8 @@
     audioPath = [dao get_AudioPath_item_reminder:idNoteToedit];
     texto=item.note;
     self.NotetextArea.text = texto;
-    if ([(NSString*)[imagenArray firstObject]isEqualToString:@"(null)"]) {
+   
+    if (imagenArray.count==0) {
         imagenSelected = nil;
         self.ImageViewSelected.image = [UIImage imageWithImage:[UIImage imageNamed:@"noimage.jpg"] scaledToSize:CGSizeMake(32.0,32.0)];
     }else{

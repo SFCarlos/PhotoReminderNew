@@ -122,7 +122,7 @@
     NSString* audioPathTem =[dao get_AudioPath_item_reminder:itemNote.reminderID];
     
   //NSLog(@"potoPath in notecell: %@",[photoPathsCopy firstObject]);
-    if ([(NSString*)[photoPathsCopy firstObject]isEqualToString:@"(null)"] ){
+    if (photoPathsCopy.count==0 ){
         
         
         cell.image.image =  [UIImage imageWithImage:[UIImage imageNamed:@"noimage.jpg"] scaledToSize:CGSizeMake(32.0,32.0)];

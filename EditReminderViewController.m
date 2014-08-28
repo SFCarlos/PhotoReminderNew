@@ -18,7 +18,8 @@
 #import <QuartzCore/QuartzCore.h>
 @interface EditReminderViewController ()
 
-
+@property (nonatomic, assign) BOOL should_send_audio;
+@property (nonatomic, assign) BOOL should_send_photo;
 @property (nonatomic, strong) PMCalendarController *pmCC;
 @end
 
@@ -48,6 +49,8 @@ NSDate * datecalendar;
 @synthesize calendarbutom;
 @synthesize selectRepeat;
 @synthesize ReminderToEdit;
+@synthesize should_send_photo;
+@synthesize should_send_audio;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -59,6 +62,8 @@ NSDate * datecalendar;
 
 - (void)viewDidLoad
 {
+    self.should_send_audio = NO;
+    self.should_send_photo = NO;
     [super viewDidLoad];
     
     CGRect pikerframe = CGRectMake(0, 0, 261, 162);
@@ -172,7 +177,7 @@ NSDate * datecalendar;
     
     //imagen only one in reminder
     NSMutableArray * photoPathsCopy =[dao get_items_PhotoPaths:ReminderToEdit.reminderID];
-    if ([(NSString*)[photoPathsCopy objectAtIndex:0]isEqualToString:@"(null)"] ) {
+    if (photoPathsCopy.count==0) {
         ImageViewSelected.image = [UIImage imageNamed:@"noimage.jpg"];
     }else
     ImageViewSelected.image = [UIImage imageWithContentsOfFile:[photoPathsCopy firstObject]];
@@ -297,8 +302,22 @@ NSDate * datecalendar;
     }
 
    
-    [dao edit_item_images:ReminderToEdit.reminderID file_Name:ImagenPath];
-    [dao edit_item_recordings:ReminderToEdit.reminderID file_Name:audioPath];
+    if (self.should_send_photo == YES) {
+        [dao edit_item_images:ReminderToEdit.reminderID file_Name:ImagenPath];
+        [dao UpdateSHOULDSendinFILESbyType:ReminderToEdit.reminderID file_type:1 should_send:1 comeFroMSync:NO];
+    }else{
+        [dao UpdateSHOULDSendinFILESbyType:ReminderToEdit.reminderID file_type:1 should_send:0 comeFroMSync:NO];
+    }
+    
+    if (self.should_send_audio == YES){
+        [dao edit_item_recordings:ReminderToEdit.reminderID file_Name:audioPath];
+        [dao UpdateSHOULDSendinFILESbyType:ReminderToEdit.reminderID file_type:2 should_send:1 comeFroMSync:NO];
+        
+    }else{
+        [dao UpdateSHOULDSendinFILESbyType:(int)ReminderToEdit.reminderID file_type:2 should_send:0 comeFroMSync:NO];
+        
+    }
+
     
     //insert in history tambien
     BOOL resulthistory = [dao insertHistory:idcat history_desc:eventName];
@@ -485,6 +504,7 @@ NSDate * datecalendar;
 #pragma mark - POVoiceHUD Delegate
 
 - (void)POVoiceHUD:(POVoiceHUD *)voiceHUD voiceRecorded:(NSString *)recordPath length:(float)recordLength {
+    self.should_send_audio= YES;
     audioPath = recordPath;
     [[[[iToast makeText:NSLocalizedString(@"Record saved", @"")]setGravity:iToastGravityBottom]setDuration:iToastDurationNormal]show];
     
@@ -500,7 +520,7 @@ NSDate * datecalendar;
 #pragma mark - Image Picker Controller delegate methods
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    
+    self.should_send_photo= YES;
     imagenSelected = info[UIImagePickerControllerOriginalImage];
     self.ImageViewSelected.image = imagenSelected;
     frameButton.hidden= NO;

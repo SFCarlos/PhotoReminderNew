@@ -71,7 +71,7 @@
     self.nameitemTextField.text = item.reminderName;
     self.navigationItem.hidesBackButton = YES;
      //imagen
-    if ([(NSString*)[imagenArray firstObject]isEqualToString:@"(null)"]) {
+    if (imagenArray.count==0) {
       
         imagenSelected = nil;
        self.fotoselectedImageview.image = [UIImage imageWithImage:[UIImage imageNamed:@"noimage.jpg"] scaledToSize:CGSizeMake(32.0,32.0)];

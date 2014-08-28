@@ -187,7 +187,7 @@ NSIndexPath * indextoEdit;
         //Foto en la imagen
         NSMutableArray * photoPathsCopy = [dao get_items_PhotoPaths:remin.reminderID];
        
-        if ([(NSString*)[photoPathsCopy firstObject]isEqualToString:@"(null)"] ){
+        if (photoPathsCopy.count==0){
             cell.image.image =[UIImage imageWithImage:[UIImage imageNamed:@"noimage.jpg"] scaledToSize:CGSizeMake(32.0,32.0)];
         }
         else{

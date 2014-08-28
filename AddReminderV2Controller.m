@@ -239,7 +239,7 @@
     NSString * eventName = self.EventNametextField.text;
     NSDate * alarmdate = [datePicker date];
     NSString * ImagenPath = [self saveImageGetPath:imagenSelected];
-    NSString* audioPathstore = audioPath;
+    
     NSString * note =textNote;
     NSString* recurring = [self returnRecurringSelect];
     //if eventName is Empty show "Reminder"
@@ -250,10 +250,24 @@
     
     //insert in reminder
     NSInteger *id_item = [dao insert_item:idcat item_Name:eventName alarm:alarmdate note:note repeat:recurring itemclientStatus:0 should_send_item:1];
-    //insert image only one
-    [dao insert_item_images:idcat id_item:id_item file_Name:ImagenPath];
-    //insert audio only one
-    [dao insert_item_recordings:idcat id_item:id_item file_Name:audioPathstore];
+    if (ImagenPath == nil ||[ImagenPath isEqualToString:@""]||[ImagenPath isEqualToString:@"(null)"]){
+        //es null no inserto nada
+        
+    }else{
+        [dao insert_item_images:idcat id_item:id_item file_Name:ImagenPath];
+        [dao UpdateSHOULDSendinFILESbyType:id_item file_type:1 should_send:1 comeFroMSync:NO];
+    }
+    
+    if (audioPath == nil ||[audioPath isEqualToString:@""]||[audioPath isEqualToString:@"(null)"]){
+        
+        
+    }else{
+        //insert audio
+        [dao insert_item_recordings:idcat id_item:id_item file_Name:audioPath];
+        [dao UpdateSHOULDSendinFILESbyType:id_item file_type:2 should_send:1 comeFroMSync:NO];
+        
+        
+    }
 //insert
     //insert in history
     BOOL resulthistory = [dao insertHistory:idcat history_desc:eventName];
