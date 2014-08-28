@@ -14,15 +14,14 @@
 #import <Foundation/Foundation.h>
 
 
-@interface CategoryObj : NSObject
+@interface shareConfirmRet : NSObject
 {
 }
-@property int clientCategoryID;
+@property int globalReturn;
 @property int serverCategoryID;
 @property int categoryType;
 @property (nonatomic, copy) NSString *categoryName;
 @property (nonatomic, copy) NSString *categoryColor;
-@property int categoryStatus;
 
 -(NSString*)toString:(BOOL)addNameWrap;
 -(id)initWithArray:(NSArray*)array;

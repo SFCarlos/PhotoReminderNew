@@ -10,7 +10,11 @@
 #import "HTAutocompleteManager.h"
 #import "UIImage+ScalingMyImage.h"
 @interface EditShoopingItemViewController ()
-{
+@property (nonatomic, assign) BOOL should_send_photo;
+
+@end
+
+@implementation EditShoopingItemViewController{
     UIBarButtonItem * doneButton;
     UIImagePickerController *picker;
     UIImage* imagenSelected;
@@ -18,9 +22,6 @@
     NSMutableArray* imagenArray;
 }
 
-@end
-
-@implementation EditShoopingItemViewController
 @synthesize nameitemTextField;
 @synthesize fotoselectedImageview;
 @synthesize camerabutton;
@@ -28,8 +29,12 @@
 @synthesize frameButon;
 @synthesize dao;
 @synthesize IdShoopingItemToEdit;
+@synthesize should_send_photo;
 - (void)viewDidLoad
 {
+    
+    self.should_send_photo = NO;
+    
     picker = [[UIImagePickerController alloc] init];
     //put color in buttons hiden buton frame and band
    
@@ -130,9 +135,11 @@
     }
 
     
-    //edit image only one
-    if (![(NSString*)[imagenArray firstObject]isEqualToString:ImagenPath ]) {
+    if (self.should_send_photo == YES) {
         [dao edit_item_images:IdShoopingItemToEdit file_Name:ImagenPath];
+        [dao UpdateSHOULDSendinFILESbyType:IdShoopingItemToEdit file_type:1 should_send:1 comeFroMSync:NO];
+    }else{
+        [dao UpdateSHOULDSendinFILESbyType:IdShoopingItemToEdit file_type:1 should_send:0 comeFroMSync:NO];
     }
    
     
@@ -180,7 +187,7 @@
 #pragma mark - Image Picker Controller delegate methods
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    
+    self.should_send_photo = YES;
     imagenSelected = info[UIImagePickerControllerOriginalImage];
     self.fotoselectedImageview.image = imagenSelected;
     

@@ -47,7 +47,7 @@
 -(void)UpdateSERVERIDinTable:(NSInteger*)id_client id_server:(NSInteger*)id_server tableName:(NSString*)tableName ;
 
 -(void)UpdateFileTIMESTAMP:(NSInteger*)id_client file_timestamp:(NSInteger*)file_timestamp ;
-
+-(void)UpdateSHOULDSendinFILESbyType:(NSInteger*)id_item  file_type:(NSInteger*)file_type should_send:(NSInteger*)should_send comeFroMSync:(BOOL*)comeFroMSync;
 
 -(BOOL)updateorden:(NSInteger*)id_cat orden:(NSInteger*)orden;;
 -(NSMutableArray *) getCategoryorder;

@@ -44,6 +44,7 @@
 
 - (void)viewDidLoad
 {
+    imagenSelected = nil;
     [super viewDidLoad];
     NotetextArea.delegate=self;
     NotetextArea.layer.borderWidth = 1.0f;
@@ -90,11 +91,27 @@
     NSInteger * idcat = [self retrieveFromUserDefaults];
     //insert in note
        NSInteger *id_item = [dao insert_item:idcat item_Name:nil alarm:nil note:itenname repeat:nil itemclientStatus:0 should_send_item:1];
-    //insert image only one
-    [dao insert_item_images:idcat id_item:id_item file_Name:ImagenPath];
-    //insert audio
+   
+    
+    NSLog(@"ImagenPath %@",ImagenPath);
+    if (ImagenPath == nil ||[ImagenPath isEqualToString:@""]||[ImagenPath isEqualToString:@"(null)"]){
+    //es null no inserto nada
+        
+    }else{
+        [dao insert_item_images:idcat id_item:id_item file_Name:ImagenPath];
+       [dao UpdateSHOULDSendinFILESbyType:id_item file_type:1 should_send:1 comeFroMSync:NO];
+    }
+    
+    if (audioPath == nil ||[audioPath isEqualToString:@""]||[audioPath isEqualToString:@"(null)"]){
+   
+    
+    }else{
+         //insert audio
     [dao insert_item_recordings:idcat id_item:id_item file_Name:audioPath];
-   [dao updateSTATUSandSHOULDSENDInTable:id_item clientStatus:0 should_send:1 tableName:@"item_files"];
+    [dao UpdateSHOULDSendinFILESbyType:id_item file_type:2 should_send:1 comeFroMSync:NO];
+        
+        
+    }
     
     [self performSegueWithIdentifier:@"backtolist" sender:sender];
 

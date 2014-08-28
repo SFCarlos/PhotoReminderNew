@@ -11,16 +11,22 @@
 #import "UIImage+ScalingMyImage.h"
 
 @interface EditNoteViewController ()
+@property (nonatomic, assign) BOOL should_send_audio;
+@property (nonatomic, assign) BOOL should_send_photo;
+
+@end
+
+
+
+@implementation EditNoteViewController
 {
     NSString * audioPath;
     UIImage* imagenSelected;
     NSString* texto;
     NSMutableArray* imagenArray;
+    
 }
 
-@end
-
-@implementation EditNoteViewController
 
 @synthesize NotetextArea;
 @synthesize voiceHud;
@@ -28,6 +34,8 @@
 @synthesize marco;
 @synthesize idNoteToedit;
 @synthesize ImageViewSelected;
+@synthesize should_send_audio;
+@synthesize should_send_photo;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -48,6 +56,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.should_send_audio = NO;
+    self.should_send_photo = NO;
+    
     NotetextArea.delegate=self;
     NotetextArea.layer.borderWidth = 1.0f;
     NotetextArea.layer.borderColor = [[UIColor grayColor] CGColor]; //[YounCan Use any Color For Border]
@@ -119,14 +130,25 @@
         [dao updateSTATUSandSHOULDSENDInTable:(int)idNoteToedit clientStatus:0 should_send:1 tableName:@"items"];
         
     }
-//NSLog(@"path %@",ImagenPath);
+   // NSLog(@"ShouldSndphotoFlag %d",should_send_photo);
     
-    if (![(NSString*)[imagenArray firstObject]isEqualToString:ImagenPath ]) {
+        
+    
+    if (self.should_send_photo == YES) {
         [dao edit_item_images:idNoteToedit file_Name:ImagenPath];
-       // [dao updateSTATUSandSHOULDSENDInTable:idNoteToedit clientStatus:0 should_send:1 tableName:@"item_files"];
+        [dao UpdateSHOULDSendinFILESbyType:idNoteToedit file_type:1 should_send:1 comeFroMSync:NO];
+    }else{
+        [dao UpdateSHOULDSendinFILESbyType:idNoteToedit file_type:1 should_send:0 comeFroMSync:NO];
     }
-    [dao edit_item_recordings:idNoteToedit file_Name:audioPath];
     
+    if (self.should_send_audio == YES){
+    [dao edit_item_recordings:idNoteToedit file_Name:audioPath];
+    [dao UpdateSHOULDSendinFILESbyType:idNoteToedit file_type:2 should_send:1 comeFroMSync:NO];
+        
+    }else{
+        [dao UpdateSHOULDSendinFILESbyType:idNoteToedit file_type:2 should_send:0 comeFroMSync:NO];
+    
+    }
     [self performSegueWithIdentifier:@"backtolist" sender:sender];
     
 }
@@ -206,6 +228,9 @@
 #pragma mark - POVoiceHUD Delegate
 
 - (void)POVoiceHUD:(POVoiceHUD *)voiceHUD voiceRecorded:(NSString *)recordPath length:(float)recordLength {
+    
+    self.should_send_audio= YES;
+    
     audioPath = recordPath;
     [[[[iToast makeText:NSLocalizedString(@"Record saved", @"")]setGravity:iToastGravityBottom]setDuration:iToastDurationNormal]show];
     
@@ -220,6 +245,8 @@
 #pragma mark - Image Picker Controller delegate methods
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    
+    self.should_send_photo = YES;
     
     imagenSelected = [UIImage imageWithImage:info[UIImagePickerControllerOriginalImage]scaledToSize:CGSizeMake(32.0,32.0)];
     self.ImageViewSelected.image = imagenSelected;

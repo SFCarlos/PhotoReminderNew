@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "DatabaseHelper.h"
+#import "iOSServiceProxy.h"
 #import "ColorPickerImageView.h"
 
 
-@interface EditCategoryViewController : UIViewController
+
+@interface EditCategoryViewController : UIViewController<Wsdl2CodeProxyDelegate,UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutlet UITextField *categoryName;
 @property (strong, nonatomic) IBOutlet UILabel *label1;
 @property (strong, nonatomic) IBOutlet ColorPickerImageView *Pickercontainer;

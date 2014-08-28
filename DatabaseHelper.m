@@ -23,7 +23,7 @@
     if([fileMgr fileExistsAtPath:rutaBD] == NO){
         [fileMgr copyItemAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"AppDatabase.sqlite"] toPath:rutaBD error:NULL];
     }
-    
+    //NSLog(@"rutaBd %@",rutaBD);
     return rutaBD;
 }
 -(ReminderObject*) getCategorie:(NSInteger *)id_cat{
@@ -418,22 +418,35 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
         NSLog(@"No se puede conectar con la BD");
         flag = NO;
-        return flag;
-    } else {
-        NSString *sqlInsert = [NSString stringWithFormat:@"UPDATE item_files SET file_name = '%@' WHERE id_item = %d AND file_type = 2", file_Name,(int)id_item ];
-        const char *sql = [sqlInsert UTF8String];
-        sqlite3_stmt *sqlStatement;
         
+    } else {
+        NSString * update = [NSString stringWithFormat:@"SELECT * FROM item_files WHERE id_item = %d AND file_type = 2",(int)id_item ];
+        sqlite3_stmt *stmt;
+        int rc = sqlite3_prepare_v2(bd, [update UTF8String], -1, &stmt, nil);
+        if (rc == SQLITE_OK) {
+            if (sqlite3_step(stmt) == SQLITE_ROW) {
+                update = [NSString stringWithFormat:@"UPDATE item_files SET file_name = '%@' WHERE id_item = %d AND file_type = 2", file_Name,(int)id_item ];
+            }
+            else{
+                update = [NSString stringWithFormat:@"INSERT INTO item_files (id_cat,id_item,file_name,server_file_id,should_send_file,client_status_file,file_type)  VALUES (%d,%d, '%@',0,0,0,2)", (int)[self retrieveFromUserDefaults],(int)id_item ,file_Name];
+            }
+        }
+        
+        
+        
+        const char *sql = [update UTF8String];
+        sqlite3_stmt *sqlStatement;
+        // NSLog(@"updateimagenpath sql %s" ,sql);
         if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
             NSLog(@"Problema al preparar el statement edit_item_recordings %s",sql);
             flag = NO;
-            return flag;
+            
         } else {
             if(sqlite3_step(sqlStatement) == SQLITE_DONE){
+                
                 sqlite3_finalize(sqlStatement);
                 
                 flag = YES;
-                return flag;
                 //sqlite3_close(bd);
                 
             }
@@ -441,6 +454,8 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         
     }
     return flag;
+    
+
 
 }
 -(BOOL) edit_item_images:(NSInteger *)id_item file_Name:(NSString *)file_Name{
@@ -452,24 +467,36 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
         NSLog(@"No se puede conectar con la BD");
         flag = NO;
-        return flag;
+    
     } else {
-        NSString *sqlInsert = [NSString stringWithFormat:@"UPDATE item_files SET file_name = '%@' WHERE id_item = %d AND file_type = 1", file_Name,(int)id_item ];
-        const char *sql = [sqlInsert UTF8String];
+        NSString * update = [NSString stringWithFormat:@"SELECT * FROM item_files WHERE id_item = %d AND file_type = 1",(int)id_item ];
+        sqlite3_stmt *stmt;
+        int rc = sqlite3_prepare_v2(bd, [update UTF8String], -1, &stmt, nil);
+        if (rc == SQLITE_OK) {
+            if (sqlite3_step(stmt) == SQLITE_ROW) {
+                update = [NSString stringWithFormat:@"UPDATE item_files SET file_name = '%@' WHERE id_item = %d AND file_type = 1", file_Name,(int)id_item ];
+            }
+            else{
+                update = [NSString stringWithFormat:@"INSERT INTO item_files (id_cat,id_item,file_name,server_file_id,should_send_file,client_status_file,file_type)  VALUES (%d,%d, '%@',0,0,0,1)", (int)[self retrieveFromUserDefaults],(int)id_item ,file_Name];
+            }
+        }
+        
+        
+       
+        const char *sql = [update UTF8String];
         sqlite3_stmt *sqlStatement;
        // NSLog(@"updateimagenpath sql %s" ,sql);
         if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
             NSLog(@"Problema al preparar el statement edit_item_images %s",sql);
             flag = NO;
-            return flag;
+            
         } else {
             if(sqlite3_step(sqlStatement) == SQLITE_DONE){
                 
                 sqlite3_finalize(sqlStatement);
                 
                 flag = YES;
-                return flag;
-                //sqlite3_close(bd);
+                 //sqlite3_close(bd);
                 
             }
         }
@@ -489,7 +516,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         NSLog(@"No se puede conectar con la BD get_PhotoPath_item_reminder");
     }
     
-    NSString *selecting = [NSString stringWithFormat:@"SELECT file_name FROM item_files WHERE id_item = %d AND file_type == 1", (int)id_item];
+    NSString *selecting = [NSString stringWithFormat:@"SELECT file_name FROM item_files WHERE id_item = %d AND file_type = 1", (int)id_item];
     const char *sql = [selecting UTF8String];
     sqlite3_stmt *sqlStatement;
     
@@ -515,7 +542,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         NSLog(@"No se puede conectar con la BD get_AudioPath_item_reminder");
     }
     
-    NSString *selecting = [NSString stringWithFormat:@"SELECT file_name FROM item_files WHERE id_item = %d AND file_type == 2", (int)id_item];
+    NSString *selecting = [NSString stringWithFormat:@"SELECT file_name FROM item_files WHERE id_item = %d AND file_type = 2", (int)id_item];
     const char *sql = [selecting UTF8String];
     sqlite3_stmt *sqlStatement;
     
@@ -1308,6 +1335,39 @@ if (whitDeletedRowsIncluded) {
 
 
 }
+-(void)UpdateSHOULDSendinFILESbyType:(NSInteger *)id_item file_type:(NSInteger *)file_type should_send:(NSInteger *)should_send comeFroMSync:(BOOL *)comeFroMSync{
+    NSString *ubicacionDB = [self getRutaBD];
+    
+    if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
+        NSLog(@"No se puede conectar con la BD en UpdateSHOULDSendinFILESbyType");
+        
+    } else {
+        NSString *sqlUp;
+        if (comeFroMSync) {
+            sqlUp = [NSString stringWithFormat:@"UPDATE item_files SET should_send_file = %d  WHERE id_file = %d AND file_type = %d",(int)should_send,(int)id_item,(int)file_type];
+        }else{
+            sqlUp = [NSString stringWithFormat:@"UPDATE item_files SET should_send_file = %d  WHERE id_item = %d AND file_type = %d",(int)should_send,(int)id_item,(int)file_type];
+        }
+        const char *sql = [sqlUp UTF8String];
+        sqlite3_stmt *sqlStatement;
+        
+        if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
+            NSLog(@"Problema al preparar el statement UpdateSHOULDSendinFILESbyType %@",sqlUp);
+            
+        } else {
+            if(sqlite3_step(sqlStatement) == SQLITE_DONE){
+                sqlite3_finalize(sqlStatement);
+                
+                //sqlite3_close(bd);
+                
+            }
+        }
+        
+    }
+
+    
+    
+}
 -(void)updateSTATUSandSHOULDSENDInTable:(NSInteger *)id_client clientStatus:(NSInteger *)clientStatus should_send:(NSInteger *)should_send tableName:(NSString *)tableName {
     
     NSString *ubicacionDB = [self getRutaBD];
@@ -1386,6 +1446,16 @@ if (whitDeletedRowsIncluded) {
         
     }
 
+}
+-(NSInteger*)retrieveFromUserDefaults
+{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSInteger *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults integerForKey:@"ID_CAT"];
+    
+    return val;
 }
 
 

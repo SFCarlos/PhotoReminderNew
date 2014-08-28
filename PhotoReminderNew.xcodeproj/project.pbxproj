@@ -50,24 +50,6 @@
 		CE83C7601965738A0060B280 /* EditShoopingItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C75F1965738A0060B280 /* EditShoopingItemViewController.m */; };
 		CE83C763196585D80060B280 /* AddNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C762196585D80060B280 /* AddNoteViewController.m */; };
 		CE83C7661966CAB20060B280 /* EditNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C7651966CAB20060B280 /* EditNoteViewController.m */; };
-		CE9B16F419A34F7A00E569A3 /* iOSService.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B16F119A34F7A00E569A3 /* iOSService.m */; };
-		CE9B16F519A34F7A00E569A3 /* iOSServiceProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B16F319A34F7A00E569A3 /* iOSServiceProxy.m */; };
-		CE9B171419A34F8E00E569A3 /* CategoryObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B16F719A34F8D00E569A3 /* CategoryObj.m */; };
-		CE9B171519A34F8E00E569A3 /* FileObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B16F919A34F8D00E569A3 /* FileObj.m */; };
-		CE9B171619A34F8E00E569A3 /* GetCategoryObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B16FB19A34F8D00E569A3 /* GetCategoryObj.m */; };
-		CE9B171719A34F8E00E569A3 /* GetFileObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B16FD19A34F8E00E569A3 /* GetFileObj.m */; };
-		CE9B171819A34F8E00E569A3 /* GetItemObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B16FF19A34F8E00E569A3 /* GetItemObj.m */; };
-		CE9B171919A34F8E00E569A3 /* GetQueryArray.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170119A34F8E00E569A3 /* GetQueryArray.m */; };
-		CE9B171A19A34F8E00E569A3 /* GetQueryFileObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170319A34F8E00E569A3 /* GetQueryFileObj.m */; };
-		CE9B171B19A34F8E00E569A3 /* GetReturnArray.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170519A34F8E00E569A3 /* GetReturnArray.m */; };
-		CE9B171C19A34F8E00E569A3 /* IdsCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170719A34F8E00E569A3 /* IdsCategories.m */; };
-		CE9B171D19A34F8E00E569A3 /* IdsFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170919A34F8E00E569A3 /* IdsFiles.m */; };
-		CE9B171E19A34F8E00E569A3 /* IdsItems.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170B19A34F8E00E569A3 /* IdsItems.m */; };
-		CE9B171F19A34F8E00E569A3 /* inAllArray.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170D19A34F8E00E569A3 /* inAllArray.m */; };
-		CE9B172019A34F8E00E569A3 /* iOSService_Enums.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B170F19A34F8E00E569A3 /* iOSService_Enums.m */; };
-		CE9B172119A34F8E00E569A3 /* ItemObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B171119A34F8E00E569A3 /* ItemObj.m */; };
-		CE9B172219A34F8E00E569A3 /* RetAllArray.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9B171319A34F8E00E569A3 /* RetAllArray.m */; };
-		CE9C713219A372AE00DAA09F /* AppDatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CE9C713119A372AE00DAA09F /* AppDatabase.sqlite */; };
 		CED3D90E191D06C400624E6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90D191D06C400624E6F /* Foundation.framework */; };
 		CED3D910191D06C400624E6F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90F191D06C400624E6F /* CoreGraphics.framework */; };
 		CED3D912191D06C400624E6F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D911191D06C400624E6F /* UIKit.framework */; };
@@ -147,6 +129,29 @@
 		CED3DAA219221B4B00624E6F /* play-32.png in Resources */ = {isa = PBXBuildFile; fileRef = CED3DAA119221B4B00624E6F /* play-32.png */; };
 		CED3DAA519221BEE00624E6F /* nko_brightness_guide.png in Resources */ = {isa = PBXBuildFile; fileRef = CED3DAA319221BEE00624E6F /* nko_brightness_guide.png */; };
 		CED3DAA619221BEE00624E6F /* nko_colormap.png in Resources */ = {isa = PBXBuildFile; fileRef = CED3DAA419221BEE00624E6F /* nko_colormap.png */; };
+		CEEFBD9119AB466400915A79 /* update-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEFBD9019AB466400915A79 /* update-25.png */; };
+		CEEFBD9319AB46BE00915A79 /* share-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEFBD9219AB46BE00915A79 /* share-25.png */; };
+		CEEFBD9519AC947C00915A79 /* AppDatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CEEFBD9419AC947C00915A79 /* AppDatabase.sqlite */; };
+		CEEFBE3F19AE092300915A79 /* iOSService.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE3C19AE092300915A79 /* iOSService.m */; };
+		CEEFBE4019AE092300915A79 /* iOSServiceProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE3E19AE092300915A79 /* iOSServiceProxy.m */; };
+		CEEFBE6519AE093A00915A79 /* CategoryObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE4219AE093A00915A79 /* CategoryObj.m */; };
+		CEEFBE6619AE093A00915A79 /* categoryShareRet.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE4419AE093A00915A79 /* categoryShareRet.m */; };
+		CEEFBE6719AE093A00915A79 /* checkSharesRet.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE4619AE093A00915A79 /* checkSharesRet.m */; };
+		CEEFBE6819AE093A00915A79 /* FileObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE4819AE093A00915A79 /* FileObj.m */; };
+		CEEFBE6919AE093A00915A79 /* GetCategoryObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE4A19AE093A00915A79 /* GetCategoryObj.m */; };
+		CEEFBE6A19AE093A00915A79 /* GetFileObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE4C19AE093A00915A79 /* GetFileObj.m */; };
+		CEEFBE6B19AE093A00915A79 /* GetItemObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE4E19AE093A00915A79 /* GetItemObj.m */; };
+		CEEFBE6C19AE093A00915A79 /* GetQueryArray.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE5019AE093A00915A79 /* GetQueryArray.m */; };
+		CEEFBE6D19AE093A00915A79 /* GetQueryFileObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE5219AE093A00915A79 /* GetQueryFileObj.m */; };
+		CEEFBE6E19AE093A00915A79 /* GetReturnArray.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE5419AE093A00915A79 /* GetReturnArray.m */; };
+		CEEFBE6F19AE093A00915A79 /* IdsCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE5619AE093A00915A79 /* IdsCategories.m */; };
+		CEEFBE7019AE093A00915A79 /* IdsFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE5819AE093A00915A79 /* IdsFiles.m */; };
+		CEEFBE7119AE093A00915A79 /* IdsItems.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE5A19AE093A00915A79 /* IdsItems.m */; };
+		CEEFBE7219AE093A00915A79 /* inAllArray.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE5C19AE093A00915A79 /* inAllArray.m */; };
+		CEEFBE7319AE093A00915A79 /* iOSService_Enums.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE5E19AE093A00915A79 /* iOSService_Enums.m */; };
+		CEEFBE7419AE093A00915A79 /* ItemObj.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE6019AE093A00915A79 /* ItemObj.m */; };
+		CEEFBE7519AE093A00915A79 /* RetAllArray.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE6219AE093A00915A79 /* RetAllArray.m */; };
+		CEEFBE7619AE093A00915A79 /* shareConfirmRet.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEFBE6419AE093A00915A79 /* shareConfirmRet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -231,41 +236,6 @@
 		CE83C762196585D80060B280 /* AddNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNoteViewController.m; sourceTree = "<group>"; };
 		CE83C7641966CAB20060B280 /* EditNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditNoteViewController.h; sourceTree = "<group>"; };
 		CE83C7651966CAB20060B280 /* EditNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditNoteViewController.m; sourceTree = "<group>"; };
-		CE9B16F019A34F7A00E569A3 /* iOSService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSService.h; sourceTree = "<group>"; };
-		CE9B16F119A34F7A00E569A3 /* iOSService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSService.m; sourceTree = "<group>"; };
-		CE9B16F219A34F7A00E569A3 /* iOSServiceProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSServiceProxy.h; sourceTree = "<group>"; };
-		CE9B16F319A34F7A00E569A3 /* iOSServiceProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSServiceProxy.m; sourceTree = "<group>"; };
-		CE9B16F619A34F8D00E569A3 /* CategoryObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryObj.h; sourceTree = "<group>"; };
-		CE9B16F719A34F8D00E569A3 /* CategoryObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryObj.m; sourceTree = "<group>"; };
-		CE9B16F819A34F8D00E569A3 /* FileObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileObj.h; sourceTree = "<group>"; };
-		CE9B16F919A34F8D00E569A3 /* FileObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileObj.m; sourceTree = "<group>"; };
-		CE9B16FA19A34F8D00E569A3 /* GetCategoryObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCategoryObj.h; sourceTree = "<group>"; };
-		CE9B16FB19A34F8D00E569A3 /* GetCategoryObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCategoryObj.m; sourceTree = "<group>"; };
-		CE9B16FC19A34F8E00E569A3 /* GetFileObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFileObj.h; sourceTree = "<group>"; };
-		CE9B16FD19A34F8E00E569A3 /* GetFileObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFileObj.m; sourceTree = "<group>"; };
-		CE9B16FE19A34F8E00E569A3 /* GetItemObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetItemObj.h; sourceTree = "<group>"; };
-		CE9B16FF19A34F8E00E569A3 /* GetItemObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetItemObj.m; sourceTree = "<group>"; };
-		CE9B170019A34F8E00E569A3 /* GetQueryArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetQueryArray.h; sourceTree = "<group>"; };
-		CE9B170119A34F8E00E569A3 /* GetQueryArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetQueryArray.m; sourceTree = "<group>"; };
-		CE9B170219A34F8E00E569A3 /* GetQueryFileObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetQueryFileObj.h; sourceTree = "<group>"; };
-		CE9B170319A34F8E00E569A3 /* GetQueryFileObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetQueryFileObj.m; sourceTree = "<group>"; };
-		CE9B170419A34F8E00E569A3 /* GetReturnArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetReturnArray.h; sourceTree = "<group>"; };
-		CE9B170519A34F8E00E569A3 /* GetReturnArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetReturnArray.m; sourceTree = "<group>"; };
-		CE9B170619A34F8E00E569A3 /* IdsCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdsCategories.h; sourceTree = "<group>"; };
-		CE9B170719A34F8E00E569A3 /* IdsCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdsCategories.m; sourceTree = "<group>"; };
-		CE9B170819A34F8E00E569A3 /* IdsFiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdsFiles.h; sourceTree = "<group>"; };
-		CE9B170919A34F8E00E569A3 /* IdsFiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdsFiles.m; sourceTree = "<group>"; };
-		CE9B170A19A34F8E00E569A3 /* IdsItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdsItems.h; sourceTree = "<group>"; };
-		CE9B170B19A34F8E00E569A3 /* IdsItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdsItems.m; sourceTree = "<group>"; };
-		CE9B170C19A34F8E00E569A3 /* inAllArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inAllArray.h; sourceTree = "<group>"; };
-		CE9B170D19A34F8E00E569A3 /* inAllArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = inAllArray.m; sourceTree = "<group>"; };
-		CE9B170E19A34F8E00E569A3 /* iOSService_Enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSService_Enums.h; sourceTree = "<group>"; };
-		CE9B170F19A34F8E00E569A3 /* iOSService_Enums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSService_Enums.m; sourceTree = "<group>"; };
-		CE9B171019A34F8E00E569A3 /* ItemObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemObj.h; sourceTree = "<group>"; };
-		CE9B171119A34F8E00E569A3 /* ItemObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemObj.m; sourceTree = "<group>"; };
-		CE9B171219A34F8E00E569A3 /* RetAllArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetAllArray.h; sourceTree = "<group>"; };
-		CE9B171319A34F8E00E569A3 /* RetAllArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetAllArray.m; sourceTree = "<group>"; };
-		CE9C713119A372AE00DAA09F /* AppDatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppDatabase.sqlite; sourceTree = "<group>"; };
 		CED3D90A191D06C400624E6F /* PhotoReminderNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoReminderNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED3D90D191D06C400624E6F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CED3D90F191D06C400624E6F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -389,6 +359,49 @@
 		CED3DAA119221B4B00624E6F /* play-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-32.png"; sourceTree = "<group>"; };
 		CED3DAA319221BEE00624E6F /* nko_brightness_guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nko_brightness_guide.png; sourceTree = "<group>"; };
 		CED3DAA419221BEE00624E6F /* nko_colormap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nko_colormap.png; sourceTree = "<group>"; };
+		CEEFBD9019AB466400915A79 /* update-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "update-25.png"; sourceTree = "<group>"; };
+		CEEFBD9219AB46BE00915A79 /* share-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share-25.png"; sourceTree = "<group>"; };
+		CEEFBD9419AC947C00915A79 /* AppDatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppDatabase.sqlite; sourceTree = "<group>"; };
+		CEEFBE3B19AE092300915A79 /* iOSService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSService.h; sourceTree = "<group>"; };
+		CEEFBE3C19AE092300915A79 /* iOSService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSService.m; sourceTree = "<group>"; };
+		CEEFBE3D19AE092300915A79 /* iOSServiceProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSServiceProxy.h; sourceTree = "<group>"; };
+		CEEFBE3E19AE092300915A79 /* iOSServiceProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSServiceProxy.m; sourceTree = "<group>"; };
+		CEEFBE4119AE093A00915A79 /* CategoryObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryObj.h; sourceTree = "<group>"; };
+		CEEFBE4219AE093A00915A79 /* CategoryObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryObj.m; sourceTree = "<group>"; };
+		CEEFBE4319AE093A00915A79 /* categoryShareRet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = categoryShareRet.h; sourceTree = "<group>"; };
+		CEEFBE4419AE093A00915A79 /* categoryShareRet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = categoryShareRet.m; sourceTree = "<group>"; };
+		CEEFBE4519AE093A00915A79 /* checkSharesRet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = checkSharesRet.h; sourceTree = "<group>"; };
+		CEEFBE4619AE093A00915A79 /* checkSharesRet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = checkSharesRet.m; sourceTree = "<group>"; };
+		CEEFBE4719AE093A00915A79 /* FileObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileObj.h; sourceTree = "<group>"; };
+		CEEFBE4819AE093A00915A79 /* FileObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileObj.m; sourceTree = "<group>"; };
+		CEEFBE4919AE093A00915A79 /* GetCategoryObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetCategoryObj.h; sourceTree = "<group>"; };
+		CEEFBE4A19AE093A00915A79 /* GetCategoryObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetCategoryObj.m; sourceTree = "<group>"; };
+		CEEFBE4B19AE093A00915A79 /* GetFileObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFileObj.h; sourceTree = "<group>"; };
+		CEEFBE4C19AE093A00915A79 /* GetFileObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFileObj.m; sourceTree = "<group>"; };
+		CEEFBE4D19AE093A00915A79 /* GetItemObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetItemObj.h; sourceTree = "<group>"; };
+		CEEFBE4E19AE093A00915A79 /* GetItemObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetItemObj.m; sourceTree = "<group>"; };
+		CEEFBE4F19AE093A00915A79 /* GetQueryArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetQueryArray.h; sourceTree = "<group>"; };
+		CEEFBE5019AE093A00915A79 /* GetQueryArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetQueryArray.m; sourceTree = "<group>"; };
+		CEEFBE5119AE093A00915A79 /* GetQueryFileObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetQueryFileObj.h; sourceTree = "<group>"; };
+		CEEFBE5219AE093A00915A79 /* GetQueryFileObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetQueryFileObj.m; sourceTree = "<group>"; };
+		CEEFBE5319AE093A00915A79 /* GetReturnArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetReturnArray.h; sourceTree = "<group>"; };
+		CEEFBE5419AE093A00915A79 /* GetReturnArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetReturnArray.m; sourceTree = "<group>"; };
+		CEEFBE5519AE093A00915A79 /* IdsCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdsCategories.h; sourceTree = "<group>"; };
+		CEEFBE5619AE093A00915A79 /* IdsCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdsCategories.m; sourceTree = "<group>"; };
+		CEEFBE5719AE093A00915A79 /* IdsFiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdsFiles.h; sourceTree = "<group>"; };
+		CEEFBE5819AE093A00915A79 /* IdsFiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdsFiles.m; sourceTree = "<group>"; };
+		CEEFBE5919AE093A00915A79 /* IdsItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdsItems.h; sourceTree = "<group>"; };
+		CEEFBE5A19AE093A00915A79 /* IdsItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdsItems.m; sourceTree = "<group>"; };
+		CEEFBE5B19AE093A00915A79 /* inAllArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inAllArray.h; sourceTree = "<group>"; };
+		CEEFBE5C19AE093A00915A79 /* inAllArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = inAllArray.m; sourceTree = "<group>"; };
+		CEEFBE5D19AE093A00915A79 /* iOSService_Enums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOSService_Enums.h; sourceTree = "<group>"; };
+		CEEFBE5E19AE093A00915A79 /* iOSService_Enums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOSService_Enums.m; sourceTree = "<group>"; };
+		CEEFBE5F19AE093A00915A79 /* ItemObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemObj.h; sourceTree = "<group>"; };
+		CEEFBE6019AE093A00915A79 /* ItemObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemObj.m; sourceTree = "<group>"; };
+		CEEFBE6119AE093A00915A79 /* RetAllArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetAllArray.h; sourceTree = "<group>"; };
+		CEEFBE6219AE093A00915A79 /* RetAllArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetAllArray.m; sourceTree = "<group>"; };
+		CEEFBE6319AE093A00915A79 /* shareConfirmRet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shareConfirmRet.h; sourceTree = "<group>"; };
+		CEEFBE6419AE093A00915A79 /* shareConfirmRet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = shareConfirmRet.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -443,40 +456,46 @@
 		CE2D810E196C01CD0099EF3A /* iOSWebService */ = {
 			isa = PBXGroup;
 			children = (
-				CE9B16F619A34F8D00E569A3 /* CategoryObj.h */,
-				CE9B16F719A34F8D00E569A3 /* CategoryObj.m */,
-				CE9B16F819A34F8D00E569A3 /* FileObj.h */,
-				CE9B16F919A34F8D00E569A3 /* FileObj.m */,
-				CE9B16FA19A34F8D00E569A3 /* GetCategoryObj.h */,
-				CE9B16FB19A34F8D00E569A3 /* GetCategoryObj.m */,
-				CE9B16FC19A34F8E00E569A3 /* GetFileObj.h */,
-				CE9B16FD19A34F8E00E569A3 /* GetFileObj.m */,
-				CE9B16FE19A34F8E00E569A3 /* GetItemObj.h */,
-				CE9B16FF19A34F8E00E569A3 /* GetItemObj.m */,
-				CE9B170019A34F8E00E569A3 /* GetQueryArray.h */,
-				CE9B170119A34F8E00E569A3 /* GetQueryArray.m */,
-				CE9B170219A34F8E00E569A3 /* GetQueryFileObj.h */,
-				CE9B170319A34F8E00E569A3 /* GetQueryFileObj.m */,
-				CE9B170419A34F8E00E569A3 /* GetReturnArray.h */,
-				CE9B170519A34F8E00E569A3 /* GetReturnArray.m */,
-				CE9B170619A34F8E00E569A3 /* IdsCategories.h */,
-				CE9B170719A34F8E00E569A3 /* IdsCategories.m */,
-				CE9B170819A34F8E00E569A3 /* IdsFiles.h */,
-				CE9B170919A34F8E00E569A3 /* IdsFiles.m */,
-				CE9B170A19A34F8E00E569A3 /* IdsItems.h */,
-				CE9B170B19A34F8E00E569A3 /* IdsItems.m */,
-				CE9B170C19A34F8E00E569A3 /* inAllArray.h */,
-				CE9B170D19A34F8E00E569A3 /* inAllArray.m */,
-				CE9B170E19A34F8E00E569A3 /* iOSService_Enums.h */,
-				CE9B170F19A34F8E00E569A3 /* iOSService_Enums.m */,
-				CE9B171019A34F8E00E569A3 /* ItemObj.h */,
-				CE9B171119A34F8E00E569A3 /* ItemObj.m */,
-				CE9B171219A34F8E00E569A3 /* RetAllArray.h */,
-				CE9B171319A34F8E00E569A3 /* RetAllArray.m */,
-				CE9B16F019A34F7A00E569A3 /* iOSService.h */,
-				CE9B16F119A34F7A00E569A3 /* iOSService.m */,
-				CE9B16F219A34F7A00E569A3 /* iOSServiceProxy.h */,
-				CE9B16F319A34F7A00E569A3 /* iOSServiceProxy.m */,
+				CEEFBE4119AE093A00915A79 /* CategoryObj.h */,
+				CEEFBE4219AE093A00915A79 /* CategoryObj.m */,
+				CEEFBE4319AE093A00915A79 /* categoryShareRet.h */,
+				CEEFBE4419AE093A00915A79 /* categoryShareRet.m */,
+				CEEFBE4519AE093A00915A79 /* checkSharesRet.h */,
+				CEEFBE4619AE093A00915A79 /* checkSharesRet.m */,
+				CEEFBE4719AE093A00915A79 /* FileObj.h */,
+				CEEFBE4819AE093A00915A79 /* FileObj.m */,
+				CEEFBE4919AE093A00915A79 /* GetCategoryObj.h */,
+				CEEFBE4A19AE093A00915A79 /* GetCategoryObj.m */,
+				CEEFBE4B19AE093A00915A79 /* GetFileObj.h */,
+				CEEFBE4C19AE093A00915A79 /* GetFileObj.m */,
+				CEEFBE4D19AE093A00915A79 /* GetItemObj.h */,
+				CEEFBE4E19AE093A00915A79 /* GetItemObj.m */,
+				CEEFBE4F19AE093A00915A79 /* GetQueryArray.h */,
+				CEEFBE5019AE093A00915A79 /* GetQueryArray.m */,
+				CEEFBE5119AE093A00915A79 /* GetQueryFileObj.h */,
+				CEEFBE5219AE093A00915A79 /* GetQueryFileObj.m */,
+				CEEFBE5319AE093A00915A79 /* GetReturnArray.h */,
+				CEEFBE5419AE093A00915A79 /* GetReturnArray.m */,
+				CEEFBE5519AE093A00915A79 /* IdsCategories.h */,
+				CEEFBE5619AE093A00915A79 /* IdsCategories.m */,
+				CEEFBE5719AE093A00915A79 /* IdsFiles.h */,
+				CEEFBE5819AE093A00915A79 /* IdsFiles.m */,
+				CEEFBE5919AE093A00915A79 /* IdsItems.h */,
+				CEEFBE5A19AE093A00915A79 /* IdsItems.m */,
+				CEEFBE5B19AE093A00915A79 /* inAllArray.h */,
+				CEEFBE5C19AE093A00915A79 /* inAllArray.m */,
+				CEEFBE5D19AE093A00915A79 /* iOSService_Enums.h */,
+				CEEFBE5E19AE093A00915A79 /* iOSService_Enums.m */,
+				CEEFBE5F19AE093A00915A79 /* ItemObj.h */,
+				CEEFBE6019AE093A00915A79 /* ItemObj.m */,
+				CEEFBE6119AE093A00915A79 /* RetAllArray.h */,
+				CEEFBE6219AE093A00915A79 /* RetAllArray.m */,
+				CEEFBE6319AE093A00915A79 /* shareConfirmRet.h */,
+				CEEFBE6419AE093A00915A79 /* shareConfirmRet.m */,
+				CEEFBE3B19AE092300915A79 /* iOSService.h */,
+				CEEFBE3C19AE092300915A79 /* iOSService.m */,
+				CEEFBE3D19AE092300915A79 /* iOSServiceProxy.h */,
+				CEEFBE3E19AE092300915A79 /* iOSServiceProxy.m */,
 				CE2D8112196C07A10099EF3A /* NSData+Base64.h */,
 				CE2D8113196C07A10099EF3A /* NSData+Base64.m */,
 				CE2D810F196C07140099EF3A /* XPathQuery.h */,
@@ -834,7 +853,7 @@
 		CED3DA06191D0C4400624E6F /* DatabaseCore */ = {
 			isa = PBXGroup;
 			children = (
-				CE9C713119A372AE00DAA09F /* AppDatabase.sqlite */,
+				CEEFBD9419AC947C00915A79 /* AppDatabase.sqlite */,
 				CED3D9FF191D0C3800624E6F /* ReminderObject.h */,
 				CED3DA00191D0C3800624E6F /* ReminderObject.m */,
 				CED3DA01191D0C3800624E6F /* DatabaseHelper.h */,
@@ -866,6 +885,8 @@
 		CED3DA38191D0F6D00624E6F /* BarIcons */ = {
 			isa = PBXGroup;
 			children = (
+				CEEFBD9219AB46BE00915A79 /* share-25.png */,
+				CEEFBD9019AB466400915A79 /* update-25.png */,
 				CE3174C8195C466F007EE188 /* list-25.png */,
 				CE3174C0195B073C007EE188 /* gallery_filled-25.png */,
 				CE75D802194AFF17003856A6 /* trash-25.png */,
@@ -996,6 +1017,7 @@
 				CED3D998191D099900624E6F /* LICENCE in Resources */,
 				CE75D7F519470D61003856A6 /* link-25.png in Resources */,
 				CE02C0E91924E60B00EB2DD0 /* edit-32.png in Resources */,
+				CEEFBD9319AB46BE00915A79 /* share-25.png in Resources */,
 				CED3D967191D085B00624E6F /* autocompleteButton@2x.png in Resources */,
 				CE75D7FF194AF5EB003856A6 /* back-25.png in Resources */,
 				CE0BD6F3193794D500416DDB /* to_do-25.png in Resources */,
@@ -1006,11 +1028,12 @@
 				CED3D9D0191D0A7300624E6F /* background@2x.png in Resources */,
 				CED3DA32191D0F5D00624E6F /* edit-25x.png in Resources */,
 				CED3D9F5191D0BD200624E6F /* Birds.m4r in Resources */,
-				CE9C713219A372AE00DAA09F /* AppDatabase.sqlite in Resources */,
 				CE75D805194B22E9003856A6 /* Color-Palette.png in Resources */,
+				CEEFBD9519AC947C00915A79 /* AppDatabase.sqlite in Resources */,
 				CED3D966191D085B00624E6F /* autocompleteButton.png in Resources */,
 				CE75D803194AFF17003856A6 /* trash-25.png in Resources */,
 				CE75D7F31946FF0C003856A6 /* add_user-25.png in Resources */,
+				CEEFBD9119AB466400915A79 /* update-25.png in Resources */,
 				CED3DAA619221BEE00624E6F /* nko_colormap.png in Resources */,
 				CE3174C9195C466F007EE188 /* list-25.png in Resources */,
 				CE0BD6E9193750A100416DDB /* trash-32.png in Resources */,
@@ -1033,28 +1056,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				CED3DA1C191D0D0800624E6F /* ReminderCustomCell.m in Sources */,
-				CE9B171919A34F8E00E569A3 /* GetQueryArray.m in Sources */,
 				CED3DA05191D0C3800624E6F /* DatabaseHelper.m in Sources */,
 				CE75D7FB19485B3C003856A6 /* NotificationsTableViewController.m in Sources */,
 				CED3D9A6191D09F400624E6F /* YISSTextView.m in Sources */,
+				CEEFBE7619AE093A00915A79 /* shareConfirmRet.m in Sources */,
 				CE3174C4195C16EC007EE188 /* ShoopingListViewController.m in Sources */,
+				CEEFBE6619AE093A00915A79 /* categoryShareRet.m in Sources */,
 				CED3D9FB191D0C0A00624E6F /* HTAutocompleteManager.m in Sources */,
-				CE9B171C19A34F8E00E569A3 /* IdsCategories.m in Sources */,
 				CED3D98A191D08BA00624E6F /* SettingsViewController.m in Sources */,
 				CE83C74D1962AC440060B280 /* FullScreemPageItemViewController.m in Sources */,
 				CE75D808194EE10E003856A6 /* ColorPickerImageView.m in Sources */,
-				CE9B171B19A34F8E00E569A3 /* GetReturnArray.m in Sources */,
+				CEEFBE7319AE093A00915A79 /* iOSService_Enums.m in Sources */,
 				CED3DA1B191D0D0800624E6F /* EditReminderViewController.m in Sources */,
 				CED3DA1E191D0D0800624E6F /* CategoryListViewController.m in Sources */,
 				CED3D91E191D06C400624E6F /* AppDelegate.m in Sources */,
 				CED3DA04191D0C3800624E6F /* ReminderObject.m in Sources */,
-				CE9B171D19A34F8E00E569A3 /* IdsFiles.m in Sources */,
 				CED3D9C6191D0A7300624E6F /* PMCalendarBackgroundView.m in Sources */,
-				CE9B171719A34F8E00E569A3 /* GetFileObj.m in Sources */,
-				CE9B16F419A34F7A00E569A3 /* iOSService.m in Sources */,
+				CEEFBE3F19AE092300915A79 /* iOSService.m in Sources */,
+				CEEFBE7519AE093A00915A79 /* RetAllArray.m in Sources */,
 				CE83C763196585D80060B280 /* AddNoteViewController.m in Sources */,
+				CEEFBE7119AE093A00915A79 /* IdsItems.m in Sources */,
 				CE83C7601965738A0060B280 /* EditShoopingItemViewController.m in Sources */,
-				CE9B171819A34F8E00E569A3 /* GetItemObj.m in Sources */,
 				CED3D9C8191D0A7300624E6F /* PMCalendarView.m in Sources */,
 				CE83C747196163A00060B280 /* UIImage+ScalingMyImage.m in Sources */,
 				CED3D9DF191D0B1400624E6F /* MKNumberBadgeView.m in Sources */,
@@ -1063,43 +1085,46 @@
 				CED3D9D7191D0AA000624E6F /* LocalNotificationCore.m in Sources */,
 				CE23563F1934928F007C2B36 /* CategoryListViewControllerV2.m in Sources */,
 				CE3174CF195D873B007EE188 /* GirdShoopingViewController.m in Sources */,
-				CE9B171E19A34F8E00E569A3 /* IdsItems.m in Sources */,
 				CED3D99A191D099900624E6F /* SWCellScrollView.m in Sources */,
 				CED3D9CB191D0A7300624E6F /* PMSelectionView.m in Sources */,
+				CEEFBE7419AE093A00915A79 /* ItemObj.m in Sources */,
 				CE1902CA193E0811008E5540 /* GMGridView.m in Sources */,
 				CED3D9E8191D0B6100624E6F /* POVoiceHUD.m in Sources */,
 				CED3D9D6191D0AA000624E6F /* NotificationScreenController.m in Sources */,
 				CED3DA24191D0D6900624E6F /* ObjectHolder.m in Sources */,
-				CE9B171F19A34F8E00E569A3 /* inAllArray.m in Sources */,
-				CE9B171619A34F8E00E569A3 /* GetCategoryObj.m in Sources */,
-				CE9B171A19A34F8E00E569A3 /* GetQueryFileObj.m in Sources */,
 				CED3D9DB191D0AD400624E6F /* NKOColorPickerView.m in Sources */,
-				CE9B172119A34F8E00E569A3 /* ItemObj.m in Sources */,
 				CE3174C7195C17A5007EE188 /* ShoppingItemCustomCell.m in Sources */,
 				CED3D9CA191D0A7300624E6F /* PMPeriod.m in Sources */,
 				CED3D9C5191D0A7300624E6F /* NSDate+Helpers.m in Sources */,
+				CEEFBE6719AE093A00915A79 /* checkSharesRet.m in Sources */,
 				CED3DA20191D0D0800624E6F /* AddCategoryViewController.m in Sources */,
-				CE9B171419A34F8E00E569A3 /* CategoryObj.m in Sources */,
+				CEEFBE6519AE093A00915A79 /* CategoryObj.m in Sources */,
 				CE02C0E71924C81A00EB2DD0 /* EditCategoryViewController.m in Sources */,
+				CEEFBE6E19AE093A00915A79 /* GetReturnArray.m in Sources */,
 				CED3DA1D191D0D0800624E6F /* RemindersListViewController.m in Sources */,
+				CEEFBE6B19AE093A00915A79 /* GetItemObj.m in Sources */,
 				CED3D9FC191D0C0A00624E6F /* HTAutocompleteTextField.m in Sources */,
 				CE1902CC193E0811008E5540 /* GMGridViewLayoutStrategies.m in Sources */,
 				CE23563C19349063007C2B36 /* CategoryCustomCell.m in Sources */,
 				CE1902CB193E0811008E5540 /* GMGridViewCell.m in Sources */,
-				CE9B16F519A34F7A00E569A3 /* iOSServiceProxy.m in Sources */,
-				CE9B172019A34F8E00E569A3 /* iOSService_Enums.m in Sources */,
+				CEEFBE4019AE092300915A79 /* iOSServiceProxy.m in Sources */,
+				CEEFBE6C19AE093A00915A79 /* GetQueryArray.m in Sources */,
+				CEEFBE6F19AE093A00915A79 /* IdsCategories.m in Sources */,
 				CED3D9E3191D0B3D00624E6F /* iToast.m in Sources */,
+				CEEFBE6819AE093A00915A79 /* FileObj.m in Sources */,
+				CEEFBE7019AE093A00915A79 /* IdsFiles.m in Sources */,
 				CED3D9C9191D0A7300624E6F /* PMDimmingView.m in Sources */,
 				CE2D8114196C07A10099EF3A /* NSData+Base64.m in Sources */,
 				CE2D8111196C07140099EF3A /* XPathQuery.m in Sources */,
 				CED3D999191D099900624E6F /* NSMutableArray+SWUtilityButtons.m in Sources */,
+				CEEFBE7219AE093A00915A79 /* inAllArray.m in Sources */,
 				CED3D9A5191D09F400624E6F /* YIPopupTextView.m in Sources */,
 				CED3D99E191D099900624E6F /* SWUtilityButtonView.m in Sources */,
 				CE83C7501962AE920060B280 /* ContentFullView.m in Sources */,
 				CE83C7571964432F0060B280 /* NoteCustomCell.m in Sources */,
 				CED3DA1F191D0D0800624E6F /* AddReminderV2Controller.m in Sources */,
 				CE1902CD193E0811008E5540 /* UIGestureRecognizer+GMGridViewAdditions.m in Sources */,
-				CE9B171519A34F8E00E569A3 /* FileObj.m in Sources */,
+				CEEFBE6919AE093A00915A79 /* GetCategoryObj.m in Sources */,
 				CED3D99C191D099900624E6F /* SWTableViewCell.m in Sources */,
 				CED3D9C7191D0A7300624E6F /* PMCalendarController.m in Sources */,
 				CE83C7661966CAB20060B280 /* EditNoteViewController.m in Sources */,
@@ -1108,8 +1133,9 @@
 				CED3D99D191D099900624E6F /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				CED3D99B191D099900624E6F /* SWLongPressGestureRecognizer.m in Sources */,
 				CED3D9CC191D0A7300624E6F /* PMThemeEngine.m in Sources */,
-				CE9B172219A34F8E00E569A3 /* RetAllArray.m in Sources */,
 				CE3174BF195AFF72007EE188 /* AddShoppingItemViewController.m in Sources */,
+				CEEFBE6D19AE093A00915A79 /* GetQueryFileObj.m in Sources */,
+				CEEFBE6A19AE093A00915A79 /* GetFileObj.m in Sources */,
 				CE83C75A196444070060B280 /* NoteListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

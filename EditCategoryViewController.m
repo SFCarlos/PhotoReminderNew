@@ -10,8 +10,8 @@
 #import "NKOColorPickerView.h"
 #import "iToast.h"
 
-@interface EditCategoryViewController ()<UIAlertViewDelegate>
-
+@interface EditCategoryViewController ()
+@property (nonatomic,retain) iOSServiceProxy* service;
 
 @end
 
@@ -20,6 +20,8 @@
 UIColor* colorcito_selected;
     UIColor* colorEdit;
     ReminderObject* categoryToEdit;
+    UIBarButtonItem *  shareCategory;
+    NSInteger *flagSyncSTatus;
 }
 
 @synthesize Pickercontainer;
@@ -27,6 +29,8 @@ UIColor* colorcito_selected;
 @synthesize categoryName;
 @synthesize IdCategoryToEdit;
 @synthesize typeSegmentedContlos;
+@synthesize service;
+
 
 //*****8 Color picker buttons***
 @synthesize selectedButomcolor;
@@ -146,7 +150,11 @@ UIColor* colorcito_selected;
 
 - (void)viewDidLoad
 {
+    self.service = [[iOSServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
     
+    shareCategory = [[UIBarButtonItem alloc]
+                     initWithImage:[UIImage imageNamed:@"share-25.png"] style:UIBarStyleDefault target:self action:@selector(shareCategoryAction:)];
+
     
     //title
     self.navigationItem.title = @"Edit category";
@@ -167,7 +175,20 @@ UIColor* colorcito_selected;
     UIBarButtonItem*Delete=[[UIBarButtonItem alloc]
                           initWithImage:[UIImage imageNamed:@"trash-25.png"] style:UIBarStyleDefault target:self action:@selector(deleteAction:)];
     
-    self.toolbarItems=[NSArray arrayWithObjects: Delete, nil];;
+    
+    
+    flagSyncSTatus = [self retrieveSYNCSTATUSSFromUserDefaults];
+    if(flagSyncSTatus == 1){
+        
+        UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        self.toolbarItems=[NSArray arrayWithObjects: Delete,flexibleItem,shareCategory, nil];
+        
+    }
+    else{
+        self.toolbarItems=[NSArray arrayWithObjects: Delete,nil];
+    }
+
+    
 
     categoryName.delegate = self;
     //**colorPicker***
@@ -206,6 +227,23 @@ UIColor* colorcito_selected;
     
     
 }
+#pragma mark - wsdl delegate
+-(void)proxydidFinishLoadingData:(id)data InMethod:(NSString *)method{
+    if([method isEqualToString:@"categoryShare"]){
+        categoryShareRet * returnShare = (categoryShareRet*)data;
+      // 1 bad user and pass unautorized
+      // 2 Category no found
+        // 3 SqlError Internal Error
+        // 0 OK
+        NSLog(@"GlobalReturn: %d", returnShare.globalReturn);
+    
+    }
+    
+}
+-(void)proxyRecievedError:(NSException *)ex InMethod:(NSString *)method{
+
+
+}
 -(NSInteger*)retrieveSYNCSTATUSSFromUserDefaults{
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger *val = nil;
@@ -216,6 +254,7 @@ UIColor* colorcito_selected;
     return val;
     
 }
+
 -(NSString*)retrieveUSERFromUserDefaults{
     
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
@@ -236,66 +275,118 @@ UIColor* colorcito_selected;
     return val;
     
 }
--(void)handleBack:(id)sender{
-    
-    [self performSegueWithIdentifier:@"done_category" sender:sender];
-}
 -(void)deleteAction:(id)sender{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirmation"
                                                     message:@"Delete this category and its contents?"
                                                    delegate:self
                                           cancelButtonTitle:@"Cancel"
                                           otherButtonTitles:@"OK",nil];
+    alert.tag =908;
     [alert show];
+}
+-(void)shareCategoryAction:(id)sender{
+
+    if (categoryToEdit.cat_id_server == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"This category can't be share"
+                                                        message:@"Please sync firt"
+                                                       delegate:nil
+                                              cancelButtonTitle:nil
+                                              otherButtonTitles:@"OK",nil];
+        [alert show];
+    }else{
     
+    //present alert whit email inmput
+    
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Enter email of the person to share"
+                                                      message:@""
+                                                     delegate:self
+                                              cancelButtonTitle:@"Cancel"                                          otherButtonTitles:@"Share", nil];
+    
+    [message setAlertViewStyle:UIAlertViewStylePlainTextInput];
+        message.tag=190;
+        [message show];
+    }
+
+}
+
+
+-(void)handleBack:(id)sender{
+    
+    [self performSegueWithIdentifier:@"done_category" sender:sender];
 }
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex==1) {
-                if([dao deleteCategory:IdCategoryToEdit  permanently:NO]){;
-                    
-        //cancel notification
-                    NSMutableArray * items = [dao getItemListwhitDeletedRowsIncluded:IdCategoryToEdit itemType:-1 whitDeletedRowsIncluded:YES];
+    
+    if (alertView.tag == 190) { //share alert
+        
+    UITextField *email = [alertView textFieldAtIndex:0];
+    
+    if (email != nil || [email.text isEqualToString:@""]) {
+     [service categoryShare:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :(int)categoryToEdit.cat_id :(int)categoryToEdit.cat_id_server :email.text];
         
         
-        UIApplication*app =[UIApplication sharedApplication];
-        NSArray *eventArray = [app scheduledLocalNotifications];
-        for (int i=0; i<[eventArray count]; i++) {
-            
-            for (int j=0; j<[items count]; j++){
-                UILocalNotification* oneEvent= [eventArray objectAtIndex:i];
-                NSDictionary *userInfoIDremin = oneEvent.userInfo;
-                NSString*uid=[NSString stringWithFormat:@"%@",[userInfoIDremin valueForKey:@"ID_NOT_PASS"]];
-                ReminderObject * iuy=[items objectAtIndex:j];
-                NSString *remindId =[NSString stringWithFormat:@"%d",(int)iuy.reminderID];
-                if([uid isEqualToString:remindId]){
-                    [app cancelLocalNotification:oneEvent];
-                    
-                    
-                    
-                }
-                
-            }
-            
-        }
-                    //mark for future sync
-                    if(categoryToEdit.cat_id_server != 0){ //esta en server database
-                        [dao updateSTATUSandSHOULDSENDInTable:IdCategoryToEdit clientStatus:1 should_send:1 tableName:@"categories"];
-                        
-                    }else if (categoryToEdit.cat_id_server == 0){ //no esta en server db
-                        [dao deleteCategory:IdCategoryToEdit permanently:YES]; //delete foreverc
-                        
+     }
+    }else if (alertView.tag==908){ // delete alert
+        if (buttonIndex==1) {
+            if([dao deleteCategory:IdCategoryToEdit permanently:NO]){;
+                //cancel notification
+                NSMutableArray * items = [dao getItemListwhitDeletedRowsIncluded:IdCategoryToEdit itemType:-1 whitDeletedRowsIncluded:YES];
+                UIApplication*app =[UIApplication sharedApplication];
+                NSArray *eventArray = [app scheduledLocalNotifications];
+                for (int i=0; i<[eventArray count]; i++) {
+                    for (int j=0; j<[items count]; j++){
+                        UILocalNotification* oneEvent= [eventArray objectAtIndex:i];
+                        NSDictionary *userInfoIDremin = oneEvent.userInfo;
+                        NSString*uid=[NSString stringWithFormat:@"%@",[userInfoIDremin valueForKey:@"ID_NOT_PASS"]];
+                        ReminderObject * iuy=[items objectAtIndex:j];
+                        NSString *remindId =[NSString stringWithFormat:@"%d",(int)iuy.reminderID];
+                        if([uid isEqualToString:remindId]){
+                            [app cancelLocalNotification:oneEvent];
+                        }
                     }
-
-        [self performSegueWithIdentifier:@"done_category" sender:nil];
+                }
+                //mark for future sync
+                if(categoryToEdit.cat_id_server != 0){ //esta en server database
+                    [dao updateSTATUSandSHOULDSENDInTable:IdCategoryToEdit clientStatus:1 should_send:1 tableName:@"categories"];
+                }else if (categoryToEdit.cat_id_server == 0){ //no esta en server db
+                    [dao deleteCategory:IdCategoryToEdit permanently:YES]; //delete foreverc
+                }
+                [self performSegueWithIdentifier:@"done_category" sender:nil];
+            }
+        }else{
+            //cancel pressed nada
         }
-        
-    }else{
-        //cancel pressed nada
         
     }
-    
+}
+-(BOOL) NSStringIsValidEmail:(NSString *)checkString
+{
+    BOOL stricterFilter = NO;
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
 }
 
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
+{
+    
+    if (alertView.tag == 190) { //share alert evaluate email
+        
+    
+    NSString *inputText = [[alertView textFieldAtIndex:0] text];
+    if( [inputText length] > 0 && [self NSStringIsValidEmail:inputText] )
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+        
+    }
+    return YES;
+}
 -(void)saveEditedCategoryAction:(id)sender{
     NSString* COLOR;
     /*if(colorcito_selected != nil){

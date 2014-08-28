@@ -407,12 +407,13 @@
             
         case 1:{
         //register was pressed
-            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Register" message:@"Enter Username & Password for registration" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles: nil];
+            UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"Register" message:@"Enter Email & Password for registration" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Register", nil];
             alert.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
-            [alert addButtonWithTitle:@"Register"];
-            [alert show];
+            //[alert addButtonWithTitle:@"Register"];
             alert.tag=11;
-        
+
+            [alert show];
+                    
         }
             break;
         case 2:
@@ -484,10 +485,37 @@
         
     }
 
-    
-    
-    
 }
+-(BOOL) NSStringIsValidEmail:(NSString *)checkString
+{
+    BOOL stricterFilter = NO;
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
+}
+
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView
+{
+    if (alertView.tag==11) {
+    
+    NSString *inputText = [[alertView textFieldAtIndex:0] text];
+    if( [inputText length] > 0 && [self NSStringIsValidEmail:inputText] )
+    {
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+    
+    }
+    return YES;
+}
+
+
+
 - (IBAction)connectButtonAction:(id)sender {
     //mostrar confirmacion de desconexion
     UIAlertView * alert =[[UIAlertView alloc ] initWithTitle:@"log out?" message:@"Sync will be off" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];

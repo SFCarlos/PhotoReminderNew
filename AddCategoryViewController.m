@@ -126,6 +126,7 @@
 }
 - (void)viewDidLoad
 {
+        
     
        self.navigationItem.title = @"New category";
     dao = [[DatabaseHelper alloc] init];
@@ -149,20 +150,7 @@
     selectedButomcolor.layer.masksToBounds = YES;
    
     
-    /*
-	// Do any additional setup after loading the view.//Color did change block declaration
-    NKOColorPickerDidChangeColorBlock colorDidChangeBlock = ^(UIColor *color){
-        //Your code handling a color change in the picker view.
-        colorcito_selected = color;
-        
-    };
-    
-    NKOColorPickerView *colorPickerView = [[NKOColorPickerView alloc] initWithFrame:CGRectMake(0, 0, 300, 300) color:[UIColor blueColor] andDidChangeColorBlock:colorDidChangeBlock];
-    
-    //Add color picker to your view
-   [self.Pickercontainer addSubview:colorPickerView];
-   //[self.view addSubview:colorPickerView];*/
-}
+   }
 -(NSInteger*)retrieveSYNCSTATUSSFromUserDefaults{
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
     NSInteger *val = nil;

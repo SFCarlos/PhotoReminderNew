@@ -107,12 +107,17 @@
     //insert in reminder
    
     NSInteger *id_item = [dao insert_item:idcat item_Name:itenname alarm:nil note:nil repeat:nil itemclientStatus:0 should_send_item:1];
-    //insert image only one
-    [dao insert_item_images:idcat id_item:id_item file_Name:ImagenPath];
+   
+    if (ImagenPath == nil ||[ImagenPath isEqualToString:@""]||[ImagenPath isEqualToString:@"(null)"]){
+        //es null no inserto nada
+        
+    }else{
+        [dao insert_item_images:idcat id_item:id_item file_Name:ImagenPath];
+        [dao UpdateSHOULDSendinFILESbyType:id_item file_type:1 should_send:1 comeFroMSync:NO];
+    }
+
     
-    [dao updateSTATUSandSHOULDSENDInTable:id_item clientStatus:0 should_send:1 tableName:@"item_files"];
-    //insert audio only one
-        //insert
+    
     //insert in history
     BOOL resulthistory = [dao insertHistory:idcat history_desc:itenname];
     

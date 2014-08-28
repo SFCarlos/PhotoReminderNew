@@ -197,33 +197,6 @@
             
     }
 }
--(void)editNote:(NSInteger*)idNote{
-    
-}-(void)delNote:(NSInteger*)idNote{
-   
-   
-    ReminderObject *remin;
-    remin= [NoteArray objectAtIndex:indextoDelete.row];
-    [NoteArray removeObjectAtIndex:indextoDelete.row];
-    [self.tableView deleteRowsAtIndexPaths:@[indextoDelete]
-                          withRowAnimation:UITableViewRowAnimationAutomatic];
-    [dao deleteItem:idNote permanently:NO];
-    
-    NSMutableArray * arrayFiles = [dao getFiles:idNote];
-    for (ReminderObject * filesInNote in arrayFiles) {
-        [dao updateSTATUSandSHOULDSENDInTable:idNote clientStatus:1 should_send:0 tableName:@"item_files"];
-    }
-    //mark for future sync
-    if(remin.id_server_item != 0){ //esta en server database
-        [dao updateSTATUSandSHOULDSENDInTable:idNote clientStatus:1 should_send:1 tableName:@"items"];
-        
-    }else if (remin.id_server_item == 0){ //no esta en server db
-        [dao deleteItem:idNote permanently:YES]; //delete foreverc
-        
-    }
-
-    
-}
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     
    

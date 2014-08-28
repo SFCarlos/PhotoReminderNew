@@ -11,6 +11,7 @@
 
 @interface CategoryListViewController ()
 @property (strong, nonatomic) NSMutableArray *arrayTag;
+
 @end
 
 @implementation CategoryListViewController {
@@ -18,7 +19,9 @@
     DatabaseHelper *dao;
     UIBarButtonItem *edit;
     UIBarButtonItem *addCategory;
+    UIBarButtonItem* shareCategory;
     UIButton * buttonRedondoG;
+    NSInteger* flagSyncSTatus;
     
 }
 @synthesize tableView;
@@ -28,6 +31,7 @@
 @synthesize reminderListButton;
 @synthesize addRbutton;
 @synthesize TapGestureToAddreminder;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -39,17 +43,17 @@
 
 - (void)viewDidLoad
 {
+    
+    
+    
     [self LoadAgain];
     [super viewDidLoad];
 }
 -(void)LoadAgain{
-    /* edit = [[UIBarButtonItem alloc]
-     initWithImage:[UIImage imageNamed:@"micro-25.png"] style:UIBarStyleDefault target:self action:@selector(editAction:)];*/
-    NSLog(@"DidLoad");
-    UIBarButtonItem *setting         = [[UIBarButtonItem alloc]
-                                        initWithImage:[UIImage imageNamed:@"back-25.png"] style:UIBarStyleDefault target:self action:@selector(settingAction:)];
-    addCategory = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCategoryAction:)];
     
+    
+    addCategory = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCategoryAction:)];
+        
     
     UIBarButtonItem* doneButton          = [[UIBarButtonItem alloc]
                                             initWithImage:[UIImage imageNamed:@"checkmark-25.png"] style:UIBarStyleDefault target:self action:@selector(doneAction:)];
@@ -57,17 +61,20 @@
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.rightBarButtonItems=
     [NSArray arrayWithObjects: doneButton, nil];
-    self.toolbarItems=[NSArray arrayWithObjects: addCategory, nil];
+    
+    self.toolbarItems=[NSArray arrayWithObjects: addCategory,nil];
+    
+    
+    
+    
     //init the arrays
-    
-    
     dao = [[DatabaseHelper alloc] init];
     categoryArray = [[NSMutableArray alloc] init];
     
     
-    //order the array
+  
     categoryArray = [dao getCategoryListwhitDeletedRowsIncluded:NO] ;
-    //[self preformOrder:categoryArray];
+  
     
     
     
@@ -104,12 +111,7 @@
 }
 -(void) viewWillAppear:(BOOL)animated{
    [self.navigationController setToolbarHidden:NO animated:YES];
-    NSLog(@"Entro al willAppear in reorder categories");
    
-   // categoryArray=[dao getCategoryListwhitDeletedRowsIncluded:NO];
-    //
-    //[self.tableView reloadData];
-    //[self preformOrder:categoryArray];
     
     [super viewWillAppear:animated];
     

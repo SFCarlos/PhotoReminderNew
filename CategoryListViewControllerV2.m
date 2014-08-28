@@ -19,6 +19,7 @@
 
 @interface CategoryListViewControllerV2 ()
 @property (nonatomic,retain) iOSServiceProxy* service;
+@property (nonatomic,assign) NSInteger * serverCategoryIdshare;
 
 @end
 
@@ -45,6 +46,7 @@
 }
 @synthesize dao;
 @synthesize service;
+@synthesize serverCategoryIdshare;
 
 -(NSInteger*)retrieveSYNCSTATUSSFromUserDefaults{
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
@@ -110,7 +112,7 @@
                                         initWithImage:[UIImage imageNamed:@"settings-25x.png"] style:UIBarStyleDefault target:self action:@selector(settingAction:)];
     
     SyncLogo = [[UIBarButtonItem alloc]
-                initWithImage:[UIImage imageNamed:@"link-25.png"] style:UIBarStyleDefault target:self action:@selector(SyncAll:)];
+                initWithImage:[UIImage imageNamed:@"update-25.png"] style:UIBarStyleDefault target:self action:@selector(SyncAll:)];
     //add buttons to nav bar
     self.navigationItem.leftBarButtonItems =
     [NSArray arrayWithObjects: setting, nil];
@@ -243,7 +245,7 @@
                                 
                                 NSInteger * id_file_client_audio=[dao insert_item_recordings:id_cat_client id_item:id_item_client file_Name:pathForAudio];
                                 [dao UpdateFileTIMESTAMP:id_item_client file_timestamp:retFile.fileTimestamp];
-                                //dao updateSTATUSandSHOULDSENDInTable:id_file_client_audio clientStatus:0 should_send:0 tableName:@"item_files"];
+                                
                                 
                                 // Save it into file system
                                 [retFile.fileData writeToFile:pathForAudio atomically:YES];
@@ -342,7 +344,7 @@
                     
                     FileToAddinArraySend.fileData = dataImagen;
                     
-                }else if ((int)filestem.file_type == 0){
+                }else if ((int)filestem.file_type == 2){
                 
                  NSData *dataAudio = [NSData dataWithContentsOfFile:filestem.file_path options:nil error:nil];
                     
@@ -355,7 +357,7 @@
             }
         }
         
-        NSLog(@"cantidad de files a enviar SyncAll %d", parameterFilesArray.count);
+        NSLog(@"cantidad de files a enviar SyncAll %d ", parameterFilesArray.count );
         imputservice.user = [self retrieveUSERFromUserDefaults];
         imputservice.pass = [self retrievePASSFromUserDefaults];
         imputservice.categoriesArray = parameterCategoryArray;
@@ -431,7 +433,11 @@
                    
                     [dao UpdateFileTIMESTAMP:temids.clientFileID file_timestamp:[self retrieveTIMESTAMPFromUserDefaults]];
                     [dao UpdateSERVERIDinTable:temids.clientFileID id_server:(int)temids.serverFileID tableName:@"item_files"];
-                   
+                    //shoud_send = 0 mean NO SEND cause was just SYNC rigt now
+                    
+                    [dao UpdateSHOULDSendinFILESbyType:temids.clientFileID file_type:temids.fileType should_send:0 comeFroMSync:YES];
+                    
+                    //delete when recive response
 
                     if ((int)fileMio.client_status == 1) {
                         [dao deleteFiles:temids.clientFileID permanently:YES];
@@ -441,11 +447,37 @@
             }
             
         }
+   //call saresChek
+        [service checkShares:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults]];
 
+        
         [alert dismissWithClickedButtonIndex:0 animated:YES];
         SyncLogo.enabled = YES;
 
-       }
+/////*******************************
+    }else if ([method isEqualToString:@"checkShares"]) {
+        checkSharesRet * result = (checkSharesRet*)data;
+        NSLog(@"shekshares return: globalreturn %d friendMail %@ categorytoshare: %d",result.globalReturn,result.friendEmail,result.serverCategoryID);
+        if (result.globalReturn == 0) {
+            self.serverCategoryIdshare = result.serverCategoryID;
+        
+        UIAlertView *alert1 = [[UIAlertView alloc] initWithTitle: @"Share confirmation"
+    message:[NSString stringWithFormat:@"Your friend %@ want to share whit you!", result.friendEmail]
+                               
+                                                        delegate:self
+                                               cancelButtonTitle:@"Cancel"
+                                               otherButtonTitles:@"Accept!",nil];
+        alert1.tag=546;
+        [alert1 show];
+        }
+        
+    }else if ([method isEqualToString:@"shareConfirm"]){
+        shareConfirmRet * result = (shareConfirmRet *)data;
+        
+        NSLog(@"%d,%d,%@",result.globalReturn,result.serverCategoryID,result.categoryName);
+        
+       
+    }
     }
 -(void)proxyRecievedError:(NSException *)ex InMethod:(NSString *)method{
     NSLog(@"ERROR in %@ -- %@",method,ex.description);
@@ -838,7 +870,21 @@
     }*/
     
 }
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    if (alertView.tag == 546) { //confirmation sahre alert
+        
+        if (buttonIndex==0) { //cancel press
+            
+            [self.service shareConfirm:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :(int)self.serverCategoryIdshare :0];
+            
+        }else if (buttonIndex == 1){// acept! press
+            [self.service shareConfirm:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :(int)self.serverCategoryIdshare :1];
+        }
+        
+    }
 
+}
 
 -(void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex{
     if (buttonIndex==0) {
