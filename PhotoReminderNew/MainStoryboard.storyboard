@@ -707,7 +707,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoteItemCell" rowHeight="97" id="rbK-vX-iTL" customClass="NoteCustomCell">
-                                <rect key="frame" x="0.0" y="22" width="320" height="97"/>
+                                <rect key="frame" x="0.0" y="86" width="320" height="97"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rbK-vX-iTL" id="Pxj-MA-aJ0">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="96"/>
@@ -1640,13 +1640,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="M1w-Zj-hzc"/>
         <segue reference="jhR-yC-Tn8"/>
         <segue reference="KVZ-mL-WQ2"/>
         <segue reference="MNX-Oz-tpF"/>
+        <segue reference="eRH-v6-0O7"/>
+        <segue reference="CO6-kR-0K6"/>
         <segue reference="26m-Dt-ojZ"/>
         <segue reference="Gsd-wt-NUf"/>
-        <segue reference="M1w-Zj-hzc"/>
-        <segue reference="vqn-qr-P4y"/>
-        <segue reference="YcF-P3-Ewd"/>
     </inferredMetricsTieBreakers>
 </document>

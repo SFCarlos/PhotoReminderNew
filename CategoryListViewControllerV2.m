@@ -14,7 +14,7 @@
 #import "AppDelegate.h"
 #import "LocalNotificationCore.h"
 #import "UIImage+ScalingMyImage.h"
-
+#import <PixateFreestyle/PixateFreestyle.h>
 
 
 @interface CategoryListViewControllerV2 ()
@@ -94,8 +94,8 @@
 - (void)viewDidLoad
 {
     self.service = [[iOSServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
-    
-    
+   
+    self.tableView.styleId= @"MyTable";
     
     //init the arrays
     dao = [[DatabaseHelper alloc] init];
@@ -455,7 +455,8 @@
         SyncLogo.enabled = YES;
 
 /////*******************************
-    }else if ([method isEqualToString:@"checkShares"]) {
+    }
+    else if ([method isEqualToString:@"checkShares"]) {
         checkSharesRet * result = (checkSharesRet*)data;
         NSLog(@"shekshares return: globalreturn %d friendMail %@ categorytoshare: %d",result.globalReturn,result.friendEmail,result.serverCategoryID);
         if (result.globalReturn == 0) {

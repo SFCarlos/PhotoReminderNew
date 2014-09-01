@@ -123,8 +123,7 @@
     
   //NSLog(@"potoPath in notecell: %@",[photoPathsCopy firstObject]);
     if (photoPathsCopy.count==0 ){
-        
-        
+    
         cell.image.image =  [UIImage imageWithImage:[UIImage imageNamed:@"noimage.jpg"] scaledToSize:CGSizeMake(32.0,32.0)];
         
     }

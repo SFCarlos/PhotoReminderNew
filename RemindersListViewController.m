@@ -141,7 +141,7 @@ NSIndexPath * indextoEdit;
 #pragma mark - Table view data source
 -(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     
-    return @"                   Slide to left to edit";
+    return @"                   Touch Reminder for options";
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

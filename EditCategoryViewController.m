@@ -236,7 +236,35 @@ UIColor* colorcito_selected;
         // 3 SqlError Internal Error
         // 0 OK
         NSLog(@"GlobalReturn: %d", returnShare.globalReturn);
-    
+        switch (returnShare.globalReturn) {
+            case 0:{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Succefully shared!"
+                                                                message:nil
+                                                               delegate:nil
+                                                      cancelButtonTitle:nil
+                                                      otherButtonTitles:@"OK",nil];
+                [alert show];
+
+                break;
+                    }
+                
+        
+            default:{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Problem whit share"
+                                                             message:nil
+                                                            delegate:nil
+                                                   cancelButtonTitle:nil
+                                                   otherButtonTitles:@"Cancel",nil];
+                [alert show];
+                    }
+                break;
+        }
+        
+        
+        if (returnShare.globalReturn == 0) {
+            
+
+        }
     }
     
 }
@@ -288,7 +316,7 @@ UIColor* colorcito_selected;
 
     if (categoryToEdit.cat_id_server == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"This category can't be share"
-                                                        message:@"Please sync firt"
+                                                        message:@"Please sync first"
                                                        delegate:nil
                                               cancelButtonTitle:nil
                                               otherButtonTitles:@"OK",nil];
@@ -317,14 +345,13 @@ UIColor* colorcito_selected;
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     if (alertView.tag == 190) { //share alert
-        
+        if(buttonIndex == 1){
     UITextField *email = [alertView textFieldAtIndex:0];
     
     if (email != nil || [email.text isEqualToString:@""]) {
      [service categoryShare:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :(int)categoryToEdit.cat_id :(int)categoryToEdit.cat_id_server :email.text];
-        
-        
-     }
+        }
+        }
     }else if (alertView.tag==908){ // delete alert
         if (buttonIndex==1) {
             if([dao deleteCategory:IdCategoryToEdit permanently:NO]){;

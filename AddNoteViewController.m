@@ -159,6 +159,7 @@
 
 - (IBAction)cameraAction:(id)sender {
     //present option "camera" "Gallery"
+    [self.view endEditing:YES];
     UIActionSheet* photoPopup =[[UIActionSheet alloc]initWithTitle:@"Add photo" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Gallery" ,nil];
     [photoPopup showInView:[UIApplication sharedApplication].keyWindow];
     photoPopup.tag =3;
@@ -168,7 +169,7 @@
 - (IBAction)recordAction:(id)sender {
     //present option 'Record' and "play" if there one to play
     
-    
+    [self.view endEditing:YES];
     
     if (audioPath) {
         UIActionSheet* audioPopup =[[UIActionSheet alloc]initWithTitle:@"Voice note" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play",@"Record" ,nil];
