@@ -50,8 +50,8 @@
 		CE83C7601965738A0060B280 /* EditShoopingItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C75F1965738A0060B280 /* EditShoopingItemViewController.m */; };
 		CE83C763196585D80060B280 /* AddNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C762196585D80060B280 /* AddNoteViewController.m */; };
 		CE83C7661966CAB20060B280 /* EditNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C7651966CAB20060B280 /* EditNoteViewController.m */; };
-		CEA315FD19B472E100C7210D /* PixateFreestyle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA315FC19B472E000C7210D /* PixateFreestyle.framework */; };
 		CEA315FF19B475C500C7210D /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = CEA315FE19B475C500C7210D /* default.css */; };
+		CEA3160119B4A68100C7210D /* PixateFreestyle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA3160019B4A68100C7210D /* PixateFreestyle.framework */; };
 		CED3D90E191D06C400624E6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90D191D06C400624E6F /* Foundation.framework */; };
 		CED3D910191D06C400624E6F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90F191D06C400624E6F /* CoreGraphics.framework */; };
 		CED3D912191D06C400624E6F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D911191D06C400624E6F /* UIKit.framework */; };
@@ -239,7 +239,8 @@
 		CE83C7641966CAB20060B280 /* EditNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditNoteViewController.h; sourceTree = "<group>"; };
 		CE83C7651966CAB20060B280 /* EditNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditNoteViewController.m; sourceTree = "<group>"; };
 		CEA315FC19B472E000C7210D /* PixateFreestyle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PixateFreestyle.framework; path = ../../PixateFreestyle.framework; sourceTree = "<group>"; };
-		CEA315FE19B475C500C7210D /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; };
+		CEA315FE19B475C500C7210D /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.css; };
+		CEA3160019B4A68100C7210D /* PixateFreestyle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PixateFreestyle.framework; sourceTree = "<group>"; };
 		CED3D90A191D06C400624E6F /* PhotoReminderNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoReminderNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED3D90D191D06C400624E6F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CED3D90F191D06C400624E6F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -413,7 +414,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEA315FD19B472E100C7210D /* PixateFreestyle.framework in Frameworks */,
+				CEA3160119B4A68100C7210D /* PixateFreestyle.framework in Frameworks */,
 				CED3DA0E191D0CA300624E6F /* libsqlite3.0.dylib in Frameworks */,
 				CED3DA0C191D0C9700624E6F /* AVFoundation.framework in Frameworks */,
 				CED3DA0A191D0C8D00624E6F /* AudioToolbox.framework in Frameworks */,
@@ -612,6 +613,7 @@
 		CED3D90C191D06C400624E6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CEA3160019B4A68100C7210D /* PixateFreestyle.framework */,
 				CEA315FC19B472E000C7210D /* PixateFreestyle.framework */,
 				CE29C52D192F82D7007022CB /* libxml2.2.dylib */,
 				CE29C514192F7F3B007022CB /* libxml2.dylib */,
@@ -1271,6 +1273,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/user/Documents,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhotoReminderNew/PhotoReminderNew-Prefix.pch";
@@ -1290,6 +1293,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/user/Documents,
+					"$(PROJECT_DIR)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhotoReminderNew/PhotoReminderNew-Prefix.pch";
