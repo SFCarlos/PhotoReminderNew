@@ -25,8 +25,8 @@
 -(BOOL)edit_item_recordings:(NSInteger*)id_item file_Name:(NSString*)file_Name;
 
 -(NSMutableArray*)getFiles:(NSInteger*) id_item;
--(ReminderObject*)getItem:(NSInteger*) id_item;
--(ReminderObject*)getCategorie:(NSInteger*) id_cat;
+-(ReminderObject*)getItemwhitServerID:(NSInteger*) id_item usingServerId:(BOOL)usingServerId;
+-(ReminderObject*)getCategorieWhitServerID:(NSInteger*) id_cat usingServerId:(BOOL)usingServerId;
 -(BOOL)deleteItem:(NSInteger*) id_item permanently:(BOOL)permanently;
 -(BOOL)deleteFiles:(NSInteger*) id_file permanently:(BOOL)permanently;
 -(NSMutableArray*)get_items_PhotoPaths:(NSInteger*)id_item;

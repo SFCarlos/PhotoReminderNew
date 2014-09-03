@@ -162,7 +162,7 @@ UIColor* colorcito_selected;
     self.navigationItem.hidesBackButton = YES;
     //categorie to edit
     
-    categoryToEdit = [dao getCategorie:IdCategoryToEdit];
+    categoryToEdit = [dao getCategorieWhitServerID:IdCategoryToEdit usingServerId:NO];
     
     //back buttom
     UIBarButtonItem*back=[[UIBarButtonItem alloc]

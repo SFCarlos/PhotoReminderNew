@@ -54,7 +54,7 @@
     //initiate DB
     dao = [[DatabaseHelper alloc] init];
     //..acces the item
-    ReminderObject * item = [dao getItem:IdShoopingItemToEdit];
+    ReminderObject * item = [dao getItemwhitServerID:IdShoopingItemToEdit usingServerId:NO];
    imagenArray = [dao get_items_PhotoPaths:IdShoopingItemToEdit];
     
     //fill array of sugestions
@@ -122,7 +122,7 @@
     NSInteger * idcat = [self retrieveFromUserDefaults];
   
     
-    ReminderObject* ShoppingItem = [dao getItem:IdShoopingItemToEdit];
+    ReminderObject* ShoppingItem = [dao getItemwhitServerID:IdShoopingItemToEdit usingServerId:NO];
     [dao edit_item:IdShoopingItemToEdit item_Name:itenname alarm:nil note:nil repeat:nil itemclientStatus:0];
    
     //edit logic in sync

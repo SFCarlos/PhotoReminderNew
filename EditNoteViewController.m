@@ -72,7 +72,7 @@
     //initiate DB
     dao = [[DatabaseHelper alloc] init];
     //..acces the item
-    ReminderObject * item = [dao getItem:idNoteToedit];
+    ReminderObject * item = [dao getItemwhitServerID:idNoteToedit usingServerId:NO];
      imagenArray = [dao get_items_PhotoPaths:idNoteToedit];
     audioPath = [dao get_AudioPath_item_reminder:idNoteToedit];
     texto=item.note;
@@ -122,7 +122,7 @@
   
     
     [dao edit_item:idNoteToedit item_Name:nil alarm:nil note:texto repeat:nil itemclientStatus:0];
-    ReminderObject * itemnote = [dao getItem:idNoteToedit];
+    ReminderObject * itemnote = [dao getItemwhitServerID:idNoteToedit usingServerId:NO];
     //mark for future sync
     if (itemnote.id_server_item != 0){ //esta sync y debo enviarla
         [dao updateSTATUSandSHOULDSENDInTable:(int)idNoteToedit clientStatus:0 should_send:1 tableName:@"items"];

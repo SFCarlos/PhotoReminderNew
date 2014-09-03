@@ -42,7 +42,7 @@ DatabaseHelper *dao;
     
     dao = [[DatabaseHelper alloc] init];
     NSLog(@"%d Este es el Id en Screen ",(int)reminderId);
-    ReminderObject *reminder=[dao getItem:reminderId];
+    ReminderObject *reminder=[dao getItemwhitServerID:reminderId usingServerId:NO];
    
     NSMutableArray * photoPathsCopy =[dao get_items_PhotoPaths:reminder.reminderID];
     //get photo in array reminder only one
@@ -204,7 +204,7 @@ DatabaseHelper *dao;
 
 - (IBAction)showNoteAction:(id)sender {
     
-     ReminderObject *reminder=[dao getItem:reminderId];
+     ReminderObject *reminder=[dao getItemwhitServerID:reminderId usingServerId:NO];
     
     // NOTE: maxCount = 0 to hide count
     // self.navigationController.navigationBarHidden=YES;

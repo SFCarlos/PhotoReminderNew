@@ -9,7 +9,7 @@
 #import "GirdShoopingViewController.h"
 #import "UIImage+ScalingMyImage.h"
 #import "SelectedItemFotoFullViewController.h"
-
+#import <PixateFreestyle/PixateFreestyle.h>
 @interface GirdShoopingViewController (){
     NSMutableArray* items;
 
@@ -36,6 +36,8 @@
 }
 - (void)viewDidLoad
 {
+   
+    
     dao = [[DatabaseHelper alloc] init];
     items = [[NSMutableArray alloc] init];
       imagenArray = [[NSMutableArray alloc] init];
@@ -49,7 +51,7 @@
     
     
     UIBarButtonItem* addbutton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(AddItemAction:)];
-                                   
+    self.collectionView.styleId = @"collectView";
     self.navigationItem.rightBarButtonItems =
     [NSArray arrayWithObjects:addbutton, nil];
     self.navigationItem.leftBarButtonItems =

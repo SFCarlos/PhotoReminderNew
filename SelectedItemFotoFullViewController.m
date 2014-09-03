@@ -66,7 +66,7 @@
     if (buttonIndex == 1)
     {
        
-        ReminderObject * ShopingItem = [dao getItem:(int)IdNote]; //idNote is shooping iditem
+        ReminderObject * ShopingItem = [dao getItemwhitServerID: (int)IdNote usingServerId:NO]; //idNote is shooping iditem
         //mark for future sync
         if(ShopingItem.id_server_item != 0){ //esta en server database
             [dao deleteItem:IdNote permanently:NO];

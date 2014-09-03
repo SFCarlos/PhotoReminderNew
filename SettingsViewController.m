@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "NotificationsTableViewController.h"
 #import "CategoryListViewControllerV2.h"
+#import <PixateFreestyle/PixateFreestyle.h>
 @interface SettingsViewController ()
 @property (strong, nonatomic) NSString* usuario;
 @property (strong, nonatomic) NSString* contrasenna;
@@ -54,7 +55,7 @@
 - (void)viewDidLoad
 {
     self.service = [[iOSServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
-
+//self.view.styleId = @"MyTable";
     
     //first call autenticate to kow if connected;
     //[self.service autenticate:username.text :password.text];

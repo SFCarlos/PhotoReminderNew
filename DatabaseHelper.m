@@ -26,15 +26,21 @@
     //NSLog(@"rutaBd %@",rutaBD);
     return rutaBD;
 }
--(ReminderObject*) getCategorie:(NSInteger *)id_cat{
+-(ReminderObject*) getCategorieWhitServerID:(NSInteger *)id_cat usingServerId:(BOOL)usingServerId{
     ReminderObject * rema = [[ReminderObject alloc] init];
     NSString *ubicacionDB = [self getRutaBD];
     
     if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
         NSLog(@"No se puede conectar con la BD");
     }
+    NSString *selecting;
+    if (usingServerId) {
+        selecting =[NSString stringWithFormat:@"SELECT id_cat,id_cat_server, category_name,imagePic,colorPic,type,client_status FROM categories WHERE id_cat_server = %d", (int)id_cat];
+    }else{
+    selecting =[NSString stringWithFormat:@"SELECT id_cat,id_cat_server, category_name,imagePic,colorPic,type,client_status FROM categories WHERE id_cat = %d", (int)id_cat];
+    }
     
-    NSString *selecting = [NSString stringWithFormat:@"SELECT id_cat,id_cat_server, category_name,imagePic,colorPic,type,client_status FROM categories WHERE id_cat = %d", (int)id_cat];
+    
     const char *sql = [selecting UTF8String];
     sqlite3_stmt *sqlStatement;
     
@@ -274,8 +280,8 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *dateString=[dateFormat stringFromDate:alarm];
-   // NSLog(@"Date in alarmobjet %@",dateString);
-    //double valueToWriteDAte = [Alarm timeIntervalSince1970];
+  //see if the iten is on my db
+    
     
     
     if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
@@ -603,7 +609,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
 
 
 }
--(ReminderObject*)getItem:(NSInteger *)id_item{
+-(ReminderObject*)getItemwhitServerID:(NSInteger *)id_item usingServerId:(BOOL)usingServerId{
     ReminderObject * rema = [[ReminderObject alloc] init];
     NSString *ubicacionDB = [self getRutaBD];
     
@@ -611,7 +617,12 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         NSLog(@"No se puede conectar con la BD");
     }
     
-    NSString *selecting = [NSString stringWithFormat:@"SELECT id_item, item_name,alarm,note,repeat,client_status,id_server_item,id_cat,should_send_item,server_cat_id FROM items WHERE id_item = %d", (int)id_item];
+    NSString *selecting;
+    if (usingServerId) {
+        selecting = [NSString stringWithFormat:@"SELECT id_item, item_name,alarm,note,repeat,client_status,id_server_item,id_cat,should_send_item,server_cat_id FROM items WHERE id_server_item = %d", (int)id_item];
+    }else{
+       selecting = [NSString stringWithFormat:@"SELECT id_item, item_name,alarm,note,repeat,client_status,id_server_item,id_cat,should_send_item,server_cat_id FROM items WHERE id_item = %d", (int)id_item];
+    }
     const char *sql = [selecting UTF8String];
     sqlite3_stmt *sqlStatement;
     

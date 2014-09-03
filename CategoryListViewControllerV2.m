@@ -186,7 +186,10 @@
         NSMutableArray* itemsReturned = result.itemsArray;
         NSMutableArray* filesReturned = result.filesArray;
        
-        NSLog(@"CheckUpdates--return,categoriesArray %d, itemsArray %d, filesArray %d",categoriesReturned.count,itemsReturned.count,filesReturned.count);
+       
+        
+        if (categoriesReturned.count != 0) {//if dont send categories but sendme item or files means that this I HAVE this category cause is share, so insert,update or delete item and files shares
+             NSLog(@"CheckUpdates--return,categoriesArray %d, itemsArray %d, filesArray %d",categoriesReturned.count,itemsReturned.count,filesReturned.count);
         for (CategoryObj * retCat in categoriesReturned) {
             
             NSInteger * id_cat_client = [dao insertCategory:retCat.categoryName colorPic:retCat.categoryColor type:retCat.categoryType client_status:0 should_send_cat:0];
@@ -194,6 +197,7 @@
             
                 for (ItemObj * retItem in itemsReturned) {
                     NSInteger* id_item_client = 0;
+                    
                     if (retCat.serverCategoryID == retItem.serverCategoryID ) {
                         // Convert string to date object
                         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -259,12 +263,52 @@
                     }
                 }
             
-            
-            
-            
         }
         
-    
+        }else{ //here shoul be only items and files cause is share and I have the category
+             NSLog(@"CheckUpdatesShare--return,categoriesArray %d, itemsArray %d, filesArray %d",categoriesReturned.count,itemsReturned.count,filesReturned.count);
+            for (GetItemObj * retItemShared in itemsReturned) {
+               // NSLog(@"categoryshareserverìd %d", retItemShared.serverCategoryID);
+                NSInteger* id_item_client = 0;
+               //get sharedcategory in my DB
+                ReminderObject *sharedCategory = [dao getCategorieWhitServerID:retItemShared.serverCategoryID usingServerId:YES];
+                // NSLog(@"my categoryServerID %d", sharedCategory.cat_id_server);
+                //find the correct category
+                if (sharedCategory.cat_id_server == retItemShared.serverCategoryID ) {
+                    // Convert string to date object
+                    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+                    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                    NSDate *dateA = [dateFormat dateFromString:retItemShared.itemAlarm];
+                    
+                    ReminderObject* iteminmydb = [dao getItemwhitServerID:retItemShared.serverItemID usingServerId:YES];
+                   
+                  
+                    //see if item is not im my bd Insert or Update
+                    if (iteminmydb.reminderID == nil) {
+                        NSLog(@"sare cat NAme %@",retItemShared.itemName);
+                    id_item_client = [dao insert_item:sharedCategory.cat_id item_Name:retItemShared.itemName alarm:dateA note:retItemShared.itemNote repeat:retItemShared.itemRepeat itemclientStatus:0 should_send_item:0];
+                    [dao UpdateSERVERIDinTable:id_item_client id_server:sharedCategory.cat_id_server tableName:@"items"];
+                    
+                    //Reminder
+                    if (![retItemShared.itemAlarm isEqualToString:@"0000-00-00 00:00:00"]) {
+                        //shedule notification
+                        NSString *idtem =[NSString stringWithFormat:@"%d",(int)id_item_client];
+                        NSDictionary * data = [NSDictionary dictionaryWithObjectsAndKeys:idtem,@"ID_NOT_PASS" ,retItemShared.itemRepeat,@"RECURRING",  nil];
+                        
+                        NSString* UserSelectedSoundReminder = [self retrieveSoundReminderFromUserDefaults];
+                        //Set notification for firt time to select fire date and repeatin 1 min
+                        [[LocalNotificationCore sharedInstance]scheduleNotificationOn:dateA text:retItemShared.itemName action:@"Show" sound:UserSelectedSoundReminder launchImage:@"null" andInfo:data];
+                        
+                        
+                        
+                    }
+                    }else{
+                        [dao edit_item:iteminmydb.reminderID item_Name:retItemShared.itemName alarm:dateA note:retItemShared.itemNote repeat:retItemShared.itemRepeat itemclientStatus:retItemShared.itemStatus];
+                    }
+                }
+                
+                           }
+        }
         
         
         
