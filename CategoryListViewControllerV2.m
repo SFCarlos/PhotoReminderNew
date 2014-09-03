@@ -266,7 +266,8 @@
             
         }
         
-        }else{ //here shoul be only items and files cause is share and I have the category
+        }
+        else{ //here shoul be only items and files cause is share and I have the category
              NSLog(@"CheckUpdatesShare--return,categoriesArray %d, itemsArray %d, filesArray %d",categoriesReturned.count,itemsReturned.count,filesReturned.count);
             for (GetItemObj * retItemShared in itemsReturned) {
                // NSLog(@"categoryshareserverìd %d", retItemShared.serverCategoryID);
@@ -275,6 +276,7 @@
                 ReminderObject *sharedCategory = [dao getCategorieWhitServerID:retItemShared.serverCategoryID usingServerId:YES];
                 // NSLog(@"my categoryServerID %d", sharedCategory.cat_id_server);
                 //find the correct category
+              //  NSLog(@"sharedCategory.cat_id_server = %d retItemShared.serverCategoryID = %d",sharedCategory.cat_id_server,retItemShared.serverCategoryID);
                 if (sharedCategory.cat_id_server == retItemShared.serverCategoryID ) {
                     // Convert string to date object
                     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -283,10 +285,10 @@
                     
                     ReminderObject* iteminmydb = [dao getItemwhitServerID:retItemShared.serverItemID usingServerId:YES];
                    
-                  
+                   // NSLog(@"iteminmydb.reminderID = %d",iteminmydb.reminderID);
                     //see if item is not im my bd Insert or Update
                     if (iteminmydb.reminderID == nil) {
-                        NSLog(@"sare cat NAme %@",retItemShared.itemName);
+                      //  NSLog(@"sare cat NAme %@",retItemShared.itemName);
                     id_item_client = [dao insert_item:sharedCategory.cat_id item_Name:retItemShared.itemName alarm:dateA note:retItemShared.itemNote repeat:retItemShared.itemRepeat itemclientStatus:0 should_send_item:0];
                     [dao UpdateSERVERIDinTable:id_item_client id_server:sharedCategory.cat_id_server tableName:@"items"];
                     

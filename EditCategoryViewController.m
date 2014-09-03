@@ -423,23 +423,10 @@ UIColor* colorcito_selected;
     }*/
     
     COLOR = [self htmlFromUIColor:[[UIColor alloc]initWithCGColor:selectedButomcolor.layer.backgroundColor]];
-    NSInteger* catType;
     
-    switch (typeSegmentedContlos.selectedSegmentIndex) {
-        case 0:
-            catType=0;
-            break;
-        case 1:
-            catType = 1;
-            break;
-        case 2:
-            catType = 2;
-            break;
-            
-        default:
-            break;
-    }
-
+    NSInteger* catType = categoryToEdit.categoryType;
+    
+    
    //name is mandatory
     if(categoryName.text== nil || [categoryName.text isEqualToString:@""]){
         [[[[iToast makeText:NSLocalizedString(@"Name empty", @"")]setGravity:iToastGravityBottom]setDuration:iToastDurationNormal]show];
