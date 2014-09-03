@@ -51,7 +51,7 @@
     
     
     UIBarButtonItem* addbutton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(AddItemAction:)];
-    self.collectionView.styleId = @"collectView";
+    self.collectionView.styleClass = @"collection-view";
     self.navigationItem.rightBarButtonItems =
     [NSArray arrayWithObjects:addbutton, nil];
     self.navigationItem.leftBarButtonItems =

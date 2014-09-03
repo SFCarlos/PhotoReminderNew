@@ -95,7 +95,8 @@
 {
     self.service = [[iOSServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
    
-    self.tableView.styleId= @"MyTable";
+   // self.navigationController.navigationBar.styleClass =@"navigation-bar";
+   
     
     //init the arrays
     dao = [[DatabaseHelper alloc] init];
