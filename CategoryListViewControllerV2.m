@@ -238,7 +238,7 @@
                                 NSString * dataPathImage  = [NSString stringWithFormat:@"%@/%@-%d",documentsDirectory,caldate,(int)id_item_client];
                                ;
                                 NSInteger* id_file_client= [dao insert_item_images:id_cat_client id_item:id_item_client file_Name:dataPathImage];
-                                [dao UpdateFileTIMESTAMP:id_item_client file_timestamp:retFile.fileTimestamp];
+                                [dao UpdateFileTIMESTAMP:id_file_client file_timestamp:retFile.fileTimestamp];
                                
                                 [dao UpdateSERVERIDinTable:id_file_client id_server:retFile.serverFileID tableName:@"item_files"];
                                 
@@ -253,7 +253,7 @@
                                 NSString *pathForAudio = [NSString stringWithFormat:@"%@/Documents/%@-%d.caf", NSHomeDirectory(),caldate,retFile.serverFileID];
                                 
                                 NSInteger * id_file_client_audio=[dao insert_item_recordings:id_cat_client id_item:id_item_client file_Name:pathForAudio];
-                                [dao UpdateFileTIMESTAMP:id_item_client file_timestamp:retFile.fileTimestamp];
+                                [dao UpdateFileTIMESTAMP:id_file_client_audio file_timestamp:retFile.fileTimestamp];
                                 [dao UpdateSERVERIDinTable:id_file_client_audio id_server:retFile.serverFileID tableName:@"item_files"];
                                 
                                 // Save it into file system
@@ -326,7 +326,7 @@
                         NSString * dataPathImage  = [NSString stringWithFormat:@"%@/%@-%d",documentsDirectory,caldate,(int)id_item_client];
                         ;
                         NSInteger* id_file_client= [dao insert_item_images:sharedCategory.cat_id id_item:id_item_client file_Name:dataPathImage];
-                        [dao UpdateFileTIMESTAMP:id_item_client file_timestamp:retFile.fileTimestamp];
+                        [dao UpdateFileTIMESTAMP:id_file_client file_timestamp:retFile.fileTimestamp];
                         [dao UpdateSERVERIDinTable:id_file_client id_server:retFile.serverFileID tableName:@"item_files"];
                         
                         // Save it into file system
@@ -337,7 +337,7 @@
                         NSString *pathForAudio = [NSString stringWithFormat:@"%@/Documents/%@-%d.caf", NSHomeDirectory(),caldate,retFile.serverFileID];
                         
                         NSInteger * id_file_client_audio=[dao insert_item_recordings:sharedCategory.cat_id id_item:id_item_client file_Name:pathForAudio];
-                        [dao UpdateFileTIMESTAMP:id_item_client file_timestamp:retFile.fileTimestamp];
+                        [dao UpdateFileTIMESTAMP:id_file_client_audio file_timestamp:retFile.fileTimestamp];
                         [dao UpdateSERVERIDinTable:id_file_client_audio id_server:retFile.serverFileID tableName:@"item_files"];
                         
                         // Save it into file system
