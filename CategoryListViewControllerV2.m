@@ -273,6 +273,8 @@
         }
         else{ //here should be only items and files cause is share and I have the category
              NSLog(@"CheckUpdatesShare--return,categoriesArray %d, itemsArray %d, filesArray %d",categoriesReturned.count,itemsReturned.count,filesReturned.count);
+            if (itemsReturned.count != 0) {
+                
             for (GetItemObj * retItemShared in itemsReturned) {
                // NSLog(@"categoryshareserverìd %d", retItemShared.serverCategoryID);
                 NSInteger* id_item_client = 0;
@@ -348,6 +350,48 @@
 
                     
                 }
+            
+            }
+            
+            
+            }else{ //the items array is empty so only files are send this time in shares
+                for (GetFileObj * retFile in filesReturned){
+                    
+                    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+                    NSString *documentsDirectory = [paths objectAtIndex:0];
+                    NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
+                    NSString *caldate = [now description];
+                    
+                    ///find the item in my db
+                    ReminderObject * itemShared= [dao getItemwhitServerID:retFile.serverItemID usingServerId:YES];
+                    
+                    if (retFile.fileType == 1) {//imagen
+                        NSString * dataPathImage  = [NSString stringWithFormat:@"%@/%@-%d",documentsDirectory,caldate,(int)itemShared.reminderID];
+                        ;
+                        NSInteger* id_file_client= [dao insert_item_images:itemShared.cat_id id_item:itemShared.reminderID file_Name:dataPathImage];
+                        [dao UpdateFileTIMESTAMP:id_file_client file_timestamp:retFile.fileTimestamp];
+                        [dao UpdateSERVERIDinTable:id_file_client id_server:retFile.serverFileID tableName:@"item_files"];
+                        
+                        // Save it into file system
+                        [retFile.fileData writeToFile:dataPathImage atomically:YES];
+                        
+                    }else if (retFile.fileType == 2){ //audio
+                        
+                        NSString *pathForAudio = [NSString stringWithFormat:@"%@/Documents/%@-%d.caf", NSHomeDirectory(),caldate,retFile.serverFileID];
+                        
+                        NSInteger * id_file_client_audio=[dao insert_item_recordings:itemShared.cat_id id_item:itemShared.reminderID file_Name:pathForAudio];
+                        [dao UpdateFileTIMESTAMP:id_file_client_audio file_timestamp:retFile.fileTimestamp];
+                        [dao UpdateSERVERIDinTable:id_file_client_audio id_server:retFile.serverFileID tableName:@"item_files"];
+                        
+                        // Save it into file system
+                        [retFile.fileData writeToFile:pathForAudio atomically:YES];
+                        
+                        
+                    }
+                    
+                    
+                }
+
             
             }
         }
