@@ -267,7 +267,7 @@
         }
         
         }
-        else{ //here shoul be only items and files cause is share and I have the category
+        else{ //here should be only items and files cause is share and I have the category
              NSLog(@"CheckUpdatesShare--return,categoriesArray %d, itemsArray %d, filesArray %d",categoriesReturned.count,itemsReturned.count,filesReturned.count);
             for (GetItemObj * retItemShared in itemsReturned) {
                // NSLog(@"categoryshareserverìd %d", retItemShared.serverCategoryID);
@@ -310,7 +310,42 @@
                     }
                 }
                 
-                           }
+/////files in the share category and item
+                for (GetFileObj * retFile in filesReturned){
+                    
+                    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+                    NSString *documentsDirectory = [paths objectAtIndex:0];
+                    NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
+                    NSString *caldate = [now description];
+                    
+                    if (retFile.fileType == 1) {//imagen
+                        NSString * dataPathImage  = [NSString stringWithFormat:@"%@/%@-%d",documentsDirectory,caldate,(int)id_item_client];
+                        ;
+                        NSInteger* id_file_client= [dao insert_item_images:sharedCategory.cat_id id_item:id_item_client file_Name:dataPathImage];
+                        [dao UpdateFileTIMESTAMP:id_item_client file_timestamp:retFile.fileTimestamp];
+                        //[dao updateSTATUSandSHOULDSENDInTable:id_file_client clientStatus:0 should_send:0 tableName:@"item_files"];
+                        
+                        // Save it into file system
+                        [retFile.fileData writeToFile:dataPathImage atomically:YES];
+                        
+                    }else if (retFile.fileType == 2){ //audio
+                        
+                        NSString *pathForAudio = [NSString stringWithFormat:@"%@/Documents/%@-%d.caf", NSHomeDirectory(),caldate,retFile.serverFileID];
+                        
+                        NSInteger * id_file_client_audio=[dao insert_item_recordings:sharedCategory.cat_id id_item:id_item_client file_Name:pathForAudio];
+                        [dao UpdateFileTIMESTAMP:id_item_client file_timestamp:retFile.fileTimestamp];
+                        
+                        
+                        // Save it into file system
+                        [retFile.fileData writeToFile:pathForAudio atomically:YES];
+                        
+                        
+                    }
+
+                    
+                }
+            
+            }
         }
         
         
