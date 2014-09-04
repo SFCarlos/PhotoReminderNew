@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CategoryListViewControllerV2.m"
-            timestampString = "431441291.288017"
+            timestampString = "431512778.154984"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
+            startingLineNumber = "469"
+            endingLineNumber = "469"
             landmarkName = "-proxydidFinishLoadingData:InMethod:"
             landmarkType = "5">
          </BreakpointContent>

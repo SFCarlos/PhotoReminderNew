@@ -239,6 +239,10 @@
                                ;
                                 NSInteger* id_file_client= [dao insert_item_images:id_cat_client id_item:id_item_client file_Name:dataPathImage];
                                 [dao UpdateFileTIMESTAMP:id_item_client file_timestamp:retFile.fileTimestamp];
+                               
+                                [dao UpdateSERVERIDinTable:id_file_client id_server:retFile.serverFileID tableName:@"item_files"];
+                                
+                                
                                 //[dao updateSTATUSandSHOULDSENDInTable:id_file_client clientStatus:0 should_send:0 tableName:@"item_files"];
                                 
                                 // Save it into file system
@@ -250,7 +254,7 @@
                                 
                                 NSInteger * id_file_client_audio=[dao insert_item_recordings:id_cat_client id_item:id_item_client file_Name:pathForAudio];
                                 [dao UpdateFileTIMESTAMP:id_item_client file_timestamp:retFile.fileTimestamp];
-                                
+                                [dao UpdateSERVERIDinTable:id_file_client_audio id_server:retFile.serverFileID tableName:@"item_files"];
                                 
                                 // Save it into file system
                                 [retFile.fileData writeToFile:pathForAudio atomically:YES];
@@ -323,7 +327,7 @@
                         ;
                         NSInteger* id_file_client= [dao insert_item_images:sharedCategory.cat_id id_item:id_item_client file_Name:dataPathImage];
                         [dao UpdateFileTIMESTAMP:id_item_client file_timestamp:retFile.fileTimestamp];
-                        //[dao updateSTATUSandSHOULDSENDInTable:id_file_client clientStatus:0 should_send:0 tableName:@"item_files"];
+                        [dao UpdateSERVERIDinTable:id_file_client id_server:retFile.serverFileID tableName:@"item_files"];
                         
                         // Save it into file system
                         [retFile.fileData writeToFile:dataPathImage atomically:YES];
@@ -334,7 +338,7 @@
                         
                         NSInteger * id_file_client_audio=[dao insert_item_recordings:sharedCategory.cat_id id_item:id_item_client file_Name:pathForAudio];
                         [dao UpdateFileTIMESTAMP:id_item_client file_timestamp:retFile.fileTimestamp];
-                        
+                        [dao UpdateSERVERIDinTable:id_file_client_audio id_server:retFile.serverFileID tableName:@"item_files"];
                         
                         // Save it into file system
                         [retFile.fileData writeToFile:pathForAudio atomically:YES];

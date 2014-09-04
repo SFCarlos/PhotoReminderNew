@@ -356,8 +356,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     NSInteger*idFile;
     NSString *ubicacionDB = [self getRutaBD];
     
-    
-    if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
+        if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
         NSLog(@"No se puede conectar con la BD");
         
     } else {
