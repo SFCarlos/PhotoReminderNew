@@ -37,12 +37,12 @@
     UIBarButtonItem *setting ;
     UIBarButtonItem* SyncLogo;
     UIBarButtonItem * addCategory;
-    
+    CMPopTipView *navBarLeftButtonPopTipView;
     NSInteger* id_cat_addservice;
     NSInteger* id_cat_deleteservice;
     NSInteger* id_cat_editservice;
     
-    UIAlertView *alert;
+    UIAlertView *Syncalert;
 }
 @synthesize dao;
 @synthesize service;
@@ -95,7 +95,8 @@
 {
     self.service = [[iOSServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
    
-   // self.navigationController.navigationBar.styleClass =@"navigation-bar";
+    
+       // self.navigationController.navigationBar.styleClass =@"navigation-bar";
    
     
     //init the arrays
@@ -139,6 +140,9 @@
     //self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+   
+
 }
 -(void) viewWillDisappear:(BOOL)animated{
     
@@ -276,13 +280,11 @@
             if (itemsReturned.count != 0) {
                 
             for (GetItemObj * retItemShared in itemsReturned) {
-               // NSLog(@"categoryshareserverìd %d", retItemShared.serverCategoryID);
+               
                 NSInteger* id_item_client = 0;
                //get sharedcategory in my DB
                 ReminderObject *sharedCategory = [dao getCategorieWhitServerID:retItemShared.serverCategoryID usingServerId:YES];
-                // NSLog(@"my categoryServerID %d", sharedCategory.cat_id_server);
-                //find the correct category
-              //  NSLog(@"sharedCategory.cat_id_server = %d retItemShared.serverCategoryID = %d",sharedCategory.cat_id_server,retItemShared.serverCategoryID);
+               
                 if (sharedCategory.cat_id_server == retItemShared.serverCategoryID ) {
                     // Convert string to date object
                     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -316,7 +318,7 @@
                     }
                 }
                 
-/////files in the share category and item
+///// files in the share category and item
                 for (GetFileObj * retFile in filesReturned){
                     
                     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -354,7 +356,7 @@
             }
             
             
-            }else{ //the items array is empty so only files are send this time in shares
+            }if(filesReturned.count != 0){ //the items array is empty so only files are send this time in shares
                 for (GetFileObj * retFile in filesReturned){
                     
                     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -583,7 +585,7 @@
         [service checkShares:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults]];
 
         
-        [alert dismissWithClickedButtonIndex:0 animated:YES];
+        [Syncalert dismissWithClickedButtonIndex:0 animated:YES];
         SyncLogo.enabled = YES;
 
 /////*******************************
@@ -607,11 +609,34 @@
     }else if ([method isEqualToString:@"shareConfirm"]){
         shareConfirmRet * result = (shareConfirmRet *)data;
         
-        NSLog(@"%d,%d,%@",result.globalReturn,result.serverCategoryID,result.categoryName);
+       // NSLog(@"%d,%d,%@",result.globalReturn,result.serverCategoryID,result.categoryName);
+        //tool tips
+        if (result.globalReturn==0) {
+            //tool tips
+            // Present a CMPopTipView pointing at a UIBarButtonItem in the nav bar
+            navBarLeftButtonPopTipView = [[CMPopTipView alloc] initWithMessage:@"Press here now!"] ;
+            
+            navBarLeftButtonPopTipView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.78f];
+            navBarLeftButtonPopTipView.textColor = [UIColor lightGrayColor];
+            
+            navBarLeftButtonPopTipView.hasShadow = YES;
+            navBarLeftButtonPopTipView.has3DStyle = NO;
+            navBarLeftButtonPopTipView.borderWidth = 0;
+            
+            
+            [navBarLeftButtonPopTipView presentPointingAtBarButtonItem:self.navigationItem.rightBarButtonItem animated:YES];
+            
+            [self performSelector:@selector(test:) withObject:navBarLeftButtonPopTipView afterDelay:2];
+
+        }
         
-       
+        
     }
-    }
+    
+}
+-(void)test:(CMPopTipView*)x{
+    [x dismissAnimated:YES];
+}
 -(void)proxyRecievedError:(NSException *)ex InMethod:(NSString *)method{
     NSLog(@"ERROR in %@ -- %@",method,ex.description);
     UIAlertView *alert1 = [[UIAlertView alloc] initWithTitle: @"Something wrong happened in Sync"
@@ -621,7 +646,7 @@
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil,nil];
     
-    [alert dismissWithClickedButtonIndex:0 animated:YES];
+    [Syncalert dismissWithClickedButtonIndex:0 animated:YES];
     SyncLogo.enabled = YES;
     [alert1 show];
 
@@ -1008,11 +1033,21 @@
     if (alertView.tag == 546) { //confirmation sahre alert
         
         if (buttonIndex==0) { //cancel press
-            
+          
             [self.service shareConfirm:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :(int)self.serverCategoryIdshare :0];
             
+            
+            
+            
+            
+
+            
         }else if (buttonIndex == 1){// acept! press
+           
             [self.service shareConfirm:[self retrieveUSERFromUserDefaults] :[self retrievePASSFromUserDefaults] :(int)self.serverCategoryIdshare :1];
+            
+            
+            
         }
         
     }
@@ -1074,12 +1109,12 @@
     
     [service checkUpdates:inputchekUpdates];
   
-    alert = [[UIAlertView alloc] initWithTitle:@"Sync.."
+    Syncalert = [[UIAlertView alloc] initWithTitle:@"Sync.."
                                                     message:nil
                                                    delegate:self
                                           cancelButtonTitle:nil
                                           otherButtonTitles:nil];
-    [alert show];
+    [Syncalert show];
 }
 
 @end

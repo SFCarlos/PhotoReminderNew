@@ -52,6 +52,7 @@
 		CE83C7661966CAB20060B280 /* EditNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C7651966CAB20060B280 /* EditNoteViewController.m */; };
 		CEA315FF19B475C500C7210D /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = CEA315FE19B475C500C7210D /* default.css */; };
 		CEA3160119B4A68100C7210D /* PixateFreestyle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA3160019B4A68100C7210D /* PixateFreestyle.framework */; };
+		CEA3160419B9B51100C7210D /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA3160319B9B51100C7210D /* CMPopTipView.m */; };
 		CED3D90E191D06C400624E6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90D191D06C400624E6F /* Foundation.framework */; };
 		CED3D910191D06C400624E6F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90F191D06C400624E6F /* CoreGraphics.framework */; };
 		CED3D912191D06C400624E6F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D911191D06C400624E6F /* UIKit.framework */; };
@@ -241,6 +242,8 @@
 		CEA315FC19B472E000C7210D /* PixateFreestyle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PixateFreestyle.framework; path = ../../PixateFreestyle.framework; sourceTree = "<group>"; };
 		CEA315FE19B475C500C7210D /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.css; };
 		CEA3160019B4A68100C7210D /* PixateFreestyle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PixateFreestyle.framework; sourceTree = "<group>"; };
+		CEA3160219B9B51100C7210D /* CMPopTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPopTipView.h; sourceTree = "<group>"; };
+		CEA3160319B9B51100C7210D /* CMPopTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPopTipView.m; sourceTree = "<group>"; };
 		CED3D90A191D06C400624E6F /* PhotoReminderNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoReminderNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED3D90D191D06C400624E6F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CED3D90F191D06C400624E6F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -580,6 +583,15 @@
 			name = NoteStuff;
 			sourceTree = "<group>";
 		};
+		CEA3160519B9B59600C7210D /* PopTipCore */ = {
+			isa = PBXGroup;
+			children = (
+				CEA3160219B9B51100C7210D /* CMPopTipView.h */,
+				CEA3160319B9B51100C7210D /* CMPopTipView.m */,
+			);
+			name = PopTipCore;
+			sourceTree = "<group>";
+		};
 		CED3D901191D06C400624E6F = {
 			isa = PBXGroup;
 			children = (
@@ -718,6 +730,7 @@
 				CED3D9A8191D0A7300624E6F /* PMCalendar */,
 				CED3D9A7191D09FF00624E6F /* PopupCore */,
 				CED3D99F191D09AB00624E6F /* SWTableViewMoreButtonsCore */,
+				CEA3160519B9B59600C7210D /* PopTipCore */,
 			);
 			name = Cores;
 			sourceTree = "<group>";
@@ -1139,6 +1152,7 @@
 				CED3D9C7191D0A7300624E6F /* PMCalendarController.m in Sources */,
 				CE83C7661966CAB20060B280 /* EditNoteViewController.m in Sources */,
 				CED3D91A191D06C400624E6F /* main.m in Sources */,
+				CEA3160419B9B51100C7210D /* CMPopTipView.m in Sources */,
 				CED3D9CD191D0A7300624E6F /* PMThemeShadow.m in Sources */,
 				CED3D99D191D099900624E6F /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
 				CED3D99B191D099900624E6F /* SWLongPressGestureRecognizer.m in Sources */,
