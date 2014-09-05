@@ -296,7 +296,7 @@
                     if (iteminmydb.reminderID == nil) {
                       //  NSLog(@"sare cat NAme %@",retItemShared.itemName);
                     id_item_client = [dao insert_item:sharedCategory.cat_id item_Name:retItemShared.itemName alarm:dateA note:retItemShared.itemNote repeat:retItemShared.itemRepeat itemclientStatus:0 should_send_item:0];
-                    [dao UpdateSERVERIDinTable:id_item_client id_server:sharedCategory.id_server_item tableName:@"items"];
+                    [dao UpdateSERVERIDinTable:id_item_client id_server:retItemShared.serverItemID tableName:@"items"];
                     
                     //Reminder
                     if (![retItemShared.itemAlarm isEqualToString:@"0000-00-00 00:00:00"]) {
@@ -364,7 +364,7 @@
                     
                     ///find the item in my db
                     ReminderObject * itemShared= [dao getItemwhitServerID:retFile.serverItemID usingServerId:YES];
-                    NSLog(@"itemShared.itemid = %d and itemShared.cateID = %d",itemShared.reminderID,itemShared.cat_id);
+                    NSLog(@"itemShared.itemid = %d and itemShared.cateID = %d itemSaredserverId = %d",itemShared.reminderID,itemShared.cat_id,itemShared.id_server_item);
                     
                     if (retFile.fileType == 1) {//imagen
                         NSString * dataPathImage  = [NSString stringWithFormat:@"%@/%@-%d",documentsDirectory,caldate,(int)itemShared.reminderID];
