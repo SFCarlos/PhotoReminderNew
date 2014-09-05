@@ -198,7 +198,7 @@
    
     //update orden
      [dao updateorden:cate.cat_id orden:indexPath.row];
-    NSLog(@"%@ - %d",cate.categoryName,indexPath.row);
+    //NSLog(@"%@ - %d",cate.categoryName,indexPath.row);
     
    /* NSString * count = [NSString stringWithFormat:@"%d", (int)[dao getCountItemInCategory:cate.cat_id]];
    */
@@ -327,7 +327,7 @@
     
     [self.tableView reloadData];
  
-    NSLog(@"DIsparada");
+   
     }
 -(BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath{
     return NO;
@@ -363,19 +363,6 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:editCategory animated:YES];
     */
-}
--(void)preformOrder:(NSMutableArray*)catArray{
-    NSMutableArray * categoryArrayOrdered = [[NSMutableArray alloc] init];
-    
-    
-        for (ReminderObject* temp in catArray) {
-            
-            [categoryArrayOrdered addObject:[catArray objectAtIndex:(int)temp.orden]];
-       
-    }
-        categoryArray = categoryArrayOrdered;
-
-
 }
 
 

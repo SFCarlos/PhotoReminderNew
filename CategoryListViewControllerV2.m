@@ -626,7 +626,7 @@
             
             [navBarLeftButtonPopTipView presentPointingAtBarButtonItem:self.navigationItem.rightBarButtonItem animated:YES];
             
-            [self performSelector:@selector(test:) withObject:navBarLeftButtonPopTipView afterDelay:2];
+            [self performSelector:@selector(test:) withObject:navBarLeftButtonPopTipView afterDelay:5];
 
         }
         
@@ -640,6 +640,7 @@
 }
 
 -(void)test:(CMPopTipView*)x{
+    
     [x dismissAnimated:YES];
 }
 -(void)proxyRecievedError:(NSException *)ex InMethod:(NSString *)method{
@@ -1091,6 +1092,7 @@
 -(void)SyncAll:(id)sender{
     SyncLogo.enabled = NO;
         filesArrayFULL = [dao getFilesListwhitDeletedRowsIncluded:-1 whitDeletedRowsIncluded:YES];
+    [navBarLeftButtonPopTipView dismissAnimated:YES];
     ///////////antes de llamar a syncall check if smt new/////
     GetQueryArray * inputchekUpdates = [[GetQueryArray alloc]init];
    
