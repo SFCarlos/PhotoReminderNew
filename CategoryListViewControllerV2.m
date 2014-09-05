@@ -634,6 +634,11 @@
     }
     
 }
+// CMPopTipViewDelegate method
+- (void)popTipViewWasDismissedByUser:(CMPopTipView *)popTipView {
+    // Any cleanup code, such as releasing a CMPopTipView instance variable, if necessary
+}
+
 -(void)test:(CMPopTipView*)x{
     [x dismissAnimated:YES];
 }
