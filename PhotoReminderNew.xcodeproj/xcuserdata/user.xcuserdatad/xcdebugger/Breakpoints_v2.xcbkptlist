@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DatabaseHelper.m"
-            timestampString = "431865636.816493"
+            timestampString = "431869973.449509"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1237"
-            endingLineNumber = "1237"
+            startingLineNumber = "1236"
+            endingLineNumber = "1236"
             landmarkName = "-deleteCategory:permanently:"
             landmarkType = "5">
          </BreakpointContent>

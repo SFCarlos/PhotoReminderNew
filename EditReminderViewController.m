@@ -303,7 +303,7 @@ NSDate * datecalendar;
 
    
     if (self.should_send_photo == YES) {
-        [dao edit_item_images:ReminderToEdit.reminderID file_Name:ImagenPath];
+        [dao edit_item_images:ReminderToEdit.cat_id id_item:ReminderToEdit.reminderID file_Name:ImagenPath];
         [dao UpdateSHOULDSendinFILESbyType:ReminderToEdit.reminderID file_type:1 should_send:1 comeFroMSync:NO];
     }else{
         [dao UpdateSHOULDSendinFILESbyType:ReminderToEdit.reminderID file_type:1 should_send:0 comeFroMSync:NO];

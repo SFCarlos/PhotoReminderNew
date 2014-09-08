@@ -172,7 +172,7 @@
     filesArrayFULL= [dao getFilesListwhitDeletedRowsIncluded:-1 whitDeletedRowsIncluded:YES];
     
     for ( ReminderObject * tt in filesArrayFULL) {
-        NSLog(@" ListCAtWillApear shoudsendfile %d ",tt.should_send_file);
+       // NSLog(@" ListCAtWillApear shoudsendfile %d ",tt.should_send_file);
     }
 
    
@@ -248,7 +248,7 @@
                             if (retFile.fileType == 1) {//imagen
                                 NSString * dataPathImage  = [NSString stringWithFormat:@"%@/%@-%d",documentsDirectory,caldate,(int)id_item_client];
                                ;
-                                NSInteger* id_file_client= [dao insert_item_images:id_cat_client id_item:id_item_client file_Name:dataPathImage];
+                                NSInteger* id_file_client= [dao edit_item_images:id_cat_client id_item:id_item_client file_Name:dataPathImage];
                                 [dao UpdateFileTIMESTAMP:id_file_client file_timestamp:retFile.fileTimestamp];
                                
                                 [dao UpdateSERVERIDinTable:id_file_client id_server:retFile.serverFileID tableName:@"item_files"];
@@ -336,11 +336,11 @@
                     if (retFile.fileType == 1) {//imagen
                         NSString * dataPathImage  = [NSString stringWithFormat:@"%@/%@-%d",documentsDirectory,caldate,(int)id_item_client];
                         ;
-                        NSInteger* id_file_client= [dao insert_item_images:sharedCategory.cat_id id_item:id_item_client file_Name:dataPathImage];
+                        NSInteger* id_file_client= [dao edit_item_images:sharedCategory.cat_id id_item:id_item_client file_Name:dataPathImage];
                         [dao UpdateFileTIMESTAMP:id_file_client file_timestamp:retFile.fileTimestamp];
                         [dao UpdateSERVERIDinTable:id_file_client id_server:retFile.serverFileID tableName:@"item_files"];
-                        
-                        // Save it into file system
+                       
+                                                // Save it into file system
                         [retFile.fileData writeToFile:dataPathImage atomically:YES];
                         
                     }else if (retFile.fileType == 2){ //audio
@@ -379,7 +379,7 @@
                         NSString * dataPathImage  = [NSString stringWithFormat:@"%@/%@-%d",documentsDirectory,caldate,(int)itemShared.reminderID];
                         ;
                        
-                        NSInteger* id_file_client= [dao insert_item_images:itemShared.cat_id id_item:itemShared.reminderID file_Name:dataPathImage];
+                        NSInteger* id_file_client= [dao edit_item_images:itemShared.cat_id id_item:itemShared.reminderID file_Name:dataPathImage];
                         [dao UpdateFileTIMESTAMP:id_file_client file_timestamp:retFile.fileTimestamp];
                         [dao UpdateSERVERIDinTable:id_file_client id_server:retFile.serverFileID tableName:@"item_files"];
                         
@@ -470,7 +470,7 @@
         }
         
         for (ReminderObject * filestem in filesArrayFULL){
-            NSLog(@"filestem.should_send_file %d item_id= %d",(int)filestem.should_send_file,filestem.reminderID);
+           // NSLog(@"filestem.should_send_file %d item_id= %d",(int)filestem.should_send_file,filestem.reminderID);
             if((int)filestem.should_send_file == 1){
                // NSLog(@"filesArrayFull.count %d",filesArrayFULL.count);
                 FileObj * FileToAddinArraySend = [[FileObj alloc]init];

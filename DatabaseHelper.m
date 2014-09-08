@@ -463,26 +463,25 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
 
 
 }
--(BOOL) edit_item_images:(NSInteger *)id_item file_Name:(NSString *)file_Name{
+-(NSInteger*) edit_item_images:(NSInteger*)id_cat id_item:(NSInteger *)id_item file_Name:(NSString *)file_Name{
 
-    BOOL flag = YES;
+    NSInteger * id_file_client;
     NSString *ubicacionDB = [self getRutaBD];
     
     
     if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
         NSLog(@"No se puede conectar con la BD");
-        flag = NO;
+       
     
     } else {
-        NSString * update = [NSString stringWithFormat:@"SELECT * FROM item_files WHERE id_item = %d AND file_type = 1",(int)id_item ];
+        NSString * update = [NSString stringWithFormat:@"SELECT id_file FROM item_files WHERE id_item = %d AND file_type = 1",(int)id_item ];
         sqlite3_stmt *stmt;
         int rc = sqlite3_prepare_v2(bd, [update UTF8String], -1, &stmt, nil);
         if (rc == SQLITE_OK) {
            
             if (sqlite3_step(stmt) == SQLITE_ROW) {
                 update = [NSString stringWithFormat:@"UPDATE item_files SET file_name = '%@' WHERE id_item = %d AND file_type = 1", file_Name,(int)id_item ];
-           
-            }
+           id_file_client = sqlite3_column_int(stmt, 0);            }
             else{
                 update = [NSString stringWithFormat:@"INSERT INTO item_files (id_cat,id_item,file_name,server_file_id,should_send_file,client_status_file,file_type)  VALUES (%d,%d, '%@',0,0,0,1)", (int)[self retrieveFromUserDefaults],(int)id_item ,file_Name];
             }
@@ -493,24 +492,24 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
        
         const char *sql = [update UTF8String];
         sqlite3_stmt *sqlStatement;
-        NSLog(@"updateimagenpath sql %s" ,sql);
+        NSLog(@"edit_item_images: sql %@" ,update);
         if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
             NSLog(@"Problema al preparar el statement edit_item_images %s",sql);
-            flag = NO;
+        
             
         } else {
             if(sqlite3_step(sqlStatement) == SQLITE_DONE){
                 
                 sqlite3_finalize(sqlStatement);
+                id_file_client= (NSInteger*)sqlite3_last_insert_rowid(bd);
                 
-                flag = YES;
-                 //sqlite3_close(bd);
+                //sqlite3_close(bd);
                 
             }
         }
         
     }
-    return flag;
+    return id_file_client;
 
 
 }

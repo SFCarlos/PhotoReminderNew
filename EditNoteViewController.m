@@ -136,7 +136,7 @@
         
     
     if (self.should_send_photo == YES) {
-        [dao edit_item_images:idNoteToedit file_Name:ImagenPath];
+        [dao edit_item_images:itemnote.cat_id id_item:idNoteToedit file_Name:ImagenPath];
         [dao UpdateSHOULDSendinFILESbyType:idNoteToedit file_type:1 should_send:1 comeFroMSync:NO];
     }else{
         [dao UpdateSHOULDSendinFILESbyType:idNoteToedit file_type:1 should_send:0 comeFroMSync:NO];
