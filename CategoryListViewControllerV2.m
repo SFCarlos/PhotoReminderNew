@@ -168,7 +168,14 @@
     
     categoryArray=[dao getCategoryListwhitDeletedRowsIncluded:NO];
     itemsArrayFULL = [dao getItemListwhitDeletedRowsIncluded:-1 itemType:-2 whitDeletedRowsIncluded:YES];
-    //[self preformOrder:categoryArray];
+    
+    filesArrayFULL= [dao getFilesListwhitDeletedRowsIncluded:-1 whitDeletedRowsIncluded:YES];
+    
+    for ( ReminderObject * tt in filesArrayFULL) {
+        NSLog(@" ListCAtWillApear shoudsendfile %d ",tt.should_send_file);
+    }
+
+   
     [self.tableView reloadData];
     
     [super viewWillAppear:animated];
@@ -463,8 +470,9 @@
         }
         
         for (ReminderObject * filestem in filesArrayFULL){
+            NSLog(@"filestem.should_send_file %d item_id= %d",(int)filestem.should_send_file,filestem.reminderID);
             if((int)filestem.should_send_file == 1){
-                NSLog(@"filesArrayFull.count %d",filesArrayFULL.count);
+               // NSLog(@"filesArrayFull.count %d",filesArrayFULL.count);
                 FileObj * FileToAddinArraySend = [[FileObj alloc]init];
                 FileToAddinArraySend.clientFileID = (int)filestem.id_file;
                 FileToAddinArraySend.serverFileID = (int)filestem.server_file_id;
@@ -567,6 +575,7 @@
                    
                     [dao UpdateFileTIMESTAMP:temids.clientFileID file_timestamp:[self retrieveTIMESTAMPFromUserDefaults]];
                     [dao UpdateSERVERIDinTable:temids.clientFileID id_server:(int)temids.serverFileID tableName:@"item_files"];
+                    
                     //shoud_send = 0 mean NO SEND cause was just SYNC rigt now
                     
                     [dao UpdateSHOULDSendinFILESbyType:temids.clientFileID file_type:temids.fileType should_send:0 comeFroMSync:YES];
@@ -882,7 +891,7 @@
     
     NSIndexPath * clicedbut =[self.tableView indexPathForRowAtPoint:butoPoss];
    ReminderObject* tem =[categoryArray objectAtIndex:clicedbut.row];
-    NSLog(@"type %d",(int)tem.categoryType);
+    //NSLog(@"type %d",(int)tem.categoryType);
     switch ((int)tem.categoryType) {
         case 0:
             [self performSegueWithIdentifier:@"addshoopingCarItemSegue" sender:sender];

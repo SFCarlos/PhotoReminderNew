@@ -134,14 +134,20 @@
         
     }
 
+    NSLog(@"self.should_send_photo = %d",self.should_send_photo);
+    if (self.should_send_photo == YES ) {
+        [dao edit_item_images:ShoppingItem.reminderID file_Name:ImagenPath];
+        [dao UpdateSHOULDSendinFILESbyType:ShoppingItem.reminderID file_type:1 should_send:1 comeFroMSync:NO];
+    }else
+        if(ShoppingItem.id_server_item == 0){
+            [dao edit_item_images:ShoppingItem.reminderID file_Name:ImagenPath];
+            [dao UpdateSHOULDSendinFILESbyType:ShoppingItem.reminderID file_type:1 should_send:0 comeFroMSync:NO];
+
+            
+        }
     
-    if (self.should_send_photo == YES) {
-        [dao edit_item_images:IdShoopingItemToEdit file_Name:ImagenPath];
-        [dao UpdateSHOULDSendinFILESbyType:IdShoopingItemToEdit file_type:1 should_send:1 comeFroMSync:NO];
-    }else{
-        [dao UpdateSHOULDSendinFILESbyType:IdShoopingItemToEdit file_type:1 should_send:0 comeFroMSync:NO];
-    }
-   
+
+
     
     
     //insert in history

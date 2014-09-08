@@ -48,6 +48,8 @@
 
 -(void)UpdateFileTIMESTAMP:(NSInteger*)id_client file_timestamp:(NSInteger*)file_timestamp ;
 -(void)UpdateSHOULDSendinFILESbyType:(NSInteger*)id_item  file_type:(NSInteger*)file_type should_send:(NSInteger*)should_send comeFroMSync:(BOOL*)comeFroMSync;
+-(void)UpdateItemsFiles:(NSInteger*)id_item file_type:(NSInteger*)file_type should_send:(NSInteger*)should_send file_path:(NSString*)file_path;
+
 
 -(BOOL)updateorden:(NSInteger*)id_cat orden:(NSInteger*)orden;;
 -(NSMutableArray *) getCategoryorder;

@@ -31,6 +31,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
      items = [dao getItemListwhitDeletedRowsIncluded:[self retrieveFromUserDefaults] itemType:-1 whitDeletedRowsIncluded:NO];
+ 
     [self.collectionView reloadData];
 
 }
@@ -51,7 +52,7 @@
     
     
     UIBarButtonItem* addbutton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(AddItemAction:)];
-    self.collectionView.styleClass = @"collection-view";
+    //self.collectionView.styleClass = @"collection-view";
     self.navigationItem.rightBarButtonItems =
     [NSArray arrayWithObjects:addbutton, nil];
     self.navigationItem.leftBarButtonItems =
@@ -104,6 +105,7 @@
         
         image = [UIImage imageWithImage:[UIImage imageWithContentsOfFile:(NSString*)[imagenArray firstObject]]scaledToSize:CGSizeMake(100.0,100.0)];
     }
+   // NSLog(@"In ShopGird idItem= %d shoudsendfile " );
 
     UIImageView *itemImageView = (UIImageView *)[cell viewWithTag:85];
     UILabel *itemNameView = (UILabel *)[cell viewWithTag:909];
