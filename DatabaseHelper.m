@@ -1394,7 +1394,7 @@ if (whitDeletedRowsIncluded) {
         }else{
             sqlUp = [NSString stringWithFormat:@"UPDATE item_files SET should_send_file = %d  WHERE id_item = %d AND file_type = %d",(int)should_send,(int)id_item,(int)file_type];
         }
-        NSLog(sqlUp);
+       // NSLog(@"UpdateSHOULDSendinFILESbyType %@",sqlUp);
         const char *sql = [sqlUp UTF8String];
         sqlite3_stmt *sqlStatement;
         
