@@ -321,7 +321,7 @@
                         
                     }
                     }else{
-                        [dao edit_item:iteminmydb.reminderID item_Name:retItemShared.itemName alarm:dateA note:retItemShared.itemNote repeat:retItemShared.itemRepeat itemclientStatus:retItemShared.itemStatus];
+                        id_item_client=[dao edit_item:iteminmydb.reminderID item_Name:retItemShared.itemName alarm:dateA note:retItemShared.itemNote repeat:retItemShared.itemRepeat itemclientStatus:retItemShared.itemStatus];
                     }
                 }
                 
@@ -363,7 +363,7 @@
             }
             
             
-            }if(filesReturned.count != 0){ //the items array is empty so only files are send this time in shares
+            }if(filesReturned.count != 0 && itemsReturned.count == 0){ //the items array is empty so only files are send this time in shares
                 for (GetFileObj * retFile in filesReturned){
                     
                     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -1139,7 +1139,7 @@
         Send.serverFileID = (int)filestem.server_file_id;
         Send.serverItemID= (int)filestem.id_server_item;
         [parameterFilesArray addObject:Send];
-   // NSLog(@"checkUpdatecall--filesArray fileTimestamp %d, server_file_id %d,Id_server_item %d",Send.fileTimestamp,Send.serverFileID,Send.serverItemID);
+    NSLog(@"checkUpdatecall--filesArray fileTimestamp %d, server_file_id %d,Id_server_item %d",Send.fileTimestamp,Send.serverFileID,Send.serverItemID);
     }
     inputchekUpdates.filesArray = parameterFilesArray;
     

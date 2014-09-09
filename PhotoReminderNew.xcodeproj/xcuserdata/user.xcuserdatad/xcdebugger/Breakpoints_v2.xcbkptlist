@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "DatabaseHelper.m"
-            timestampString = "431869973.449509"
+            timestampString = "431950870.863916"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1236"
-            endingLineNumber = "1236"
+            startingLineNumber = "1234"
+            endingLineNumber = "1234"
             landmarkName = "-deleteCategory:permanently:"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CategoryListViewControllerV2.m"
-            timestampString = "431944088.499527"
+            timestampString = "431946436.163452"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "533"
-            endingLineNumber = "533"
+            startingLineNumber = "550"
+            endingLineNumber = "550"
             landmarkName = "-proxydidFinishLoadingData:InMethod:"
             landmarkType = "5">
          </BreakpointContent>
@@ -282,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CategoryListViewControllerV2.m"
-            timestampString = "431946283.745384"
+            timestampString = "431946436.163452"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "536"
-            endingLineNumber = "536"
+            startingLineNumber = "537"
+            endingLineNumber = "537"
             landmarkName = "-proxydidFinishLoadingData:InMethod:"
             landmarkType = "5">
          </BreakpointContent>

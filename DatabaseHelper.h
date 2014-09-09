@@ -17,7 +17,7 @@
 //*****************new iplementation insert into items **************
 -(NSInteger *)insert_item: (NSInteger*)id_cat item_Name:(NSString*)item_Name alarm:(NSDate*)alarm  note:(NSString*)note repeat:(NSString*)repeat itemclientStatus:(NSInteger *)itemclientStatus should_send_item:(NSInteger *)should_send_item;
 
--(BOOL)edit_item:(NSInteger*)id_item item_Name:(NSString*)item_Name alarm:(NSDate*)alarm  note:(NSString*)note repeat:(NSString*)repeat itemclientStatus:(NSInteger *)itemclientStatus;
+-(NSInteger*)edit_item:(NSInteger*)id_item item_Name:(NSString*)item_Name alarm:(NSDate*)alarm  note:(NSString*)note repeat:(NSString*)repeat itemclientStatus:(NSInteger *)itemclientStatus;
 
 -(NSInteger*)insert_item_images: (NSInteger *)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
 -(NSInteger*)insert_item_recordings: (NSInteger *)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;

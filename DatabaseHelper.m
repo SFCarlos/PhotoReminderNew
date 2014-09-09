@@ -78,9 +78,9 @@
     }
     
     if (whitDeletedRowsIncluded) {
-        sentenciaSQL = "SELECT a.id_file,a.id_cat,a.id_item,a.file_name,a.server_file_id,a.should_send_file,a.client_status_file,a.file_type,file_timestamp,(SELECT id_server_item FROM items b WHERE a.id_item = b.id_item LIMIT 1) server_item_id FROM item_files a";
+        sentenciaSQL = "SELECT a.id_file,a.id_cat,a.id_item,a.file_name,a.server_file_id,a.should_send_file,a.client_status_file,a.file_type,a.file_timestamp,(SELECT id_server_item FROM items b WHERE a.id_item = b.id_item LIMIT 1) server_item_id FROM item_files a";
     }else{
-        sentenciaSQL = "SELECT a.id_file,a.id_cat,a.id_item,a.file_name,a.server_file_id,a.should_send_file,a.client_status_file,a.file_type,file_timestamp ,(SELECT id_server_item FROM items b WHERE a.id_item = b.id_item LIMIT 1) server_item_id FROM item_files a WHERE a.client_status_file != 1 ";
+        sentenciaSQL = "SELECT a.id_file,a.id_cat,a.id_item,a.file_name,a.server_file_id,a.should_send_file,a.client_status_file,a.file_type,a.file_timestamp ,(SELECT id_server_item FROM items b WHERE a.id_item = b.id_item LIMIT 1) server_item_id FROM item_files a WHERE a.client_status_file != 1 ";
     }
     
     sqlite3_stmt *sqlStatement;
@@ -312,37 +312,35 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     return id_item;
 
 }
-- (BOOL)edit_item: (NSInteger*)id_item  item_Name:(NSString *)item_Name alarm:(NSDate *)alarm note:(NSString *)note repeat:(NSString *)repeat itemclientStatus:(NSInteger *)itemclientStatus{
-    BOOL flag = YES;
+- (NSInteger*)edit_item: (NSInteger*)id_item  item_Name:(NSString *)item_Name alarm:(NSDate *)alarm note:(NSString *)note repeat:(NSString *)repeat itemclientStatus:(NSInteger *)itemclientStatus{
+    NSInteger* iditem = 0;
     NSString *ubicacionDB = [self getRutaBD];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *dateString=[dateFormat stringFromDate:alarm];
     if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
         NSLog(@"No se puede conectar con la BD");
-        flag = NO;
-        return flag;
+       
     } else {
         NSString *sqledit = [NSString stringWithFormat:@"UPDATE items SET item_name= '%@' ,alarm = '%@',note ='%@', repeat = '%@',client_status = %d WHERE id_item = %d",item_Name,dateString,note,repeat,itemclientStatus,id_item];
         const char *sql = [sqledit UTF8String];
         sqlite3_stmt *sqlStatement;
                 if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
             NSLog(@"Problema al preparar el statement edit item");
-            flag = NO;
-            return flag;
+            
         } else {
             if(sqlite3_step(sqlStatement) == SQLITE_DONE){
                 sqlite3_finalize(sqlStatement);
                 
-                flag = YES;
-                return flag;
+                
+                iditem=id_item;
                 //sqlite3_close(bd);
                 
             }
         }
         
     }
-    return flag;
+    return iditem;
     
 
 
@@ -483,7 +481,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
                 update = [NSString stringWithFormat:@"UPDATE item_files SET file_name = '%@' WHERE id_item = %d AND file_type = 1", file_Name,(int)id_item ];
            id_file_client = sqlite3_column_int(stmt, 0);            }
             else{
-                update = [NSString stringWithFormat:@"INSERT INTO item_files (id_cat,id_item,file_name,server_file_id,should_send_file,client_status_file,file_type)  VALUES (%d,%d, '%@',0,0,0,1)", (int)[self retrieveFromUserDefaults],(int)id_item ,file_Name];
+                update = [NSString stringWithFormat:@"INSERT INTO item_files (id_cat,id_item,file_name,server_file_id,should_send_file,client_status_file,file_type)  VALUES (%d,%d, '%@',0,0,0,1)", (int)id_cat,(int)id_item ,file_Name];
             }
              sqlite3_finalize(stmt);
         }
