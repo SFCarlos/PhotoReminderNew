@@ -519,7 +519,24 @@
         
         /////////update the server timestmp////
        
-        [self saveServerTIMESTAMPToUserDefaults:(int)result.timestamp];
+        switch (result.globalReturn) {
+            case -1:
+                NSLog(@"AutError in syncAllReturn");
+                break;
+            case 0:
+               // NSLog(@"OK");
+                [self saveServerTIMESTAMPToUserDefaults:(int)result.timestamp];
+                break;
+            case 2:
+                //the server return 2 if Isend empty arrays means that nothing is shange and Inot update timestamp
+                NSLog(@"nothing sahnge all is empty syncAllReturn");
+                break;
+            default:
+                
+                break;
+        }
+        
+        
 
         NSMutableArray * idsArray = result.categoriesIdsArray;
  ///////actualizo los serverCategoryId en mi database con los que estan en el server
