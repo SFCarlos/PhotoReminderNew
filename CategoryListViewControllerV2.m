@@ -472,7 +472,8 @@
         for (ReminderObject * filestem in filesArrayFULL){
            // NSLog(@"filestem.should_send_file %d item_id= %d",(int)filestem.should_send_file,filestem.reminderID);
             if((int)filestem.should_send_file == 1){
-               // NSLog(@"filesArrayFull.count %d",filesArrayFULL.count);
+                
+                NSLog(@"files a eviar timestamp %d",filestem.file_timestamp);
                 FileObj * FileToAddinArraySend = [[FileObj alloc]init];
                 FileToAddinArraySend.clientFileID = (int)filestem.id_file;
                 FileToAddinArraySend.serverFileID = (int)filestem.server_file_id;
@@ -499,7 +500,10 @@
             }
         }
         
-        NSLog(@"cantidad de files a enviar SyncAll %d ", parameterFilesArray.count );
+        
+        NSLog(@"cantidad de files a enviar SyncAll=%d ",parameterFilesArray.count);
+        
+        
         imputservice.user = [self retrieveUSERFromUserDefaults];
         imputservice.pass = [self retrievePASSFromUserDefaults];
         imputservice.categoriesArray = parameterCategoryArray;
@@ -601,7 +605,7 @@
     }
     else if ([method isEqualToString:@"checkShares"]) {
         checkSharesRet * result = (checkSharesRet*)data;
-        NSLog(@"shekshares return: globalreturn %d friendMail %@ categorytoshare: %d",result.globalReturn,result.friendEmail,result.serverCategoryID);
+       // NSLog(@"shekshares return: globalreturn %d friendMail %@ categorytoshare: %d",result.globalReturn,result.friendEmail,result.serverCategoryID);
         if (result.globalReturn == 0) {
             self.serverCategoryIdshare = result.serverCategoryID;
         
