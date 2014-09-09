@@ -478,8 +478,13 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         if (rc == SQLITE_OK) {
            
             if (sqlite3_step(stmt) == SQLITE_ROW) {
+                
+                id_file_client = (int)sqlite3_column_int(stmt, 0);
+                
+                
                 update = [NSString stringWithFormat:@"UPDATE item_files SET file_name = '%@' WHERE id_item = %d AND file_type = 1", file_Name,(int)id_item ];
-           id_file_client = sqlite3_column_int(stmt, 0);            }
+           
+            }
             else{
                 update = [NSString stringWithFormat:@"INSERT INTO item_files (id_cat,id_item,file_name,server_file_id,should_send_file,client_status_file,file_type)  VALUES (%d,%d, '%@',0,0,0,1)", (int)id_cat,(int)id_item ,file_Name];
             }
@@ -490,16 +495,19 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
        
         const char *sql = [update UTF8String];
         sqlite3_stmt *sqlStatement;
-        NSLog(@"edit_item_images: sql %@" ,update);
+        NSLog(@"edit_item_images: sql %@  " ,update );
         if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
             NSLog(@"Problema al preparar el statement edit_item_images %s",sql);
         
             
         } else {
             if(sqlite3_step(sqlStatement) == SQLITE_DONE){
-                
+                //seif update or insert
+                if ([update hasPrefix:@"INSERT"]) {
+                    id_file_client= (NSInteger*)sqlite3_last_insert_rowid(bd);
+                }
                 sqlite3_finalize(sqlStatement);
-                id_file_client= (NSInteger*)sqlite3_last_insert_rowid(bd);
+                //
                 
                 //sqlite3_close(bd);
                 
@@ -507,6 +515,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         }
         
     }
+    NSLog(@"%d",id_file_client);
     return id_file_client;
 
 
@@ -1330,6 +1339,7 @@ if (whitDeletedRowsIncluded) {
             
         } else {
             if(sqlite3_step(sqlStatement) == SQLITE_DONE){
+                NSLog(@"UpdateFileTIMESTAMP %@",sqlUp);
                 sqlite3_finalize(sqlStatement);
                 
                 //sqlite3_close(bd);
