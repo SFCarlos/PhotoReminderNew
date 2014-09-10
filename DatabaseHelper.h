@@ -22,7 +22,7 @@
 -(NSInteger*)insert_item_images: (NSInteger *)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
 -(NSInteger*)insert_item_recordings: (NSInteger *)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
 -(NSInteger*)edit_item_images:(NSInteger*)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
--(BOOL)edit_item_recordings:(NSInteger*)id_item file_Name:(NSString*)file_Name;
+-(BOOL)edit_item_recordings:(NSInteger*)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
 
 -(NSMutableArray*)getFiles:(NSInteger*) id_item;
 -(ReminderObject*)getItemwhitServerID:(NSInteger*) id_item usingServerId:(BOOL)usingServerId;
@@ -30,7 +30,7 @@
 -(BOOL)deleteItem:(NSInteger*) id_item permanently:(BOOL)permanently;
 -(BOOL)deleteFiles:(NSInteger*) id_file permanently:(BOOL)permanently;
 -(NSMutableArray*)get_items_PhotoPaths:(NSInteger*)id_item;
--(NSString*)get_AudioPath_item_reminder:(NSInteger*)id_item;
+-(NSMutableArray*)get_items_RecordPaths:(NSInteger *)id_item;
 - (NSMutableArray *) getCategoryListwhitDeletedRowsIncluded:(BOOL *)whitDeletedRowsIncluded;
 -(NSMutableArray * ) getItemListwhitDeletedRowsIncluded:(NSInteger *) CategoryId itemType:(NSInteger*)itemType whitDeletedRowsIncluded:(BOOL *)whitDeletedRowsIncluded;
 -(NSMutableArray * ) getFilesListwhitDeletedRowsIncluded:(NSInteger*)fileType whitDeletedRowsIncluded:(BOOL *)whitDeletedRowsIncluded;

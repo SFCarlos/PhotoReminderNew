@@ -93,12 +93,12 @@
        NSInteger *id_item = [dao insert_item:idcat item_Name:nil alarm:nil note:itenname repeat:nil itemclientStatus:0 should_send_item:1];
    
     
-    NSLog(@"ImagenPath %@",ImagenPath);
+   // NSLog(@"ImagenPath %@",ImagenPath);
     if (ImagenPath == nil ||[ImagenPath isEqualToString:@""]||[ImagenPath isEqualToString:@"(null)"]){
     //es null no inserto nada
         
     }else{
-        [dao insert_item_images:idcat id_item:id_item file_Name:ImagenPath];
+        [dao edit_item_images:idcat id_item:id_item file_Name:ImagenPath];
        [dao UpdateSHOULDSendinFILESbyType:id_item file_type:1 should_send:1 comeFroMSync:NO];
     }
     
@@ -107,7 +107,7 @@
     
     }else{
          //insert audio
-    [dao insert_item_recordings:idcat id_item:id_item file_Name:audioPath];
+        [dao edit_item_recordings:idcat id_item:id_item file_Name:audioPath];
     [dao UpdateSHOULDSendinFILESbyType:id_item file_type:2 should_send:1 comeFroMSync:NO];
         
         
@@ -137,7 +137,7 @@
         NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
         NSString *caldate = [now description];
    
-        NSString *jpegFilePath = [NSString stringWithFormat:@"%@/%@",docDir,caldate];
+        NSString *jpegFilePath = [NSString stringWithFormat:@"%@/%@--%d",docDir,caldate, arc4random_uniform(100)];
         
         NSData *data2 = [NSData dataWithData:UIImageJPEGRepresentation(image, 1.0f)];//1.0f = 100% quality
         [data2 writeToFile:jpegFilePath atomically:YES];

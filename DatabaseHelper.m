@@ -413,53 +413,63 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     
     
 }
--(BOOL)edit_item_recordings:(NSInteger *)id_item file_Name:(NSString *)file_Name{
+-(BOOL)edit_item_recordings:(NSInteger*)id_cat id_item:(NSInteger *)id_item file_Name:(NSString *)file_Name{
     BOOL flag = YES;
     NSString *ubicacionDB = [self getRutaBD];
-    
+    NSInteger * id_file_client = 0;
     
     if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
         NSLog(@"No se puede conectar con la BD");
         flag = NO;
         
     } else {
-        NSString * update = [NSString stringWithFormat:@"SELECT * FROM item_files WHERE id_item = %d AND file_type = 2",(int)id_item ];
+        NSString * update = [NSString stringWithFormat:@"SELECT id_file FROM item_files WHERE id_item = %d AND file_type = 2",(int)id_item ];
         sqlite3_stmt *stmt;
         int rc = sqlite3_prepare_v2(bd, [update UTF8String], -1, &stmt, nil);
         if (rc == SQLITE_OK) {
+            
             if (sqlite3_step(stmt) == SQLITE_ROW) {
+                
+                id_file_client = (int)sqlite3_column_int(stmt, 0);
+                
+                
                 update = [NSString stringWithFormat:@"UPDATE item_files SET file_name = '%@' WHERE id_item = %d AND file_type = 2", file_Name,(int)id_item ];
+                
             }
             else{
-                update = [NSString stringWithFormat:@"INSERT INTO item_files (id_cat,id_item,file_name,server_file_id,should_send_file,client_status_file,file_type)  VALUES (%d,%d, '%@',0,0,0,2)", (int)[self retrieveFromUserDefaults],(int)id_item ,file_Name];
+                update = [NSString stringWithFormat:@"INSERT INTO item_files (id_cat,id_item,file_name,server_file_id,should_send_file,client_status_file,file_type)  VALUES (%d,%d, '%@',0,0,0,2)", (int)id_cat,(int)id_item ,file_Name];
             }
+            sqlite3_finalize(stmt);
         }
         
         
         
         const char *sql = [update UTF8String];
         sqlite3_stmt *sqlStatement;
-        // NSLog(@"updateimagenpath sql %s" ,sql);
+        NSLog(@"edit_item_recordings: sql %@  " ,update );
         if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
             NSLog(@"Problema al preparar el statement edit_item_recordings %s",sql);
-            flag = NO;
+            
             
         } else {
             if(sqlite3_step(sqlStatement) == SQLITE_DONE){
-                
+                //seif update or insert
+                if ([update hasPrefix:@"INSERT"]) {
+                    id_file_client= (NSInteger*)sqlite3_last_insert_rowid(bd);
+                }
                 sqlite3_finalize(sqlStatement);
+                //
                 
-                flag = YES;
                 //sqlite3_close(bd);
                 
             }
         }
         
     }
-    return flag;
+    //NSLog(@"%d",id_file_client);
+    return id_file_client;
     
-
-
+    
 }
 -(NSInteger*) edit_item_images:(NSInteger*)id_cat id_item:(NSInteger *)id_item file_Name:(NSString *)file_Name{
 
@@ -515,7 +525,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         }
         
     }
-    NSLog(@"%d",id_file_client);
+    //NSLog(@"%d",id_file_client);
     return id_file_client;
 
 
@@ -548,12 +558,15 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     return PhotosArray;
     
 }
--(NSString*)get_AudioPath_item_reminder:(NSInteger *)id_item{
-    NSString* audio_path;
+-(NSMutableArray*)get_items_RecordPaths:(NSInteger *)id_item{
+
+    NSString* record_path;
+    NSMutableArray *recordPathArray = [[NSMutableArray alloc] init];
+    
     NSString *ubicacionDB = [self getRutaBD];
     
     if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
-        NSLog(@"No se puede conectar con la BD get_AudioPath_item_reminder");
+        NSLog(@"No se puede conectar con la BD get_items_RecordPaths");
     }
     
     NSString *selecting = [NSString stringWithFormat:@"SELECT file_name FROM item_files WHERE id_item = %d AND file_type = 2", (int)id_item];
@@ -561,17 +574,18 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     sqlite3_stmt *sqlStatement;
     
     if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
-        NSLog(@"Problema al preparar el statement in get_AudioPath_item_reminder");
+        NSLog(@"Problema al preparar el statement in get_items_RecordPaths");
     }
     
     while(sqlite3_step(sqlStatement) == SQLITE_ROW){
         
         
-        audio_path = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 0)];
-        
+        record_path = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 0)];
+        [recordPathArray addObject:record_path];
         
     }
-    return audio_path;
+    return recordPathArray;
+    
 
 
 

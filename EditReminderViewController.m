@@ -310,7 +310,7 @@ NSDate * datecalendar;
     }
     
     if (self.should_send_audio == YES){
-        [dao edit_item_recordings:ReminderToEdit.reminderID file_Name:audioPath];
+        [dao edit_item_recordings:ReminderToEdit.cat_id id_item:ReminderToEdit.reminderID file_Name:audioPath];
         [dao UpdateSHOULDSendinFILESbyType:ReminderToEdit.reminderID file_type:2 should_send:1 comeFroMSync:NO];
         
     }else{

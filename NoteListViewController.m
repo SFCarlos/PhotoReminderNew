@@ -119,7 +119,7 @@
     //foto only one
     NSMutableArray * photoPathsCopy =[dao get_items_PhotoPaths:itemNote.reminderID];
     // audio only one
-    NSString* audioPathTem =[dao get_AudioPath_item_reminder:itemNote.reminderID];
+    NSMutableArray* audioPathCopy =[dao get_items_RecordPaths:itemNote.reminderID];
     
   //NSLog(@"potoPath in notecell: %@",[photoPathsCopy firstObject]);
     if (photoPathsCopy.count==0 ){
@@ -134,7 +134,7 @@
     }
     
     cell.shoopingItemDescrip.text= itemNote.note;
-    if(audioPathTem == nil || [audioPathTem isEqualToString:@"(null)"]){
+    if(audioPathCopy.count == 0){
         cell.hasRecorButton.hidden = YES;
     
     }else
@@ -259,12 +259,12 @@
 - (void) tableView: (UITableView *) tableView didSelectRowAtIndexPath: (NSIndexPath *) indexPath {
     
    NoteToEdit = [NoteArray objectAtIndex:indexPath.row];
-   NSString* audioPathTem =[dao get_AudioPath_item_reminder:NoteToEdit.reminderID];
+    NSMutableArray* audioPathArray =[dao get_items_RecordPaths: NoteToEdit.reminderID];
     
     indextoEdit = indexPath;
     indextoDelete=indexPath;
-    if(audioPathTem == nil || [audioPathTem isEqualToString:@"(null)"]){
-        //do nothing cause does not have record atached
+    if(audioPathArray.count == 0){
+        //do not play cause does not have record atached
         
         UIActionSheet* OptionSheed =[[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit",@"Delete" ,nil];
         OptionSheed.tag = 1;
@@ -272,7 +272,7 @@
    
     }else
     {
-        urltoPlay = audioPathTem;
+        urltoPlay = (NSString*)[audioPathArray firstObject];
         UIActionSheet* PlaySheed =[[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play",@"Edit",@"Delete" ,nil];
         PlaySheed.tag=2;
         [PlaySheed showInView:[UIApplication sharedApplication].keyWindow];}

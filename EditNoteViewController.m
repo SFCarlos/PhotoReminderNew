@@ -20,10 +20,12 @@
 
 @implementation EditNoteViewController
 {
-    NSString * audioPath;
+    
     UIImage* imagenSelected;
     NSString* texto;
     NSMutableArray* imagenArray;
+    NSMutableArray * audioArray;
+    NSString* audioPath;
     
 }
 
@@ -73,8 +75,9 @@
     dao = [[DatabaseHelper alloc] init];
     //..acces the item
     ReminderObject * item = [dao getItemwhitServerID:idNoteToedit usingServerId:NO];
-     imagenArray = [dao get_items_PhotoPaths:idNoteToedit];
-    audioPath = [dao get_AudioPath_item_reminder:idNoteToedit];
+    
+    imagenArray = [dao get_items_PhotoPaths:idNoteToedit];
+    audioArray = [dao get_items_RecordPaths:idNoteToedit];
     texto=item.note;
     self.NotetextArea.text = texto;
    
@@ -85,6 +88,9 @@
     imagenSelected = [UIImage imageWithImage:[UIImage imageWithContentsOfFile:(NSString*)[imagenArray firstObject]]scaledToSize:CGSizeMake(100.0,100.0)];
     self.ImageViewSelected.image = imagenSelected;
     }
+    
+    
+    
     //record voice stuff
     self.voiceHud = [[POVoiceHUD alloc] initWithParentView:self.view];
     self.voiceHud.title = @"Speak Now";
@@ -131,6 +137,9 @@
         [dao updateSTATUSandSHOULDSENDInTable:(int)idNoteToedit clientStatus:0 should_send:1 tableName:@"items"];
         
     }
+    //be shure tht not send files a no ser que should_send = YES
+    [dao UpdateSHOULDSendinFILESbyType:itemnote.reminderID file_type:1 should_send:0 comeFroMSync:NO];
+    [dao UpdateSHOULDSendinFILESbyType:itemnote.reminderID file_type:2 should_send:0 comeFroMSync:NO];
    // NSLog(@"ShouldSndphotoFlag %d",should_send_photo);
     
         
@@ -143,8 +152,8 @@
     }
     
     if (self.should_send_audio == YES){
-    [dao edit_item_recordings:idNoteToedit file_Name:audioPath];
-    [dao UpdateSHOULDSendinFILESbyType:idNoteToedit file_type:2 should_send:1 comeFroMSync:NO];
+        [dao edit_item_recordings:itemnote.cat_id id_item:idNoteToedit file_Name:audioPath];
+        [dao UpdateSHOULDSendinFILESbyType:idNoteToedit file_type:2 should_send:1 comeFroMSync:NO];
         
     }else{
         [dao UpdateSHOULDSendinFILESbyType:idNoteToedit file_type:2 should_send:0 comeFroMSync:NO];
@@ -210,7 +219,7 @@
     
     
     
-    if (audioPath || ![audioPath isEqualToString:@"(null)"]) {
+    if (audioArray.count != 0) {
         UIActionSheet* audioPopup =[[UIActionSheet alloc]initWithTitle:@"Voice note" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play",@"Record" ,nil];
         
         audioPopup.tag = 1;
@@ -241,6 +250,7 @@
 
 - (void)voiceRecordCancelledByUser:(POVoiceHUD *)voiceHUD {
     [[[[iToast makeText:NSLocalizedString(@"Record canceled", @"")]setGravity:iToastGravityBottom]setDuration:iToastDurationNormal]show];
+    self.should_send_audio= NO;
     NSLog(@"Voice recording cancelled for HUD: %@", voiceHUD);
 }
 #pragma mark - Image Picker Controller delegate methods
