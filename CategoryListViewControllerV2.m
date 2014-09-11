@@ -38,6 +38,7 @@
     UIBarButtonItem* SyncLogo;
     UIBarButtonItem * addCategory;
     CMPopTipView *navBarLeftButtonPopTipView;
+    CMPopTipView *navBarRigthButtonPopTipView;
     NSInteger* id_cat_addservice;
     NSInteger* id_cat_deleteservice;
     NSInteger* id_cat_editservice;
@@ -93,6 +94,8 @@
 
 - (void)viewDidLoad
 {
+    
+    
     self.service = [[iOSServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
    
     
@@ -141,6 +144,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    //tool tips
+    // Present a CMPopTipView pointing at a refresh button on nav bar
+   
+
+    navBarRigthButtonPopTipView = [[CMPopTipView alloc] initWithMessage:@"Press here!"] ;
+    navBarRigthButtonPopTipView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.78f];navBarRigthButtonPopTipView.textColor = [UIColor lightGrayColor];
+    navBarRigthButtonPopTipView.hasShadow = YES;
+    navBarRigthButtonPopTipView.has3DStyle = NO;
+    navBarRigthButtonPopTipView.borderWidth = 0;
+    
    
 
 }
@@ -171,15 +184,25 @@
     
     filesArrayFULL= [dao getFilesListwhitDeletedRowsIncluded:-1 whitDeletedRowsIncluded:YES];
     
-    for ( ReminderObject * tt in filesArrayFULL) {
-       // NSLog(@" ListCAtWillApear shoudsendfile %d ",tt.should_send_file);
-    }
-
    
+
     [self.tableView reloadData];
     
+    
     [super viewWillAppear:animated];
-
+    navBarLeftButtonPopTipView = [[CMPopTipView alloc] initWithMessage:@"Add new Categories to start!"] ;
+    navBarLeftButtonPopTipView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.78f];navBarLeftButtonPopTipView.textColor = [UIColor lightGrayColor];
+    navBarLeftButtonPopTipView.hasShadow = YES;
+    navBarLeftButtonPopTipView.has3DStyle = NO;
+    navBarLeftButtonPopTipView.borderWidth = 0;
+    
+    if (categoryArray.count==0) {
+        [navBarLeftButtonPopTipView presentPointingAtBarButtonItem:self.navigationItem.leftBarButtonItem animated:YES];
+    
+    [self performSelector:@selector(test:) withObject:navBarLeftButtonPopTipView afterDelay:5];
+    }
+    
+    
 }
 #pragma mark - wsdl delegate
 -(void)proxydidFinishLoadingData:(id)data InMethod:(NSString *)method{
@@ -322,7 +345,15 @@
                     }
                     }else{
                         id_item_client=[dao edit_item:iteminmydb.reminderID item_Name:retItemShared.itemName alarm:dateA note:retItemShared.itemNote repeat:retItemShared.itemRepeat itemclientStatus:retItemShared.itemStatus];
+                    
+                    //delete ligic from shared items
+                    if (retItemShared.itemStatus == 1) {
+                        [dao deleteItem:iteminmydb.reminderID permanently:YES];
                     }
+
+                    }
+                    
+                                        
                 }
                 
 ///// files in the share category and item
@@ -370,7 +401,7 @@
             
             
             }
-            //esto no se ejecuta porke siempre mando el item asi que ninca ItemsReturnes == 0 
+            //esto no se ejecuta porke siempre mando el item asi que ninca ItemsReturnes == 0
             if(filesReturned.count != 0 && itemsReturned.count == 0){ //the items array is empty so only files are send this time in shares
                 for (GetFileObj * retFile in filesReturned){
                     
@@ -583,7 +614,7 @@
                        
                        [dao updateSTATUSandSHOULDSENDInTable:(int)itemMio.reminderID clientStatus:0 should_send:0 tableName:@"items"];
                        //shoud_send = 0 mean NO SEND cause was just SYNC rigt now
-                       //delete when recive response
+                       //delete in my db when recive response
                        if (itemMio.item_statuss == 1){
                            [dao deleteItem:itemMio.reminderID permanently:YES];
                            
@@ -650,21 +681,10 @@
        // NSLog(@"%d,%d,%@",result.globalReturn,result.serverCategoryID,result.categoryName);
         //tool tips
         if (result.globalReturn==0) {
-            //tool tips
-            // Present a CMPopTipView pointing at a UIBarButtonItem in the nav bar
-            navBarLeftButtonPopTipView = [[CMPopTipView alloc] initWithMessage:@"Press here now!"] ;
             
-            navBarLeftButtonPopTipView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.78f];
-            navBarLeftButtonPopTipView.textColor = [UIColor lightGrayColor];
+            [navBarRigthButtonPopTipView presentPointingAtBarButtonItem:self.navigationItem.rightBarButtonItem animated:YES];
             
-            navBarLeftButtonPopTipView.hasShadow = YES;
-            navBarLeftButtonPopTipView.has3DStyle = NO;
-            navBarLeftButtonPopTipView.borderWidth = 0;
-            
-            
-            [navBarLeftButtonPopTipView presentPointingAtBarButtonItem:self.navigationItem.rightBarButtonItem animated:YES];
-            
-            [self performSelector:@selector(test:) withObject:navBarLeftButtonPopTipView afterDelay:5];
+            [self performSelector:@selector(test:) withObject:navBarRigthButtonPopTipView afterDelay:5];
 
         }
         
@@ -824,6 +844,7 @@
     }
 }
 -(void)settingAction:(id)sender{
+    [navBarLeftButtonPopTipView dismissAnimated:YES];
     [self performSegueWithIdentifier:@"settingsSegue" sender:sender];
 }
 
@@ -1130,7 +1151,7 @@
 -(void)SyncAll:(id)sender{
     SyncLogo.enabled = NO;
         filesArrayFULL = [dao getFilesListwhitDeletedRowsIncluded:-1 whitDeletedRowsIncluded:YES];
-    [navBarLeftButtonPopTipView dismissAnimated:YES];
+    [navBarRigthButtonPopTipView dismissAnimated:YES];
     ///////////antes de llamar a syncall check if smt new/////
     GetQueryArray * inputchekUpdates = [[GetQueryArray alloc]init];
    
@@ -1147,7 +1168,7 @@
         Send.serverFileID = (int)filestem.server_file_id;
         Send.serverItemID= (int)filestem.id_server_item;
         [parameterFilesArray addObject:Send];
-    NSLog(@"checkUpdatecall--filesArray fileTimestamp %d, server_file_id %d,Id_server_item %d",Send.fileTimestamp,Send.serverFileID,Send.serverItemID);
+    //NSLog(@"checkUpdatecall--filesArray fileTimestamp %d, server_file_id %d,Id_server_item %d",Send.fileTimestamp,Send.serverFileID,Send.serverItemID);
     }
     inputchekUpdates.filesArray = parameterFilesArray;
     
