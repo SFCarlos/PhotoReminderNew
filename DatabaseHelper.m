@@ -1353,7 +1353,7 @@ if (whitDeletedRowsIncluded) {
             
         } else {
             if(sqlite3_step(sqlStatement) == SQLITE_DONE){
-                NSLog(@"UpdateFileTIMESTAMP %@",sqlUp);
+                //NSLog(@"UpdateFileTIMESTAMP %@",sqlUp);
                 sqlite3_finalize(sqlStatement);
                 
                 //sqlite3_close(bd);

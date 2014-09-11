@@ -326,16 +326,20 @@
                 }
                 
 ///// files in the share category and item
+                
                 for (GetFileObj * retFile in filesReturned){
+                    if(retItemShared.serverItemID == retFile.serverItemID){
+                        
                     
+                        
                     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
                     NSString *documentsDirectory = [paths objectAtIndex:0];
                     NSDate *now = [NSDate dateWithTimeIntervalSinceNow:0];
                     NSString *caldate = [now description];
                     
                     if (retFile.fileType == 1) {//imagen
-                        NSString * dataPathImage  = [NSString stringWithFormat:@"%@/%@-%d",documentsDirectory,caldate,(int)id_item_client];
-                        ;
+                        NSString * dataPathImage  = [NSString stringWithFormat:@"%@/%@---%d",documentsDirectory,caldate, arc4random_uniform(100)];
+                        
                         NSInteger* id_file_client= [dao edit_item_images:sharedCategory.cat_id id_item:id_item_client file_Name:dataPathImage];
                         [dao UpdateFileTIMESTAMP:id_file_client file_timestamp:retFile.fileTimestamp];
                         [dao UpdateSERVERIDinTable:id_file_client id_server:retFile.serverFileID tableName:@"item_files"];
@@ -357,13 +361,17 @@
                         
                     }
 
+                        
                     
                 }
             
+                }
             }
             
             
-            }if(filesReturned.count != 0 && itemsReturned.count == 0){ //the items array is empty so only files are send this time in shares
+            }
+            //esto no se ejecuta porke siempre mando el item asi que ninca ItemsReturnes == 0
+            if(filesReturned.count != 0 && itemsReturned.count == 0){ //the items array is empty so only files are send this time in shares
                 for (GetFileObj * retFile in filesReturned){
                     
                     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -373,11 +381,11 @@
                     
                     ///find the item in my db
                     ReminderObject * itemShared= [dao getItemwhitServerID:retFile.serverItemID usingServerId:YES];
-                    NSLog(@"itemShared.itemid = %d and itemShared.cateID = %d itemSaredserverId = %d",itemShared.reminderID,itemShared.cat_id,itemShared.id_server_item);
+                    //NSLog(@"itemShared.itemid = %d and itemShared.cateID = %d itemSaredserverId = %d",itemShared.reminderID,itemShared.cat_id,itemShared.id_server_item);
                     
                     if (retFile.fileType == 1) {//imagen
-                        NSString * dataPathImage  = [NSString stringWithFormat:@"%@/%@-%d",documentsDirectory,caldate,(int)itemShared.reminderID];
-                        ;
+                        NSString * dataPathImage  = [NSString stringWithFormat:@"%@/%@--!%d",documentsDirectory,caldate, arc4random_uniform(100)];
+                        
                        
                         NSInteger* id_file_client= [dao edit_item_images:itemShared.cat_id id_item:itemShared.reminderID file_Name:dataPathImage];
                         [dao UpdateFileTIMESTAMP:id_file_client file_timestamp:retFile.fileTimestamp];

@@ -136,7 +136,7 @@
         [dao UpdateSHOULDSendinFILESbyType:ShoppingItem.reminderID file_type:1 should_send:0 comeFroMSync:NO];
     }
 
-    NSLog(@"self.should_send_photo = %d",self.should_send_photo);
+   // NSLog(@"self.should_send_photo = %d",self.should_send_photo);
     if (self.should_send_photo == YES ) {
         [dao edit_item_images:ShoppingItem.cat_id id_item:ShoppingItem.reminderID file_Name:ImagenPath];
         [dao UpdateSHOULDSendinFILESbyType:ShoppingItem.reminderID file_type:1 should_send:1 comeFroMSync:NO];
