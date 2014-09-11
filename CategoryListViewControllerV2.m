@@ -370,7 +370,7 @@
             
             
             }
-            //esto no se ejecuta porke siempre mando el item asi que ninca ItemsReturnes == 0
+            //esto no se ejecuta porke siempre mando el item asi que ninca ItemsReturnes == 0 
             if(filesReturned.count != 0 && itemsReturned.count == 0){ //the items array is empty so only files are send this time in shares
                 for (GetFileObj * retFile in filesReturned){
                     
