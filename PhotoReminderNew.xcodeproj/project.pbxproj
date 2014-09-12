@@ -50,6 +50,8 @@
 		CE83C7601965738A0060B280 /* EditShoopingItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C75F1965738A0060B280 /* EditShoopingItemViewController.m */; };
 		CE83C763196585D80060B280 /* AddNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C762196585D80060B280 /* AddNoteViewController.m */; };
 		CE83C7661966CAB20060B280 /* EditNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C7651966CAB20060B280 /* EditNoteViewController.m */; };
+		CE9E196C19C2F9AD0000303A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9E196B19C2F9AD0000303A /* SystemConfiguration.framework */; };
+		CE9E196F19C2FAE50000303A /* Globals.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9E196E19C2FAE50000303A /* Globals.m */; };
 		CEA315FF19B475C500C7210D /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = CEA315FE19B475C500C7210D /* default.css */; };
 		CEA3160119B4A68100C7210D /* PixateFreestyle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA3160019B4A68100C7210D /* PixateFreestyle.framework */; };
 		CEA3160419B9B51100C7210D /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA3160319B9B51100C7210D /* CMPopTipView.m */; };
@@ -239,6 +241,9 @@
 		CE83C762196585D80060B280 /* AddNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddNoteViewController.m; sourceTree = "<group>"; };
 		CE83C7641966CAB20060B280 /* EditNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditNoteViewController.h; sourceTree = "<group>"; };
 		CE83C7651966CAB20060B280 /* EditNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditNoteViewController.m; sourceTree = "<group>"; };
+		CE9E196B19C2F9AD0000303A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CE9E196D19C2FAE50000303A /* Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globals.h; sourceTree = "<group>"; };
+		CE9E196E19C2FAE50000303A /* Globals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Globals.m; sourceTree = "<group>"; };
 		CEA315FC19B472E000C7210D /* PixateFreestyle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PixateFreestyle.framework; path = ../../PixateFreestyle.framework; sourceTree = "<group>"; };
 		CEA315FE19B475C500C7210D /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.css; };
 		CEA3160019B4A68100C7210D /* PixateFreestyle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PixateFreestyle.framework; sourceTree = "<group>"; };
@@ -417,6 +422,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE9E196C19C2F9AD0000303A /* SystemConfiguration.framework in Frameworks */,
 				CEA3160119B4A68100C7210D /* PixateFreestyle.framework in Frameworks */,
 				CED3DA0E191D0CA300624E6F /* libsqlite3.0.dylib in Frameworks */,
 				CED3DA0C191D0C9700624E6F /* AVFoundation.framework in Frameworks */,
@@ -595,6 +601,8 @@
 		CED3D901191D06C400624E6F = {
 			isa = PBXGroup;
 			children = (
+				CE9E196D19C2FAE50000303A /* Globals.h */,
+				CE9E196E19C2FAE50000303A /* Globals.m */,
 				CEA315FE19B475C500C7210D /* default.css */,
 				CE83C745196163A00060B280 /* UIImage+ScalingMyImage.h */,
 				CE83C746196163A00060B280 /* UIImage+ScalingMyImage.m */,
@@ -625,6 +633,7 @@
 		CED3D90C191D06C400624E6F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE9E196B19C2F9AD0000303A /* SystemConfiguration.framework */,
 				CEA3160019B4A68100C7210D /* PixateFreestyle.framework */,
 				CEA315FC19B472E000C7210D /* PixateFreestyle.framework */,
 				CE29C52D192F82D7007022CB /* libxml2.2.dylib */,
@@ -1094,6 +1103,7 @@
 				CED3DA1E191D0D0800624E6F /* CategoryListViewController.m in Sources */,
 				CED3D91E191D06C400624E6F /* AppDelegate.m in Sources */,
 				CED3DA04191D0C3800624E6F /* ReminderObject.m in Sources */,
+				CE9E196F19C2FAE50000303A /* Globals.m in Sources */,
 				CED3D9C6191D0A7300624E6F /* PMCalendarBackgroundView.m in Sources */,
 				CEEFBE3F19AE092300915A79 /* iOSService.m in Sources */,
 				CEEFBE7519AE093A00915A79 /* RetAllArray.m in Sources */,

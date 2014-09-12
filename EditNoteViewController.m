@@ -217,7 +217,7 @@
 - (IBAction)recordAction:(id)sender {
     //present option 'Record' and "play" if there one to play
     
-    
+    [self.view endEditing:YES];
     
     if (audioArray.count != 0) {
         UIActionSheet* audioPopup =[[UIActionSheet alloc]initWithTitle:@"Voice note" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play",@"Record" ,nil];

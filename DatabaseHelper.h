@@ -22,7 +22,7 @@
 -(NSInteger*)insert_item_images: (NSInteger *)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
 -(NSInteger*)insert_item_recordings: (NSInteger *)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
 -(NSInteger*)edit_item_images:(NSInteger*)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
--(BOOL)edit_item_recordings:(NSInteger*)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
+-(NSInteger*)edit_item_recordings:(NSInteger*)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
 
 -(NSMutableArray*)getFiles:(NSInteger*) id_item;
 -(ReminderObject*)getItemwhitServerID:(NSInteger*) id_item usingServerId:(BOOL)usingServerId;

@@ -278,13 +278,17 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     NSInteger *id_item = -1;
     NSString *ubicacionDB = [self getRutaBD];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
+    //Timezone!
+    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Rome"]];
+    
     NSString *dateString=[dateFormat stringFromDate:alarm];
+    
+    NSLog(@"dateINSERTString %@",dateString);
   //see if the iten is on my db
     
     
-    
-    if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
+         if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
         NSLog(@"No se puede conectar con la BD");
         return id_item;
         
@@ -316,8 +320,13 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     NSInteger* iditem = 0;
     NSString *ubicacionDB = [self getRutaBD];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
+    //Timezone!
+    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Rome"]];
+
     NSString *dateString=[dateFormat stringFromDate:alarm];
+    
+    NSLog(@"finalDAteTo insert %@",dateString);
     if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
         NSLog(@"No se puede conectar con la BD");
        
@@ -413,7 +422,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     
     
 }
--(BOOL)edit_item_recordings:(NSInteger*)id_cat id_item:(NSInteger *)id_item file_Name:(NSString *)file_Name{
+-(NSInteger*)edit_item_recordings:(NSInteger*)id_cat id_item:(NSInteger *)id_item file_Name:(NSString *)file_Name{
     BOOL flag = YES;
     NSString *ubicacionDB = [self getRutaBD];
     NSInteger * id_file_client = 0;
@@ -657,7 +666,8 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         rema.reminderID= sqlite3_column_int(sqlStatement, 0);
         rema.reminderName = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 1)];
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
+        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Rome"]];
         rema.alarm =[dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(sqlStatement, 2)]];
         
         
@@ -827,7 +837,8 @@ if (whitDeletedRowsIncluded) {
         rema.reminderID= sqlite3_column_int(sqlStatement, 0);
         rema.reminderName = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 1)];
          NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-         [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+         [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
+        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Rome"]];
          rema.alarm =[dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(sqlStatement, 2)]];
         
         
@@ -879,7 +890,7 @@ if (whitDeletedRowsIncluded) {
     NSInteger *idrem = 0;
     NSString *ubicacionDB = [self getRutaBD];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
     NSString *dateString=[dateFormat stringFromDate:Alarm];
     NSLog(@"Date in alarmobjet %@",dateString);
     //double valueToWriteDAte = [Alarm timeIntervalSince1970];
@@ -935,7 +946,7 @@ if (whitDeletedRowsIncluded) {
         rema.reminderID= sqlite3_column_int(sqlStatement, 0);
         rema.reminderName = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 1)];
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
         rema.alarm =[dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(sqlStatement, 2)]];
         
         

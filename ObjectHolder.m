@@ -27,6 +27,7 @@ static ObjectHolder *_instance;
 -(UIDatePicker *)datePicker{
     if (!_datePicker) {
         _datePicker = [[UIDatePicker alloc]init];
+        
     }
     return _datePicker;
 }

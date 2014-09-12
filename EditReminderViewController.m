@@ -288,8 +288,8 @@ NSDate * datecalendar;
     //if eventName is Empty show "Reminder"
     if([eventName isEqualToString:@""])
         eventName = @"Reminder";
+    if([alarmdate compare:[NSDate date]] == NSOrderedDescending){
    
-    
     [dao edit_item:ReminderToEdit.reminderID item_Name:eventName alarm:alarmdate note:note repeat:recurring itemclientStatus:0];
     
     //mark for future sync
@@ -348,6 +348,9 @@ NSDate * datecalendar;
     
     [self performSegueWithIdentifier:@"homee" sender:sender];
     //[self.navigationController popToRootViewControllerAnimated:YES];
+}else{
+    [[[[iToast makeText:NSLocalizedString(@"Past date, Please select other date!", @"")]setGravity:iToastGravityTop]setDuration:iToastDurationNormal]show];
+}
 }
 -(NSString*) returnRecurringSelect{
     NSInteger index = [selectRepeat selectedSegmentIndex];

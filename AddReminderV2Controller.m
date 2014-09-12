@@ -74,14 +74,15 @@
 //check 24 or 12 and display datepicker corectly
     int * flag =[self retrieve24_12FromUserDefaults];
     NSLocale * locale;
-    NSLog(@"Este es el flag 24 12 %d",flag);
-    if(flag == 1){
+   // NSLog(@"Este es el flag 24 12 %d",flag);
+    if((int)flag == 1){
         locale=[[NSLocale alloc]initWithLocaleIdentifier:@"en_GB"];
     }else{
         locale=[[NSLocale alloc]initWithLocaleIdentifier:@"en_US_POSIX"];
     }
     
     [datePicker setLocale:locale];
+    
     [DatePickerContainer addSubview:datePicker];
 
     
@@ -169,13 +170,13 @@
    
 }
 - (void)keyboardDidShow: (NSNotification *) notif{
-    NSLog(@"Aparecio teclado");
+   // NSLog(@"Aparecio teclado");
     self.EventNametextField.autocompleteDisabled=NO;
     self.EventNametextField.showAutocompleteButton=YES;
 }
 
 - (void)keyboardDidHide: (NSNotification *) notif{
-     NSLog(@"Aparecio teclado");
+   //  NSLog(@"Aparecio teclado");
     self.EventNametextField.showAutocompleteButton=NO;
 }
 -(void)viewDidAppear:(BOOL)animated{
@@ -232,14 +233,16 @@
 
 //new implementation insert in items
 -(void)saveReminderAction:(id)sender{
-    NSLog(@"entro save");
+   // NSLog(@"entro save");
     
     //elementos to store
     NSInteger * idcat = [self retrieveFromUserDefaults];
     NSString * eventName = self.EventNametextField.text;
-    NSDate * alarmdate = [datePicker date];
-    NSString * ImagenPath = [self saveImageGetPath:imagenSelected];
     
+    NSDate * alarmdate = [datePicker date];
+    
+    NSString * ImagenPath = [self saveImageGetPath:imagenSelected];
+ 
     NSString * note =textNote;
     NSString* recurring = [self returnRecurringSelect];
     //if eventName is Empty show "Reminder"
@@ -248,13 +251,15 @@
     if (note == nil ||[note isEqualToString:@""]||[note isEqualToString:@"(null)"])
         note = @"Reminder";
     
-    //insert in reminder
+    //insert in reminder if date is good
+    
+    if([alarmdate compare:[NSDate date]] == NSOrderedDescending){
     NSInteger *id_item = [dao insert_item:idcat item_Name:eventName alarm:alarmdate note:note repeat:recurring itemclientStatus:0 should_send_item:1];
     if (ImagenPath == nil ||[ImagenPath isEqualToString:@""]||[ImagenPath isEqualToString:@"(null)"]){
         //es null no inserto nada
         
     }else{
-        [dao insert_item_images:idcat id_item:id_item file_Name:ImagenPath];
+        [dao edit_item_images:idcat id_item:id_item file_Name:ImagenPath];
         [dao UpdateSHOULDSendinFILESbyType:id_item file_type:1 should_send:1 comeFroMSync:NO];
     }
     
@@ -263,7 +268,7 @@
         
     }else{
         //insert audio
-        [dao insert_item_recordings:idcat id_item:id_item file_Name:audioPath];
+        [dao edit_item_recordings:idcat id_item:id_item file_Name:audioPath];
         [dao UpdateSHOULDSendinFILESbyType:id_item file_type:2 should_send:1 comeFroMSync:NO];
         
         
@@ -284,6 +289,11 @@
     
     [self performSegueWithIdentifier:@"home" sender:sender];
     //[self.navigationController popToRootViewControllerAnimated:YES];
+    
+    }else{
+    [[[[iToast makeText:NSLocalizedString(@"Past date, Please select other date!", @"")]setGravity:iToastGravityTop]setDuration:iToastDurationNormal]show];
+    
+    }
 }
 
 -(NSString*) returnRecurringSelect{

@@ -7,7 +7,7 @@
 //
 
 #import "CategoryListViewControllerV2.h"
-
+#import "Globals.h"
 #import "RemindersListViewController.h"
 #import "EditCategoryViewController.h"
 #import "CategoryCustomCell.h"
@@ -37,7 +37,7 @@
     UIBarButtonItem *setting ;
     UIBarButtonItem* SyncLogo;
     UIBarButtonItem * addCategory;
-    CMPopTipView *navBarLeftButtonPopTipView;
+    
     CMPopTipView *navBarRigthButtonPopTipView;
     NSInteger* id_cat_addservice;
     NSInteger* id_cat_deleteservice;
@@ -190,17 +190,6 @@
     
     
     [super viewWillAppear:animated];
-    navBarLeftButtonPopTipView = [[CMPopTipView alloc] initWithMessage:@"Add new Categories to start!"] ;
-    navBarLeftButtonPopTipView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.78f];navBarLeftButtonPopTipView.textColor = [UIColor lightGrayColor];
-    navBarLeftButtonPopTipView.hasShadow = YES;
-    navBarLeftButtonPopTipView.has3DStyle = NO;
-    navBarLeftButtonPopTipView.borderWidth = 0;
-    
-    if (categoryArray.count==0) {
-        [navBarLeftButtonPopTipView presentPointingAtBarButtonItem:self.navigationItem.leftBarButtonItem animated:YES];
-    
-    [self performSelector:@selector(test:) withObject:navBarLeftButtonPopTipView afterDelay:5];
-    }
     
     
 }
@@ -236,7 +225,7 @@
                     if (retCat.serverCategoryID == retItem.serverCategoryID ) {
                         // Convert string to date object
                         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-                        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
                         NSDate *dateA = [dateFormat dateFromString:retItem.itemAlarm];
                        
                        id_item_client = [dao insert_item:id_cat_client item_Name:retItem.itemName alarm:dateA note:retItem.itemNote repeat:retItem.itemRepeat itemclientStatus:0 should_send_item:0];
@@ -260,7 +249,7 @@
                     for (GetFileObj * retFile in filesReturned) {
                        
                         if (retItem.serverItemID == retFile.serverItemID) {
-                            NSLog(@"checkUpdates return-legth %d , serveritemID %d , ",retFile.fileData.length,retFile.serverItemID);
+                            //NSLog(@"checkUpdates return-legth %d , serveritemID %d , ",retFile.fileData.length,retFile.serverItemID);
                             
                             
                             NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
@@ -286,7 +275,7 @@
                                 
                                 NSString *pathForAudio = [NSString stringWithFormat:@"%@/Documents/%@-%d.caf", NSHomeDirectory(),caldate,retFile.serverFileID];
                                 
-                                NSInteger * id_file_client_audio=[dao insert_item_recordings:id_cat_client id_item:id_item_client file_Name:pathForAudio];
+                                NSInteger * id_file_client_audio=[dao edit_item_recordings:id_cat_client id_item:id_item_client file_Name:pathForAudio];
                                 [dao UpdateFileTIMESTAMP:id_file_client_audio file_timestamp:retFile.fileTimestamp];
                                 [dao UpdateSERVERIDinTable:id_file_client_audio id_server:retFile.serverFileID tableName:@"item_files"];
                                 
@@ -384,7 +373,7 @@
                         
                         NSString *pathForAudio = [NSString stringWithFormat:@"%@/Documents/%@-%d.caf", NSHomeDirectory(),caldate,retFile.serverFileID];
                         
-                        NSInteger * id_file_client_audio=[dao insert_item_recordings:sharedCategory.cat_id id_item:id_item_client file_Name:pathForAudio];
+                        NSInteger * id_file_client_audio=[dao edit_item_recordings:sharedCategory.cat_id id_item:id_item_client file_Name:pathForAudio];
                         [dao UpdateFileTIMESTAMP:id_file_client_audio file_timestamp:retFile.fileTimestamp];
                         [dao UpdateSERVERIDinTable:id_file_client_audio id_server:retFile.serverFileID tableName:@"item_files"];
                         
@@ -695,6 +684,7 @@
     
 }
 // CMPopTipViewDelegate method
+
 - (void)popTipViewWasDismissedByUser:(CMPopTipView *)popTipView {
     // Any cleanup code, such as releasing a CMPopTipView instance variable, if necessary
 }
@@ -704,8 +694,8 @@
     [x dismissAnimated:YES];
 }
 -(void)proxyRecievedError:(NSException *)ex InMethod:(NSString *)method{
-    NSLog(@"ERROR in %@ -- %@",method,ex.description);
-    UIAlertView *alert1 = [[UIAlertView alloc] initWithTitle: @"Something wrong happened in Sync"
+    NSLog(@"ERROR in %@ -- NSException.name=%@, NSException.reason=%@, callStackSymbols %d ",method,ex.name,ex.reason,[ex callStackSymbols].count);
+    UIAlertView *alert1 = [[UIAlertView alloc] initWithTitle: @"Sorry, no response, try later"
                                                     message:@""
                           
                                                    delegate:nil
@@ -846,7 +836,7 @@
     }
 }
 -(void)settingAction:(id)sender{
-    [navBarLeftButtonPopTipView dismissAnimated:YES];
+  
     [self performSegueWithIdentifier:@"settingsSegue" sender:sender];
 }
 
@@ -1151,6 +1141,11 @@
 }
 
 -(void)SyncAll:(id)sender{
+    
+    if ([Globals hasConnectivity]) {
+        
+    
+    
     SyncLogo.enabled = NO;
         filesArrayFULL = [dao getFilesListwhitDeletedRowsIncluded:-1 whitDeletedRowsIncluded:YES];
     [navBarRigthButtonPopTipView dismissAnimated:YES];
@@ -1183,6 +1178,14 @@
                                           cancelButtonTitle:nil
                                           otherButtonTitles:nil];
     [Syncalert show];
+        
+    }else{
+    UIAlertView * errorconectiondialog = [[UIAlertView alloc] initWithTitle:@"Please check your Internet connection!"
+                                           message:nil
+                                          delegate:nil
+                                 cancelButtonTitle:@"OK"
+                                 otherButtonTitles:nil];
+    [errorconectiondialog show];
+    }
 }
-
 @end

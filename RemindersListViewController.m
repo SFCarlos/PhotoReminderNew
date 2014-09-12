@@ -173,7 +173,7 @@ NSIndexPath * indextoEdit;
     
     cell.rightUtilityButtons = [self rightButtons];
     cell.delegate = self;
-   
+   //active
     if (segmentedContrlol.selectedSegmentIndex == 0 ){
          ReminderObject *remin;
         remin= [active objectAtIndex:[indexPath row]];
@@ -237,7 +237,9 @@ NSIndexPath * indextoEdit;
         return cell;
 
     
-    }else{
+    }
+    //completed
+    else{
         ReminderObject *remin;
         remin= [completed objectAtIndex:[indexPath row]];
         //make completed visible or not
@@ -249,12 +251,13 @@ NSIndexPath * indextoEdit;
         
         //Foto en la imagen
         NSMutableArray * photoPathsCopy =[dao get_items_PhotoPaths:remin.reminderID];
-        if ([(NSString*)[photoPathsCopy objectAtIndex:0]isEqualToString:@"(null)"] ){
+        if (photoPathsCopy.count==0){
             cell.image.image =[UIImage imageWithImage:[UIImage imageNamed:@"noimage.jpg"] scaledToSize:CGSizeMake(32.0,32.0)];
         }
         else{
             
-            cell.image.image = [UIImage imageWithImage:[UIImage imageWithContentsOfFile:(NSString*)[photoPathsCopy firstObject]]scaledToSize:CGSizeMake(32.0,32.0)];        }
+            cell.image.image = [UIImage imageWithImage:[UIImage imageWithContentsOfFile:(NSString*)[photoPathsCopy firstObject]]scaledToSize:CGSizeMake(32.0,32.0)];
+        }
 
         //Reminder name
         cell.ReminderNameLabel.text = remin.reminderName;

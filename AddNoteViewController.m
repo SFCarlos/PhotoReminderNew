@@ -171,16 +171,17 @@
     
     [self.view endEditing:YES];
     
-    if (audioPath) {
-        UIActionSheet* audioPopup =[[UIActionSheet alloc]initWithTitle:@"Voice note" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play",@"Record" ,nil];
-        
-        audioPopup.tag = 1;
-        [audioPopup showInView:[UIApplication sharedApplication].keyWindow];
-        
-    }else{
+    if (audioPath == nil ||[audioPath isEqualToString:@""]||[audioPath isEqualToString:@"(null)"]) {
         UIActionSheet* audioPopup =[[UIActionSheet alloc]initWithTitle:@"Voice note" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Record" ,nil];
         
         audioPopup.tag = 2;
+        [audioPopup showInView:[UIApplication sharedApplication].keyWindow];
+        
+    }else{
+        
+        UIActionSheet* audioPopup =[[UIActionSheet alloc]initWithTitle:@"Voice note" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Play",@"Record" ,nil];
+        
+        audioPopup.tag = 1;
         [audioPopup showInView:[UIApplication sharedApplication].keyWindow];
     }
     
