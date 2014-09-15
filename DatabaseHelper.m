@@ -284,7 +284,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     
     NSString *dateString=[dateFormat stringFromDate:alarm];
     
-    NSLog(@"dateINSERTString %@",dateString);
+   //NSLog(@"dateINSERTString %@",dateString);
   //see if the iten is on my db
     
     

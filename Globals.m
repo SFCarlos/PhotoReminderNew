@@ -7,11 +7,13 @@
 //
 
 #import "Globals.h"
+#import "LocalNotificationCore.h"
 #import <sys/socket.h>
 #import <netinet/in.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 
 @implementation Globals
+
 + (BOOL)hasConnectivity{
     struct sockaddr_in zeroAddress;
     bzero(&zeroAddress, sizeof(zeroAddress));
@@ -63,4 +65,49 @@
 
 
 }
++(void)cancelAllNotificationsWhitItemID:(NSInteger *)id_item{
+    //cancel the notification
+    NSString *idtem =[NSString stringWithFormat:@"%d",(int)id_item];
+    UIApplication*app =[UIApplication sharedApplication];
+    NSArray *eventArray = [app scheduledLocalNotifications];
+    for (int i=0; i<[eventArray count]; i++) {
+        UILocalNotification* oneEvent= [eventArray objectAtIndex:i];
+        NSDictionary *userInfoIDremin = oneEvent.userInfo;
+        NSString*uid=[NSString stringWithFormat:@"%@",[userInfoIDremin valueForKey:@"ID_NOT_PASS"]];
+        if ([uid isEqualToString:idtem]) {
+            [app cancelLocalNotification:oneEvent];
+            NSLog(@"CANCELADA LA NOTIFICACION %@",uid);
+            
+            
+        }
+    }
+
+
+
+
+}
++(BOOL)ScheduleSharedNotificationwhitItemId:(NSInteger *)id_item ItemName:(NSString *)Itemname andAlarm:(NSString *)dateFire andRecurring:(NSString *)recurr
+{
+    if (!([dateFire isEqualToString:@"0000-00-00 00:00"])) {
+        //shedule notification
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
+        NSDate *date3 = [dateFormat dateFromString:dateFire];
+        NSString *idtem =[NSString stringWithFormat:@"%d",(int)id_item];
+        NSDictionary * data = [NSDictionary dictionaryWithObjectsAndKeys:idtem,@"ID_NOT_PASS" ,recurr,@"RECURRING",  nil];
+        NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *sound = nil;
+        if (standardUserDefaults)
+            sound = [standardUserDefaults objectForKey:@"REMINDER_SOUND"];
+
+        
+        //Set notification for firt time to select fire date and repeatin 1 min
+        [[LocalNotificationCore sharedInstance]scheduleNotificationOn:date3 text:Itemname action:@"Show" sound: sound launchImage:@"null" andInfo:data];
+        return YES;
+        
+        
+    }
+    return NO;
+}
+
 @end

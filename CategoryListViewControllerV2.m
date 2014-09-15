@@ -232,18 +232,7 @@
                         [dao UpdateSERVERIDinTable:id_item_client id_server:retItem.serverItemID tableName:@"items"];
                         
                         //Reminder
-                        if (![retItem.itemAlarm isEqualToString:@"0000-00-00 00:00:00"]) {
-                            //shedule notification
-                            NSString *idtem = [NSString stringWithFormat:@"%d",(int)id_item_client];
-                            NSDictionary * data = [NSDictionary dictionaryWithObjectsAndKeys:idtem,@"ID_NOT_PASS" ,retItem.itemRepeat,@"RECURRING",  nil];
-                            
-                            NSString* UserSelectedSoundReminder = [self retrieveSoundReminderFromUserDefaults];
-                            //Set notification for firt time to select fire date and repeatin 1 min
-                            [[LocalNotificationCore sharedInstance]scheduleNotificationOn:dateA text:retItem.itemName action:@"Show" sound:UserSelectedSoundReminder launchImage:@"null" andInfo:data];
-                            
-                          
-                            
-                        }
+                        [Globals ScheduleSharedNotificationwhitItemId:id_item_client ItemName:retItem.itemName andAlarm:retItem.itemAlarm andRecurring:retItem.itemRepeat];
                     }
                     
                     for (GetFileObj * retFile in filesReturned) {
@@ -271,7 +260,8 @@
                                 // Save it into file system
                                 [retFile.fileData writeToFile:dataPathImage atomically:YES];
 
-                            }else if (retFile.fileType == 2){ //audio
+                            }
+                            else if (retFile.fileType == 2){ //audio
                                 
                                 NSString *pathForAudio = [NSString stringWithFormat:@"%@/Documents/%@-%d.caf", NSHomeDirectory(),caldate,retFile.serverFileID];
                                 
@@ -307,7 +297,7 @@
                 if (sharedCategory.cat_id_server == retItemShared.serverCategoryID ) {
                     // Convert string to date object
                     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-                    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
                     NSDate *dateA = [dateFormat dateFromString:retItemShared.itemAlarm];
                     
                     ReminderObject* iteminmydb = [dao getItemwhitServerID:retItemShared.serverItemID usingServerId:YES];
@@ -318,48 +308,23 @@
                         if (retItemShared.itemStatus != 1) {
                             id_item_client = [dao insert_item:sharedCategory.cat_id item_Name:retItemShared.itemName alarm:dateA note:retItemShared.itemNote repeat:retItemShared.itemRepeat itemclientStatus:0 should_send_item:0];
                             [dao UpdateSERVERIDinTable:id_item_client id_server:retItemShared.serverItemID tableName:@"items"];
+                            NSLog(@"%d",[Globals ScheduleSharedNotificationwhitItemId:id_item_client ItemName:retItemShared.itemName andAlarm:retItemShared.itemAlarm andRecurring:retItemShared.itemRepeat]);
                         }
                         
-                    //Reminder
-                    if (![retItemShared.itemAlarm isEqualToString:@"0000-00-00 00:00:00"]) {
-                        //shedule notification
-                        NSString *idtem =[NSString stringWithFormat:@"%d",(int)id_item_client];
-                        NSDictionary * data = [NSDictionary dictionaryWithObjectsAndKeys:idtem,@"ID_NOT_PASS" ,retItemShared.itemRepeat,@"RECURRING",  nil];
-                        
-                        NSString* UserSelectedSoundReminder = [self retrieveSoundReminderFromUserDefaults];
-                        //Set notification for firt time to select fire date and repeatin 1 min
-                        [[LocalNotificationCore sharedInstance]scheduleNotificationOn:dateA text:retItemShared.itemName action:@"Show" sound:UserSelectedSoundReminder launchImage:@"null" andInfo:data];
-                        
-                        
-                        
-                    }
+                    
                     }else{
                         id_item_client=[dao edit_item:iteminmydb.reminderID item_Name:retItemShared.itemName alarm:dateA note:retItemShared.itemNote repeat:retItemShared.itemRepeat itemclientStatus:retItemShared.itemStatus];
-                    
-                    
+                        [Globals cancelAllNotificationsWhitItemID:iteminmydb.reminderID];
+                         NSLog(@"cancelNot inedit %d",[Globals ScheduleSharedNotificationwhitItemId:id_item_client ItemName:retItemShared.itemName andAlarm:retItemShared.itemAlarm andRecurring:retItemShared.itemRepeat]);
+                        
                         //delete ligic from shared items
                         if (retItemShared.itemStatus == 1) {
                         [dao deleteItem:iteminmydb.reminderID permanently:YES];
                             //cancel notifications
-                            //cancel the notification
-                            NSString *idtem =[NSString stringWithFormat:@"%d",(int)id_item_client];
-                            UIApplication*app =[UIApplication sharedApplication];
-                            NSArray *eventArray = [app scheduledLocalNotifications];
-                            for (int i=0; i<[eventArray count]; i++) {
-                                UILocalNotification* oneEvent= [eventArray objectAtIndex:i];
-                                NSDictionary *userInfoIDremin = oneEvent.userInfo;
-                                NSString*uid=[NSString stringWithFormat:@"%@",[userInfoIDremin valueForKey:@"ID_NOT_PASS"]];
-                                if ([uid isEqualToString:idtem]) {
-                                    [app cancelLocalNotification:oneEvent];
-                                    NSLog(@"CANCELADA LA NOTIFICACION en SharedReminder%@",uid);
-                                    
-                                    
-                                }
-                            }
-
+                            [Globals cancelAllNotificationsWhitItemID:iteminmydb.reminderID];
                             
                         }
-
+                        
                     }
                     
                                         
@@ -387,7 +352,8 @@
                                                 // Save it into file system
                         [retFile.fileData writeToFile:dataPathImage atomically:YES];
                         
-                    }else if (retFile.fileType == 2){ //audio
+                    }
+                    else if (retFile.fileType == 2){ //audio
                         
                         NSString *pathForAudio = [NSString stringWithFormat:@"%@/Documents/%@-%d.caf", NSHomeDirectory(),caldate,retFile.serverFileID];
                         

@@ -40,8 +40,9 @@ static LocalNotificationCore *_instance;
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     
     
-    
-    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
+    //NSLog(@"scheduleNotificationOn: %@", [dateFormat stringFromDate:fireDate]);
     localNotification.fireDate = fireDate;
     localNotification.timeZone = [NSTimeZone defaultTimeZone];
     

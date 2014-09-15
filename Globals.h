@@ -11,5 +11,8 @@
 @interface Globals : NSObject{}
 
 +(BOOL)hasConnectivity;
++(void )cancelAllNotificationsWhitItemID:(NSInteger*)id_item;
++(BOOL)ScheduleSharedNotificationwhitItemId:(NSInteger*)id_item ItemName:(NSString*)Itemname andAlarm:(NSString*)dateFire andRecurring:(NSString*)recurr;
+
 
 @end

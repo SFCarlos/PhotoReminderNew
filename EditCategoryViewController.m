@@ -355,7 +355,7 @@ UIColor* colorcito_selected;
     }else if (alertView.tag==908){ // delete alert
         if (buttonIndex==1) {
             if([dao deleteCategory:IdCategoryToEdit permanently:NO]){;
-                //cancel notification
+                //cancel All notification
                 NSMutableArray * items = [dao getItemListwhitDeletedRowsIncluded:IdCategoryToEdit itemType:-1 whitDeletedRowsIncluded:YES];
                 UIApplication*app =[UIApplication sharedApplication];
                 NSArray *eventArray = [app scheduledLocalNotifications];
