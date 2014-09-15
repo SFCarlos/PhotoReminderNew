@@ -660,13 +660,13 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
         NSLog(@"Problema al preparar el statement en getItem");
     }
-    
+     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
     while(sqlite3_step(sqlStatement) == SQLITE_ROW){
         
         rema.reminderID= sqlite3_column_int(sqlStatement, 0);
         rema.reminderName = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 1)];
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
+       
         //[dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Rome"]];
         rema.alarm =[dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(sqlStatement, 2)]];
         

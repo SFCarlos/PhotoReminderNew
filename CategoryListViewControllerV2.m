@@ -490,7 +490,8 @@
             
         }
         // NSLog(@"cantidad de Categories a enviar %d", parameterCategoryArray.count);
-        
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
         for (ReminderObject * itemtem in itemsArrayFULL){
             if((int)itemtem.should_send_item == 1){
               
@@ -500,7 +501,9 @@
                 ItemToAddinArraySend.clientItemID = (int)itemtem.reminderID;
                 ItemToAddinArraySend.serverItemID = (int)itemtem.id_server_item;
                 ItemToAddinArraySend.itemName = itemtem.reminderName;
-                ItemToAddinArraySend.itemAlarm = itemtem.alarm.description;
+                
+                ItemToAddinArraySend.itemAlarm = [dateFormat stringFromDate:itemtem.alarm];
+                
                 ItemToAddinArraySend.itemRepeat = itemtem.recurring;
                 ItemToAddinArraySend.itemNote = itemtem.note;
                 ItemToAddinArraySend.itemStatus = (int)itemtem.item_statuss;
