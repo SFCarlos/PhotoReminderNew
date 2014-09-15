@@ -34,14 +34,7 @@
     NoteArray = nil;
    NoteArray = [dao getItemListwhitDeletedRowsIncluded:[self retrieveFromUserDefaults] itemType:-1 whitDeletedRowsIncluded:NO];
     
-    //put the speaker on
-    UInt32 doChangeDefaultRoute = 1;
-    
-    AudioSessionSetProperty (
-                             kAudioSessionProperty_OverrideCategoryDefaultToSpeaker,
-                             sizeof (doChangeDefaultRoute),
-                             &doChangeDefaultRoute);
-    [self.tableView reloadData];
+       [self.tableView reloadData];
 }
 -(void)viewWillDisappear:(BOOL)animated{
 

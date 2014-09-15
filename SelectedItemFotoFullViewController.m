@@ -47,7 +47,7 @@
 }
 -(void)deleteShoopItemAction:(id)sender{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Confirmation"
-                                                    message:[NSString stringWithFormat:@"Delete %@ fron the list?",ShoppTile]
+                                                    message:[NSString stringWithFormat:@"Delete %@ ?",ShoppTile]
                           
                                                    delegate:self
                                           cancelButtonTitle:@"Cancel"

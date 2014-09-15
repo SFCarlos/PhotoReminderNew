@@ -17,7 +17,7 @@
 DatabaseHelper *dao;
     AVAudioPlayer * payl;
     int IntervalSnooze;
-   
+    NSString* audioPath;
 }
 @synthesize recivedNotificaion;
 @synthesize playButton;
@@ -45,6 +45,7 @@ DatabaseHelper *dao;
     ReminderObject *reminder=[dao getItemwhitServerID:reminderId usingServerId:NO];
    
     NSMutableArray * photoPathsCopy =[dao get_items_PhotoPaths:reminder.reminderID];
+    NSMutableArray * audioPathsCopy =[dao get_items_RecordPaths:reminder.reminderID];
     //get photo in array reminder only one
     
     NSLog(@"SCREM photo path: %@",(NSString*)[photoPathsCopy firstObject]);
@@ -60,14 +61,18 @@ DatabaseHelper *dao;
         ImagenShowNotification.image = [UIImage imageNamed:@"noimage.jpg"];
     }
     
-    NSString * audioPath = reminder.audioPath;
+    
     NSString * note = reminder.note;
     
     
     
-    if (audioPath == nil || audioPath.length < 10 ) {
+    if (audioPathsCopy.count ==0 ) {
         playButton.hidden = YES;
-    }
+    }else
+        audioPath = (NSString*)[audioPathsCopy firstObject];
+    
+    
+    
     if ( note == nil ||[note isEqualToString:@""]||[note isEqualToString:@"(null)"]) {
         showNoteButton.hidden = YES;
     }
@@ -222,7 +227,7 @@ DatabaseHelper *dao;
 }
 
 - (IBAction)Play:(id)sender {
-    ReminderObject *reminder=[dao getReminder:reminderId];
-    payl = [self.voiceHud playSound:reminder.audioPath];
+    
+    payl = [self.voiceHud playSound:audioPath];
 }
 @end

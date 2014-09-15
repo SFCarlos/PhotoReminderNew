@@ -340,6 +340,24 @@
                         //delete ligic from shared items
                         if (retItemShared.itemStatus == 1) {
                         [dao deleteItem:iteminmydb.reminderID permanently:YES];
+                            //cancel notifications
+                            //cancel the notification
+                            NSString *idtem =[NSString stringWithFormat:@"%d",(int)id_item_client];
+                            UIApplication*app =[UIApplication sharedApplication];
+                            NSArray *eventArray = [app scheduledLocalNotifications];
+                            for (int i=0; i<[eventArray count]; i++) {
+                                UILocalNotification* oneEvent= [eventArray objectAtIndex:i];
+                                NSDictionary *userInfoIDremin = oneEvent.userInfo;
+                                NSString*uid=[NSString stringWithFormat:@"%@",[userInfoIDremin valueForKey:@"ID_NOT_PASS"]];
+                                if ([uid isEqualToString:idtem]) {
+                                    [app cancelLocalNotification:oneEvent];
+                                    NSLog(@"CANCELADA LA NOTIFICACION en SharedReminder%@",uid);
+                                    
+                                    
+                                }
+                            }
+
+                            
                         }
 
                     }
