@@ -280,7 +280,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
     //Timezone!
-    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Rome"]];
+    //[dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Rome"]];
     
     NSString *dateString=[dateFormat stringFromDate:alarm];
     
@@ -322,7 +322,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
     //Timezone!
-    [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Rome"]];
+   // [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Rome"]];
 
     NSString *dateString=[dateFormat stringFromDate:alarm];
     
@@ -667,7 +667,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         rema.reminderName = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 1)];
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
-        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Rome"]];
+        //[dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Rome"]];
         rema.alarm =[dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(sqlStatement, 2)]];
         
         
@@ -838,7 +838,7 @@ if (whitDeletedRowsIncluded) {
         rema.reminderName = [NSString stringWithUTF8String:(char *) sqlite3_column_text(sqlStatement, 1)];
          NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
          [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
-        [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Rome"]];
+       // [dateFormat setTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Rome"]];
          rema.alarm =[dateFormat dateFromString:[NSString stringWithUTF8String:(char *)sqlite3_column_text(sqlStatement, 2)]];
         
         
