@@ -9,6 +9,7 @@
 #import "EditCategoryViewController.h"
 #import "NKOColorPickerView.h"
 #import "iToast.h"
+#import "Globals.h"
 
 @interface EditCategoryViewController ()
 @property (nonatomic,retain) iOSServiceProxy* service;
@@ -357,6 +358,7 @@ UIColor* colorcito_selected;
             if([dao deleteCategory:IdCategoryToEdit permanently:NO]){;
                 //cancel All notification
                 NSMutableArray * items = [dao getItemListwhitDeletedRowsIncluded:IdCategoryToEdit itemType:-1 whitDeletedRowsIncluded:YES];
+                              
                 UIApplication*app =[UIApplication sharedApplication];
                 NSArray *eventArray = [app scheduledLocalNotifications];
                 for (int i=0; i<[eventArray count]; i++) {

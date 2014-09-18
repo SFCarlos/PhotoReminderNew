@@ -9,6 +9,7 @@
 #import "NotificationScreenController.h"
 #import "YIPopupTextView.h"
 #import "LocalNotificationCore.h"
+#import "Globals.h"
 @interface NotificationScreenController ()
 
 @end
@@ -104,7 +105,7 @@ DatabaseHelper *dao;
     return val;
 }
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
+   
     
      ReminderObject *reminder=[dao getItemwhitServerID:reminderId usingServerId:NO];
     NSString *idtem =[NSString stringWithFormat:@"%d",(int)reminderId];
@@ -116,6 +117,11 @@ DatabaseHelper *dao;
     
     switch (buttonIndex) {
         case (0):
+            //primero tengo que cancelar esta notificacion pasada a traves del app delegate y la creo otra ves para snooze
+             [Globals cancelAllNotificationsWhitItemID:(int)reminderId];
+           [[LocalNotificationCore sharedInstance] handleReceivedNotification:recivedNotificaion];
+
+            
            //just 5 min
             [[LocalNotificationCore sharedInstance]scheduleNotificationOn:[NSDate dateWithTimeIntervalSinceNow:300]text:reminder.reminderName action:@"Show" sound:SoundSelectedUserReminder launchImage:reminder.photoPath andInfo:userinfo ];
             NSLog(@"SNOZZE 5 MIN....IdReminder Creado: %@",idtem);
@@ -132,6 +138,10 @@ DatabaseHelper *dao;
            
             break;
             case (1):
+            //primero tengo que cancelar esta notificacion pasada a traves del app delegate y la creo otra ves para snooze
+            [Globals cancelAllNotificationsWhitItemID:(int)reminderId];
+            [[LocalNotificationCore sharedInstance] handleReceivedNotification:recivedNotificaion];
+            
             [[LocalNotificationCore sharedInstance]scheduleNotificationOn:[NSDate dateWithTimeIntervalSinceNow:600]text:reminder.reminderName action:@"Show" sound:SoundSelectedUserReminder launchImage:reminder.photoPath andInfo:userinfo];
             
           
@@ -143,6 +153,10 @@ DatabaseHelper *dao;
             exit(0);
 
             case 2:
+            //primero tengo que cancelar esta notificacion pasada a traves del app delegate y la creo otra ves para snooze
+            [Globals cancelAllNotificationsWhitItemID:(int)reminderId];
+            [[LocalNotificationCore sharedInstance] handleReceivedNotification:recivedNotificaion];
+            
             [[LocalNotificationCore sharedInstance]scheduleNotificationOn:[NSDate dateWithTimeIntervalSinceNow:900]text:reminder.reminderName action:@"Show" sound:SoundSelectedUserReminder launchImage:reminder.photoPath andInfo:userinfo];
             
            
@@ -161,14 +175,17 @@ DatabaseHelper *dao;
 }
 
 - (IBAction)DoneReminder:(id)sender {
-    //en appdelegate siempre cancelo las ntifiaciones
+    
     NSDictionary*userinfo=recivedNotificaion.userInfo;
     NSString*isRecurringValue= [userinfo objectForKey:@"RECURRING"];
     NSString*IdreminderRecivedNotification= [userinfo objectForKey:@"ID_NOT_PASS"];
     
     NSLog(@"is isRecurringValue recivida en Done: %@ ",isRecurringValue);
     if ([isRecurringValue isEqualToString:@"day"]||[isRecurringValue isEqualToString:@"week"]||[isRecurringValue isEqualToString:@"month"]||[isRecurringValue isEqualToString:@"year"] ) {
-        //la notificacion es repetitiva asi que la tengo que programar de nuevo..ya esta cancelada en appdelegate
+        //primero tengo que cancelar esta notificacion pasada a traves del app delegate
+        [Globals cancelAllNotificationsWhitItemID:(int)reminderId];
+        [[LocalNotificationCore sharedInstance] handleReceivedNotification:recivedNotificaion];
+        //la notificacion es repetitiva asi que la tengo que programar de nuevo..
         [[LocalNotificationCore sharedInstance] scheduleNotificationRecurring:recivedNotificaion onRecurrinValue:isRecurringValue];
         
     }else{
@@ -178,25 +195,10 @@ DatabaseHelper *dao;
         [app cancelLocalNotification:recivedNotificaion];
         [[LocalNotificationCore sharedInstance]handleReceivedNotification:recivedNotificaion];
       
-        NSArray *eventArray = [app scheduledLocalNotifications];
-        for (int i=0; i<[eventArray count]; i++) {
-            UILocalNotification* oneEvent= [eventArray objectAtIndex:i];
-            NSDictionary *userInfoIDremin = oneEvent.userInfo;
-            NSInteger*uid=(NSInteger*)[[userInfoIDremin objectForKey:@"ID_NOT_PASS"] integerValue];
-            if (uid == [IdreminderRecivedNotification intValue]) {
-                [app cancelLocalNotification:oneEvent];
-                NSLog(@"DONE REMINDER...Id del reminder cancelado %d",uid);
-            }
-        }
         
 
    }
-    
-    
-    
-    //case exit elimino de la database
-    //[dao deleteReminder:reminderId];
-        //home button press programmatically
+    //home button press programmatically
     UIApplication *app = [UIApplication sharedApplication];
     [app performSelector:@selector(suspend)];
     

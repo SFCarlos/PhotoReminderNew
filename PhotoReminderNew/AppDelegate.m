@@ -124,20 +124,7 @@
         
         [self.window makeKeyAndVisible];
         
-        //la cancelo perke ya la vi..en snooze la creo de nuevo
-        [[UIApplication sharedApplication] cancelLocalNotification:localNotification];
-        UIApplication*app =[UIApplication sharedApplication];
-        NSArray *eventArray = [app scheduledLocalNotifications];
-        for (int i=0; i<[eventArray count]; i++) {
-            UILocalNotification* oneEvent= [eventArray objectAtIndex:i];
-            NSDictionary *userInfoIDremin = oneEvent.userInfo;
-            NSInteger*uid=(NSInteger*)[[userInfoIDremin objectForKey:@"ID_NOT_PASS"] integerValue];
-            if (uid == iop) {
-                [app cancelLocalNotification:oneEvent];
-                NSLog(@"APPDELEGATE...Id del reminder cancelado %d",iop);
-            }
-        }
-
+        
         //le descuento uno
         
         [[LocalNotificationCore sharedInstance] handleReceivedNotification:localNotification];
@@ -169,21 +156,7 @@
     self.window.rootViewController=cvc;
     [self.window makeKeyAndVisible];
     
-    //recurring logic
-    
-    //la cancelo perke ya la vi..en snooze la creo de nuevo y si es recurrente la creo de nuevo tambien cunado press "done"
-    UIApplication*app =[UIApplication sharedApplication];
-    NSArray *eventArray = [app scheduledLocalNotifications];
-    for (int i=0; i<[eventArray count]; i++) {
-        UILocalNotification* oneEvent= [eventArray objectAtIndex:i];
-        NSDictionary *userInfoIDremin = oneEvent.userInfo;
-        NSInteger*uid=(NSInteger*)[[userInfoIDremin objectForKey:@"ID_NOT_PASS"] integerValue];
-        if (uid == id_remNotification) {
-            [app cancelLocalNotification:oneEvent];
-            NSLog(@"APPDELEGATE...Id del reminder cancelado %d",id_remNotification);
-        }
-    }
-    
+       
     
     // [[UIApplication sharedApplication] cancelLocalNotification:notification];
     //le descuento uno

@@ -12,6 +12,7 @@
 #import "UIImage+ScalingMyImage.h"
 #import "ReminderCustomCell.h"
 #import "POVoiceHUD.h"
+#import "Globals.h"
 @interface RemindersListViewController ()
 @property POVoiceHUD* voiceHud;
 @end
@@ -423,20 +424,7 @@ NSIndexPath * indextoEdit;
                 
                 
                 //cancel the notification
-                NSString *idtem =[NSString stringWithFormat:@"%d",(int)remin.reminderID];
-                UIApplication*app =[UIApplication sharedApplication];
-                NSArray *eventArray = [app scheduledLocalNotifications];
-                for (int i=0; i<[eventArray count]; i++) {
-                    UILocalNotification* oneEvent= [eventArray objectAtIndex:i];
-                    NSDictionary *userInfoIDremin = oneEvent.userInfo;
-                    NSString*uid=[NSString stringWithFormat:@"%@",[userInfoIDremin valueForKey:@"ID_NOT_PASS"]];
-                    if ([uid isEqualToString:idtem]) {
-                        [app cancelLocalNotification:oneEvent];
-                        NSLog(@"CANCELADA LA NOTIFICACIONN %@",uid);
-                        
-                    }
-                }
-
+                [Globals cancelAllNotificationsWhitItemID:(int)remin.reminderID];
             }
             [tableView endUpdates];
             [tableView reloadData];
