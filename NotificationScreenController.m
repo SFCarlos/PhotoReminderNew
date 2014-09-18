@@ -48,12 +48,12 @@ DatabaseHelper *dao;
     NSMutableArray * audioPathsCopy =[dao get_items_RecordPaths:reminder.reminderID];
     //get photo in array reminder only one
     
-    NSLog(@"SCREM photo path: %@",(NSString*)[photoPathsCopy firstObject]);
+    //NSLog(@"SCREM photo path: %@",(NSString*)[photoPathsCopy firstObject]);
     ImagenShowNotification.image =[UIImage imageWithContentsOfFile:(NSString*)[photoPathsCopy firstObject]];
     
     self.voiceHud = [[POVoiceHUD alloc] initWithParentView:self.view];
     eventName.text=reminder.reminderName;
-    NSLog(@"ESTE ES la categoria %d",reminder.cat_id);
+   // NSLog(@"ESTE ES la categoria %d",reminder.cat_id);
     NSString* category_name = [dao getCategoryName:reminder.cat_id];
     categoryName.text = category_name;
     if(ImagenShowNotification.image == nil){
@@ -106,10 +106,10 @@ DatabaseHelper *dao;
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     
-     ReminderObject *reminder=[dao getReminder:reminderId];
+     ReminderObject *reminder=[dao getItemwhitServerID:reminderId usingServerId:NO];
     NSString *idtem =[NSString stringWithFormat:@"%d",(int)reminderId];
     NSDictionary*userinfo=recivedNotificaion.userInfo;
-   NSDictionary * data = [NSDictionary dictionaryWithObjectsAndKeys:idtem,@"ID_NOT_PASS" ,reminder.recurring,@"RECURRING",  nil];    UIApplication *app = [UIApplication sharedApplication];
+    UIApplication *app = [UIApplication sharedApplication];
     
     NSString*SoundSelectedUserReminder =[self retrieveSoundReminderFromUserDefaults];
     
@@ -117,7 +117,7 @@ DatabaseHelper *dao;
     switch (buttonIndex) {
         case (0):
            //just 5 min
-            [[LocalNotificationCore sharedInstance]scheduleNotificationOn:[NSDate dateWithTimeIntervalSinceNow:300]text:reminder.reminderName action:@"Show" sound:SoundSelectedUserReminder launchImage:reminder.photoPath andInfo:data ];
+            [[LocalNotificationCore sharedInstance]scheduleNotificationOn:[NSDate dateWithTimeIntervalSinceNow:300]text:reminder.reminderName action:@"Show" sound:SoundSelectedUserReminder launchImage:reminder.photoPath andInfo:userinfo ];
             NSLog(@"SNOZZE 5 MIN....IdReminder Creado: %@",idtem);
           
             
@@ -132,7 +132,7 @@ DatabaseHelper *dao;
            
             break;
             case (1):
-            [[LocalNotificationCore sharedInstance]scheduleNotificationOn:[NSDate dateWithTimeIntervalSinceNow:600]text:reminder.reminderName action:@"Show" sound:SoundSelectedUserReminder launchImage:reminder.photoPath andInfo:data];
+            [[LocalNotificationCore sharedInstance]scheduleNotificationOn:[NSDate dateWithTimeIntervalSinceNow:600]text:reminder.reminderName action:@"Show" sound:SoundSelectedUserReminder launchImage:reminder.photoPath andInfo:userinfo];
             
           
             [app performSelector:@selector(suspend)];
@@ -143,7 +143,7 @@ DatabaseHelper *dao;
             exit(0);
 
             case 2:
-            [[LocalNotificationCore sharedInstance]scheduleNotificationOn:[NSDate dateWithTimeIntervalSinceNow:900]text:reminder.reminderName action:@"Show" sound:SoundSelectedUserReminder launchImage:reminder.photoPath andInfo:data];
+            [[LocalNotificationCore sharedInstance]scheduleNotificationOn:[NSDate dateWithTimeIntervalSinceNow:900]text:reminder.reminderName action:@"Show" sound:SoundSelectedUserReminder launchImage:reminder.photoPath andInfo:userinfo];
             
            
             [app performSelector:@selector(suspend)];
@@ -166,7 +166,8 @@ DatabaseHelper *dao;
     NSString*isRecurringValue= [userinfo objectForKey:@"RECURRING"];
     NSString*IdreminderRecivedNotification= [userinfo objectForKey:@"ID_NOT_PASS"];
     
-    if (![isRecurringValue isEqualToString:@"none"]) {
+    NSLog(@"is isRecurringValue recivida en Done: %@ ",isRecurringValue);
+    if ([isRecurringValue isEqualToString:@"day"]||[isRecurringValue isEqualToString:@"week"]||[isRecurringValue isEqualToString:@"month"]||[isRecurringValue isEqualToString:@"year"] ) {
         //la notificacion es repetitiva asi que la tengo que programar de nuevo..ya esta cancelada en appdelegate
         [[LocalNotificationCore sharedInstance] scheduleNotificationRecurring:recivedNotificaion onRecurrinValue:isRecurringValue];
         
@@ -174,8 +175,8 @@ DatabaseHelper *dao;
         [dao InvalidateReminder:[IdreminderRecivedNotification intValue ]recurring:@"finished"];
 //cancel not
         UIApplication*app =[UIApplication sharedApplication];
-       
-                [app cancelLocalNotification:recivedNotificaion];
+        [app cancelLocalNotification:recivedNotificaion];
+        [[LocalNotificationCore sharedInstance]handleReceivedNotification:recivedNotificaion];
       
         NSArray *eventArray = [app scheduledLocalNotifications];
         for (int i=0; i<[eventArray count]; i++) {

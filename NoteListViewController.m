@@ -11,6 +11,7 @@
 #import "NoteCustomCell.h"
 #import "UIImage+ScalingMyImage.h"
 #import "POVoiceHUD.h"
+#import <PixateFreestyle/PixateFreestyle.h>
 @interface NoteListViewController (){
     NSMutableArray * NoteArray;
     UIBarButtonItem * home;
@@ -21,6 +22,7 @@
     ReminderObject * NoteToEdit;
 
 }
+
 @property POVoiceHUD* voiceHud;
 @end
 
@@ -208,7 +210,8 @@
                 [self performSegueWithIdentifier:@"editNoteSegue" sender:self];
 
                 
-            }else if (buttonIndex ==1){//Delete?
+            }
+            else if (buttonIndex ==1){//Delete?
             
                 [NoteArray removeObjectAtIndex:indextoDelete.row];
                 [self.tableView deleteRowsAtIndexPaths:@[indextoDelete]
@@ -269,6 +272,7 @@
         
         UIActionSheet* OptionSheed =[[UIActionSheet alloc]initWithTitle:@"Options" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit",@"Delete" ,nil];
         OptionSheed.tag = 1;
+       // OptionSheed.styleId= @"action-sheet";
         [OptionSheed showInView:[UIApplication sharedApplication].keyWindow];
    
     }else

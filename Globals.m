@@ -86,9 +86,9 @@
 
 
 }
-+(BOOL)ScheduleSharedNotificationwhitItemId:(NSInteger *)id_item ItemName:(NSString *)Itemname andAlarm:(NSString *)dateFire andRecurring:(NSString *)recurr
++(BOOL)ScheduleSharedNotificationwhitItemId:(NSInteger *)id_item ItemName:(NSString *)Itemname andAlarm:(NSString *)dateFire andRecurring:(NSString *)recurr andStatus:(NSInteger *)itemStatus
 {
-    if (!([dateFire isEqualToString:@"0000-00-00 00:00"])) {
+    if (!([dateFire isEqualToString:@"0000-00-00 00:00"])&& (itemStatus != 1)&& !([recurr isEqualToString:@"finished" ])) {
         //shedule notification
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm"];
@@ -109,5 +109,26 @@
     }
     return NO;
 }
++(void)saveSoundReminderToUserDefaults:(NSString*)SoundSelected
+{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if (standardUserDefaults) {
+        [standardUserDefaults setObject:SoundSelected forKey:@"REMINDER_SOUND"];
+        [standardUserDefaults synchronize];
+    }
+    
+}
++(NSString*)retrieveSoundReminderFromUserDefaults
+{
+    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *val = nil;
+    
+    if (standardUserDefaults)
+        val = [standardUserDefaults objectForKey:@"REMINDER_SOUND"];
+    
+    return val;
+}
+
 
 @end

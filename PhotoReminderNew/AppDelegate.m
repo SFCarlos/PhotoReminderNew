@@ -10,6 +10,7 @@
 #import "LocalNotificationCore.h"
 #import "SettingsViewController.h"
 #import "DatabaseHelper.h"
+#import "Globals.h"
 @implementation AppDelegate
 {
     BOOL * isAppResumminfromBack;
@@ -68,6 +69,12 @@
 }
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //put the firt sound if user not select at the start
+    if ([Globals retrieveSoundReminderFromUserDefaults] == nil) {
+        [Globals saveSoundReminderToUserDefaults:@"Alarm Classic"];
+    }
+    
+    
     UIPageControl *pageControl = [UIPageControl appearance];
     pageControl.pageIndicatorTintColor = [UIColor lightGrayColor];
     pageControl.currentPageIndicatorTintColor = [UIColor blackColor];
@@ -91,7 +98,7 @@
         [alert show];
     }
     
-    // [[UIApplication sharedApplication] cancelAllLocalNotifications];
+  //[[UIApplication sharedApplication] cancelAllLocalNotifications];
     //si entra a la app por el icono tengo que comprobar que no halla notificaciones viejas en la
     // BD son app que no las vio el cliente.
     //todavie no hacer esto
@@ -101,7 +108,7 @@
     
     if (localNotification)
     {
-        NSLog(@"NOTIFICATION disparada desde finisLauncWhitOptions");
+        NSLog(@"NOTIFICATION disparada desde finisLauncWhitOptions: %@",[localNotification description]);
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         
         NotificationScreenController *cvc = (NotificationScreenController *)[sb instantiateViewControllerWithIdentifier:@"NotificationScreen"];
@@ -110,6 +117,7 @@
         NSDictionary*userinfo=localNotification.userInfo;
         NSInteger* iop=(NSInteger*)[[userinfo objectForKey:@"ID_NOT_PASS"] integerValue];
         cvc.reminderId =iop;
+        cvc.recivedNotificaion = localNotification;
         self.window.rootViewController =nil;
         self.window.rootViewController=cvc;
         
@@ -118,6 +126,18 @@
         
         //la cancelo perke ya la vi..en snooze la creo de nuevo
         [[UIApplication sharedApplication] cancelLocalNotification:localNotification];
+        UIApplication*app =[UIApplication sharedApplication];
+        NSArray *eventArray = [app scheduledLocalNotifications];
+        for (int i=0; i<[eventArray count]; i++) {
+            UILocalNotification* oneEvent= [eventArray objectAtIndex:i];
+            NSDictionary *userInfoIDremin = oneEvent.userInfo;
+            NSInteger*uid=(NSInteger*)[[userInfoIDremin objectForKey:@"ID_NOT_PASS"] integerValue];
+            if (uid == iop) {
+                [app cancelLocalNotification:oneEvent];
+                NSLog(@"APPDELEGATE...Id del reminder cancelado %d",iop);
+            }
+        }
+
         //le descuento uno
         
         [[LocalNotificationCore sharedInstance] handleReceivedNotification:localNotification];
@@ -133,6 +153,7 @@
      
      [alert show];
      }*/
+    NSLog(@"NOTIFICATION disparada desde  didReceiveLocalNotification: %@",[notification description]);
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     
     NotificationScreenController *cvc = (NotificationScreenController *)[sb instantiateViewControllerWithIdentifier:@"NotificationScreen"];

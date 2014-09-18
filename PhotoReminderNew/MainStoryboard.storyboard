@@ -1255,6 +1255,10 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="microphone-24x.png" translatesAutoresizingMaskIntoConstraints="NO" id="Okn-gN-sCk">
+                                            <rect key="frame" x="282" y="18" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
@@ -1262,6 +1266,7 @@
                                     <outlet property="completedLabel" destination="YSW-g1-Zhx" id="udl-uH-Hjt"/>
                                     <outlet property="descritionLabel" destination="nTl-RC-oWg" id="br3-fE-W3x"/>
                                     <outlet property="framebuttom" destination="Hsi-Lf-oNp" id="IE1-wu-P2U"/>
+                                    <outlet property="hasVoice" destination="Okn-gN-sCk" id="NVC-lP-HsH"/>
                                     <outlet property="image" destination="xUe-RI-h2u" id="1bO-lC-qu1"/>
                                     <outlet property="recurringLabel" destination="x6M-Bw-wE0" id="p9f-Ib-L6P"/>
                                 </connections>
@@ -1643,10 +1648,10 @@
         <segue reference="M1w-Zj-hzc"/>
         <segue reference="jhR-yC-Tn8"/>
         <segue reference="KVZ-mL-WQ2"/>
-        <segue reference="MNX-Oz-tpF"/>
-        <segue reference="eRH-v6-0O7"/>
-        <segue reference="CO6-kR-0K6"/>
-        <segue reference="26m-Dt-ojZ"/>
+        <segue reference="ZsH-ZW-Tug"/>
         <segue reference="Gsd-wt-NUf"/>
+        <segue reference="CO6-kR-0K6"/>
+        <segue reference="eRH-v6-0O7"/>
+        <segue reference="26m-Dt-ojZ"/>
     </inferredMetricsTieBreakers>
 </document>

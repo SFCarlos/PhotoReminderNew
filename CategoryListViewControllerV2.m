@@ -100,7 +100,8 @@
    
     
        // self.navigationController.navigationBar.styleClass =@"navigation-bar";
-   
+  // self.tableView.styleClass = @"table-cell";
+//self.tableView.styleId = @"tableMy";
     
     //init the arrays
     dao = [[DatabaseHelper alloc] init];
@@ -232,7 +233,7 @@
                         [dao UpdateSERVERIDinTable:id_item_client id_server:retItem.serverItemID tableName:@"items"];
                         
                         //Reminder
-                        [Globals ScheduleSharedNotificationwhitItemId:id_item_client ItemName:retItem.itemName andAlarm:retItem.itemAlarm andRecurring:retItem.itemRepeat];
+                        [Globals ScheduleSharedNotificationwhitItemId:id_item_client ItemName:retItem.itemName andAlarm:retItem.itemAlarm andRecurring:retItem.itemRepeat andStatus:0];
                     }
                     
                     for (GetFileObj * retFile in filesReturned) {
@@ -308,14 +309,16 @@
                         if (retItemShared.itemStatus != 1) {
                             id_item_client = [dao insert_item:sharedCategory.cat_id item_Name:retItemShared.itemName alarm:dateA note:retItemShared.itemNote repeat:retItemShared.itemRepeat itemclientStatus:0 should_send_item:0];
                             [dao UpdateSERVERIDinTable:id_item_client id_server:retItemShared.serverItemID tableName:@"items"];
-                            NSLog(@"%d",[Globals ScheduleSharedNotificationwhitItemId:id_item_client ItemName:retItemShared.itemName andAlarm:retItemShared.itemAlarm andRecurring:retItemShared.itemRepeat]);
+                            NSLog(@"%d",[Globals ScheduleSharedNotificationwhitItemId:id_item_client ItemName:retItemShared.itemName andAlarm:retItemShared.itemAlarm andRecurring:retItemShared.itemRepeat andStatus:0]);
                         }
                         
                     
                     }else{
+                        
+                        
                         id_item_client=[dao edit_item:iteminmydb.reminderID item_Name:retItemShared.itemName alarm:dateA note:retItemShared.itemNote repeat:retItemShared.itemRepeat itemclientStatus:retItemShared.itemStatus];
                         [Globals cancelAllNotificationsWhitItemID:iteminmydb.reminderID];
-                         NSLog(@"cancelNot inedit %d",[Globals ScheduleSharedNotificationwhitItemId:id_item_client ItemName:retItemShared.itemName andAlarm:retItemShared.itemAlarm andRecurring:retItemShared.itemRepeat]);
+                         NSLog(@"cancelNot inedit %d",[Globals ScheduleSharedNotificationwhitItemId:id_item_client ItemName:retItemShared.itemName andAlarm:retItemShared.itemAlarm andRecurring:retItemShared.itemRepeat andStatus:retItemShared.itemStatus]);
                         
                         //delete ligic from shared items
                         if (retItemShared.itemStatus == 1) {

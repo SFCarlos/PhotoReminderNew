@@ -8,7 +8,7 @@
 
 #import "NotificationsTableViewController.h"
 #import <AVFoundation/AVFoundation.h>
-
+#import "Globals.h"
 @interface NotificationsTableViewController ()
 
 @end
@@ -29,28 +29,8 @@
     }
     return self;
 }
--(NSString*)retrieveSoundReminderFromUserDefaults
-{
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *val = nil;
-    
-    if (standardUserDefaults)
-        val = [standardUserDefaults objectForKey:@"REMINDER_SOUND"];
-    
-    return val;
-}
--(void)saveSoundReminderToUserDefaults:(NSString*)SoundSelected
-{
-    NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
-    
-    if (standardUserDefaults) {
-        [standardUserDefaults setObject:SoundSelected forKey:@"REMINDER_SOUND"];
-        [standardUserDefaults synchronize];
-    }
-    
-}
 -(void)doneAction:(id)sender{
-    [self saveSoundReminderToUserDefaults:selectedSound];
+    [Globals saveSoundReminderToUserDefaults:selectedSound];
     [self dismissViewControllerAnimated:YES completion:nil];
 
 }
@@ -64,8 +44,9 @@
     //fill array sound
     sounfFiles = [[NSArray alloc] initWithObjects:@"Alarm Classic",@"Birds",@"Fire Pager",@"Frenzy",@"Siren Noise",@"Note",nil];
     //know the selected sound
-    alreadyselectedSound=[self retrieveSoundReminderFromUserDefaults];
-    if (selectedSound == nil) {
+    alreadyselectedSound=[Globals retrieveSoundReminderFromUserDefaults];// i check in app delegate tat  this value not nul
+    
+     if (selectedSound == nil) {
         selectedSound = alreadyselectedSound;
     }
 

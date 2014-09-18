@@ -16,5 +16,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *descritionLabel;
 @property (strong, nonatomic) IBOutlet UIButton *framebuttom;
 @property (strong, nonatomic) IBOutlet UILabel *recurringLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *hasVoice;
 
 @end

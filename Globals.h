@@ -12,7 +12,7 @@
 
 +(BOOL)hasConnectivity;
 +(void )cancelAllNotificationsWhitItemID:(NSInteger*)id_item;
-+(BOOL)ScheduleSharedNotificationwhitItemId:(NSInteger*)id_item ItemName:(NSString*)Itemname andAlarm:(NSString*)dateFire andRecurring:(NSString*)recurr;
-
-
++(BOOL)ScheduleSharedNotificationwhitItemId:(NSInteger*)id_item ItemName:(NSString*)Itemname andAlarm:(NSString*)dateFire andRecurring:(NSString*)recurr andStatus:(NSInteger*)itemStatus;
++(void)saveSoundReminderToUserDefaults:(NSString*)SoundSelected;
++(NSString*)retrieveSoundReminderFromUserDefaults;
 @end

@@ -99,7 +99,7 @@ NSDate * datecalendar;
                                                   initWithImage:[UIImage imageNamed:@"camera-24x.png"] style:UIBarStyleDefault target:self action:@selector(takePictureAction:)];
     
     doneButton          = [[UIBarButtonItem alloc]
-                           initWithImage:[UIImage imageNamed:@"done-24x.png"] style:UIBarStyleDefault target:self action:@selector(saveReminderAction:)];
+                           initWithImage:[UIImage imageNamed:@"checkmark-25.png"] style:UIBarStyleDefault target:self action:@selector(saveReminderAction:)];
     
     
     

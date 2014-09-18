@@ -52,6 +52,7 @@
 		CE83C7661966CAB20060B280 /* EditNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE83C7651966CAB20060B280 /* EditNoteViewController.m */; };
 		CE9E196C19C2F9AD0000303A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE9E196B19C2F9AD0000303A /* SystemConfiguration.framework */; };
 		CE9E196F19C2FAE50000303A /* Globals.m in Sources */ = {isa = PBXBuildFile; fileRef = CE9E196E19C2FAE50000303A /* Globals.m */; };
+		CEA2BD9319C98B5E002C49E4 /* blur in Resources */ = {isa = PBXBuildFile; fileRef = CEA2BD9219C98B5D002C49E4 /* blur */; };
 		CEA315FF19B475C500C7210D /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = CEA315FE19B475C500C7210D /* default.css */; };
 		CEA3160119B4A68100C7210D /* PixateFreestyle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA3160019B4A68100C7210D /* PixateFreestyle.framework */; };
 		CEA3160419B9B51100C7210D /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA3160319B9B51100C7210D /* CMPopTipView.m */; };
@@ -244,6 +245,7 @@
 		CE9E196B19C2F9AD0000303A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CE9E196D19C2FAE50000303A /* Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globals.h; sourceTree = "<group>"; };
 		CE9E196E19C2FAE50000303A /* Globals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Globals.m; sourceTree = "<group>"; };
+		CEA2BD9219C98B5D002C49E4 /* blur */ = {isa = PBXFileReference; lastKnownFileType = file; path = blur; sourceTree = "<group>"; };
 		CEA315FC19B472E000C7210D /* PixateFreestyle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PixateFreestyle.framework; path = ../../PixateFreestyle.framework; sourceTree = "<group>"; };
 		CEA315FE19B475C500C7210D /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.css; };
 		CEA3160019B4A68100C7210D /* PixateFreestyle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PixateFreestyle.framework; sourceTree = "<group>"; };
@@ -665,6 +667,7 @@
 		CED3D914191D06C400624E6F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CEA2BD9219C98B5D002C49E4 /* blur */,
 				CE75D7FC194874D0003856A6 /* forward-25.png */,
 				CE75D7F419470D61003856A6 /* link-25.png */,
 				CE75D7F21946FF0C003856A6 /* add_user-25.png */,
@@ -1039,6 +1042,7 @@
 				CED3D9F3191D0BD200624E6F /* Siren Noise.m4r in Resources */,
 				CE0BD6F11937936C00416DDB /* purchase_order-25.png in Resources */,
 				CED3DA2F191D0F5D00624E6F /* home-25.png in Resources */,
+				CEA2BD9319C98B5E002C49E4 /* blur in Resources */,
 				CED3D918191D06C400624E6F /* InfoPlist.strings in Resources */,
 				CED3DA30191D0F5D00624E6F /* calendar-25.png in Resources */,
 				CED3DA36191D0F5D00624E6F /* snooze-24x.png in Resources */,
