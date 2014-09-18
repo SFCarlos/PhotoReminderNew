@@ -241,6 +241,11 @@
     
     NSDate * alarmdate = [datePicker date];
     
+    [[NSCalendar currentCalendar] rangeOfUnit:NSMinuteCalendarUnit
+                                    startDate:&alarmdate
+                                     interval:NULL
+                                      forDate:alarmdate];
+    
     NSString * ImagenPath = [self saveImageGetPath:imagenSelected];
  
     NSString * note =textNote;
