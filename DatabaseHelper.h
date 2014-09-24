@@ -23,7 +23,7 @@
 -(NSInteger*)insert_item_recordings: (NSInteger *)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
 -(NSInteger*)edit_item_images:(NSInteger*)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
 -(NSInteger*)edit_item_recordings:(NSInteger*)id_cat id_item:(NSInteger*)id_item file_Name:(NSString*)file_Name;
-
+-(BOOL)putItemInCar:(NSInteger*)id_item;
 -(NSMutableArray*)getFiles:(NSInteger*) id_item;
 -(ReminderObject*)getItemwhitServerID:(NSInteger*) id_item usingServerId:(BOOL)usingServerId;
 -(ReminderObject*)getCategorieWhitServerID:(NSInteger*) id_cat usingServerId:(BOOL)usingServerId;

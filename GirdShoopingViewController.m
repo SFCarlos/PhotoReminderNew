@@ -12,6 +12,13 @@
 #import <PixateFreestyle/PixateFreestyle.h>
 @interface GirdShoopingViewController (){
     NSMutableArray* items;
+    UISegmentedControl *segmentedContrlol;
+    NSMutableArray * itemsActive;
+    NSMutableArray* itemsinCar;
+    int CantidadActive;
+    int CantidadinCar;
+    ReminderObject * ShopToedit;
+    NSArray * segmentedItems;
 
 }
 @property (nonatomic, strong) NSMutableArray *imagenArray;
@@ -31,14 +38,25 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
      items = [dao getItemListwhitDeletedRowsIncluded:[self retrieveFromUserDefaults] itemType:-1 whitDeletedRowsIncluded:NO];
- 
+  
+    
+    [self LoadTheActiveList];
+    //segmented contlol
+    CantidadActive=itemsActive.count;
+    CantidadinCar= itemsinCar.count;
+    segmentedItems = [NSArray arrayWithObjects:[NSString stringWithFormat:@"Active List (%d)",CantidadActive],[NSString stringWithFormat:@"In Cart (%d)",CantidadinCar], nil];
+    segmentedContrlol= [[UISegmentedControl alloc]initWithItems:segmentedItems];
+    segmentedContrlol.selectedSegmentIndex=0
+    ;
+    [segmentedContrlol addTarget:self action:@selector(onChangeSegmented:) forControlEvents:UIControlEventValueChanged];
+    self.navigationItem.titleView = segmentedContrlol;
     [self.collectionView reloadData];
-
 }
+
 - (void)viewDidLoad
 {
    
-    
+    NSLog(@"didload");
     dao = [[DatabaseHelper alloc] init];
     items = [[NSMutableArray alloc] init];
       imagenArray = [[NSMutableArray alloc] init];
@@ -59,7 +77,41 @@
    [NSArray arrayWithObjects:home, nil];
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [self LoadTheActiveList];
+    //segmented contlol
+    CantidadActive=itemsActive.count;
+    CantidadinCar= itemsinCar.count;
+    segmentedItems = [NSArray arrayWithObjects:[NSString stringWithFormat:@"Active List (%d)",CantidadActive],[NSString stringWithFormat:@"In Cart (%d)",CantidadinCar], nil];
+    segmentedContrlol= [[UISegmentedControl alloc]initWithItems:segmentedItems];
+    segmentedContrlol.selectedSegmentIndex=0;
+    [segmentedContrlol addTarget:self action:@selector(onChangeSegmented:) forControlEvents:UIControlEventValueChanged];
+    self.navigationItem.titleView = segmentedContrlol;
+    
+
 }
+-(void)LoadTheActiveList{
+    itemsActive = [[NSMutableArray alloc]init];
+    itemsinCar = [[NSMutableArray alloc]init];
+    ReminderObject * temf;
+    for (int i = 0; i<items.count; i++) {
+        temf= [items objectAtIndex:i];
+        if ([temf.note isEqualToString:@"inCart"]) {
+            [itemsinCar addObject:temf];
+        }else{
+            [itemsActive addObject:temf];
+        }
+        
+    }
+    
+}
+-(void)onChangeSegmented:(UISegmentedControl*)sender{
+    [self LoadTheActiveList];
+    //[self.collectionView reloadItemsAtIndexPaths:[self.collectionView indexPathsForVisibleItems]];
+    [self.collectionView reloadData];
+    
+}
+
+
 -(NSInteger*)retrieveFromUserDefaults
 {
     NSUserDefaults *standardUserDefaults = [NSUserDefaults standardUserDefaults];
@@ -86,15 +138,29 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return items.count;
+    // Return the number of rows in the section.
+    if (segmentedContrlol.selectedSegmentIndex == 0) {
+        
+        return itemsActive.count;
+    }else if (segmentedContrlol.selectedSegmentIndex ==1){
+        return itemsinCar.count;
+    }
+    return itemsActive.count;
+
 }
 
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
 
+}
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"PhotoCell";
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
-     ReminderObject *tem = [items objectAtIndex:indexPath.row];
+   
+    if (segmentedContrlol.selectedSegmentIndex == 0 ){
+        ReminderObject* tem = [itemsActive objectAtIndex:indexPath.row];
+    
     UIImage*image;
     imagenArray =[dao get_items_PhotoPaths:tem.reminderID];
     if (imagenArray.count==0 ){
@@ -111,26 +177,59 @@
     UILabel *itemNameView = (UILabel *)[cell viewWithTag:909];
     itemNameView.text = tem.reminderName;
     //cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"marco.png"]];
-    itemImageView.image = image;
-    return cell;
+        itemImageView.image = image;
+        return cell;
+    }else{
+        ReminderObject* tem = [itemsinCar objectAtIndex:indexPath.row];
+        
+        UIImage*image;
+        imagenArray =[dao get_items_PhotoPaths:tem.reminderID];
+        if (imagenArray.count==0 ){
+            image =[UIImage imageWithImage:[UIImage imageNamed:@"noimage.jpg"] scaledToSize:CGSizeMake(100.0,100.0)];
+            
+        }
+        else{
+            
+            image = [UIImage imageWithImage:[UIImage imageWithContentsOfFile:(NSString*)[imagenArray firstObject]]scaledToSize:CGSizeMake(100.0,100.0)];
+        }
+        // NSLog(@"In ShopGird idItem= %d shoudsendfile " );
+        
+        UIImageView *itemImageView = (UIImageView *)[cell viewWithTag:85];
+        UILabel *itemNameView = (UILabel *)[cell viewWithTag:909];
+        itemNameView.text = tem.reminderName;
+        //cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"marco.png"]];
+        itemImageView.image = image;
+        return cell;
+    }
+    
 }
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showFullScreenPhoto"]) {
-        NSArray *indexPaths = [self.collectionView indexPathsForSelectedItems];
+     //   NSArray *indexPaths = [self.collectionView indexPathsForSelectedItems];
        
         SelectedItemFotoFullViewController *destViewController = segue.destinationViewController;
-        NSIndexPath *indexPath = [indexPaths objectAtIndex:0];
+       // NSIndexPath *indexPath = [indexPaths objectAtIndex:0];
         
        
-        ReminderObject * temObj = [items objectAtIndex:indexPath.row];
+       // ReminderObject * temObj = [items objectAtIndex:indexPath.row];
      
-        destViewController.IdNote = temObj.reminderID;
-        destViewController.ShoppTile = temObj.reminderName;
+        destViewController.IdNote = ShopToedit.reminderID;
+        destViewController.ShoppTile = ShopToedit.reminderName;
        
-        [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
+        //[self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
     }
 }
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
 
+    if (segmentedContrlol.selectedSegmentIndex == 0 ){
+        ShopToedit = [itemsActive objectAtIndex:indexPath.row];
+    }else{
+        ShopToedit = [itemsinCar objectAtIndex:indexPath.row];
+    }
+    
+    [self performSegueWithIdentifier:@"showFullScreenPhoto" sender:self];
+}
 /*
 #pragma mark - Navigation
 

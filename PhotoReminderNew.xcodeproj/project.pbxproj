@@ -135,6 +135,7 @@
 		CED3DAA219221B4B00624E6F /* play-32.png in Resources */ = {isa = PBXBuildFile; fileRef = CED3DAA119221B4B00624E6F /* play-32.png */; };
 		CED3DAA519221BEE00624E6F /* nko_brightness_guide.png in Resources */ = {isa = PBXBuildFile; fileRef = CED3DAA319221BEE00624E6F /* nko_brightness_guide.png */; };
 		CED3DAA619221BEE00624E6F /* nko_colormap.png in Resources */ = {isa = PBXBuildFile; fileRef = CED3DAA419221BEE00624E6F /* nko_colormap.png */; };
+		CEDA958319D2CE50000E109A /* put_in-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CEDA958219D2CE50000E109A /* put_in-25.png */; };
 		CEEFBD9119AB466400915A79 /* update-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEFBD9019AB466400915A79 /* update-25.png */; };
 		CEEFBD9319AB46BE00915A79 /* share-25.png in Resources */ = {isa = PBXBuildFile; fileRef = CEEFBD9219AB46BE00915A79 /* share-25.png */; };
 		CEEFBD9519AC947C00915A79 /* AppDatabase.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CEEFBD9419AC947C00915A79 /* AppDatabase.sqlite */; };
@@ -374,6 +375,7 @@
 		CED3DAA119221B4B00624E6F /* play-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "play-32.png"; sourceTree = "<group>"; };
 		CED3DAA319221BEE00624E6F /* nko_brightness_guide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nko_brightness_guide.png; sourceTree = "<group>"; };
 		CED3DAA419221BEE00624E6F /* nko_colormap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nko_colormap.png; sourceTree = "<group>"; };
+		CEDA958219D2CE50000E109A /* put_in-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "put_in-25.png"; sourceTree = "<group>"; };
 		CEEFBD9019AB466400915A79 /* update-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "update-25.png"; sourceTree = "<group>"; };
 		CEEFBD9219AB46BE00915A79 /* share-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share-25.png"; sourceTree = "<group>"; };
 		CEEFBD9419AC947C00915A79 /* AppDatabase.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppDatabase.sqlite; sourceTree = "<group>"; };
@@ -919,6 +921,7 @@
 		CED3DA38191D0F6D00624E6F /* BarIcons */ = {
 			isa = PBXGroup;
 			children = (
+				CEDA958219D2CE50000E109A /* put_in-25.png */,
 				CEEFBD9219AB46BE00915A79 /* share-25.png */,
 				CEEFBD9019AB466400915A79 /* update-25.png */,
 				CE3174C8195C466F007EE188 /* list-25.png */,
@@ -1050,6 +1053,7 @@
 				CE75D801194AF6DB003856A6 /* checkmark-25.png in Resources */,
 				CED3DAA519221BEE00624E6F /* nko_brightness_guide.png in Resources */,
 				CED3D998191D099900624E6F /* LICENCE in Resources */,
+				CEDA958319D2CE50000E109A /* put_in-25.png in Resources */,
 				CE75D7F519470D61003856A6 /* link-25.png in Resources */,
 				CE02C0E91924E60B00EB2DD0 /* edit-32.png in Resources */,
 				CEEFBD9319AB46BE00915A79 /* share-25.png in Resources */,

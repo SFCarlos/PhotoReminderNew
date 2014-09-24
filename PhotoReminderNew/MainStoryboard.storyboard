@@ -912,9 +912,6 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
-                                <connections>
-                                    <segue destination="fBQ-05-5M5" kind="push" identifier="showFullScreenPhoto" id="6eO-eI-ZWu"/>
-                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -925,6 +922,7 @@
                     <navigationItem key="navigationItem" id="9Li-lN-euO"/>
                     <connections>
                         <segue destination="EaK-Tt-81V" kind="push" identifier="addshoopingitemsegue" id="PBL-2x-n5K"/>
+                        <segue destination="fBQ-05-5M5" kind="push" identifier="showFullScreenPhoto" id="J6u-WJ-UDx"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3FC-av-wAm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1649,9 +1647,9 @@
         <segue reference="jhR-yC-Tn8"/>
         <segue reference="KVZ-mL-WQ2"/>
         <segue reference="ZsH-ZW-Tug"/>
-        <segue reference="Gsd-wt-NUf"/>
         <segue reference="CO6-kR-0K6"/>
         <segue reference="eRH-v6-0O7"/>
         <segue reference="26m-Dt-ojZ"/>
+        <segue reference="PBL-2x-n5K"/>
     </inferredMetricsTieBreakers>
 </document>

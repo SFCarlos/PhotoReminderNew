@@ -755,7 +755,7 @@ NSMutableArray *listaR = [[NSMutableArray alloc] init];
         NSLog(@"No se puede conectar con la BD");
     }
     
-    NSString *selecting = [NSString stringWithFormat:@"SELECT count(*) FROM categories inner join items using (id_cat) where id_cat =  %d and items.client_status != 1" , (int)CategoryId];
+    NSString *selecting = [NSString stringWithFormat:@"SELECT count(*) FROM categories inner join items using (id_cat) where id_cat =  %d and items.client_status != 1 and repeat != 'finished' and note != 'inCart'" , (int)CategoryId];//active only
     const char *sql = [selecting UTF8String];
     sqlite3_stmt *sqlStatement;
     
@@ -1526,6 +1526,41 @@ if (whitDeletedRowsIncluded) {
         }
         
     }
+
+}
+-(BOOL)putItemInCar:(NSInteger *)id_item{
+    BOOL flag = YES;
+    NSString *ubicacionDB = [self getRutaBD];
+    
+    if(!(sqlite3_open([ubicacionDB UTF8String], &bd) == SQLITE_OK)){
+        NSLog(@"No se puede conectar con la BD");
+        flag = NO;
+        return flag;
+    } else {
+        NSString *sqlUpdate= [NSString stringWithFormat:@"UPDATE items SET note= 'inCart' WHERE id_item = %d",(int)id_item];
+        const char *sql = [sqlUpdate UTF8String];
+        sqlite3_stmt *sqlStatement;
+        
+        if(sqlite3_prepare_v2(bd, sql, -1, &sqlStatement, NULL) != SQLITE_OK){
+            NSLog(@"Problema al preparar el statement putItemInCar ");
+            flag = NO;
+            return flag;
+        } else {
+            if(sqlite3_step(sqlStatement) == SQLITE_DONE){
+                sqlite3_finalize(sqlStatement);
+                
+                flag = YES;
+                return flag;
+                //sqlite3_close(bd);
+                
+            }
+        }
+        
+    }
+    
+    return flag;
+
+
 
 }
 -(NSInteger*)retrieveFromUserDefaults

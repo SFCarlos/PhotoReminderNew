@@ -40,6 +40,11 @@
     
     UIBarButtonItem* deleteShoopItem          = [[UIBarButtonItem alloc]
                                                initWithImage:[UIImage imageNamed:@"trash-25.png"] style:UIBarStyleDefault target:self action:@selector(deleteShoopItemAction:)];
+    UIBarButtonItem* addcarItem          = [[UIBarButtonItem alloc]
+                                                 initWithImage:[UIImage imageNamed:@"put_in-25.png"] style:UIBarStyleDefault target:self action:@selector(addCarItemAction:)];
+    self.navigationItem.rightBarButtonItems =
+    [NSArray arrayWithObjects: addcarItem, nil];
+    
     
     UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];    self.toolbarItems=[NSArray arrayWithObjects: editShoppItem,flexibleItem,deleteShoopItem, nil];
 
@@ -47,7 +52,7 @@
 }
 -(void)deleteShoopItemAction:(id)sender{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Confirmation"
-                                                    message:[NSString stringWithFormat:@"Delete %@ ?",ShoppTile]
+                                                    message:[NSString stringWithFormat:@"Delete %@?",ShoppTile]
                           
                                                    delegate:self
                                           cancelButtonTitle:@"Cancel"
@@ -55,6 +60,11 @@
     [alert show];
 
 
+
+}
+-(void)addCarItemAction:(id)sender{
+    [dao putItemInCar:(int)IdNote];
+    [self.navigationController popViewControllerAnimated:YES];
 
 }
 -(void)editShoppItemAction:(id)sender{
