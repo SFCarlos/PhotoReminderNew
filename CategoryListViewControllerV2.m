@@ -101,8 +101,9 @@
     
        // self.navigationController.navigationBar.styleClass =@"navigation-bar";
   // self.tableView.styleClass = @"table-cell";
-//self.tableView.styleId = @"tableMy";
-    
+self.tableView.styleClass = @"tableMy";
+  //self.tableView.styleClass =@"view";
+   // self.navigationItem.styleClass = @"view";
     //init the arrays
     dao = [[DatabaseHelper alloc] init];
     categoryArray = [[NSMutableArray alloc] init];

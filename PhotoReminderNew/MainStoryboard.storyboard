@@ -132,7 +132,7 @@
                         <viewControllerLayoutGuide type="bottom" id="dsW-jU-ft4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="eGg-Sz-3bW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="658"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7n-SI-YCL">
@@ -443,7 +443,7 @@
                         <viewControllerLayoutGuide type="bottom" id="XFu-il-FUA"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mc4-xW-fcK">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="658"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cL0-KS-YJw">
@@ -631,7 +631,7 @@
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="q5Y-UT-eod" customClass="CategoryListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="95" sectionHeaderHeight="22" sectionFooterHeight="22" id="fFX-7c-FF4">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="658"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -1643,13 +1643,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="M1w-Zj-hzc"/>
-        <segue reference="jhR-yC-Tn8"/>
         <segue reference="KVZ-mL-WQ2"/>
-        <segue reference="ZsH-ZW-Tug"/>
+        <segue reference="MNX-Oz-tpF"/>
         <segue reference="CO6-kR-0K6"/>
+        <segue reference="Gsd-wt-NUf"/>
         <segue reference="eRH-v6-0O7"/>
+        <segue reference="jhR-yC-Tn8"/>
         <segue reference="26m-Dt-ojZ"/>
-        <segue reference="PBL-2x-n5K"/>
+        <segue reference="bRV-zv-d6Q"/>
     </inferredMetricsTieBreakers>
 </document>

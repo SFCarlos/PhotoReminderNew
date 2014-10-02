@@ -10,6 +10,7 @@
 #import "NKOColorPickerView.h"
 #import "iToast.h"
 #import "Globals.h"
+#import <PixateFreestyle/PixateFreestyle.h>
 
 @interface EditCategoryViewController ()
 @property (nonatomic,retain) iOSServiceProxy* service;
@@ -151,6 +152,8 @@ UIColor* colorcito_selected;
 
 - (void)viewDidLoad
 {
+   
+    self.view.styleClass = @"tableMy";
     self.service = [[iOSServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
     
     shareCategory = [[UIBarButtonItem alloc]

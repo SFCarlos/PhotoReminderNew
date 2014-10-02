@@ -56,7 +56,7 @@
 {
     self.service = [[iOSServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
 //self.view.styleId = @"MyTable";
-    
+    self.view.styleClass = @"tableMy";
     //first call autenticate to kow if connected;
     //[self.service autenticate:username.text :password.text];
     [scrollV setScrollEnabled:YES];

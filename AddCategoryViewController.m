@@ -9,7 +9,7 @@
 #import "AddCategoryViewController.h"
 #import "NKOColorPickerView.h"
 #import "iToast.h"
-
+#import <PixateFreestyle/PixateFreestyle.h>
 @interface AddCategoryViewController ()
 
 @end
@@ -127,6 +127,7 @@
 - (void)viewDidLoad
 {
         
+    self.view.styleClass = @"tableMy";
     
        self.navigationItem.title = @"New category";
     dao = [[DatabaseHelper alloc] init];
@@ -141,6 +142,7 @@
                            initWithImage:[UIImage imageNamed:@"checkmark-25.png"] style:UIBarStyleDefault target:self action:@selector(saveCategoryAction:)];
     self.navigationItem.rightBarButtonItem=doneButton;
     categoryName.delegate = self;
+    typesegmentedControl.styleClass=@"segmented-control";
     [super viewDidLoad];
     
     

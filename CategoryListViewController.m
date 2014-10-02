@@ -8,6 +8,7 @@
 #import "RemindersListViewController.h"
 #import "EditCategoryViewController.h"
 #import "AddReminderV2Controller.h"
+#import <PixateFreestyle/PixateFreestyle.h>
 
 @interface CategoryListViewController ()
 @property (strong, nonatomic) NSMutableArray *arrayTag;
@@ -51,7 +52,7 @@
 }
 -(void)LoadAgain{
     
-    
+    self.tableView.styleClass = @"tableMy";
     addCategory = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCategoryAction:)];
         
     
@@ -154,11 +155,11 @@
 }
 
 #pragma mark - Table view data source
--(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+/*-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
    
      return @"              Select a category to edit";
 }
-
+*/
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
