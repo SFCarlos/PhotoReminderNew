@@ -593,6 +593,13 @@
 			name = NoteStuff;
 			sourceTree = "<group>";
 		};
+		CE9F6A9719E2964600F97504 /* navBar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = navBar;
+			sourceTree = "<group>";
+		};
 		CEA3160519B9B59600C7210D /* PopTipCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -669,6 +676,7 @@
 		CED3D914191D06C400624E6F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CE9F6A9719E2964600F97504 /* navBar */,
 				CEA2BD9219C98B5D002C49E4 /* blur */,
 				CE75D7FC194874D0003856A6 /* forward-25.png */,
 				CE75D7F419470D61003856A6 /* link-25.png */,

@@ -13,6 +13,7 @@
 #import "ReminderCustomCell.h"
 #import "POVoiceHUD.h"
 #import "Globals.h"
+#import <PixateFreestyle/PixateFreestyle.h>
 @interface RemindersListViewController ()
 @property POVoiceHUD* voiceHud;
 @end
@@ -70,6 +71,7 @@ NSIndexPath * indextoEdit;
      segmentedContrlol= [[UISegmentedControl alloc]initWithItems:segmenteItems];
      segmentedContrlol.selectedSegmentIndex=0;
      [segmentedContrlol addTarget:self action:@selector(onChangeSegmented:) forControlEvents:UIControlEventValueChanged];
+    segmentedContrlol.styleClass =@"segmented-control";
      self.navigationItem.titleView = segmentedContrlol;
     
     

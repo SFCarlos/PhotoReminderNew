@@ -82,7 +82,7 @@
     [tableView setEditing:YES animated:YES];
     
     
-    self.navigationItem.title = @"Categories";
+    self.navigationItem.title = @"Categories list";
     /*UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:nil action:nil];
      [[self navigationItem] setBackBarButtonItem:backButton];*/
     self.tabBarController.tabBar.hidden=YES;
@@ -220,6 +220,8 @@
     UIColor * colo = [self colorFromHexString:cate.categoryColorPic];
      UILabel *bandColor = (UILabel *)[cell viewWithTag:200];
     bandColor.backgroundColor= colo;
+    bandColor.layer.cornerRadius = 5.0;
+    bandColor.layer.masksToBounds = YES;
     
     
    

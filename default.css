@@ -1,37 +1,33 @@
 
 
 
-.tableMy{
+/*.tableMy{
 
-background-image: linear-gradient(to bottom, rgba(145,200,245,1) 0%,rgba(11,56,163,1) 100%);
+background-image: url(background.png);
 
-}
+}*/
 
-table-view-cell{
-background-color: rgba(0, 0, 0, 0.0);
-}
+
 /* Navigation Bar */
 navigation-bar {
-    opacity: 1;
+   
+    background-color: linear-gradient(to right, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);    
+  
+    shadow: black;
     }
-navigation-bar title {
-    color: blue;
-    font-family: "Avenir";
-    
-    font-weight: bold; }
-navigation-bar button-appearance {
-    font-family: "Avenir";
-    color: white;
-    font-weight: light; }
+navigation-bar title{
+   
+}
+toolbar{
+background-color: linear-gradient(to right, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+}
 
-collection-view {
-    background-image: linear-gradient(to bottom, rgba(145,200,245,1) 0%,rgba(11,56,163,1) 100%); }
 /* Switches */
 switch {
-    color: #53555a;
-    -ios-tint-color: #53555a; }
+    color: rgba(41,184,229,1);
+    -ios-tint-color:rgba(41,184,229,1); }
 switch thumb {
-    color: #0096d7; }
+    color: rgba(188,224,238,1); }
 
 
 /* Segmented controls */

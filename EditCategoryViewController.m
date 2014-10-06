@@ -62,26 +62,26 @@ UIColor* colorcito_selected;
 -(void)SetUpColorsButtons{
 
     
-    [color1 setBackgroundColor:[UIColor colorWithRed:0.95 green:0.35 blue:0.29 alpha:1.0]];
+    [color1 setBackgroundColor:[UIColor colorWithRed:0.35 green:0.78 blue:0.98 alpha:1.0]];
     color1.layer.cornerRadius = 8.0;
         color1.layer.masksToBounds = YES;
     
     
-    [color2 setBackgroundColor:[UIColor colorWithRed:0.23 green:0.18 blue:0.18 alpha:1.0]];
+    [color2 setBackgroundColor:[UIColor colorWithRed:1.00 green:0.80 blue:0.00 alpha:1.0]];
     color2.layer.cornerRadius = 8.0;
     color2.layer.masksToBounds = YES;
     
     
-    [color3 setBackgroundColor:[UIColor colorWithRed:1.00 green:0.91 blue:0.00 alpha:1.0]];
+    [color3 setBackgroundColor:[UIColor colorWithRed:0.20 green:0.27 blue:0.55 alpha:1.0]];
     color3.layer.cornerRadius = 8.0;
     color3.layer.masksToBounds = YES;
     
     
-    [color4 setBackgroundColor:[UIColor colorWithRed:0.44 green:0.66 blue:0.86 alpha:1.0]];
+    [color4 setBackgroundColor:[UIColor colorWithRed:0.00 green:1.00 blue:0.00 alpha:1.0]];
     color4.layer.cornerRadius = 8.0;
     color4.layer.masksToBounds = YES;
     
-    [color5 setBackgroundColor:[UIColor colorWithRed:0.25 green:0.60 blue:0.05 alpha:1.0]];
+    [color5 setBackgroundColor:[UIColor colorWithRed:1.00 green:0.58 blue:0.00 alpha:1.0]];
     
     color5.layer.cornerRadius = 8.0;
     color5.layer.masksToBounds = YES;
@@ -94,19 +94,19 @@ UIColor* colorcito_selected;
     
     
     
-    [color7 setBackgroundColor:[UIColor colorWithRed:1.00 green:0.60 blue:0.00 alpha:1.0]];
+    [color7 setBackgroundColor:[UIColor colorWithRed:0.00 green:0.48 blue:1.00 alpha:1.0]];
     
     color7.layer.cornerRadius = 8.0;
     color7.layer.masksToBounds = YES;
     
     
-    [color8 setBackgroundColor:[UIColor colorWithRed:0.25 green:0.60 blue:0.05 alpha:1.0]];
+    [color8 setBackgroundColor:[UIColor colorWithRed:1.00 green:0.23 blue:0.19 alpha:1.0]];
     
     color8.layer.cornerRadius = 8.0;
     color8.layer.masksToBounds = YES;
     
     
-    [color9 setBackgroundColor:[UIColor cyanColor]];
+    [color9 setBackgroundColor:[UIColor colorWithRed:0.55 green:0.55 blue:0.56 alpha:1.0]];
     
     color9.layer.cornerRadius = 8.0;
     color9.layer.masksToBounds = YES;
@@ -153,7 +153,7 @@ UIColor* colorcito_selected;
 - (void)viewDidLoad
 {
    
-    self.view.styleClass = @"tableMy";
+    //self.view.styleClass = @"tableMy";
     self.service = [[iOSServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
     
     shareCategory = [[UIBarButtonItem alloc]

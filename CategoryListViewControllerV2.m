@@ -101,7 +101,7 @@
     
        // self.navigationController.navigationBar.styleClass =@"navigation-bar";
   // self.tableView.styleClass = @"table-cell";
-self.tableView.styleClass = @"tableMy";
+
   //self.tableView.styleClass =@"view";
    // self.navigationItem.styleClass = @"view";
     //init the arrays
@@ -643,7 +643,7 @@ self.tableView.styleClass = @"tableMy";
     }
     else if ([method isEqualToString:@"checkShares"]) {
         checkSharesRet * result = (checkSharesRet*)data;
-       // NSLog(@"shekshares return: globalreturn %d friendMail %@ categorytoshare: %d",result.globalReturn,result.friendEmail,result.serverCategoryID);
+        NSLog(@"shekshares return: globalreturn %d friendMail %@ categorytoshare: %d",result.globalReturn,result.friendEmail,result.serverCategoryID);
         if (result.globalReturn == 0) {
             self.serverCategoryIdshare = result.serverCategoryID;
         
@@ -886,6 +886,10 @@ self.tableView.styleClass = @"tableMy";
     UIColor * colo = [self colorFromHexString:categTemp.categoryColorPic];
     cell.reminderListButton.backgroundColor = colo;
     cell.colorlabel.backgroundColor = colo;
+    
+     cell.colorlabel.layer.cornerRadius = 5.0;
+    cell.colorlabel.layer.masksToBounds = YES;
+
     cell.reminderListButton.hidden=NO;
     // add action to the round button to conditional show list
     [cell.reminderListButton addTarget:self

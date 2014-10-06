@@ -529,7 +529,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    imagenSelected = [UIImage imageWithImage:info[UIImagePickerControllerOriginalImage]scaledToSize:CGSizeMake(32.0,32.0)];
+    imagenSelected = info[UIImagePickerControllerOriginalImage];
     self.ImageViewSelected.image = imagenSelected;
     frameButton.hidden = NO;
     doneButton.enabled = YES;

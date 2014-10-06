@@ -49,6 +49,7 @@
     segmentedContrlol.selectedSegmentIndex=0
     ;
     [segmentedContrlol addTarget:self action:@selector(onChangeSegmented:) forControlEvents:UIControlEventValueChanged];
+    segmentedContrlol.styleClass =@"segmented-control";
     self.navigationItem.titleView = segmentedContrlol;
     [self.collectionView reloadData];
 }
@@ -85,6 +86,7 @@
     segmentedContrlol= [[UISegmentedControl alloc]initWithItems:segmentedItems];
     segmentedContrlol.selectedSegmentIndex=0;
     [segmentedContrlol addTarget:self action:@selector(onChangeSegmented:) forControlEvents:UIControlEventValueChanged];
+    segmentedContrlol.styleClass =@"segmented-control";
     self.navigationItem.titleView = segmentedContrlol;
     
 

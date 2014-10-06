@@ -56,7 +56,7 @@
 {
     self.service = [[iOSServiceProxy alloc]initWithUrl:@"http://reminderapi.cybernetlab.com/WebServiceSOAP/server.php" AndDelegate:self];
 //self.view.styleId = @"MyTable";
-    self.view.styleClass = @"tableMy";
+   // self.view.styleClass = @"tableMy";
     //first call autenticate to kow if connected;
     //[self.service autenticate:username.text :password.text];
     [scrollV setScrollEnabled:YES];
@@ -107,6 +107,7 @@
     self.usuario = [self retrieveUSERFromUserDefaults];
     [connectButon setTitle:[NSString stringWithFormat:@"LogOut '%@'",usuario] forState:(UIControlStateNormal)];
     self.contrasenna =[self retrievePASSFromUserDefaults];
+    self.navigationItem.title = @"Settings";
     [super viewDidLoad];
     
     NSLog(@"Usuario store in defaults %@",self.usuario);
