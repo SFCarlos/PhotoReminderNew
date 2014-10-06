@@ -220,8 +220,7 @@
     UIColor * colo = [self colorFromHexString:cate.categoryColorPic];
      UILabel *bandColor = (UILabel *)[cell viewWithTag:200];
     bandColor.backgroundColor= colo;
-    bandColor.layer.cornerRadius = 5.0;
-    bandColor.layer.masksToBounds = YES;
+    
     
     
    

@@ -119,11 +119,7 @@
     //put color in buttons hiden buton frame and band
     frameButton.hidden = YES;
         
-    calendarbutom.tintColor =colorcito;
-        recordButton.tintColor = colorcito;
-    takePictureButton.tintColor= colorcito;
-    addNote.tintColor=colorcito;
-   doneButton.tintColor = colorcito;
+    
     selectRepeat.tintColor=colorcito;
     
    // selectRepeat.transform = CGAffineTransformMakeRotation(M_PI/2.0);

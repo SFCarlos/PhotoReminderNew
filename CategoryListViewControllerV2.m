@@ -887,8 +887,7 @@
     cell.reminderListButton.backgroundColor = colo;
     cell.colorlabel.backgroundColor = colo;
     
-     cell.colorlabel.layer.cornerRadius = 5.0;
-    cell.colorlabel.layer.masksToBounds = YES;
+     
 
     cell.reminderListButton.hidden=NO;
     // add action to the round button to conditional show list

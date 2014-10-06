@@ -15,8 +15,9 @@ navigation-bar {
   
     shadow: black;
     }
-navigation-bar title{
-   
+
+navigation-bar button-appearance{
+    -ios-tint-color: rgba(35,35,35,1);
 }
 toolbar{
 background-color: linear-gradient(to right, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
