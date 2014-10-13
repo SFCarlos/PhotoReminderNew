@@ -1,39 +1,25 @@
-
-
-
-/*.tableMy{
-
-background-image: url(background.png);
-
-}*/
-
-
 /* Navigation Bar */
 navigation-bar {
-   
-    background-color: linear-gradient(to right, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);    
-    color:rgba(35,35,35,1);
-  
-    }
-
-navigation-bar button-appearance{
-    -ios-tint-color: rgba(35,35,35,1);
+    background-color: linear-gradient(rgb(240,240,240) 0%, rgb(250,250,250) 50%, rgb(240,240,240) 95%, rgb(125,125,125) 100%);
 }
+navigation-bar title {
+    color: rgb(75,75,75);
+    text-shadow: 1dpx 1dpx 1dpx 2dpx rgb(255,255,255);
+}
+/*toolsBars*/
 toolbar{
-background-color: linear-gradient(to right, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);
+    /*background-color: linear-gradient(to right, rgba(179,220,237,1) 0%, rgba(41,184,229,1) 50%, rgba(188,224,238,1) 100%);*/
+    background-color: linear-gradient(rgb(240,240,240) 0%, rgb(250,250,250) 50%, rgb(240,240,240) 95%, rgb(125,125,125) 100%);
+
 }
 toolbar button-appearance{
-    -ios-tint-color: rgba(35,35,35,1);
+    /*-ios-tint-color: rgba(35,35,35,1);*/
 }
-
 
 /* Switches */
 switch {
-    color: rgba(41,184,229,1);
-    -ios-tint-color:rgba(41,184,229,1); }
-switch thumb {
-    color: rgba(188,224,238,1); }
-
+    color: rgb(41,184,229);
+}
 
 /* Segmented controls */
 .segmented-control {
@@ -41,4 +27,6 @@ switch thumb {
 }
 .segmented-control:selected {
     color: white;
-    background-color:rgba(0, 0, 0, 0.4);}
+    background-color:rgba(0, 0, 0, 0.4);
+}
+

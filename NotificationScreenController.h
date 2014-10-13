@@ -12,8 +12,11 @@
 #import "LocalNotificationCore.h"
 
 @interface NotificationScreenController : UIViewController<POVoiceHUDDelegate,UIActionSheetDelegate>
+@property (weak, nonatomic) IBOutlet UIButton *snooze;
+@property (weak, nonatomic) IBOutlet UIScrollView *ScrollV;
 @property (strong, nonatomic) IBOutlet UIButton *playButton;
 @property (nonatomic)  NSInteger* reminderId;
+@property (weak, nonatomic) IBOutlet UIButton *DoneButto;
 @property (nonatomic)  UILocalNotification* recivedNotificaion;
 - (IBAction)DoneReminder:(id)sender;
 - (IBAction)showNoteAction:(id)sender;

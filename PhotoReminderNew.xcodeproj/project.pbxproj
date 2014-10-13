@@ -56,6 +56,7 @@
 		CEA315FF19B475C500C7210D /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = CEA315FE19B475C500C7210D /* default.css */; };
 		CEA3160119B4A68100C7210D /* PixateFreestyle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA3160019B4A68100C7210D /* PixateFreestyle.framework */; };
 		CEA3160419B9B51100C7210D /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA3160319B9B51100C7210D /* CMPopTipView.m */; };
+		CEA4DEF419EBC58B000E1C7D /* noimage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CEA4DEF319EBC58B000E1C7D /* noimage.jpg */; };
 		CED3D90E191D06C400624E6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90D191D06C400624E6F /* Foundation.framework */; };
 		CED3D910191D06C400624E6F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D90F191D06C400624E6F /* CoreGraphics.framework */; };
 		CED3D912191D06C400624E6F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3D911191D06C400624E6F /* UIKit.framework */; };
@@ -71,7 +72,6 @@
 		CED3D943191D078A00624E6F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CED3D942191D078A00624E6F /* MainStoryboard.storyboard */; };
 		CED3D966191D085B00624E6F /* autocompleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = CED3D944191D085B00624E6F /* autocompleteButton.png */; };
 		CED3D967191D085B00624E6F /* autocompleteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CED3D945191D085B00624E6F /* autocompleteButton@2x.png */; };
-		CED3D968191D085B00624E6F /* noimage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CED3D946191D085B00624E6F /* noimage.jpg */; };
 		CED3D98A191D08BA00624E6F /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED3D989191D08BA00624E6F /* SettingsViewController.m */; };
 		CED3D998191D099900624E6F /* LICENCE in Resources */ = {isa = PBXBuildFile; fileRef = CED3D98B191D099900624E6F /* LICENCE */; };
 		CED3D999191D099900624E6F /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = CED3D98D191D099900624E6F /* NSMutableArray+SWUtilityButtons.m */; };
@@ -252,6 +252,7 @@
 		CEA3160019B4A68100C7210D /* PixateFreestyle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PixateFreestyle.framework; sourceTree = "<group>"; };
 		CEA3160219B9B51100C7210D /* CMPopTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPopTipView.h; sourceTree = "<group>"; };
 		CEA3160319B9B51100C7210D /* CMPopTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPopTipView.m; sourceTree = "<group>"; };
+		CEA4DEF319EBC58B000E1C7D /* noimage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noimage.jpg; sourceTree = "<group>"; };
 		CED3D90A191D06C400624E6F /* PhotoReminderNew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoReminderNew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CED3D90D191D06C400624E6F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CED3D90F191D06C400624E6F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -271,7 +272,6 @@
 		CED3D942191D078A00624E6F /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		CED3D944191D085B00624E6F /* autocompleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = autocompleteButton.png; sourceTree = "<group>"; };
 		CED3D945191D085B00624E6F /* autocompleteButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "autocompleteButton@2x.png"; sourceTree = "<group>"; };
-		CED3D946191D085B00624E6F /* noimage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = noimage.jpg; sourceTree = "<group>"; };
 		CED3D988191D08BA00624E6F /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		CED3D989191D08BA00624E6F /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		CED3D98B191D099900624E6F /* LICENCE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENCE; sourceTree = "<group>"; };
@@ -676,6 +676,7 @@
 		CED3D914191D06C400624E6F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CEA4DEF319EBC58B000E1C7D /* noimage.jpg */,
 				CE9F6A9719E2964600F97504 /* navBar */,
 				CEA2BD9219C98B5D002C49E4 /* blur */,
 				CE75D7FC194874D0003856A6 /* forward-25.png */,
@@ -690,7 +691,6 @@
 				CED3DAA119221B4B00624E6F /* play-32.png */,
 				CED3DA9F19221B1000624E6F /* marco.png */,
 				CED3DA38191D0F6D00624E6F /* BarIcons */,
-				CED3D946191D085B00624E6F /* noimage.jpg */,
 				CED3D915191D06C400624E6F /* PhotoReminderNew-Info.plist */,
 				CED3D916191D06C400624E6F /* InfoPlist.strings */,
 				CED3D919191D06C400624E6F /* main.m */,
@@ -1048,7 +1048,6 @@
 				CED3D926191D06C400624E6F /* Images.xcassets in Resources */,
 				CED3DA33191D0F5D00624E6F /* microphone-24x.png in Resources */,
 				CE1902CF193E0811008E5540 /* LICENSE in Resources */,
-				CED3D968191D085B00624E6F /* noimage.jpg in Resources */,
 				CE3174C1195B073C007EE188 /* gallery_filled-25.png in Resources */,
 				CED3D9F3191D0BD200624E6F /* Siren Noise.m4r in Resources */,
 				CE0BD6F11937936C00416DDB /* purchase_order-25.png in Resources */,
@@ -1076,6 +1075,7 @@
 				CED3DA32191D0F5D00624E6F /* edit-25x.png in Resources */,
 				CED3D9F5191D0BD200624E6F /* Birds.m4r in Resources */,
 				CE75D805194B22E9003856A6 /* Color-Palette.png in Resources */,
+				CEA4DEF419EBC58B000E1C7D /* noimage.jpg in Resources */,
 				CEEFBD9519AC947C00915A79 /* AppDatabase.sqlite in Resources */,
 				CED3D966191D085B00624E6F /* autocompleteButton.png in Resources */,
 				CE75D803194AFF17003856A6 /* trash-25.png in Resources */,

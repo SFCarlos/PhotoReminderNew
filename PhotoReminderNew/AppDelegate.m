@@ -98,7 +98,7 @@
         [alert show];
     }
     
-  //[[UIApplication sharedApplication] cancelAllLocalNotifications];
+ //[[UIApplication sharedApplication] cancelAllLocalNotifications];
     //si entra a la app por el icono tengo que comprobar que no halla notificaciones viejas en la
     // BD son app que no las vio el cliente.
     //todavie no hacer esto

@@ -9,6 +9,7 @@
 #import "NotificationScreenController.h"
 #import "YIPopupTextView.h"
 #import "LocalNotificationCore.h"
+#import <QuartzCore/QuartzCore.h>
 #import "Globals.h"
 @interface NotificationScreenController ()
 
@@ -23,6 +24,9 @@ DatabaseHelper *dao;
 @synthesize recivedNotificaion;
 @synthesize playButton;
 @synthesize showNoteButton;
+@synthesize DoneButto;
+@synthesize ScrollV;
+@synthesize snooze;
 @synthesize reminderId;
 @synthesize dao;
 @synthesize reminderObj;
@@ -37,10 +41,12 @@ DatabaseHelper *dao;
     }
     return self;
 }
-
+-(void)viewDidLayoutSubviews{
+    [ScrollV setContentSize:CGSizeMake(320, 700)];
+}
 - (void)viewDidLoad
 {
-    
+    [ScrollV setScrollEnabled:YES];
     dao = [[DatabaseHelper alloc] init];
     NSLog(@"%d Este es el Id en Screen ",(int)reminderId);
     ReminderObject *reminder=[dao getItemwhitServerID:reminderId usingServerId:NO];
@@ -77,7 +83,15 @@ DatabaseHelper *dao;
     if ( note == nil ||[note isEqualToString:@""]||[note isEqualToString:@"(null)"]) {
         showNoteButton.hidden = YES;
     }
-
+   
+    showNoteButton.layer.borderWidth=1.0f;
+    showNoteButton.layer.borderColor=[[UIColor blueColor] CGColor];
+    playButton.layer.borderWidth=1.0f;
+    playButton.layer.borderColor=[[UIColor blueColor] CGColor]; showNoteButton.layer.borderWidth=1.0f;
+    snooze.layer.borderColor=[[UIColor blueColor] CGColor];
+    snooze.layer.borderWidth=1.0f;
+    DoneButto.layer.borderColor=[[UIColor blueColor] CGColor];
+    DoneButto.layer.borderWidth=1.0f;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
