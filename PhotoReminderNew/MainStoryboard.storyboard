@@ -907,7 +907,6 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
-                                            <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1655,13 +1654,13 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Gsd-wt-NUf"/>
+        <segue reference="PBL-2x-n5K"/>
+        <segue reference="26m-Dt-ojZ"/>
         <segue reference="XdK-OF-ioZ"/>
+        <segue reference="jhR-yC-Tn8"/>
         <segue reference="CO6-kR-0K6"/>
         <segue reference="MNX-Oz-tpF"/>
         <segue reference="eRH-v6-0O7"/>
-        <segue reference="jhR-yC-Tn8"/>
-        <segue reference="26m-Dt-ojZ"/>
         <segue reference="M1w-Zj-hzc"/>
     </inferredMetricsTieBreakers>
 </document>

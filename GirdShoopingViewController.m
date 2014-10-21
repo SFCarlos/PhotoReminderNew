@@ -44,7 +44,7 @@
     //segmented contlol
     CantidadActive=itemsActive.count;
     CantidadinCar= itemsinCar.count;
-    segmentedItems = [NSArray arrayWithObjects:[NSString stringWithFormat:@"Active List (%d)",CantidadActive],[NSString stringWithFormat:@"In Cart (%d)",CantidadinCar], nil];
+    segmentedItems = [NSArray arrayWithObjects:[NSString stringWithFormat:@"Active (%d)",CantidadActive],[NSString stringWithFormat:@"In Cart (%d)",CantidadinCar], nil];
     segmentedContrlol= [[UISegmentedControl alloc]initWithItems:segmentedItems];
     segmentedContrlol.selectedSegmentIndex=0
     ;
@@ -82,7 +82,7 @@
     //segmented contlol
     CantidadActive=itemsActive.count;
     CantidadinCar= itemsinCar.count;
-    segmentedItems = [NSArray arrayWithObjects:[NSString stringWithFormat:@"Active List (%d)",CantidadActive],[NSString stringWithFormat:@"In Cart (%d)",CantidadinCar], nil];
+    segmentedItems = [NSArray arrayWithObjects:[NSString stringWithFormat:@"Active (%d)",CantidadActive],[NSString stringWithFormat:@"In Cart (%d)",CantidadinCar], nil];
     segmentedContrlol= [[UISegmentedControl alloc]initWithItems:segmentedItems];
     segmentedContrlol.selectedSegmentIndex=0;
     [segmentedContrlol addTarget:self action:@selector(onChangeSegmented:) forControlEvents:UIControlEventValueChanged];
