@@ -10,8 +10,8 @@
             <objects>
                 <viewController storyboardIdentifier="SettingsScreem" id="c7Q-Wg-U9F" customClass="SettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7jk-UA-IhO"/>
-                        <viewControllerLayoutGuide type="bottom" id="fVE-LS-48z"/>
+                        <viewControllerLayoutGuide type="top" id="5OL-Jm-5tX"/>
+                        <viewControllerLayoutGuide type="bottom" id="kOp-eG-iXh"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="BX7-1q-4bZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="658"/>
@@ -128,8 +128,8 @@
             <objects>
                 <viewController id="fa6-pN-FaL" customClass="EditCategoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="1x5-bs-l7j"/>
-                        <viewControllerLayoutGuide type="bottom" id="dsW-jU-ft4"/>
+                        <viewControllerLayoutGuide type="top" id="bW4-ca-g3c"/>
+                        <viewControllerLayoutGuide type="bottom" id="jNk-Dv-oe4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="eGg-Sz-3bW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="658"/>
@@ -306,8 +306,8 @@
             <objects>
                 <viewController id="EaK-Tt-81V" customClass="AddShoppingItemViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="4jI-oP-fBk"/>
-                        <viewControllerLayoutGuide type="bottom" id="27q-Fc-po9"/>
+                        <viewControllerLayoutGuide type="top" id="mBh-Ky-enK"/>
+                        <viewControllerLayoutGuide type="bottom" id="VuB-WJ-Tf0"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vCP-Fu-bjb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -377,8 +377,8 @@
             <objects>
                 <viewController id="AIW-UM-2Mp" customClass="AddNoteViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="1x5-Ml-ceJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="IXc-aI-5x4"/>
+                        <viewControllerLayoutGuide type="top" id="0hf-8t-ytM"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ga4-ng-Bts"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="v6W-T9-AEt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -439,8 +439,8 @@
             <objects>
                 <viewController id="DKH-vn-W28" customClass="AddCategoryViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="YWD-e3-a9k"/>
-                        <viewControllerLayoutGuide type="bottom" id="XFu-il-FUA"/>
+                        <viewControllerLayoutGuide type="top" id="Pkd-F8-IvM"/>
+                        <viewControllerLayoutGuide type="bottom" id="2hv-3q-dhz"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mc4-xW-fcK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="658"/>
@@ -764,8 +764,8 @@
             <objects>
                 <viewController id="6gT-Yz-GcR" customClass="EditNoteViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="RYA-IX-ljb"/>
-                        <viewControllerLayoutGuide type="bottom" id="65w-Gf-yep"/>
+                        <viewControllerLayoutGuide type="top" id="wdh-vN-vx8"/>
+                        <viewControllerLayoutGuide type="bottom" id="BKB-Bp-ODS"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="IUl-fK-q2m">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -933,8 +933,8 @@
             <objects>
                 <viewController id="HEq-Z8-k6d" customClass="FullScreemPageItemViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Wrv-0m-jyH"/>
-                        <viewControllerLayoutGuide type="bottom" id="KrV-Ou-9KY"/>
+                        <viewControllerLayoutGuide type="top" id="liz-iB-mzV"/>
+                        <viewControllerLayoutGuide type="bottom" id="Sbe-VJ-ys4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="v9J-hf-hxb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -960,8 +960,8 @@
             <objects>
                 <viewController id="STs-O3-NYR" customClass="EditShoopingItemViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="vpD-rJ-5mJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="QIX-nD-c3J"/>
+                        <viewControllerLayoutGuide type="top" id="vDH-ib-34l"/>
+                        <viewControllerLayoutGuide type="bottom" id="q4R-8i-Uxi"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="s7f-jj-6on">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -1033,15 +1033,15 @@
             <objects>
                 <viewController id="fBQ-05-5M5" customClass="SelectedItemFotoFullViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ZvX-Y1-aEV"/>
-                        <viewControllerLayoutGuide type="bottom" id="74A-2D-5T2"/>
+                        <viewControllerLayoutGuide type="top" id="DWh-Kk-EBZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="pSq-AM-DtW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Yai-1P-6Rh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N3z-Ev-D5L">
-                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N3z-Ev-D5L">
+                                <rect key="frame" x="0.0" y="65" width="320" height="438"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
@@ -1062,8 +1062,8 @@
             <objects>
                 <viewController storyboardIdentifier="PageContentViewController" id="Njl-2y-jrn" customClass="ContentFullView" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Y79-7Y-3DM"/>
-                        <viewControllerLayoutGuide type="bottom" id="j1b-RA-rvg"/>
+                        <viewControllerLayoutGuide type="top" id="Ufu-ES-hZb"/>
+                        <viewControllerLayoutGuide type="bottom" id="NGh-fH-G7q"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yr1-Ho-nGJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -1100,38 +1100,29 @@
             <objects>
                 <viewController storyboardIdentifier="NotificationScreen" id="NN6-A5-0GZ" customClass="NotificationScreenController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="UHS-oL-jbn"/>
-                        <viewControllerLayoutGuide type="bottom" id="Z4P-wt-o9H"/>
+                        <viewControllerLayoutGuide type="top" id="E5Z-CZ-aUL"/>
+                        <viewControllerLayoutGuide type="bottom" id="IFR-dP-iVS"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ozz-al-NMH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vb6-qj-cFL">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <rect key="frame" x="0.0" y="42" width="320" height="332"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yFz-8G-ehF">
-                                        <rect key="frame" x="-5" y="31" width="331" height="348"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yFz-8G-ehF">
+                                        <rect key="frame" x="-1" y="15" width="321" height="317"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
-                                    <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CQg-ag-mMc">
-                                        <rect key="frame" x="12" y="67" width="299" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="22"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXa-cq-hAh">
-                                        <rect key="frame" x="-11" y="30" width="344" height="36"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.67058825489999996" green="0.77647066119999997" blue="0.90588241820000004" alpha="1" colorSpace="deviceRGB"/>
-                                        <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="22"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                </subviews>
+                            </scrollView>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zwr-hK-whj">
+                                <rect key="frame" x="0.0" y="446" width="320" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fG8-32-5lX">
-                                        <rect key="frame" x="-6" y="379" width="158" height="48"/>
+                                        <rect key="frame" x="-7" y="5" width="174" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="21"/>
                                         <state key="normal" title="Play" image="play-32.png">
@@ -1143,7 +1134,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g7m-D6-QPY">
-                                        <rect key="frame" x="151" y="379" width="176" height="48"/>
+                                        <rect key="frame" x="166" y="5" width="176" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="21"/>
                                         <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1156,7 +1147,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NsQ-o4-Jcg">
-                                        <rect key="frame" x="-6" y="426" width="158" height="48"/>
+                                        <rect key="frame" x="-7" y="52" width="174" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="21"/>
                                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1170,7 +1161,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Sd-uv-4d7">
-                                        <rect key="frame" x="151" y="426" width="177" height="48"/>
+                                        <rect key="frame" x="166" y="52" width="177" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="23"/>
                                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1183,9 +1174,20 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                            </scrollView>
+                            </view>
+                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXa-cq-hAh">
+                                <rect key="frame" x="-12" y="22" width="344" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.035294117647058823" green="0.5490196078431373" blue="0.83137254901960778" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="STHeitiSC-Light" family="Heiti SC" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="IFR-dP-iVS" firstAttribute="top" secondItem="zwr-hK-whj" secondAttribute="bottom" constant="12" id="xg8-Sp-ztj"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="2hx-C6-SOQ">
@@ -1197,7 +1199,6 @@
                         <outlet property="DoneButto" destination="9Sd-uv-4d7" id="3FX-MT-A6q"/>
                         <outlet property="ImagenShowNotification" destination="yFz-8G-ehF" id="uSL-Xw-cLE"/>
                         <outlet property="ScrollV" destination="Vb6-qj-cFL" id="XSq-og-oJt"/>
-                        <outlet property="categoryName" destination="CQg-ag-mMc" id="fIE-0x-hif"/>
                         <outlet property="eventName" destination="QXa-cq-hAh" id="zgb-Dt-ccD"/>
                         <outlet property="playButton" destination="fG8-32-5lX" id="ZdR-s7-b80"/>
                         <outlet property="showNoteButton" destination="g7m-D6-QPY" id="PNe-d2-Ui5"/>
@@ -1302,8 +1303,8 @@
             <objects>
                 <viewController id="Xja-r6-ggk" customClass="AddReminderV2Controller" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="wQ5-RP-QFA"/>
-                        <viewControllerLayoutGuide type="bottom" id="aX9-Qz-CBp"/>
+                        <viewControllerLayoutGuide type="top" id="1ff-gz-sZn"/>
+                        <viewControllerLayoutGuide type="bottom" id="aqH-l1-vJl"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Qy5-cW-mOI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>
@@ -1430,8 +1431,8 @@
             <objects>
                 <viewController id="QOE-uB-lpL" customClass="EditReminderViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="w6z-Fh-VRP"/>
-                        <viewControllerLayoutGuide type="bottom" id="zBj-hX-VEV"/>
+                        <viewControllerLayoutGuide type="top" id="NUO-sZ-MhK"/>
+                        <viewControllerLayoutGuide type="bottom" id="vix-Me-sji"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cux-AG-uPr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="700"/>

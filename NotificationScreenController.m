@@ -42,7 +42,7 @@ DatabaseHelper *dao;
     return self;
 }
 -(void)viewDidLayoutSubviews{
-    [ScrollV setContentSize:CGSizeMake(320, 700)];
+    [ScrollV setContentSize:CGSizeMake(320, 400)];
 }
 - (void)viewDidLoad
 {
@@ -85,12 +85,12 @@ DatabaseHelper *dao;
     }
    
     showNoteButton.layer.borderWidth=1.0f;
-    showNoteButton.layer.borderColor=[[UIColor blueColor] CGColor];
+    showNoteButton.layer.borderColor=[[UIColor colorWithRed:0.04 green:0.54 blue:0.82 alpha:1.0] CGColor];
     playButton.layer.borderWidth=1.0f;
-    playButton.layer.borderColor=[[UIColor blueColor] CGColor]; showNoteButton.layer.borderWidth=1.0f;
-    snooze.layer.borderColor=[[UIColor blueColor] CGColor];
+    playButton.layer.borderColor=[[UIColor colorWithRed:0.04 green:0.54 blue:0.82 alpha:1.0] CGColor]; showNoteButton.layer.borderWidth=1.0f;
+    snooze.layer.borderColor=[[UIColor colorWithRed:0.04 green:0.54 blue:0.82 alpha:1.0] CGColor] ;
     snooze.layer.borderWidth=1.0f;
-    DoneButto.layer.borderColor=[[UIColor blueColor] CGColor];
+    DoneButto.layer.borderColor=[[UIColor colorWithRed:0.04 green:0.54 blue:0.82 alpha:1.0] CGColor];
     DoneButto.layer.borderWidth=1.0f;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
