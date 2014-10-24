@@ -11,6 +11,8 @@
 #import "LocalNotificationCore.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Globals.h"
+#import "UILabel+dynamicSize.h"
+
 @interface NotificationScreenController ()
 
 @end
@@ -32,7 +34,7 @@ DatabaseHelper *dao;
 @synthesize reminderObj;
 @synthesize ImagenShowNotification;
 @synthesize eventName;
-@synthesize categoryName;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -46,6 +48,7 @@ DatabaseHelper *dao;
 }
 - (void)viewDidLoad
 {
+    
     [ScrollV setScrollEnabled:YES];
     dao = [[DatabaseHelper alloc] init];
     NSLog(@"%d Este es el Id en Screen ",(int)reminderId);
@@ -59,18 +62,16 @@ DatabaseHelper *dao;
     ImagenShowNotification.image =[UIImage imageWithContentsOfFile:(NSString*)[photoPathsCopy firstObject]];
     
     self.voiceHud = [[POVoiceHUD alloc] initWithParentView:self.view];
-    eventName.text=reminder.reminderName;
-   // NSLog(@"ESTE ES la categoria %d",reminder.cat_id);
-    NSString* category_name = [dao getCategoryName:reminder.cat_id];
-    categoryName.text = category_name;
+   
+   
     if(ImagenShowNotification.image == nil){
-        categoryName.textColor = [UIColor blackColor];
+        
         ImagenShowNotification.image = [UIImage imageNamed:@"noimage.jpg"];
     }
     
     
     NSString * note = reminder.note;
-    
+    eventName.text= reminder.reminderName;
     
     
     if (audioPathsCopy.count ==0 ) {
@@ -95,7 +96,28 @@ DatabaseHelper *dao;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
+-(CGFloat)heightForLabel:(UILabel *)label withText:(NSString *)text
+{
+    CGSize maximumLabelSize     = CGSizeMake(290, FLT_MAX);
+    
+    CGSize expectedLabelSize    = [text sizeWithFont:label.font
+                                   constrainedToSize:maximumLabelSize
+                                       lineBreakMode:label.lineBreakMode];
+    
+    return expectedLabelSize.height;
+}
 
+-(void)resizeHeightToFitForLabel:(UILabel *)label
+{
+    CGRect newFrame         = label.frame;
+    newFrame.size.height    = [self heightForLabel:label withText:label.text];
+    label.frame             = newFrame;
+}
+-(void)resizeHeightToFitForLabel:(UILabel *)label withText:(NSString *)text
+{
+    label.text              = text;
+    [self resizeHeightToFitForLabel:label];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

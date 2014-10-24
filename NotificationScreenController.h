@@ -10,6 +10,7 @@
 #import "DatabaseHelper.h"
 #import "POVoiceHUD.h"
 #import "LocalNotificationCore.h"
+#import "UILabel+dynamicSize.h"
 
 @interface NotificationScreenController : UIViewController<POVoiceHUDDelegate,UIActionSheetDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *snooze;
