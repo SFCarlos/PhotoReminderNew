@@ -80,6 +80,9 @@ static LocalNotificationCore *_instance;
     NSDate * firedateTemp;
     //copi not values
     UILocalNotification* notirecurring = thisNotificationRecurring;
+    //acces to original date
+    NSDictionary *data =notirecurring.userInfo;
+    NSDate * originaldate = [data objectForKey:@"ORIGINALDATE"];
      if ([recurringvalue isEqualToString:@"day"]){
         [datecomponenets setDay:1];
         
@@ -91,7 +94,7 @@ static LocalNotificationCore *_instance;
         [datecomponenets setYear:1];
     }
     
-    firedateTemp= [cal dateByAddingComponents:datecomponenets toDate:notirecurring.fireDate options:0];
+    firedateTemp= [cal dateByAddingComponents:datecomponenets toDate:originaldate options:0];
     notirecurring.fireDate = firedateTemp;
     notirecurring.applicationIconBadgeNumber = self.badgeCount;
 

@@ -342,7 +342,7 @@ NSDate * datecalendar;
     NSString* UserSelectedSoundReminder = [self retrieveSoundReminderFromUserDefaults];
     //shedule notification de nuevo con el nevo Id reminder
     NSString *IdReminderInsertadoString =[NSString stringWithFormat:@"%d",(int)ReminderToEdit.reminderID];
-    NSDictionary * data = [NSDictionary dictionaryWithObjectsAndKeys:IdReminderInsertadoString,@"ID_NOT_PASS" ,recurring,@"RECURRING",  nil];
+        NSDictionary * data = [NSDictionary dictionaryWithObjectsAndKeys:IdReminderInsertadoString,@"ID_NOT_PASS" ,recurring,@"RECURRING",alarmdate,@"ORIGINALDATE",  nil];
     //Set notification for firt time to select fire date and repeatin 1 min
     [[LocalNotificationCore sharedInstance]scheduleNotificationOn:alarmdate text:eventName action:@"Show" sound:UserSelectedSoundReminder launchImage:ImagenPath andInfo:data];
     

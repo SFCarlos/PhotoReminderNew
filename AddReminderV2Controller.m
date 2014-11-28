@@ -282,7 +282,7 @@
     
     //shedule notification
     NSString *idtem =[NSString stringWithFormat:@"%d",(int)id_item];
-    NSDictionary * data = [NSDictionary dictionaryWithObjectsAndKeys:idtem,@"ID_NOT_PASS" ,recurring,@"RECURRING",  nil];
+    NSDictionary * data = [NSDictionary dictionaryWithObjectsAndKeys:idtem,@"ID_NOT_PASS" ,recurring,@"RECURRING",alarmdate,@"ORIGINALDATE", nil];
     
     NSString* UserSelectedSoundReminder = [self retrieveSoundReminderFromUserDefaults];
     //Set notification for firt time to select fire date and repeatin 1 min
